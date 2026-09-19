@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Дневник прогресса — Johnny English</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 700px; margin: 0 auto; }
+
+        h1 {
+            color: #ff6b00;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            color: #888;
+            text-decoration: none;
+            margin-bottom: 25px;
+            transition: color 0.2s;
+        }
+
+        .back-btn:hover { color: #fff; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 3px solid #ff6b00;
+            text-align: center;
+        }
+
+        .stat-card .num {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ff6b00;
+        }
+
+        .stat-card .label {
+            font-size: 13px;
+            color: #888;
+            margin-top: 6px;
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 20px;
+            margin: 30px 0 15px 0;
+        }
+
+        .chart {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .chart-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .chart-label {
+            width: 50px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .chart-bar {
+            flex: 1;
+            height: 24px;
+            background: #2a2a2a;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chart-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b00, #ff8533);
+            border-radius: 6px;
+            transition: width 0.5s;
+        }
+
+        .chart-value {
+            width: 30px;
+            text-align: right;
+            font-size: 13px;
+            color: #ff6b00;
+            font-weight: 600;
+        }
+
+        .empty {
+            text-align: center;
+            color: #666;
+            padding: 40px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Дневник прогресса</h1>
+        <a href="/" class="back-btn">⬅️ На главную</a>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="num">{{ total_words }}</div>
+                <div class="label">📚 Слов</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">{{ total_phrases }}</div>
+                <div class="label">💬 Фраз</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">{{ streak }}</div>
+                <div class="label">🔥 Серия дней</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">{{ total_correct }}</div>
+                <div class="label">✅ Верно</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">{{ total_wrong }}</div>
+                <div class="label">❌ Ошибок</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">{{ accuracy }}%</div>
+                <div class="label">📊 Точность</div>
+            </div>
+        </div>
+
+        <h2>📈 Активность за неделю</h2>
+        <div class="chart">
+            {% if last_7 %}
+                {% for day in last_7 %}
+                <div class="chart-row">
+                    <div class="chart-label">{{ day.label }}</div>
+                    <div class="chart-bar">
+                        <div class="chart-fill" style="width: {{ (day.correct + day.wrong) / max_day * 100 }}%"></div>
+                    </div>
+                    <div class="chart-value">{{ day.correct + day.wrong }}</div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty">Пока нет данных. Начни тренироваться!</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
