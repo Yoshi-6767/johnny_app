@@ -7,9 +7,9 @@ from datetime import date, timedelta
 app = Flask(__name__)
 app.secret_key = "johnny_english_secret_key_change_me"
 
-WORDS_FILE = "words.json"
-PHRASES_FILE = "phrases.json"
-PROGRESS_FILE = "progress.json"
+WORDS_FILE = "/data/words.json"
+PHRASES_FILE = "/data/phrases.json"
+PROGRESS_FILE = "/data/progress.json"
 
 try:
     with open(WORDS_FILE, "r", encoding="utf-8") as f:
