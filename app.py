@@ -235,6 +235,45 @@ def progress_page():
         max_day=max_day
     )
 
+# ─── РЕЖИМ «НАОБОРОТ» ───
+
+@app.route("/train_reverse")
+def train_reverse():
+    if not words:
+        return render_template("train_reverse.html", word=None, empty=True)
+    # Берём русское слово (значение), показываем его, а ответ — английский (ключ)
+    eng = random.choice(list(words.keys()))
+    rus = words[eng]
+    session["current_reverse_eng"] = eng
+    session["current_reverse_rus"] = rus
+    return render_template("train_reverse.html", word=rus, empty=False)
+
+@app.route("/check_reverse", methods=["POST"])
+def check_reverse():
+    data = request.json
+    user_answer = data["answer"].strip().lower()
+    eng = session.get("current_reverse_eng")
+    rus = session.get("current_reverse_rus")
+    if not eng or eng not in words:
+        return jsonify({"status": "error"})
+    # Правильный ответ — английское слово (ключ)
+    if user_answer == eng.lower():
+        record_training(True)
+        return jsonify({
+            "status": "correct",
+            "correct_answer": eng,
+            "correct_count": session.get("correct", 0) + 1,
+            "wrong_count": session.get("wrong", 0)
+        })
+    else:
+        record_training(False)
+        return jsonify({
+            "status": "wrong",
+            "correct_answer": eng,
+            "correct_count": session.get("correct", 0),
+            "wrong_count": session.get("wrong", 0) + 1
+        })
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
