@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>История экзаменов — Flow & Word</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 700px; margin: 0 auto; }
+        h1 { color: #2ecc71; font-size: 28px; margin-bottom: 20px; }
+        .back-btn {
+            display: inline-block;
+            color: #888;
+            text-decoration: none;
+            margin-bottom: 25px;
+        }
+        .back-btn:hover { color: #fff; }
+        .exam-card {
+            background: #1e1e1e;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 12px;
+            border-left: 4px solid #2ecc71;
+        }
+        .exam-card .title { font-size: 18px; font-weight: 600; }
+        .exam-card .meta { font-size: 13px; color: #888; margin-top: 5px; }
+        .empty { text-align: center; padding: 60px 20px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 История экзаменов</h1>
+        <a href="/exam" class="back-btn">⬅️ Назад к экзамену</a>
+
+        {% if exams %}
+            {% for exam in exams %}
+            <div class="exam-card">
+                <div class="title">{{ exam.title }}</div>
+                <div class="meta">{{ exam.date }} • {{ exam.word_count }} слов</div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty">Пока нет экзаменов. Начни первый!</div>
+        {% endif %}
+    </div>
+</body>
+</html>
