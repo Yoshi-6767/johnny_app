@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ section.title }} — Johnny English</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 700px; margin: 0 auto; }
+        .back-btn {
+            display: inline-block;
+            color: #888;
+            text-decoration: none;
+            margin-bottom: 25px;
+        }
+        .back-btn:hover { color: #fff; }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        .header .emoji { font-size: 48px; }
+        .header h1 { color: #ff6b00; font-size: 28px; }
+        .counter { color: #888; font-size: 14px; margin-bottom: 25px; }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .actions a {
+            flex: 1;
+            text-align: center;
+            padding: 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+        .train-btn {
+            background: #ff6b00;
+            color: #fff;
+        }
+        .train-btn:hover { background: #ff8533; }
+
+        ul { list-style: none; }
+        li {
+            background: #1e1e1e;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border-radius: 10px;
+            font-size: 16px;
+            border-left: 3px solid #ff6b00;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .word-text::before {
+            content: "→ ";
+            color: #ff6b00;
+            font-weight: bold;
+        }
+        .empty {
+            text-align: center;
+            color: #666;
+            padding: 40px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/sections" class="back-btn">⬅️ К разделам</a>
+
+        <div class="header">
+            <div class="emoji">{{ section.emoji }}</div>
+            <h1>{{ section.title }}</h1>
+        </div>
+        <div class="counter">Слов в разделе: {{ words|length }}</div>
+
+        {% if words %}
+        <div class="actions">
+            <a href="/train?section={{ section.id }}" class="train-btn">🔥 Тренировать раздел</a>
+        </div>
+
+        <ul>
+            {% for eng, data in words.items() %}
+            <li>
+                <span class="word-text">{{ eng }} → {{ data.rus }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <div class="empty">В этом разделе пока нет слов.</div>
+        {% endif %}
+    </div>
+</body>
+</html>
