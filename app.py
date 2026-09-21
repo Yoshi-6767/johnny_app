@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify, session, redirect
 import json
-from deep_translator import GoogleTranslator
+from deep_translator import MyMemoryTranslator
 import random
 import os
 from datetime import date, timedelta
