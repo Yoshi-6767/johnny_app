@@ -28,11 +28,26 @@ def get_section(sid):
 
 # ─── ЗАГРУЗКА ДАННЫХ ───
 
+# Миграция: если /data/words.json пустой или не существует — берём из репозитория
+DATA_EMPTY = False
 try:
     with open(WORDS_FILE, "r", encoding="utf-8") as f:
         raw_words = json.load(f)
+    if not raw_words:
+        DATA_EMPTY = True
 except:
-    raw_words = {"hello": "привет", "go": "идти", "cat": "кот"}
+    DATA_EMPTY = True
+
+if DATA_EMPTY:
+    # Читаем из репозитория и сохраняем в /data/
+    try:
+        with open("words.json", "r", encoding="utf-8") as f:
+            raw_words = json.load(f)
+        # Сразу сохраняем в /data/
+        with open(WORDS_FILE, "w", encoding="utf-8") as f:
+            json.dump(raw_words, f, ensure_ascii=False, indent=2)
+    except:
+        raw_words = {"hello": "привет", "go": "идти", "cat": "кот"}
 
 # Миграция: превращаем старый формат в новый
 words = {}
