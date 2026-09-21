@@ -12,11 +12,44 @@ PHRASES_FILE = "/data/phrases.json"
 PROGRESS_FILE = "/data/progress.json"
 TOPICS_FILE = "/data/topics.json"
 
+# ─── РАЗДЕЛЫ ───
+
+SECTIONS = [
+    {"id": "food", "title": "Еда", "emoji": "🍔"},
+    {"id": "sport", "title": "Спорт", "emoji": "⚽"},
+    {"id": "work", "title": "Работа", "emoji": "💼"},
+    {"id": "travel", "title": "Путешествия", "emoji": "✈️"},
+    {"id": "family", "title": "Семья", "emoji": "👨‍👩‍👧"},
+    {"id": "general", "title": "Общее", "emoji": "📦"},
+]
+
+def get_section(sid):
+    return next((s for s in SECTIONS if s["id"] == sid), SECTIONS[-1])
+
+# ─── ЗАГРУЗКА ДАННЫХ ───
+
 try:
     with open(WORDS_FILE, "r", encoding="utf-8") as f:
-        words = json.load(f)
+        raw_words = json.load(f)
 except:
-    words = {"hello": "привет", "go": "идти", "cat": "кот"}
+    raw_words = {"hello": "привет", "go": "идти", "cat": "кот"}
+
+# Миграция: превращаем старый формат в новый
+words = {}
+for k, v in raw_words.items():
+    if isinstance(v, dict):
+        # Новый формат — уже с section
+        section = v.get("section", "general")
+        if section not in [s["id"] for s in SECTIONS]:
+            section = "general"
+        words[k] = {"rus": v.get("rus", ""), "section": section}
+    else:
+        # Старый формат — просто строка
+        words[k] = {"rus": v, "section": "general"}
+
+def save_words():
+    with open(WORDS_FILE, "w", encoding="utf-8") as f:
+        json.dump(words, f, ensure_ascii=False, indent=2)
 
 try:
     with open(PHRASES_FILE, "r", encoding="utf-8") as f:
@@ -24,11 +57,19 @@ try:
 except:
     phrases = {"How are you?": "Как дела?", "Thank you": "Спасибо"}
 
+def save_phrases():
+    with open(PHRASES_FILE, "w", encoding="utf-8") as f:
+        json.dump(phrases, f, ensure_ascii=False, indent=2)
+
 try:
     with open(PROGRESS_FILE, "r", encoding="utf-8") as f:
         progress = json.load(f)
 except:
     progress = {"history": [], "streak": 0, "last_day": ""}
+
+def save_progress():
+    with open(PROGRESS_FILE, "w", encoding="utf-8") as f:
+        json.dump(progress, f, ensure_ascii=False, indent=2)
 
 try:
     with open(TOPICS_FILE, "r", encoding="utf-8") as f:
@@ -36,24 +77,11 @@ try:
 except:
     topics = {}
 
-def save_words():
-    with open(WORDS_FILE, "w", encoding="utf-8") as f:
-        json.dump(words, f, ensure_ascii=False, indent=2)
-
-def save_phrases():
-    with open(PHRASES_FILE, "w", encoding="utf-8") as f:
-        json.dump(phrases, f, ensure_ascii=False, indent=2)
-
-def save_progress():
-    with open(PROGRESS_FILE, "w", encoding="utf-8") as f:
-        json.dump(progress, f, ensure_ascii=False, indent=2)
-
 def save_topics():
     with open(TOPICS_FILE, "w", encoding="utf-8") as f:
         json.dump(topics, f, ensure_ascii=False, indent=2)
 
 def record_training(correct: bool):
-    """Записывает тренировку в историю и обновляет стрик."""
     today = str(date.today())
     if progress["last_day"] != today:
         yesterday = str(date.today() - timedelta(days=1))
@@ -77,12 +105,17 @@ def record_training(correct: bool):
 
 @app.route("/")
 def index():
-    return render_template("index.html", words=words)
+    return render_template("index.html", words=words, sections=SECTIONS)
 
 @app.route("/add", methods=["POST"])
 def add():
     data = request.json
-    words[data["eng"]] = data["rus"]
+    eng = data["eng"].strip()
+    rus = data["rus"].strip()
+    section = data.get("section", "general")
+    if section not in [s["id"] for s in SECTIONS]:
+        section = "general"
+    words[eng] = {"rus": rus, "section": section}
     save_words()
     return jsonify({"status": "ok"})
 
@@ -99,19 +132,51 @@ def delete():
 def edit():
     data = request.json
     old_eng = data["old_eng"]
-    new_eng = data["new_eng"]
-    new_rus = data["new_rus"]
+    new_eng = data["new_eng"].strip()
+    new_rus = data["new_rus"].strip()
+    section = data.get("section", "general")
     if old_eng in words:
         del words[old_eng]
-        words[new_eng] = new_rus
+        words[new_eng] = {"rus": new_rus, "section": section}
         save_words()
     return jsonify({"status": "ok"})
 
+# ─── РАЗДЕЛЫ ───
+
+@app.route("/sections")
+def sections_page():
+    sections_data = []
+    for s in SECTIONS:
+        section_words = {k: v for k, v in words.items() if v["section"] == s["id"]}
+        sections_data.append({
+            "id": s["id"],
+            "title": s["title"],
+            "emoji": s["emoji"],
+            "count": len(section_words)
+        })
+    total_words = len(words)
+    return render_template("sections.html", sections=sections_data, total_words=total_words)
+
+@app.route("/sections/<sid>")
+def section_page(sid):
+    section = get_section(sid)
+    section_words = {k: v for k, v in words.items() if v["section"] == sid}
+    return render_template("section.html", section=section, words=section_words)
+
+# ─── ТРЕНИРОВКА ───
+
 @app.route("/train")
 def train():
-    if not words:
-        return render_template("train.html", word=None, empty=True)
-    eng = random.choice(list(words.keys()))
+    section_id = request.args.get("section", "")
+    if section_id:
+        filtered = {k: v for k, v in words.items() if v["section"] == section_id}
+        if not filtered:
+            return render_template("train.html", word=None, empty=True)
+        eng = random.choice(list(filtered.keys()))
+    else:
+        if not words:
+            return render_template("train.html", word=None, empty=True)
+        eng = random.choice(list(words.keys()))
     session["current_word"] = eng
     return render_template("train.html", word=eng, empty=False)
 
@@ -122,12 +187,12 @@ def check():
     eng = session.get("current_word")
     if not eng or eng not in words:
         return jsonify({"status": "error"})
-    correct_answer = words[eng].strip().lower()
+    correct_answer = words[eng]["rus"].strip().lower()
     if user_answer == correct_answer:
         record_training(True)
         return jsonify({
             "status": "correct",
-            "correct_answer": words[eng],
+            "correct_answer": words[eng]["rus"],
             "correct_count": session.get("correct", 0) + 1,
             "wrong_count": session.get("wrong", 0)
         })
@@ -135,7 +200,7 @@ def check():
         record_training(False)
         return jsonify({
             "status": "wrong",
-            "correct_answer": words[eng],
+            "correct_answer": words[eng]["rus"],
             "correct_count": session.get("correct", 0),
             "wrong_count": session.get("wrong", 0) + 1
         })
@@ -252,7 +317,7 @@ def train_reverse():
     if not words:
         return render_template("train_reverse.html", word=None, empty=True)
     eng = random.choice(list(words.keys()))
-    rus = words[eng]
+    rus = words[eng]["rus"]
     session["current_reverse_eng"] = eng
     session["current_reverse_rus"] = rus
     return render_template("train_reverse.html", word=rus, empty=False)
