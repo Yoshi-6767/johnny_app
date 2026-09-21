@@ -5,12 +5,13 @@ import os
 from datetime import date, timedelta
 
 app = Flask(__name__)
-app.secret_key = "johnny_english_secret_key_change_me"
+app.secret_key = "flow_and_word_secret_key"
 
 WORDS_FILE = "/data/words.json"
 PHRASES_FILE = "/data/phrases.json"
 PROGRESS_FILE = "/data/progress.json"
 TOPICS_FILE = "/data/topics.json"
+EXAM_FILE = "/data/exams.json"
 
 # ─── РАЗДЕЛЫ ───
 
@@ -28,7 +29,7 @@ def get_section(sid):
 
 # ─── ЗАГРУЗКА ДАННЫХ ───
 
-# Миграция: если /data/words.json пустой или не существует — берём из репозитория
+# Слова — миграция из репозитория
 DATA_EMPTY = False
 try:
     with open(WORDS_FILE, "r", encoding="utf-8") as f:
@@ -39,27 +40,22 @@ except:
     DATA_EMPTY = True
 
 if DATA_EMPTY:
-    # Читаем из репозитория и сохраняем в /data/
     try:
         with open("words.json", "r", encoding="utf-8") as f:
             raw_words = json.load(f)
-        # Сразу сохраняем в /data/
         with open(WORDS_FILE, "w", encoding="utf-8") as f:
             json.dump(raw_words, f, ensure_ascii=False, indent=2)
     except:
-        raw_words = {"hello": "привет", "go": "идти", "cat": "кот"}
+        raw_words = {}
 
-# Миграция: превращаем старый формат в новый
 words = {}
 for k, v in raw_words.items():
     if isinstance(v, dict):
-        # Новый формат — уже с section
         section = v.get("section", "general")
         if section not in [s["id"] for s in SECTIONS]:
             section = "general"
         words[k] = {"rus": v.get("rus", ""), "section": section}
     else:
-        # Старый формат — просто строка
         words[k] = {"rus": v, "section": "general"}
 
 def save_words():
@@ -70,7 +66,7 @@ try:
     with open(PHRASES_FILE, "r", encoding="utf-8") as f:
         phrases = json.load(f)
 except:
-    phrases = {"How are you?": "Как дела?", "Thank you": "Спасибо"}
+    phrases = {}
 
 def save_phrases():
     with open(PHRASES_FILE, "w", encoding="utf-8") as f:
@@ -96,6 +92,16 @@ def save_topics():
     with open(TOPICS_FILE, "w", encoding="utf-8") as f:
         json.dump(topics, f, ensure_ascii=False, indent=2)
 
+try:
+    with open(EXAM_FILE, "r", encoding="utf-8") as f:
+        exams = json.load(f)
+except:
+    exams = {}
+
+def save_exams():
+    with open(EXAM_FILE, "w", encoding="utf-8") as f:
+        json.dump(exams, f, ensure_ascii=False, indent=2)
+
 def record_training(correct: bool):
     today = str(date.today())
     if progress["last_day"] != today:
@@ -116,7 +122,7 @@ def record_training(correct: bool):
 
     save_progress()
 
-# ─── СЛОВА ───
+# ─── ГЛАВНАЯ ───
 
 @app.route("/")
 def index():
@@ -133,6 +139,8 @@ def index():
         total_topics=total_topics,
         streak=streak
     )
+
+# ─── СЛОВА ───
 
 @app.route("/words")
 def words_page():
@@ -178,15 +186,14 @@ def edit():
 def sections_page():
     sections_data = []
     for s in SECTIONS:
-        section_words = {k: v for k, v in words.items() if v["section"] == s["id"]}
+        count = sum(1 for v in words.values() if v["section"] == s["id"])
         sections_data.append({
             "id": s["id"],
             "title": s["title"],
             "emoji": s["emoji"],
-            "count": len(section_words)
+            "count": count
         })
-    total_words = len(words)
-    return render_template("sections.html", sections=sections_data, total_words=total_words)
+    return render_template("sections.html", sections=sections_data, total_words=len(words))
 
 @app.route("/sections/<sid>")
 def section_page(sid):
@@ -194,36 +201,45 @@ def section_page(sid):
     section_words = {k: v for k, v in words.items() if v["section"] == sid}
     return render_template("section.html", section=section, words=section_words)
 
-# ─── ТРЕНИРОВКА ───
+# ─── ТРЕНИРОВКА СЛОВ ───
 
 @app.route("/train")
 def train():
     section_id = request.args.get("section", "")
+    reverse = request.args.get("reverse", "0") == "1"
     if section_id:
         filtered = {k: v for k, v in words.items() if v["section"] == section_id}
-        if not filtered:
-            return render_template("train.html", word=None, empty=True)
-        eng = random.choice(list(filtered.keys()))
     else:
-        if not words:
-            return render_template("train.html", word=None, empty=True)
-        eng = random.choice(list(words.keys()))
+        filtered = words
+    if not filtered:
+        return render_template("train.html", word=None, empty=True, reverse=reverse, section=section_id)
+    eng = random.choice(list(filtered.keys()))
     session["current_word"] = eng
-    return render_template("train.html", word=eng, empty=False)
+    session["train_reverse"] = reverse
+    session["train_section"] = section_id
+    if reverse:
+        display = filtered[eng]["rus"]
+    else:
+        display = eng
+    return render_template("train.html", word=display, empty=False, reverse=reverse, section=section_id)
 
 @app.route("/check", methods=["POST"])
 def check():
     data = request.json
     user_answer = data["answer"].strip().lower()
     eng = session.get("current_word")
+    reverse = session.get("train_reverse", False)
     if not eng or eng not in words:
         return jsonify({"status": "error"})
-    correct_answer = words[eng]["rus"].strip().lower()
+    if reverse:
+        correct_answer = eng.lower()
+    else:
+        correct_answer = words[eng]["rus"].strip().lower()
     if user_answer == correct_answer:
         record_training(True)
         return jsonify({
             "status": "correct",
-            "correct_answer": words[eng]["rus"],
+            "correct_answer": eng if reverse else words[eng]["rus"],
             "correct_count": session.get("correct", 0) + 1,
             "wrong_count": session.get("wrong", 0)
         })
@@ -231,7 +247,7 @@ def check():
         record_training(False)
         return jsonify({
             "status": "wrong",
-            "correct_answer": words[eng]["rus"],
+            "correct_answer": eng if reverse else words[eng]["rus"],
             "correct_count": session.get("correct", 0),
             "wrong_count": session.get("wrong", 0) + 1
         })
@@ -272,25 +288,32 @@ def phrases_edit():
 
 @app.route("/phrases/train")
 def phrases_train():
+    reverse = request.args.get("reverse", "0") == "1"
     if not phrases:
-        return render_template("train_phrases.html", phrase=None, empty=True)
+        return render_template("train_phrases.html", phrase=None, empty=True, reverse=reverse)
     eng = random.choice(list(phrases.keys()))
     session["current_phrase"] = eng
-    return render_template("train_phrases.html", phrase=eng, empty=False)
+    session["phrase_reverse"] = reverse
+    display = phrases[eng] if reverse else eng
+    return render_template("train_phrases.html", phrase=display, empty=False, reverse=reverse)
 
 @app.route("/phrases/check", methods=["POST"])
 def phrases_check():
     data = request.json
     user_answer = data["answer"].strip().lower()
     eng = session.get("current_phrase")
+    reverse = session.get("phrase_reverse", False)
     if not eng or eng not in phrases:
         return jsonify({"status": "error"})
-    correct_answer = phrases[eng].strip().lower()
+    if reverse:
+        correct_answer = eng.lower()
+    else:
+        correct_answer = phrases[eng].strip().lower()
     if user_answer == correct_answer:
         record_training(True)
         return jsonify({
             "status": "correct",
-            "correct_answer": phrases[eng],
+            "correct_answer": eng if reverse else phrases[eng],
             "correct_count": session.get("phrases_correct", 0) + 1,
             "wrong_count": session.get("phrases_wrong", 0)
         })
@@ -298,7 +321,7 @@ def phrases_check():
         record_training(False)
         return jsonify({
             "status": "wrong",
-            "correct_answer": phrases[eng],
+            "correct_answer": eng if reverse else phrases[eng],
             "correct_count": session.get("phrases_correct", 0),
             "wrong_count": session.get("phrases_wrong", 0) + 1
         })
@@ -340,42 +363,6 @@ def progress_page():
         last_7=last_7,
         max_day=max_day
     )
-
-# ─── РЕЖИМ «НАОБОРОТ» ───
-
-@app.route("/train_reverse")
-def train_reverse():
-    if not words:
-        return render_template("train_reverse.html", word=None, empty=True)
-    eng = random.choice(list(words.keys()))
-    rus = words[eng]["rus"]
-    session["current_reverse_eng"] = eng
-    session["current_reverse_rus"] = rus
-    return render_template("train_reverse.html", word=rus, empty=False)
-
-@app.route("/check_reverse", methods=["POST"])
-def check_reverse():
-    data = request.json
-    user_answer = data["answer"].strip().lower()
-    eng = session.get("current_reverse_eng")
-    if not eng or eng not in words:
-        return jsonify({"status": "error"})
-    if user_answer == eng.lower():
-        record_training(True)
-        return jsonify({
-            "status": "correct",
-            "correct_answer": eng,
-            "correct_count": session.get("correct", 0) + 1,
-            "wrong_count": session.get("wrong", 0)
-        })
-    else:
-        record_training(False)
-        return jsonify({
-            "status": "wrong",
-            "correct_answer": eng,
-            "correct_count": session.get("correct", 0),
-            "wrong_count": session.get("wrong", 0) + 1
-        })
 
 # ─── ТОПИКИ ───
 
@@ -465,6 +452,54 @@ def topic_delete(tid):
         del topics[tid]
         save_topics()
     return jsonify({"status": "ok"})
+
+# ─── ЭКЗАМЕН ───
+
+@app.route("/exam")
+def exam_page():
+    all_topics = list(FIXED_TOPICS)
+    for tid, data in topics.items():
+        if tid.startswith("custom_"):
+            all_topics.append({"id": tid, "title": data.get("title", "Своя тема"), "emoji": "📝", "helper": []})
+    if not all_topics:
+        return render_template("exam.html", topic=None, empty=True)
+    topic = random.choice(all_topics)
+    session["exam_topic"] = topic["id"]
+    session["exam_start"] = str(date.today())
+    return render_template("exam.html", topic=topic, empty=False)
+
+@app.route("/exam/save", methods=["POST"])
+def exam_save():
+    data = request.json
+    text = data["text"].strip()
+    tid = session.get("exam_topic")
+    if not tid:
+        return jsonify({"status": "error"})
+    topic_info = next((t for t in FIXED_TOPICS if t["id"] == tid), None)
+    title = topic_info["title"] if topic_info else topics.get(tid, {}).get("title", "Своя тема")
+    import time
+    exam_id = str(int(time.time()))
+    exams[exam_id] = {
+        "topic_id": tid,
+        "title": title,
+        "text": text,
+        "date": str(date.today()),
+        "word_count": len(text.split())
+    }
+    save_exams()
+    return jsonify({"status": "ok", "exam_id": exam_id})
+
+@app.route("/exam/history")
+def exam_history():
+    exams_list = []
+    for eid, data in sorted(exams.items(), key=lambda x: x[0], reverse=True):
+        exams_list.append({
+            "id": eid,
+            "title": data["title"],
+            "date": data["date"],
+            "word_count": data["word_count"]
+        })
+    return render_template("exam_history.html", exams=exams_list)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
