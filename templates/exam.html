@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Экзамен — Flow & Word</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 700px; margin: 0 auto; }
+        h1 { color: #2ecc71; font-size: 28px; margin-bottom: 20px; text-align: center; }
+        .back-btn {
+            display: inline-block;
+            color: #888;
+            text-decoration: none;
+            margin-bottom: 25px;
+        }
+        .back-btn:hover { color: #fff; }
+        .topic-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .topic-header .emoji { font-size: 48px; }
+        .topic-header h2 { color: #2ecc71; font-size: 24px; }
+        .timer {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #2ecc71;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #1e1e1e;
+            border-radius: 12px;
+        }
+        textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 20px;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            resize: vertical;
+            outline: none;
+        }
+        textarea:focus { border-color: #2ecc71; }
+        .word-counter {
+            text-align: right;
+            color: #888;
+            font-size: 14px;
+            margin: 10px 0 20px;
+        }
+        .save-btn {
+            width: 100%;
+            padding: 18px;
+            background: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .save-btn:hover { background: #27ae60; }
+        .status {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #4caf50;
+            display: none;
+        }
+        .status.show { display: block; }
+        .empty { text-align: center; padding: 60px 20px; color: #666; }
+        .empty a { color: #2ecc71; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-btn">⬅️ На главную</a>
+
+        {% if empty %}
+            <div class="empty">
+                <h1>📝 Пока нет тем</h1>
+                <p>Добавь топики в <a href="/topics">разделе топиков</a>.</p>
+            </div>
+        {% else %}
+            <h1>🎓 Экзамен</h1>
+
+            <div class="topic-header">
+                <div class="emoji">{{ topic.emoji }}</div>
+                <h2>{{ topic.title }}</h2>
+            </div>
+
+            <div class="timer" id="timer">15:00</div>
+
+            <textarea id="text" placeholder="Напиши текст на английском без подсказок..." oninput="updateCounter()"></textarea>
+            <div class="word-counter" id="counter">0 слов</div>
+
+            <button class="save-btn" onclick="saveExam()">Сохранить</button>
+            <div class="status" id="status">✅ Сохранено!</div>
+        {% endif %}
+    </div>
+
+    <script>
+        const textarea = document.getElementById("text");
+        const counter = document.getElementById("counter");
+
+        function countWords(text) {
+            return text.trim() ? text.trim().split(/\s+/).length : 0;
+        }
+
+        function updateCounter() {
+            const count = countWords(textarea.value);
+            counter.textContent = count + " слов";
+        }
+
+        function saveExam() {
+            const text = textarea.value;
+            fetch("/exam/save", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({text: text})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === "ok") {
+                    document.getElementById("status").classList.add("show");
+                    setTimeout(() => {
+                        location.href = "/exam/history";
+                    }, 1500);
+                }
+            });
+        }
+
+        // Таймер
+        let timeLeft = 15 * 60;
+        const timerEl = document.getElementById("timer");
+        setInterval(() => {
+            if (timeLeft <= 0) return;
+            timeLeft--;
+            const m = Math.floor(timeLeft / 60);
+            const s = timeLeft % 60;
+            timerEl.textContent = m + ":" + (s < 10 ? "0" : "") + s;
+            if (timeLeft < 60) timerEl.style.color = "#f44336";
+        }, 1000);
+    </script>
+</body>
+</html>
