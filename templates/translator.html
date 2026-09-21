@@ -97,13 +97,13 @@
         <a href="/" class="back-btn">⬅️ На главную</a>
 
         <div class="direction">
-            <button id="ru-en" class="active" onclick="setDirection('ru-en')">🇷🇺 → 🇬🇧</button>
-            <button id="en-ru" onclick="setDirection('en-ru')">🇬🇧 → 🇷🇺</button>
+            <button id="ru-en" class="active" onclick="setDirection('ru-en')">🇷🇺 RU → 🇬🇧 EN</button>
+            <button id="en-ru" onclick="setDirection('en-ru')">🇬🇧 EN → 🇷🇺 RU</button>
         </div>
 
         <textarea id="input" placeholder="Введи текст..."></textarea>
 
-        <button class="translate-btn" onclick="translate()">Перевести</button>
+        <button class="translate-btn" onclick="doTranslate()">Перевести</button>
 
         <div class="result empty" id="result">Здесь появится перевод...</div>
     </div>
@@ -117,7 +117,7 @@
             document.getElementById("en-ru").classList.toggle("active", dir === "en-ru");
         }
 
-        function translate() {
+        function doTranslate() {
             const text = document.getElementById("input").value.trim();
             if (!text) return;
             const result = document.getElementById("result");
@@ -138,9 +138,8 @@
             });
         }
 
-        // Ctrl+Enter для перевода
         document.getElementById("input").addEventListener("keydown", function(e) {
-            if (e.ctrlKey && e.key === "Enter") translate();
+            if (e.ctrlKey && e.key === "Enter") doTranslate();
         });
     </script>
 </body>
