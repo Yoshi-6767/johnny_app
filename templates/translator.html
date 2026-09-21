@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Переводчик — Flow & Word</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 700px; margin: 0 auto; }
+        h1 { color: #2ecc71; font-size: 32px; margin-bottom: 10px; }
+        .back-btn {
+            display: inline-block;
+            color: #888;
+            text-decoration: none;
+            margin-bottom: 25px;
+        }
+        .back-btn:hover { color: #fff; }
+
+        .direction {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .direction button {
+            flex: 1;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            background: #1e1e1e;
+            color: #888;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .direction button.active {
+            background: #2ecc71;
+            color: #fff;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 20px;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            resize: vertical;
+            outline: none;
+            margin-bottom: 15px;
+        }
+        textarea:focus { border-color: #2ecc71; }
+
+        .translate-btn {
+            width: 100%;
+            padding: 18px;
+            background: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .translate-btn:hover { background: #27ae60; }
+
+        .result {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #2ecc71;
+            font-size: 16px;
+            line-height: 1.6;
+            min-height: 100px;
+            white-space: pre-wrap;
+        }
+        .result.empty {
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 Переводчик</h1>
+        <a href="/" class="back-btn">⬅️ На главную</a>
+
+        <div class="direction">
+            <button id="ru-en" class="active" onclick="setDirection('ru-en')">🇷🇺 → 🇬🇧</button>
+            <button id="en-ru" onclick="setDirection('en-ru')">🇬🇧 → 🇷🇺</button>
+        </div>
+
+        <textarea id="input" placeholder="Введи текст..."></textarea>
+
+        <button class="translate-btn" onclick="translate()">Перевести</button>
+
+        <div class="result empty" id="result">Здесь появится перевод...</div>
+    </div>
+
+    <script>
+        let direction = "ru-en";
+
+        function setDirection(dir) {
+            direction = dir;
+            document.getElementById("ru-en").classList.toggle("active", dir === "ru-en");
+            document.getElementById("en-ru").classList.toggle("active", dir === "en-ru");
+        }
+
+        function translate() {
+            const text = document.getElementById("input").value.trim();
+            if (!text) return;
+            const result = document.getElementById("result");
+            result.textContent = "Переводим...";
+            result.classList.remove("empty");
+            fetch("/translate", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({text: text, direction: direction})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === "ok") {
+                    result.textContent = data.translation;
+                } else {
+                    result.textContent = "Ошибка: " + data.message;
+                }
+            });
+        }
+
+        // Ctrl+Enter для перевода
+        document.getElementById("input").addEventListener("keydown", function(e) {
+            if (e.ctrlKey && e.key === "Enter") translate();
+        });
+    </script>
+</body>
+</html>
