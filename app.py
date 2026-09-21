@@ -10,6 +10,7 @@ app.secret_key = "johnny_english_secret_key_change_me"
 WORDS_FILE = "/data/words.json"
 PHRASES_FILE = "/data/phrases.json"
 PROGRESS_FILE = "/data/progress.json"
+TOPICS_FILE = "/data/topics.json"
 
 try:
     with open(WORDS_FILE, "r", encoding="utf-8") as f:
@@ -29,6 +30,12 @@ try:
 except:
     progress = {"history": [], "streak": 0, "last_day": ""}
 
+try:
+    with open(TOPICS_FILE, "r", encoding="utf-8") as f:
+        topics = json.load(f)
+except:
+    topics = {}
+
 def save_words():
     with open(WORDS_FILE, "w", encoding="utf-8") as f:
         json.dump(words, f, ensure_ascii=False, indent=2)
@@ -40,6 +47,10 @@ def save_phrases():
 def save_progress():
     with open(PROGRESS_FILE, "w", encoding="utf-8") as f:
         json.dump(progress, f, ensure_ascii=False, indent=2)
+
+def save_topics():
+    with open(TOPICS_FILE, "w", encoding="utf-8") as f:
+        json.dump(topics, f, ensure_ascii=False, indent=2)
 
 def record_training(correct: bool):
     """Записывает тренировку в историю и обновляет стрик."""
@@ -207,7 +218,6 @@ def progress_page():
     total_answers = total_correct + total_wrong
     accuracy = round(total_correct / total_answers * 100) if total_answers > 0 else 0
 
-    # последние 7 дней
     last_7 = []
     for i in range(6, -1, -1):
         day = str(date.today() - timedelta(days=i))
@@ -241,7 +251,6 @@ def progress_page():
 def train_reverse():
     if not words:
         return render_template("train_reverse.html", word=None, empty=True)
-    # Берём русское слово (значение), показываем его, а ответ — английский (ключ)
     eng = random.choice(list(words.keys()))
     rus = words[eng]
     session["current_reverse_eng"] = eng
@@ -253,10 +262,8 @@ def check_reverse():
     data = request.json
     user_answer = data["answer"].strip().lower()
     eng = session.get("current_reverse_eng")
-    rus = session.get("current_reverse_rus")
     if not eng or eng not in words:
         return jsonify({"status": "error"})
-    # Правильный ответ — английское слово (ключ)
     if user_answer == eng.lower():
         record_training(True)
         return jsonify({
@@ -273,6 +280,95 @@ def check_reverse():
             "correct_count": session.get("correct", 0),
             "wrong_count": session.get("wrong", 0) + 1
         })
+
+# ─── ТОПИКИ ───
+
+FIXED_TOPICS = [
+    {"id": "my_day", "title": "My Day", "emoji": "☀️", "helper": ["wake up", "breakfast", "work", "evening", "sleep", "morning", "lunch", "dinner"]},
+    {"id": "my_family", "title": "My Family", "emoji": "👨‍👩‍👧", "helper": ["mother", "father", "brother", "sister", "love", "home", "parents", "children"]},
+    {"id": "my_hobbies", "title": "My Hobbies", "emoji": "🎮", "helper": ["play", "read", "music", "sport", "game", "draw", "sing", "dance"]},
+    {"id": "my_city", "title": "My City", "emoji": "🏙️", "helper": ["street", "park", "shop", "museum", "beautiful", "big", "small", "center"]},
+    {"id": "my_dreams", "title": "My Dreams", "emoji": "💭", "helper": ["want", "future", "travel", "family", "success", "dream", "hope", "believe"]},
+]
+
+@app.route("/topics")
+def topics_page():
+    all_topics = []
+    for t in FIXED_TOPICS:
+        data = topics.get(t["id"], {})
+        all_topics.append({
+            "id": t["id"],
+            "title": t["title"],
+            "emoji": t["emoji"],
+            "text": data.get("text", ""),
+            "done": data.get("done", False),
+            "word_count": len(data.get("text", "").split()) if data.get("text") else 0
+        })
+    for tid, data in topics.items():
+        if tid.startswith("custom_"):
+            all_topics.append({
+                "id": tid,
+                "title": data.get("title", "Своя тема"),
+                "emoji": "📝",
+                "text": data.get("text", ""),
+                "done": data.get("done", False),
+                "word_count": len(data.get("text", "").split()) if data.get("text") else 0
+            })
+    return render_template("topics.html", topics=all_topics)
+
+@app.route("/topics/<tid>")
+def topic_page(tid):
+    topic_info = next((t for t in FIXED_TOPICS if t["id"] == tid), None)
+    if not topic_info:
+        if tid in topics:
+            topic_info = {
+                "id": tid,
+                "title": topics[tid].get("title", "Своя тема"),
+                "emoji": "📝",
+                "helper": []
+            }
+        else:
+            return "Тема не найдена", 404
+    data = topics.get(tid, {"text": "", "done": False})
+    return render_template(
+        "topic.html",
+        topic=topic_info,
+        text=data.get("text", ""),
+        done=data.get("done", False)
+    )
+
+@app.route("/topics/<tid>/save", methods=["POST"])
+def topic_save(tid):
+    data = request.json
+    text = data["text"].strip()
+    word_count = len(text.split())
+    if word_count < 50:
+        return jsonify({"status": "error", "message": "Минимум 50 слов"})
+    topic_info = next((t for t in FIXED_TOPICS if t["id"] == tid), None)
+    title = topic_info["title"] if topic_info else topics.get(tid, {}).get("title", "Своя тема")
+    topics[tid] = {"title": title, "text": text, "done": True}
+    save_topics()
+    return jsonify({"status": "ok"})
+
+@app.route("/topics/new", methods=["GET", "POST"])
+def topic_new():
+    if request.method == "POST":
+        title = request.form.get("title", "").strip()
+        if not title:
+            return redirect("/topics/new")
+        import time
+        tid = "custom_" + str(int(time.time()))
+        topics[tid] = {"title": title, "text": "", "done": False}
+        save_topics()
+        return redirect(f"/topics/{tid}")
+    return render_template("topic_new.html")
+
+@app.route("/topics/<tid>/delete", methods=["POST"])
+def topic_delete(tid):
+    if tid in topics and tid.startswith("custom_"):
+        del topics[tid]
+        save_topics()
+    return jsonify({"status": "ok"})
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
