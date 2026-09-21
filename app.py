@@ -62,11 +62,24 @@ def save_words():
     with open(WORDS_FILE, "w", encoding="utf-8") as f:
         json.dump(words, f, ensure_ascii=False, indent=2)
 
+# Миграция фраз из репозитория
+PHRASES_EMPTY = False
 try:
     with open(PHRASES_FILE, "r", encoding="utf-8") as f:
         phrases = json.load(f)
+    if not phrases:
+        PHRASES_EMPTY = True
 except:
-    phrases = {}
+    PHRASES_EMPTY = True
+
+if PHRASES_EMPTY:
+    try:
+        with open("phrases.json", "r", encoding="utf-8") as f:
+            phrases = json.load(f)
+        with open(PHRASES_FILE, "w", encoding="utf-8") as f:
+            json.dump(phrases, f, ensure_ascii=False, indent=2)
+    except:
+        phrases = {}
 
 def save_phrases():
     with open(PHRASES_FILE, "w", encoding="utf-8") as f:
