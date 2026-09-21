@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Разделы — Johnny English</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 700px; margin: 0 auto; }
+        h1 { color: #ff6b00; font-size: 32px; margin-bottom: 10px; }
+        .back-btn {
+            display: inline-block;
+            color: #888;
+            text-decoration: none;
+            margin-bottom: 25px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover { color: #fff; }
+        .counter { color: #888; font-size: 14px; margin-bottom: 25px; }
+
+        .section-card {
+            background: #1e1e1e;
+            padding: 20px;
+            margin: 12px 0;
+            border-radius: 12px;
+            border-left: 4px solid #ff6b00;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: #fff;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .section-card:hover { background: #2a2a2a; transform: translateX(4px); }
+
+        .section-left { display: flex; align-items: center; gap: 15px; }
+        .section-emoji { font-size: 36px; }
+        .section-info .title { font-size: 18px; font-weight: 600; }
+        .section-info .count { font-size: 13px; color: #888; margin-top: 4px; }
+        .arrow { color: #ff6b00; font-size: 20px; }
+
+        .train-all {
+            display: block;
+            text-align: center;
+            padding: 18px;
+            margin-top: 25px;
+            background: #ff6b00;
+            color: #fff;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+        .train-all:hover { background: #ff8533; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Разделы</h1>
+        <a href="/" class="back-btn">⬅️ На главную</a>
+        <div class="counter">Всего слов в базе: {{ total_words }}</div>
+
+        {% for s in sections %}
+        <a href="/sections/{{ s.id }}" class="section-card">
+            <div class="section-left">
+                <div class="section-emoji">{{ s.emoji }}</div>
+                <div class="section-info">
+                    <div class="title">{{ s.title }}</div>
+                    <div class="count">Слов: {{ s.count }}</div>
+                </div>
+            </div>
+            <div class="arrow">→</div>
+        </a>
+        {% endfor %}
+
+        <a href="/train" class="train-all">🔥 Тренировать всё</a>
+    </div>
+</body>
+</html>
