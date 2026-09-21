@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Своя тема — Johnny English</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #0f0f0f;
+            color: #fff;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container { max-width: 500px; width: 100%; }
+        h1 { color: #ff6b00; font-size: 28px; margin-bottom: 25px; text-align: center; }
+        .back-btn {
+            display: inline-block;
+            color: #888;
+            text-decoration: none;
+            margin-bottom: 25px;
+        }
+        .back-btn:hover { color: #fff; }
+        input {
+            width: 100%;
+            padding: 18px 20px;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            margin-bottom: 20px;
+            transition: border 0.2s;
+        }
+        input:focus { border-color: #ff6b00; }
+        button {
+            width: 100%;
+            padding: 18px;
+            background: #ff6b00;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover { background: #ff8533; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/topics" class="back-btn">⬅️ К топикам</a>
+        <h1>➕ Своя тема</h1>
+        <form method="POST">
+            <input name="title" placeholder="Название темы (на английском)" required autofocus>
+            <button type="submit">Создать</button>
+        </form>
+    </div>
+</body>
+</html>
