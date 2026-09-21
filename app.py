@@ -120,7 +120,23 @@ def record_training(correct: bool):
 
 @app.route("/")
 def index():
-    return render_template("index.html", words=words, sections=SECTIONS)
+    total_words = len(words)
+    total_phrases = len(phrases)
+    total_topics_done = sum(1 for t in topics.values() if t.get("done"))
+    total_topics = len(FIXED_TOPICS) + sum(1 for t in topics.keys() if t.startswith("custom_"))
+    streak = progress.get("streak", 0)
+    return render_template(
+        "index.html",
+        total_words=total_words,
+        total_phrases=total_phrases,
+        total_topics_done=total_topics_done,
+        total_topics=total_topics,
+        streak=streak
+    )
+
+@app.route("/words")
+def words_page():
+    return render_template("words.html", words=words, sections=SECTIONS)
 
 @app.route("/add", methods=["POST"])
 def add():
