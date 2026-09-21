@@ -530,9 +530,9 @@ def translate():
         return jsonify({"status": "error", "message": "Пустой текст"})
     try:
         if direction == "ru-en":
-            translated = GoogleTranslator(source='ru', target='en').translate(text)
+            translated = MyMemoryTranslator(source='ru-RU', target='en-GB').translate(text)
         else:
-            translated = GoogleTranslator(source='en', target='ru').translate(text)
+            translated = MyMemoryTranslator(source='en-GB', target='ru-RU').translate(text)
         return jsonify({"status": "ok", "translation": translated})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
