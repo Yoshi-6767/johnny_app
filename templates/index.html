@@ -22,19 +22,36 @@
             margin-bottom: 10px;
         }
 
-        .train-btn {
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
             display: inline-block;
-            background: #ff6b00;
-            color: #fff;
-            padding: 12px 24px;
+            padding: 12px 20px;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
-            margin-bottom: 25px;
+            font-size: 14px;
+            color: #fff;
             transition: background 0.2s;
         }
 
-        .train-btn:hover { background: #ff8533; }
+        .btn-orange { background: #ff6b00; }
+        .btn-orange:hover { background: #ff8533; }
+        .btn-green { background: #4caf50; }
+        .btn-green:hover { background: #66bb6a; }
+        .btn-blue { background: #2196f3; }
+        .btn-blue:hover { background: #42a5f5; }
+        .btn-purple { background: #9c27b0; }
+        .btn-purple:hover { background: #ab47bc; }
+        .btn-yellow { background: #ff9800; }
+        .btn-yellow:hover { background: #ffa726; }
+        .btn-teal { background: #009688; }
+        .btn-teal:hover { background: #26a69a; }
 
         .counter {
             color: #888;
@@ -49,9 +66,9 @@
             flex-wrap: wrap;
         }
 
-        .form input {
+        .form input, .form select {
             flex: 1;
-            min-width: 150px;
+            min-width: 130px;
             padding: 14px 18px;
             background: #1e1e1e;
             border: 1px solid #333;
@@ -62,7 +79,7 @@
             transition: border 0.2s;
         }
 
-        .form input:focus { border-color: #ff6b00; }
+        .form input:focus, .form select:focus { border-color: #ff6b00; }
         .form input::placeholder { color: #666; }
 
         .form button {
@@ -119,6 +136,15 @@
             font-weight: bold;
         }
 
+        .word-section {
+            font-size: 12px;
+            color: #888;
+            background: #2a2a2a;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-left: 8px;
+        }
+
         .actions { display: flex; gap: 8px; }
 
         .actions button {
@@ -147,16 +173,26 @@
 <body>
     <div class="container">
         <h1>📚 Мои слова</h1>
-        <a href="/train" class="train-btn">🔥 Тренировать слова</a>
-<a href="/phrases" class="train-btn" style="background: #4caf50;">💬 Мои фразы</a>
-<a href="/progress" class="train-btn" style="background: #2196f3;">📊 Прогресс</a>
- <a href="/train_reverse" class="train-btn" style="background: #9c27b0;">🔄 Наоборот</a>
-        <a href="/topics" class="train-btn" style="background: #ff9800;">📝 Топики</a>
+
+        <div class="buttons">
+            <a href="/train" class="btn btn-orange">🔥 Тренировать слова</a>
+            <a href="/phrases" class="btn btn-green">💬 Мои фразы</a>
+            <a href="/sections" class="btn btn-teal">📚 Разделы</a>
+            <a href="/progress" class="btn btn-blue">📊 Прогресс</a>
+            <a href="/train_reverse" class="btn btn-purple">🔄 Наоборот</a>
+            <a href="/topics" class="btn btn-yellow">📝 Топики</a>
+        </div>
+
         <div class="counter">Всего слов: {{ words|length }}</div>
 
         <div class="form">
             <input id="eng" placeholder="Английское слово">
             <input id="rus" placeholder="Русский перевод">
+            <select id="section">
+                {% for s in sections %}
+                <option value="{{ s.id }}">{{ s.emoji }} {{ s.title }}</option>
+                {% endfor %}
+            </select>
             <button onclick="addWord()">Добавить</button>
         </div>
 
@@ -166,11 +202,18 @@
 
         <ul id="words-list">
             {% if words %}
-                {% for eng, rus in words.items() %}
-                <li data-word="{{ eng }} {{ rus }}">
-                    <span class="word-text">{{ eng }} → {{ rus }}</span>
+                {% for eng, data in words.items() %}
+                <li data-word="{{ eng }} {{ data.rus }}">
+                    <span class="word-text">
+                        {{ eng }} → {{ data.rus }}
+                        <span class="word-section">
+                            {% for s in sections %}
+                                {% if s.id == data.section %}{{ s.emoji }}{% endif %}
+                            {% endfor %}
+                        </span>
+                    </span>
                     <div class="actions">
-                        <button class="edit-btn" onclick="editWord('{{ eng }}', '{{ rus }}')">✏️</button>
+                        <button class="edit-btn" onclick="editWord('{{ eng }}', '{{ data.rus }}', '{{ data.section }}')">✏️</button>
                         <button class="delete-btn" onclick="deleteWord('{{ eng }}')">✖</button>
                     </div>
                 </li>
@@ -185,11 +228,12 @@
         function addWord() {
             const eng = document.getElementById("eng").value.trim();
             const rus = document.getElementById("rus").value.trim();
+            const section = document.getElementById("section").value;
             if (!eng || !rus) return;
             fetch("/add", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({eng: eng, rus: rus})
+                body: JSON.stringify({eng: eng, rus: rus, section: section})
             }).then(() => location.reload());
         }
 
@@ -202,15 +246,22 @@
             }).then(() => location.reload());
         }
 
-        function editWord(eng, rus) {
+        function editWord(eng, rus, section) {
             const newEng = prompt("Английское слово:", eng);
             if (newEng === null) return;
             const newRus = prompt("Русский перевод:", rus);
             if (newRus === null) return;
+            const newSection = prompt("Раздел (food, sport, work, travel, family, general):", section);
+            if (newSection === null) return;
             fetch("/edit", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({old_eng: eng, new_eng: newEng.trim(), new_rus: newRus.trim()})
+                body: JSON.stringify({
+                    old_eng: eng,
+                    new_eng: newEng.trim(),
+                    new_rus: newRus.trim(),
+                    section: newSection.trim()
+                })
             }).then(() => location.reload());
         }
 
