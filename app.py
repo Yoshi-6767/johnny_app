@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, session, redirect
 import json
+from deep_translator import GoogleTranslator
 import random
 import os
 from datetime import date, timedelta
@@ -513,6 +514,28 @@ def exam_history():
             "word_count": data["word_count"]
         })
     return render_template("exam_history.html", exams=exams_list)
+
+# ─── ПЕРЕВОДЧИК ───
+
+@app.route("/translator")
+def translator_page():
+    return render_template("translator.html")
+
+@app.route("/translate", methods=["POST"])
+def translate():
+    data = request.json
+    text = data.get("text", "").strip()
+    direction = data.get("direction", "ru-en")
+    if not text:
+        return jsonify({"status": "error", "message": "Пустой текст"})
+    try:
+        if direction == "ru-en":
+            translated = GoogleTranslator(source='ru', target='en').translate(text)
+        else:
+            translated = GoogleTranslator(source='en', target='ru').translate(text)
+        return jsonify({"status": "ok", "translation": translated})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
