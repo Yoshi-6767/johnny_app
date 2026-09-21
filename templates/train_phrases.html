@@ -187,4 +187,10 @@
                     result.className = "result wrong";
                     result.textContent = "❌ Не то. Правильно: " + data.correct_answer;
                 }
-                document
+                document.getElementById("correct-count").textContent = data.correct_count;
+                document.getElementById("wrong-count").textContent = data.wrong_count;
+            });
+        }
+    </script>
+</body>
+</html>
