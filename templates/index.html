@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Johnny English</title>
+    <title>Flow & Word</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -20,7 +20,7 @@
             margin-bottom: 30px;
         }
         .greeting h1 {
-            color: #ff6b00;
+            color: #2ecc71;
             font-size: 32px;
             margin-bottom: 8px;
         }
@@ -40,7 +40,7 @@
             background: #1e1e1e;
             padding: 20px;
             border-radius: 14px;
-            border-left: 3px solid #ff6b00;
+            border-left: 3px solid #2ecc71;
             text-decoration: none;
             color: #fff;
             transition: background 0.2s, transform 0.1s;
@@ -59,7 +59,7 @@
             display: block;
             text-align: center;
             padding: 20px;
-            background: #ff6b00;
+            background: #2ecc71;
             color: #fff;
             border-radius: 14px;
             text-decoration: none;
@@ -68,7 +68,7 @@
             transition: background 0.2s;
             margin-bottom: 12px;
         }
-        .train-main:hover { background: #ff8533; }
+        .train-main:hover { background: #27ae60; }
 
         .extra-buttons {
             display: flex;
@@ -84,18 +84,21 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 14px;
+            color: #fff;
             transition: background 0.2s;
         }
-        .btn-purple { background: #9c27b0; color: #fff; }
+        .btn-purple { background: #9c27b0; }
         .btn-purple:hover { background: #ab47bc; }
-        .btn-blue { background: #2196f3; color: #fff; }
+        .btn-blue { background: #2196f3; }
         .btn-blue:hover { background: #42a5f5; }
+        .btn-teal { background: #009688; }
+        .btn-teal:hover { background: #26a69a; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="greeting">
-            <h1>👋 Привет, агент!</h1>
+            <h1>👋 Привет!</h1>
             <p>Твой прогресс: {{ total_words }} слов, {{ total_phrases }} фраз, стрик {{ streak }} 🔥</p>
         </div>
 
@@ -146,6 +149,7 @@
         <div class="extra-buttons">
             <a href="/exam" class="btn-purple">🎓 Экзамен</a>
             <a href="/phrases/train" class="btn-blue">🎯 Тренировать фразы</a>
+            <a href="/translator" class="btn-teal">🌐 Переводчик</a>
         </div>
     </div>
 </body>
