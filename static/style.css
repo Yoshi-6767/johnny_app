@@ -157,6 +157,10 @@ li:hover {
     transform: translateY(-2px);
 }
 
+.word-text {
+    color: #2196f3;
+    font-weight: 500;
+}
 .word-text::before {
     content: "→ ";
     color: #2196f3;
