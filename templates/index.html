@@ -2,11 +2,57 @@
 
 {% block title %}Flow & Word{% endblock %}
 
+{% block styles %}
+<style>
+    .hero {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .hero h1 {
+        font-size: 38px;
+        font-weight: 900;
+        color: #333;
+        margin-bottom: 12px;
+    }
+    .hero p {
+        color: #888;
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+    .quote {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-left: 4px solid #2196f3;
+        border-radius: 12px;
+        padding: 25px 30px;
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .quote-text {
+        font-size: 17px;
+        font-style: italic;
+        color: #333;
+        line-height: 1.6;
+        margin-bottom: 12px;
+    }
+    .quote-author {
+        color: #2196f3;
+        font-size: 14px;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="hero">
     <h1>Твой английский в потоке</h1>
     <p>{{ total_words }} слов • {{ total_phrases }} фраз • стрик {{ streak }} 🔥</p>
-    <a href="/train" class="train-main">🔥 Тренировать слова</a>
+
+    <div class="quote">
+        <div class="quote-text">«{{ quote.text }}»</div>
+        <div class="quote-author">— {{ quote.author }}</div>
+    </div>
 </div>
 
 <div class="cards">
@@ -34,14 +80,14 @@
         </div>
     </a>
 
-<a href="/study" class="card">
-    <div>
-        <div class="card-emoji">📖</div>
-        <div class="card-title">Учёба</div>
-        <div class="card-count">Глаголы, идиомы</div>
-    </div>
-</a>
-    
+    <a href="/study" class="card">
+        <div>
+            <div class="card-emoji">📖</div>
+            <div class="card-title">Учёба</div>
+            <div class="card-count">Глаголы, идиомы</div>
+        </div>
+    </a>
+
     <a href="/games" class="card">
         <div>
             <div class="card-emoji">🎮</div>
