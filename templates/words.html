@@ -8,6 +8,35 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        .filter-btn {
+            padding: 10px 20px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            color: #555;
+            font-size: 14px;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover {
+            border-color: #2196f3;
+            color: #2196f3;
+        }
+        .filter-btn.active {
+            background: #2196f3;
+            border-color: #2196f3;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -18,7 +47,6 @@
                     <a href="/words">Слова</a>
                     <a href="/phrases">Фразы</a>
                     <a href="/topics">Топики</a>
-                    <a href="/sections">Категории</a>
                     <a href="/games">Игры</a>
                     <a href="/progress">Прогресс</a>
                 </nav>
@@ -43,13 +71,23 @@
         </div>
 
         <div class="search">
-            <input id="search" placeholder="🔍 Поиск..." oninput="filterWords()">
+            <input id="search" placeholder="🔍 Поиск..." oninput="applyFilters()">
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-section="all" onclick="setFilter('all')">Все</button>
+            <button class="filter-btn" data-section="general" onclick="setFilter('general')">📦 Свои слова</button>
+            {% for s in sections %}
+                {% if s.id != 'general' %}
+                <button class="filter-btn" data-section="{{ s.id }}" onclick="setFilter('{{ s.id }}')">{{ s.emoji }} {{ s.title }}</button>
+                {% endif %}
+            {% endfor %}
         </div>
 
         <ul id="words-list">
             {% if words %}
                 {% for eng, data in words.items() %}
-                <li data-word="{{ eng }} {{ data.rus }}">
+                <li data-word="{{ eng }} {{ data.rus }}" data-section="{{ data.section }}">
                     <span class="word-text">
                         {{ eng }} → {{ data.rus }}
                         <span class="word-section">
@@ -71,6 +109,28 @@
     </div>
 
     <script>
+        let currentFilter = "all";
+
+        function setFilter(section) {
+            currentFilter = section;
+            document.querySelectorAll(".filter-btn").forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.section === section);
+            });
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = document.getElementById("search").value.toLowerCase();
+            const items = document.querySelectorAll("#words-list li");
+            items.forEach(item => {
+                const text = item.dataset.word.toLowerCase();
+                const section = item.dataset.section;
+                const matchSearch = text.includes(query);
+                const matchSection = (currentFilter === "all") || (section === currentFilter);
+                item.style.display = (matchSearch && matchSection) ? "flex" : "none";
+            });
+        }
+
         function addWord() {
             const eng = document.getElementById("eng").value.trim();
             const rus = document.getElementById("rus").value.trim();
@@ -109,15 +169,6 @@
                     section: newSection.trim()
                 })
             }).then(() => location.reload());
-        }
-
-        function filterWords() {
-            const query = document.getElementById("search").value.toLowerCase();
-            const items = document.querySelectorAll("#words-list li");
-            items.forEach(item => {
-                const text = item.dataset.word.toLowerCase();
-                item.style.display = text.includes(query) ? "flex" : "none";
-            });
         }
     </script>
 </body>
