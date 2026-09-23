@@ -787,6 +787,80 @@ def speed_result():
         "total": len(session.get("speed_words", []))
     })
 
+# ─── УЧЁБА ───
+
+IRREGULAR_VERBS = [
+    {"base": "be", "past": "was/were", "pp": "been", "rus": "быть"},
+    {"base": "become", "past": "became", "pp": "become", "rus": "становиться"},
+    {"base": "begin", "past": "began", "pp": "begun", "rus": "начинать"},
+    {"base": "break", "past": "broke", "pp": "broken", "rus": "ломать"},
+    {"base": "bring", "past": "brought", "pp": "brought", "rus": "приносить"},
+    {"base": "build", "past": "built", "pp": "built", "rus": "строить"},
+    {"base": "buy", "past": "bought", "pp": "bought", "rus": "покупать"},
+    {"base": "catch", "past": "caught", "pp": "caught", "rus": "ловить"},
+    {"base": "choose", "past": "chose", "pp": "chosen", "rus": "выбирать"},
+    {"base": "come", "past": "came", "pp": "come", "rus": "приходить"},
+    {"base": "cost", "past": "cost", "pp": "cost", "rus": "стоить"},
+    {"base": "cut", "past": "cut", "pp": "cut", "rus": "резать"},
+    {"base": "do", "past": "did", "pp": "done", "rus": "делать"},
+    {"base": "draw", "past": "drew", "pp": "drawn", "rus": "рисовать"},
+    {"base": "drink", "past": "drank", "pp": "drunk", "rus": "пить"},
+    {"base": "drive", "past": "drove", "pp": "driven", "rus": "водить"},
+    {"base": "eat", "past": "ate", "pp": "eaten", "rus": "есть"},
+    {"base": "fall", "past": "fell", "pp": "fallen", "rus": "падать"},
+    {"base": "feel", "past": "felt", "pp": "felt", "rus": "чувствовать"},
+    {"base": "fight", "past": "fought", "pp": "fought", "rus": "бороться"},
+    {"base": "find", "past": "found", "pp": "found", "rus": "находить"},
+    {"base": "fly", "past": "flew", "pp": "flown", "rus": "летать"},
+    {"base": "forget", "past": "forgot", "pp": "forgotten", "rus": "забывать"},
+    {"base": "get", "past": "got", "pp": "got/gotten", "rus": "получать"},
+    {"base": "give", "past": "gave", "pp": "given", "rus": "давать"},
+    {"base": "go", "past": "went", "pp": "gone", "rus": "идти"},
+    {"base": "grow", "past": "grew", "pp": "grown", "rus": "расти"},
+    {"base": "have", "past": "had", "pp": "had", "rus": "иметь"},
+    {"base": "hear", "past": "heard", "pp": "heard", "rus": "слышать"},
+    {"base": "hold", "past": "held", "pp": "held", "rus": "держать"},
+    {"base": "keep", "past": "kept", "pp": "kept", "rus": "хранить"},
+    {"base": "know", "past": "knew", "pp": "known", "rus": "знать"},
+    {"base": "leave", "past": "left", "pp": "left", "rus": "уходить"},
+    {"base": "lose", "past": "lost", "pp": "lost", "rus": "терять"},
+    {"base": "make", "past": "made", "pp": "made", "rus": "делать"},
+    {"base": "meet", "past": "met", "pp": "met", "rus": "встречать"},
+    {"base": "pay", "past": "paid", "pp": "paid", "rus": "платить"},
+    {"base": "put", "past": "put", "pp": "put", "rus": "класть"},
+    {"base": "read", "past": "read", "pp": "read", "rus": "читать"},
+    {"base": "ride", "past": "rode", "pp": "ridden", "rus": "ехать"},
+    {"base": "run", "past": "ran", "pp": "run", "rus": "бегать"},
+    {"base": "say", "past": "said", "pp": "said", "rus": "говорить"},
+    {"base": "see", "past": "saw", "pp": "seen", "rus": "видеть"},
+    {"base": "sell", "past": "sold", "pp": "sold", "rus": "продавать"},
+    {"base": "send", "past": "sent", "pp": "sent", "rus": "отправлять"},
+    {"base": "sing", "past": "sang", "pp": "sung", "rus": "петь"},
+    {"base": "sit", "past": "sat", "pp": "sat", "rus": "сидеть"},
+    {"base": "sleep", "past": "slept", "pp": "slept", "rus": "спать"},
+    {"base": "speak", "past": "spoke", "pp": "spoken", "rus": "говорить"},
+    {"base": "spend", "past": "spent", "pp": "spent", "rus": "тратить"},
+    {"base": "stand", "past": "stood", "pp": "stood", "rus": "стоять"},
+    {"base": "swim", "past": "swam", "pp": "swum", "rus": "плавать"},
+    {"base": "take", "past": "took", "pp": "taken", "rus": "брать"},
+    {"base": "teach", "past": "taught", "pp": "taught", "rus": "учить"},
+    {"base": "tell", "past": "told", "pp": "told", "rus": "рассказывать"},
+    {"base": "think", "past": "thought", "pp": "thought", "rus": "думать"},
+    {"base": "understand", "past": "understood", "pp": "understood", "rus": "понимать"},
+    {"base": "wake", "past": "woke", "pp": "woken", "rus": "просыпаться"},
+    {"base": "wear", "past": "wore", "pp": "worn", "rus": "носить"},
+    {"base": "win", "past": "won", "pp": "won", "rus": "побеждать"},
+    {"base": "write", "past": "wrote", "pp": "written", "rus": "писать"},
+]
+
+@app.route("/study")
+def study_page():
+    return render_template("study.html")
+
+@app.route("/study/irregular")
+def irregular_page():
+    return render_template("irregular.html", verbs=IRREGULAR_VERBS)
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
