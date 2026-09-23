@@ -1,232 +1,210 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Виселица — Flow & Word</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/style.css">
-    <style>
-        .hangman-word {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-left: 4px solid #2196f3;
-            padding: 40px;
-            border-radius: 14px;
-            text-align: center;
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: #333;
-            letter-spacing: 6px;
-            word-break: break-all;
-        }
-        .hangman-stats {
-            display: flex;
-            justify-content: space-around;
-            padding: 16px;
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        .hangman-stats div { text-align: center; }
-        .hangman-stats .num { font-size: 24px; font-weight: 700; color: #2196f3; }
-        .hangman-stats .label { font-size: 13px; color: #888; margin-top: 4px; }
-        .hangman-form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .hangman-form input {
-            flex: 1;
-            padding: 16px 20px;
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            color: #333;
-            font-size: 18px;
-            font-family: 'Rubik', sans-serif;
-            outline: none;
-            text-align: center;
-            text-transform: lowercase;
-        }
-        .hangman-form input:focus { border-color: #2196f3; }
-        .hangman-message {
-            padding: 16px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 16px;
-            display: none;
-            text-align: center;
-        }
-        .hangman-message.show { display: block; }
-        .hangman-message.win {
-            background: #e8f5e9;
-            border-left: 4px solid #4caf50;
-            color: #2e7d32;
-        }
-        .hangman-message.lose {
-            background: #ffebee;
-            border-left: 4px solid #f44336;
-            color: #c62828;
-        }
-        .hangman-message.info {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            color: #1565c0;
-        }
-        .guessed {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-            justify-content: center;
-            min-height: 34px;
-        }
-        .guessed span {
-            background: #e3f2fd;
-            color: #2196f3;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .hangman-nav {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-        .hangman-nav a {
-            color: #888;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 500;
-        }
-        .hangman-nav a:hover { color: #2196f3; background: #f5f7fa; }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="container">
-            <div class="header-inner">
-                <a href="/" class="logo">Flow <span>&</span> Word</a>
-                <nav class="nav">
-                    <a href="/words">Слова</a>
-                    <a href="/phrases">Фразы</a>
-                    <a href="/topics">Топики</a>
-                    <a href="/sections">Категории</a>
-                    <a href="/games">Игры</a>
-                    <a href="/progress">Прогресс</a>
-                </nav>
-                <a href="/faq" class="faq-link">FAQ</a>
-            </div>
+{% extends "base.html" %}
+
+{% block title %}Виселица — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .hangman-word {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-left: 4px solid #2196f3;
+        padding: 40px;
+        border-radius: 14px;
+        text-align: center;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: #333;
+        letter-spacing: 6px;
+        word-break: break-all;
+    }
+    .hangman-stats {
+        display: flex;
+        justify-content: space-around;
+        padding: 16px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    .hangman-stats div { text-align: center; }
+    .hangman-stats .num { font-size: 24px; font-weight: 700; color: #2196f3; }
+    .hangman-stats .label { font-size: 13px; color: #888; margin-top: 4px; }
+    .hangman-form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .hangman-form input {
+        flex: 1;
+        padding: 16px 20px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        color: #333;
+        font-size: 18px;
+        font-family: 'Rubik', sans-serif;
+        outline: none;
+        text-align: center;
+        text-transform: lowercase;
+    }
+    .hangman-form input:focus { border-color: #2196f3; }
+    .hangman-message {
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        display: none;
+        text-align: center;
+    }
+    .hangman-message.show { display: block; }
+    .hangman-message.win {
+        background: #e8f5e9;
+        border-left: 4px solid #4caf50;
+        color: #2e7d32;
+    }
+    .hangman-message.lose {
+        background: #ffebee;
+        border-left: 4px solid #f44336;
+        color: #c62828;
+    }
+    .hangman-message.info {
+        background: #e3f2fd;
+        border-left: 4px solid #2196f3;
+        color: #1565c0;
+    }
+    .guessed {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 20px;
+        justify-content: center;
+        min-height: 34px;
+    }
+    .guessed span {
+        background: #e3f2fd;
+        color: #2196f3;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .hangman-nav {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+    .hangman-nav a {
+        color: #888;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+    .hangman-nav a:hover { color: #2196f3; background: #f5f7fa; }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if empty %}
+    <div class="empty">
+        <h1>🪢 Пока нет слов</h1>
+        <p>Добавь слова в <a href="/sections" style="color: #2196f3;">категориях</a>, чтобы играть.</p>
+        <p style="margin-top: 10px; font-size: 14px;">Нужны слова от 4 до 12 букв.</p>
+    </div>
+{% else %}
+    <h1>🪢 Виселица</h1>
+    <div class="subtitle">Угадай слово. 6 ошибок — проигрыш.</div>
+
+    <div style="text-align: center; margin-bottom: 20px; padding: 12px; background: #fff; border: 1px solid #e0e0e0; border-radius: 10px;">
+        <span style="color: #888; font-size: 14px;">Категория: </span>
+        <span style="color: #2196f3; font-weight: 700; font-size: 16px;">{{ section.emoji }} {{ section.title }}</span>
+    </div>
+
+    <div class="hangman-stats">
+        <div>
+            <div class="num" id="errors-count">0</div>
+            <div class="label">❌ Ошибок</div>
+        </div>
+        <div>
+            <div class="num" id="word-length">{{ word_length }}</div>
+            <div class="label">📏 Букв</div>
         </div>
     </div>
 
-    <div class="container" style="max-width: 600px;">
-        {% if empty %}
-            <div class="empty">
-                <h1>🪢 Пока нет слов</h1>
-                <p>Добавь слова в <a href="/words" style="color: #2196f3;">словаре</a>, чтобы играть.</p>
-                <p style="margin-top: 10px; font-size: 14px;">Нужны слова от 4 до 12 букв.</p>
-            </div>
-        {% else %}
-            <h1>🪢 Виселица</h1>
-            <div class="subtitle">Угадай слово. 6 ошибок — проигрыш.</div>
+    <div class="hangman-word" id="word">{{ display }}</div>
 
-            <div style="text-align: center; margin-bottom: 20px; padding: 12px; background: #fff; border: 1px solid #e0e0e0; border-radius: 10px;">
-                <span style="color: #888; font-size: 14px;">Категория: </span>
-                <span style="color: #2196f3; font-weight: 700; font-size: 16px;">{{ section.emoji }} {{ section.title }}</span>
-            </div>
+    <div class="hangman-message" id="message"></div>
 
-            <div class="hangman-stats">
-                <div>
-                    <div class="num" id="errors-count">0</div>
-                    <div class="label">❌ Ошибок</div>
-                </div>
-                <div>
-                    <div class="num" id="word-length">{{ word_length }}</div>
-                    <div class="label">📏 Букв</div>
-                </div>
-            </div>
+    <div class="guessed" id="guessed"></div>
 
-            <div class="hangman-word" id="word">{{ display }}</div>
-
-            <div class="hangman-message" id="message"></div>
-
-            <div class="guessed" id="guessed"></div>
-
-            <div class="hangman-form">
-                <input id="letter" placeholder="Буква" maxlength="1" autofocus>
-                <button class="btn" onclick="guessLetter()">Угадать</button>
-            </div>
-
-            <div class="hangman-nav">
-                <a href="/games/hangman">🔄 Новая игра</a>
-                <a href="/games">⬅️ К играм</a>
-            </div>
-        {% endif %}
+    <div class="hangman-form">
+        <input id="letter" placeholder="Буква" maxlength="1" autofocus>
+        <button class="btn" onclick="guessLetter()">Угадать</button>
     </div>
 
-    <script>
-        document.getElementById("letter").addEventListener("keypress", function(e) {
-            if (e.key === "Enter") guessLetter();
+    <div class="hangman-nav">
+        <a href="/games/hangman">🔄 Новая игра</a>
+        <a href="/games">⬅️ К играм</a>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById("letter").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") guessLetter();
+    });
+
+    function guessLetter() {
+        const input = document.getElementById("letter");
+        const letter = input.value.trim().toLowerCase();
+        if (!letter) return;
+
+        fetch("/games/hangman/guess", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({letter: letter})
+        })
+        .then(r => r.json())
+        .then(data => {
+            const message = document.getElementById("message");
+            input.value = "";
+
+            if (data.status === "already") {
+                message.className = "hangman-message info show";
+                message.textContent = data.message;
+                return;
+            }
+
+            document.getElementById("word").textContent = data.display;
+            document.getElementById("errors-count").textContent = data.errors;
+
+            const guessedDiv = document.getElementById("guessed");
+            guessedDiv.innerHTML = "";
+            if (data.guessed && data.guessed.length > 0) {
+                data.guessed.sort().forEach(g => {
+                    const span = document.createElement("span");
+                    span.textContent = g;
+                    guessedDiv.appendChild(span);
+                });
+            }
+
+            if (data.status === "win") {
+                message.className = "hangman-message win show";
+                message.textContent = data.message;
+                document.getElementById("word").textContent = data.word.toUpperCase();
+                input.disabled = true;
+            } else if (data.status === "lose") {
+                message.className = "hangman-message lose show";
+                message.textContent = data.message;
+                document.getElementById("word").textContent = data.word.toUpperCase();
+                input.disabled = true;
+            } else {
+                message.className = "hangman-message";
+                message.textContent = "";
+            }
         });
-
-        function guessLetter() {
-            const input = document.getElementById("letter");
-            const letter = input.value.trim().toLowerCase();
-            if (!letter) return;
-
-            fetch("/games/hangman/guess", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({letter: letter})
-            })
-            .then(r => r.json())
-            .then(data => {
-                const message = document.getElementById("message");
-                input.value = "";
-
-                if (data.status === "already") {
-                    message.className = "hangman-message info show";
-                    message.textContent = data.message;
-                    return;
-                }
-
-                document.getElementById("word").textContent = data.display;
-                document.getElementById("errors-count").textContent = data.errors;
-
-                const guessedDiv = document.getElementById("guessed");
-                guessedDiv.innerHTML = "";
-                if (data.guessed && data.guessed.length > 0) {
-                    data.guessed.sort().forEach(g => {
-                        const span = document.createElement("span");
-                        span.textContent = g;
-                        guessedDiv.appendChild(span);
-                    });
-                }
-
-                if (data.status === "win") {
-                    message.className = "hangman-message win show";
-                    message.textContent = data.message;
-                    document.getElementById("word").textContent = data.word.toUpperCase();
-                    input.disabled = true;
-                } else if (data.status === "lose") {
-                    message.className = "hangman-message lose show";
-                    message.textContent = data.message;
-                    document.getElementById("word").textContent = data.word.toUpperCase();
-                    input.disabled = true;
-                } else {
-                    message.className = "hangman-message";
-                    message.textContent = "";
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+    }
+</script>
+{% endblock %}
