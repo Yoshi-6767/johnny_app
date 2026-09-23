@@ -2,162 +2,42 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Мои фразы — Johnny English</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            background: #0f0f0f;
-            color: #fff;
-            padding: 40px 20px;
-            min-height: 100vh;
-        }
-
-        .container { max-width: 700px; margin: 0 auto; }
-
-        h1 {
-            color: #ff6b00;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .train-btn {
-            display: inline-block;
-            background: #ff6b00;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 25px;
-            transition: background 0.2s;
-        }
-
-        .train-btn:hover { background: #ff8533; }
-
-        .back-btn {
-            display: inline-block;
-            color: #888;
-            text-decoration: none;
-            margin-bottom: 25px;
-            margin-left: 15px;
-            transition: color 0.2s;
-        }
-
-        .back-btn:hover { color: #fff; }
-
-        .counter { color: #888; font-size: 14px; margin-bottom: 25px; }
-
-        .form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .form input {
-            flex: 1;
-            min-width: 150px;
-            padding: 14px 18px;
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 15px;
-            outline: none;
-            transition: border 0.2s;
-        }
-
-        .form input:focus { border-color: #ff6b00; }
-        .form input::placeholder { color: #666; }
-
-        .form button {
-            padding: 14px 26px;
-            background: #ff6b00;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .form button:hover { background: #ff8533; }
-
-        .search { margin-bottom: 20px; }
-
-        .search input {
-            width: 100%;
-            padding: 12px 18px;
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 15px;
-            outline: none;
-        }
-
-        .search input:focus { border-color: #ff6b00; }
-
-        ul { list-style: none; }
-
-        li {
-            background: #1e1e1e;
-            padding: 16px 20px;
-            margin: 8px 0;
-            border-radius: 10px;
-            font-size: 16px;
-            border-left: 3px solid #ff6b00;
-            transition: background 0.2s, transform 0.1s;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        li:hover { background: #2a2a2a; transform: translateX(4px); }
-
-        .phrase-text::before {
-            content: "💬 ";
-            color: #ff6b00;
-        }
-
-        .actions { display: flex; gap: 8px; }
-
-        .actions button {
-            background: transparent;
-            border: none;
-            color: #666;
-            cursor: pointer;
-            font-size: 16px;
-            padding: 4px 8px;
-            border-radius: 6px;
-        }
-
-        .actions button:hover { color: #fff; background: #333; }
-        .actions .delete-btn:hover { color: #ff3333; }
-        .actions .edit-btn:hover { color: #ff6b00; }
-
-        .empty {
-            text-align: center;
-            color: #666;
-            padding: 40px;
-            font-size: 15px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои фразы — Flow & Word</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    <div class="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="/" class="logo">Flow <span>&</span> Word</a>
+                <nav class="nav">
+                    <a href="/words">Слова</a>
+                    <a href="/phrases">Фразы</a>
+                    <a href="/topics">Топики</a>
+                    <a href="/sections">Разделы</a>
+                    <a href="/progress">Прогресс</a>
+                </nav>
+                <a href="/faq" class="faq-link">FAQ</a>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <h1>💬 Мои фразы</h1>
-        <a href="/phrases/train" class="train-btn">🔥 Тренировать</a>
-        <a href="/" class="back-btn">⬅️ К словам</a>
-        <div class="counter">Всего фраз: {{ phrases|length }}</div>
+        <div class="subtitle">Всего фраз: {{ phrases|length }}</div>
+
+        <div style="margin-bottom: 25px;">
+            <a href="/phrases/train" class="btn">🔥 Тренировать фразы</a>
+        </div>
 
         <div class="form">
             <input id="eng" placeholder="Английская фраза">
             <input id="rus" placeholder="Русский перевод">
-            <button onclick="addPhrase()">Добавить</button>
+            <button class="btn" onclick="addPhrase()">Добавить</button>
         </div>
 
         <div class="search">
@@ -168,9 +48,9 @@
             {% if phrases %}
                 {% for eng, rus in phrases.items() %}
                 <li data-word="{{ eng }} {{ rus }}">
-                    <span class="phrase-text">{{ eng }} → {{ rus }}</span>
+                    <span class="word-text">{{ eng }} → {{ rus }}</span>
                     <div class="actions">
-                        <button class="edit-btn" onclick="editPhrase('{{ eng }}', '{{ rus }}')">✏️</button>
+                        <button onclick="editPhrase('{{ eng }}', '{{ rus }}')">✏️</button>
                         <button class="delete-btn" onclick="deletePhrase('{{ eng }}')">✖</button>
                     </div>
                 </li>
