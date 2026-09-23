@@ -441,7 +441,8 @@ def sections_page():
             "id": s["id"],
             "title": s["title"],
             "emoji": s["emoji"],
-            "count": count
+            "count": count,
+            "level": s.get("level", "general")
         })
     return render_template("sections.html", sections=sections_data, total_words=len(words))
 
