@@ -112,7 +112,6 @@
                     <a href="/words">Слова</a>
                     <a href="/phrases">Фразы</a>
                     <a href="/topics">Топики</a>
-                    <a href="/sections">Категории</a>
                     <a href="/games">Игры</a>
                     <a href="/progress">Прогресс</a>
                 </nav>
@@ -129,6 +128,14 @@
                 <p>Добавь в <a href="/words" style="color: #2196f3;">словаре</a>.</p>
             </div>
         {% else %}
+            <div id="speed-start-screen">
+                <h1>⚡ Скоростной режим</h1>
+                <div class="subtitle">30 секунд. 10 слов. Успеешь?</div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn" onclick="startGame()" style="padding: 20px 50px; font-size: 18px;">Начать</button>
+                </div>
+            </div>
+
             <div id="speed-play" style="display: none;">
                 <h1>⚡ Скоростной режим</h1>
                 <div class="speed-timer" id="timer">30</div>
@@ -141,14 +148,6 @@
                 <div class="speed-form">
                     <input id="answer" placeholder="Введи перевод..." autofocus>
                     <button class="btn" onclick="checkAnswer()">Ответить</button>
-                </div>
-            </div>
-
-            <div id="speed-start-screen">
-                <h1>⚡ Скоростной режим</h1>
-                <div class="subtitle">30 секунд. 10 слов. Успеешь?</div>
-                <div style="text-align: center; margin-top: 30px;">
-                    <button class="btn" onclick="startGame()" style="padding: 20px 50px; font-size: 18px;">Начать</button>
                 </div>
             </div>
 
