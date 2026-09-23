@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Flow & Word{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="/" class="logo">Flow <span>&</span> Word</a>
+                <nav class="nav">
+                    <a href="/sections">Категории</a>
+                    <a href="/phrases">Фразы</a>
+                    <a href="/topics">Топики</a>
+                    <a href="/games">Игры</a>
+                    <a href="/progress">Прогресс</a>
+                </nav>
+                <a href="/faq" class="faq-link">FAQ</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
