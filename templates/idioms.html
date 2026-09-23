@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Идиомы — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .verb-search { margin-bottom: 25px; }
+    .verb-search input {
+        width: 100%;
+        padding: 14px 18px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        color: #333;
+        font-size: 15px;
+        font-family: 'Rubik', sans-serif;
+        outline: none;
+    }
+    .verb-search input:focus { border-color: #2196f3; }
+
+    .verb-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .verb-table th {
+        background: #2196f3;
+        color: #fff;
+        padding: 15px;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .verb-table td {
+        padding: 15px;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 15px;
+        color: #333;
+    }
+    .verb-table tr:last-child td { border-bottom: none; }
+    .verb-table tr:hover td { background: #f5f7fa; }
+    .idiom-text { font-weight: 700; color: #2196f3; }
+    .idiom-rus { color: #333; }
+    .idiom-literal { color: #888; font-style: italic; font-size: 14px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>🎭 Идиомы</h1>
+<div class="subtitle">Всего: {{ idioms|length }} выражений</div>
+
+<div class="verb-search">
+    <input id="search" placeholder="🔍 Поиск..." oninput="filterIdioms()">
+</div>
+
+<table class="verb-table">
+    <thead>
+        <tr>
+            <th>Идиома</th>
+            <th>Перевод</th>
+            <th>Дословно</th>
+        </tr>
+    </thead>
+    <tbody id="idioms-body">
+        {% for i in idioms %}
+        <tr data-word="{{ i.idiom }} {{ i.rus }}">
+            <td class="idiom-text">{{ i.idiom }}</td>
+            <td class="idiom-rus">{{ i.rus }}</td>
+            <td class="idiom-literal">{{ i.literal }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function filterIdioms() {
+        const query = document.getElementById("search").value.toLowerCase();
+        const rows = document.querySelectorAll("#idioms-body tr");
+        rows.forEach(row => {
+            const text = row.dataset.word.toLowerCase();
+            row.style.display = text.includes(query) ? "table-row" : "none";
+        });
+    }
+</script>
+{% endblock %}
