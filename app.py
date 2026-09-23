@@ -974,6 +974,94 @@ def speed_result():
         "total": len(session.get("speed_words", []))
     })
 
+# ─── ФРАЗОВЫЕ ГЛАГОЛЫ ───
+
+PHRASAL_VERBS = [
+    {"phrase": "give up", "rus": "бросить", "example": "I gave up smoking."},
+    {"phrase": "look after", "rus": "заботиться", "example": "She looks after her sister."},
+    {"phrase": "run out of", "rus": "закончиться", "example": "We ran out of milk."},
+    {"phrase": "find out", "rus": "выяснить", "example": "I found out the truth."},
+    {"phrase": "come back", "rus": "вернуться", "example": "He came back home."},
+    {"phrase": "go on", "rus": "продолжать", "example": "Go on, tell me!"},
+    {"phrase": "turn off", "rus": "выключить", "example": "Turn off the light."},
+    {"phrase": "turn on", "rus": "включить", "example": "Turn on the TV."},
+    {"phrase": "put on", "rus": "надеть", "example": "Put on your coat."},
+    {"phrase": "take off", "rus": "снять", "example": "Take off your shoes."},
+    {"phrase": "wake up", "rus": "проснуться", "example": "I wake up at 7."},
+    {"phrase": "get up", "rus": "встать", "example": "Get up, sleepyhead!"},
+    {"phrase": "sit down", "rus": "сесть", "example": "Sit down, please."},
+    {"phrase": "stand up", "rus": "встать", "example": "Stand up straight."},
+    {"phrase": "come in", "rus": "войти", "example": "Come in!"},
+    {"phrase": "go out", "rus": "выйти", "example": "We go out on Fridays."},
+    {"phrase": "look for", "rus": "искать", "example": "I'm looking for my keys."},
+    {"phrase": "look forward to", "rus": "ждать с нетерпением", "example": "I look forward to seeing you."},
+    {"phrase": "give back", "rus": "вернуть", "example": "Give back my book."},
+    {"phrase": "take care of", "rus": "заботиться", "example": "Take care of yourself."},
+    {"phrase": "get along with", "rus": "ладить", "example": "I get along with my brother."},
+    {"phrase": "break down", "rus": "сломаться", "example": "My car broke down."},
+    {"phrase": "carry on", "rus": "продолжать", "example": "Carry on with your work."},
+    {"phrase": "check out", "rus": "проверить", "example": "Check out this song."},
+    {"phrase": "figure out", "rus": "разобраться", "example": "I figured out the puzzle."},
+    {"phrase": "grow up", "rus": "вырасти", "example": "I grew up in Moscow."},
+    {"phrase": "hang out", "rus": "тусоваться", "example": "Let's hang out tomorrow."},
+    {"phrase": "hold on", "rus": "подождать", "example": "Hold on a second."},
+    {"phrase": "keep on", "rus": "продолжать", "example": "Keep on trying."},
+    {"phrase": "move on", "rus": "двигаться дальше", "example": "Let's move on."},
+    {"phrase": "pick up", "rus": "подобрать", "example": "Pick up the phone."},
+    {"phrase": "point out", "rus": "указать", "example": "He pointed out my mistake."},
+    {"phrase": "put off", "rus": "отложить", "example": "Put off the meeting."},
+    {"phrase": "set up", "rus": "установить", "example": "Set up the tent."},
+    {"phrase": "show up", "rus": "появиться", "example": "He showed up late."},
+    {"phrase": "take over", "rus": "взять контроль", "example": "She took over the project."},
+    {"phrase": "throw away", "rus": "выбросить", "example": "Throw away the trash."},
+    {"phrase": "try on", "rus": "примерить", "example": "Try on this dress."},
+    {"phrase": "work out", "rus": "тренироваться", "example": "I work out every day."},
+    {"phrase": "write down", "rus": "записать", "example": "Write down the address."},
+]
+
+# ─── ИДИОМЫ ───
+
+IDIOMS = [
+    {"idiom": "break a leg", "rus": "ни пуха, ни пера", "literal": "сломай ногу"},
+    {"idiom": "piece of cake", "rus": "проще простого", "literal": "кусок торта"},
+    {"idiom": "hit the books", "rus": "засесть за учёбу", "literal": "ударить книги"},
+    {"idiom": "under the weather", "rus": "неважно себя чувствовать", "literal": "под погодой"},
+    {"idiom": "once in a blue moon", "rus": "очень редко", "literal": "раз в голубую луну"},
+    {"idiom": "spill the beans", "rus": "проболтаться", "literal": "пролить бобы"},
+    {"idiom": "cost an arm and a leg", "rus": "стоить очень дорого", "literal": "стоить руку и ногу"},
+    {"idiom": "let the cat out of the bag", "rus": "раскрыть секрет", "literal": "выпустить кота из мешка"},
+    {"idiom": "kill two birds with one stone", "rus": "убить двух зайцев", "literal": "убить двух птиц одним камнем"},
+    {"idiom": "the ball is in your court", "rus": "твой ход", "literal": "мяч на твоём корте"},
+    {"idiom": "bite the bullet", "rus": "стиснуть зубы", "literal": "укусить пулю"},
+    {"idiom": "break the ice", "rus": "растопить лёд", "literal": "сломать лёд"},
+    {"idiom": "cut corners", "rus": "халтурить", "literal": "резать углы"},
+    {"idiom": "hit the sack", "rus": "пойти спать", "literal": "ударить мешок"},
+    {"idiom": "it's raining cats and dogs", "rus": "льёт как из ведра", "literal": "дождь из кошек и собак"},
+    {"idiom": "let sleeping dogs lie", "rus": "не буди лихо", "literal": "дай спящим собакам лежать"},
+    {"idiom": "miss the boat", "rus": "упустить шанс", "literal": "пропустить лодку"},
+    {"idiom": "on cloud nine", "rus": "на седьмом небе", "literal": "на девятом облаке"},
+    {"idiom": "pull yourself together", "rus": "возьми себя в руки", "literal": "собери себя вместе"},
+    {"idiom": "see eye to eye", "rus": "сходиться во мнениях", "literal": "видеть глаз в глаз"},
+    {"idiom": "sit on the fence", "rus": "занимать нейтралитет", "literal": "сидеть на заборе"},
+    {"idiom": "take it easy", "rus": "не напрягайся", "literal": "принимай это легко"},
+    {"idiom": "the last straw", "rus": "последняя капля", "literal": "последняя соломинка"},
+    {"idiom": "time flies", "rus": "время летит", "literal": "время летает"},
+    {"idiom": "under your nose", "rus": "прямо под носом", "literal": "под твоим носом"},
+    {"idiom": "when pigs fly", "rus": "когда рак на горе свистнет", "literal": "когда свиньи полетят"},
+    {"idiom": "you can't judge a book by its cover", "rus": "не суди по обложке", "literal": "нельзя судить книгу по обложке"},
+    {"idiom": "actions speak louder than words", "rus": "дела говорят громче слов", "literal": "действия говорят громче слов"},
+    {"idiom": "better late than never", "rus": "лучше поздно, чем никогда", "literal": "лучше поздно, чем никогда"},
+    {"idiom": "easier said than done", "rus": "легко сказать, да трудно сделать", "literal": "легче сказать, чем сделать"},
+]
+
+@app.route("/study/phrasal")
+def phrasal_page():
+    return render_template("phrasal.html", verbs=PHRASAL_VERBS)
+
+@app.route("/study/idioms")
+def idioms_page():
+    return render_template("idioms.html", idioms=IDIOMS)
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
