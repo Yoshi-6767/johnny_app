@@ -2,63 +2,37 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Своя тема — Johnny English</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            background: #0f0f0f;
-            color: #fff;
-            padding: 40px 20px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .container { max-width: 500px; width: 100%; }
-        h1 { color: #ff6b00; font-size: 28px; margin-bottom: 25px; text-align: center; }
-        .back-btn {
-            display: inline-block;
-            color: #888;
-            text-decoration: none;
-            margin-bottom: 25px;
-        }
-        .back-btn:hover { color: #fff; }
-        input {
-            width: 100%;
-            padding: 18px 20px;
-            background: #1e1e1e;
-            border: 1px solid #333;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 16px;
-            outline: none;
-            margin-bottom: 20px;
-            transition: border 0.2s;
-        }
-        input:focus { border-color: #ff6b00; }
-        button {
-            width: 100%;
-            padding: 18px;
-            background: #ff6b00;
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        button:hover { background: #ff8533; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Своя тема — Flow & Word</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="container">
-        <a href="/topics" class="back-btn">⬅️ К топикам</a>
+    <div class="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="/" class="logo">Flow <span>&</span> Word</a>
+                <nav class="nav">
+                    <a href="/words">Слова</a>
+                    <a href="/phrases">Фразы</a>
+                    <a href="/topics">Топики</a>
+                    <a href="/sections">Разделы</a>
+                    <a href="/progress">Прогресс</a>
+                </nav>
+                <a href="/faq" class="faq-link">FAQ</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="max-width: 500px;">
         <h1>➕ Своя тема</h1>
+        <div class="subtitle">Напиши название темы на английском</div>
+
         <form method="POST">
-            <input name="title" placeholder="Название темы (на английском)" required autofocus>
-            <button type="submit">Создать</button>
+            <input name="title" placeholder="Например: My Job" required autofocus style="width: 100%; padding: 16px 20px; background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; color: #333; font-size: 16px; font-family: 'Rubik', sans-serif; outline: none; margin-bottom: 20px;">
+            <button type="submit" class="btn" style="width: 100%;">Создать</button>
         </form>
     </div>
 </body>
