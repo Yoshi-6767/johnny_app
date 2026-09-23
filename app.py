@@ -45,12 +45,44 @@ EXAM_FILE = "/data/exams.json"
 # ─── КАТЕГОРИИ ───
 
 SECTIONS = [
-    {"id": "food", "title": "Еда", "emoji": "🍔"},
-    {"id": "sport", "title": "Спорт", "emoji": "⚽"},
-    {"id": "work", "title": "Работа", "emoji": "💼"},
-    {"id": "travel", "title": "Путешествия", "emoji": "✈️"},
-    {"id": "family", "title": "Семья", "emoji": "👨‍👩‍👧"},
-    {"id": "general", "title": "Общее", "emoji": "📦"},
+    SECTIONS = [
+    # ─── A1-A2 ───
+    {"id": "family", "title": "Family", "emoji": "👨‍👩‍👧", "level": "A1-A2"},
+    {"id": "home", "title": "Home", "emoji": "🏠", "level": "A1-A2"},
+    {"id": "routine", "title": "Daily Routine", "emoji": "⏰", "level": "A1-A2"},
+    {"id": "food", "title": "Food", "emoji": "🍔", "level": "A1-A2"},
+    {"id": "clothes", "title": "Clothes", "emoji": "👕", "level": "A1-A2"},
+    {"id": "appearance", "title": "Appearance", "emoji": "👤", "level": "A1-A2"},
+    {"id": "weather", "title": "Weather", "emoji": "☀️", "level": "A1-A2"},
+    {"id": "transport", "title": "Transport", "emoji": "🚗", "level": "A1-A2"},
+    {"id": "work", "title": "Work", "emoji": "💼", "level": "A1-A2"},
+    {"id": "health", "title": "Health", "emoji": "💊", "level": "A1-A2"},
+    {"id": "shopping", "title": "Shopping", "emoji": "🛒", "level": "A1-A2"},
+    {"id": "holidays", "title": "Holidays", "emoji": "🏖️", "level": "A1-A2"},
+    
+    # ─── B1 ───
+    {"id": "feelings", "title": "Feelings", "emoji": "😊", "level": "B1"},
+    {"id": "character", "title": "Character", "emoji": "🎭", "level": "B1"},
+    {"id": "relationships", "title": "Relationships", "emoji": "💕", "level": "B1"},
+    {"id": "communication", "title": "Communication", "emoji": "💬", "level": "B1"},
+    {"id": "money", "title": "Money & Business", "emoji": "💰", "level": "B1"},
+    {"id": "technology", "title": "Technology", "emoji": "💻", "level": "B1"},
+    {"id": "education", "title": "Education", "emoji": "🎓", "level": "B1"},
+    {"id": "media", "title": "Media", "emoji": "📰", "level": "B1"},
+    {"id": "city", "title": "City & Town", "emoji": "🏙️", "level": "B1"},
+    {"id": "nature", "title": "Nature", "emoji": "🌳", "level": "B1"},
+    {"id": "time", "title": "Time", "emoji": "🕐", "level": "B1"},
+    {"id": "housework", "title": "Housework", "emoji": "🧹", "level": "B1"},
+    
+    # ─── B2+ ───
+    {"id": "business", "title": "Business & Negotiations", "emoji": "🤝", "level": "B2+"},
+    {"id": "politics", "title": "Politics & Law", "emoji": "⚖️", "level": "B2+"},
+    {"id": "environment", "title": "Environment", "emoji": "🌍", "level": "B2+"},
+    {"id": "art", "title": "Art & Culture", "emoji": "🎨", "level": "B2+"},
+    {"id": "science", "title": "Science", "emoji": "🔬", "level": "B2+"},
+    
+    # ─── Общее ───
+    {"id": "general", "title": "Общее", "emoji": "📦", "level": "general"},
 ]
 
 def get_section(sid):
