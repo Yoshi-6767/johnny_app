@@ -1,71 +1,44 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мои топики — Flow & Word</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <div class="header">
-        <div class="container">
-            <div class="header-inner">
-                <a href="/" class="logo">Flow <span>&</span> Word</a>
-                <nav class="nav">
-                    <a href="/words">Слова</a>
-                    <a href="/phrases">Фразы</a>
-                    <a href="/topics">Топики</a>
-                    <a href="/sections">Категории</a>
-                    <a href="/games">Игры</a>
-                    <a href="/progress">Прогресс</a>
-                </nav>
-                <a href="/faq" class="faq-link">FAQ</a>
+{% extends "base.html" %}
+
+{% block title %}Мои топики — Flow & Word{% endblock %}
+
+{% block content %}
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 15px;">
+    <h1>📝 Мои топики</h1>
+    <button class="btn-outline" onclick="document.getElementById('infoModal').classList.add('active')">Что такое топики?</button>
+</div>
+<div class="subtitle">Написано: {{ topics|selectattr('done')|list|length }} из {{ topics|length }}</div>
+
+<div class="cards">
+    {% for topic in topics %}
+    <a href="/topics/{{ topic.id }}" class="card">
+        <div>
+            <div class="card-emoji">{{ topic.emoji }}</div>
+            <div class="card-title">{{ topic.title }}</div>
+            <div class="card-count">
+                {% if topic.done %}
+                    ✅ Написан ({{ topic.word_count }} слов)
+                {% else %}
+                    ⬜ Не написан
+                {% endif %}
             </div>
         </div>
+    </a>
+    {% endfor %}
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="/topics/new" class="btn-outline">➕ Своя тема</a>
+</div>
+
+<div class="modal-overlay" id="infoModal">
+    <div class="modal">
+        <h2>Что такое топики?</h2>
+        <p><strong>Топик</strong> — это текст на английском по определённой теме.</p>
+        <p>Ты пишешь своими словами, используешь слова-помощники и сохраняешь.</p>
+        <p>Минимум — <strong>50 слов</strong>. Так ты реально тренируешь письмо, а не просто вставляешь одно слово.</p>
+        <p>Топики хранятся у тебя навсегда. Можно вернуться, перечитать, исправить.</p>
+        <button class="btn" onclick="document.getElementById('infoModal').classList.remove('active')" style="width: 100%; margin-top: 15px;">Понятно</button>
     </div>
-
-    <div class="container">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 15px;">
-            <h1>📝 Мои топики</h1>
-            <button class="btn-outline" onclick="document.getElementById('infoModal').classList.add('active')">Что такое топики?</button>
-        </div>
-        <div class="subtitle">Написано: {{ topics|selectattr('done')|list|length }} из {{ topics|length }}</div>
-
-        <div class="cards">
-            {% for topic in topics %}
-            <a href="/topics/{{ topic.id }}" class="card">
-                <div>
-                    <div class="card-emoji">{{ topic.emoji }}</div>
-                    <div class="card-title">{{ topic.title }}</div>
-                    <div class="card-count">
-                        {% if topic.done %}
-                            ✅ Написан ({{ topic.word_count }} слов)
-                        {% else %}
-                            ⬜ Не написан
-                        {% endif %}
-                    </div>
-                </div>
-            </a>
-            {% endfor %}
-        </div>
-
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="/topics/new" class="btn-outline">➕ Своя тема</a>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="infoModal">
-        <div class="modal">
-            <h2>Что такое топики?</h2>
-            <p><strong>Топик</strong> — это текст на английском по определённой теме.</p>
-            <p>Ты пишешь своими словами, используешь слова-помощники и сохраняешь.</p>
-            <p>Минимум — <strong>50 слов</strong>. Так ты реально тренируешь письмо, а не просто вставляешь одно слово.</p>
-            <p>Топики хранятся у тебя навсегда. Можно вернуться, перечитать, исправить.</p>
-            <button class="btn" onclick="document.getElementById('infoModal').classList.remove('active')" style="width: 100%; margin-top: 15px;">Понятно</button>
-        </div>
-    </div>
-</body>
-</html>
+</div>
+{% endblock %}
