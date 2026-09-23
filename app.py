@@ -5,6 +5,7 @@ import random
 import os
 import time
 from datetime import date, timedelta
+from datetime import date as date_module
 
 app = Flask(__name__)
 app.secret_key = "flow_and_word_secret_key"
@@ -29,9 +30,104 @@ SECTIONS = [
 def get_section(sid):
     return next((s for s in SECTIONS if s["id"] == sid), SECTIONS[-1])
 
+# ─── ЦИТАТЫ ДНЯ ───
+
+QUOTES = [
+    {"text": "The limits of my language mean the limits of my world.", "author": "Ludwig Wittgenstein"},
+    {"text": "Learning is a treasure that will follow its owner everywhere.", "author": "Chinese Proverb"},
+    {"text": "The more that you read, the more things you will know.", "author": "Dr. Seuss"},
+    {"text": "To have another language is to possess a second soul.", "author": "Charlemagne"},
+    {"text": "Language is the road map of a culture.", "author": "Rita Mae Brown"},
+    {"text": "A different language is a different vision of life.", "author": "Federico Fellini"},
+    {"text": "The best way to predict the future is to invent it.", "author": "Alan Kay"},
+    {"text": "Success is the sum of small efforts repeated day in and day out.", "author": "Robert Collier"},
+    {"text": "You are never too old to set another goal or to dream a new dream.", "author": "C.S. Lewis"},
+    {"text": "The secret of getting ahead is getting started.", "author": "Mark Twain"},
+    {"text": "Education is the most powerful weapon which you can use to change the world.", "author": "Nelson Mandela"},
+    {"text": "The journey of a thousand miles begins with a single step.", "author": "Lao Tzu"},
+    {"text": "Knowledge is power.", "author": "Francis Bacon"},
+    {"text": "Practice makes perfect.", "author": "English Proverb"},
+    {"text": "Where there is a will, there is a way.", "author": "English Proverb"},
+    {"text": "Every day is a chance to get better.", "author": "Unknown"},
+    {"text": "Don't watch the clock; do what it does. Keep going.", "author": "Sam Levenson"},
+    {"text": "The only way to do great work is to love what you do.", "author": "Steve Jobs"},
+    {"text": "Believe you can and you're halfway there.", "author": "Theodore Roosevelt"},
+    {"text": "A word a day keeps the ignorance away.", "author": "Unknown"},
+]
+
+def get_daily_quote():
+    today = date_module.today()
+    day_of_year = today.timetuple().tm_yday
+    return QUOTES[day_of_year % len(QUOTES)]
+
+# ─── НЕПРАВИЛЬНЫЕ ГЛАГОЛЫ ───
+
+IRREGULAR_VERBS = [
+    {"base": "be", "past": "was/were", "pp": "been", "rus": "быть"},
+    {"base": "become", "past": "became", "pp": "become", "rus": "становиться"},
+    {"base": "begin", "past": "began", "pp": "begun", "rus": "начинать"},
+    {"base": "break", "past": "broke", "pp": "broken", "rus": "ломать"},
+    {"base": "bring", "past": "brought", "pp": "brought", "rus": "приносить"},
+    {"base": "build", "past": "built", "pp": "built", "rus": "строить"},
+    {"base": "buy", "past": "bought", "pp": "bought", "rus": "покупать"},
+    {"base": "catch", "past": "caught", "pp": "caught", "rus": "ловить"},
+    {"base": "choose", "past": "chose", "pp": "chosen", "rus": "выбирать"},
+    {"base": "come", "past": "came", "pp": "come", "rus": "приходить"},
+    {"base": "cost", "past": "cost", "pp": "cost", "rus": "стоить"},
+    {"base": "cut", "past": "cut", "pp": "cut", "rus": "резать"},
+    {"base": "do", "past": "did", "pp": "done", "rus": "делать"},
+    {"base": "draw", "past": "drew", "pp": "drawn", "rus": "рисовать"},
+    {"base": "drink", "past": "drank", "pp": "drunk", "rus": "пить"},
+    {"base": "drive", "past": "drove", "pp": "driven", "rus": "водить"},
+    {"base": "eat", "past": "ate", "pp": "eaten", "rus": "есть"},
+    {"base": "fall", "past": "fell", "pp": "fallen", "rus": "падать"},
+    {"base": "feel", "past": "felt", "pp": "felt", "rus": "чувствовать"},
+    {"base": "fight", "past": "fought", "pp": "fought", "rus": "бороться"},
+    {"base": "find", "past": "found", "pp": "found", "rus": "находить"},
+    {"base": "fly", "past": "flew", "pp": "flown", "rus": "летать"},
+    {"base": "forget", "past": "forgot", "pp": "forgotten", "rus": "забывать"},
+    {"base": "get", "past": "got", "pp": "got/gotten", "rus": "получать"},
+    {"base": "give", "past": "gave", "pp": "given", "rus": "давать"},
+    {"base": "go", "past": "went", "pp": "gone", "rus": "идти"},
+    {"base": "grow", "past": "grew", "pp": "grown", "rus": "расти"},
+    {"base": "have", "past": "had", "pp": "had", "rus": "иметь"},
+    {"base": "hear", "past": "heard", "pp": "heard", "rus": "слышать"},
+    {"base": "hold", "past": "held", "pp": "held", "rus": "держать"},
+    {"base": "keep", "past": "kept", "pp": "kept", "rus": "хранить"},
+    {"base": "know", "past": "knew", "pp": "known", "rus": "знать"},
+    {"base": "leave", "past": "left", "pp": "left", "rus": "уходить"},
+    {"base": "lose", "past": "lost", "pp": "lost", "rus": "терять"},
+    {"base": "make", "past": "made", "pp": "made", "rus": "делать"},
+    {"base": "meet", "past": "met", "pp": "met", "rus": "встречать"},
+    {"base": "pay", "past": "paid", "pp": "paid", "rus": "платить"},
+    {"base": "put", "past": "put", "pp": "put", "rus": "класть"},
+    {"base": "read", "past": "read", "pp": "read", "rus": "читать"},
+    {"base": "ride", "past": "rode", "pp": "ridden", "rus": "ехать"},
+    {"base": "run", "past": "ran", "pp": "run", "rus": "бегать"},
+    {"base": "say", "past": "said", "pp": "said", "rus": "говорить"},
+    {"base": "see", "past": "saw", "pp": "seen", "rus": "видеть"},
+    {"base": "sell", "past": "sold", "pp": "sold", "rus": "продавать"},
+    {"base": "send", "past": "sent", "pp": "sent", "rus": "отправлять"},
+    {"base": "sing", "past": "sang", "pp": "sung", "rus": "петь"},
+    {"base": "sit", "past": "sat", "pp": "sat", "rus": "сидеть"},
+    {"base": "sleep", "past": "slept", "pp": "slept", "rus": "спать"},
+    {"base": "speak", "past": "spoke", "pp": "spoken", "rus": "говорить"},
+    {"base": "spend", "past": "spent", "pp": "spent", "rus": "тратить"},
+    {"base": "stand", "past": "stood", "pp": "stood", "rus": "стоять"},
+    {"base": "swim", "past": "swam", "pp": "swum", "rus": "плавать"},
+    {"base": "take", "past": "took", "pp": "taken", "rus": "брать"},
+    {"base": "teach", "past": "taught", "pp": "taught", "rus": "учить"},
+    {"base": "tell", "past": "told", "pp": "told", "rus": "рассказывать"},
+    {"base": "think", "past": "thought", "pp": "thought", "rus": "думать"},
+    {"base": "understand", "past": "understood", "pp": "understood", "rus": "понимать"},
+    {"base": "wake", "past": "woke", "pp": "woken", "rus": "просыпаться"},
+    {"base": "wear", "past": "wore", "pp": "worn", "rus": "носить"},
+    {"base": "win", "past": "won", "pp": "won", "rus": "побеждать"},
+    {"base": "write", "past": "wrote", "pp": "written", "rus": "писать"},
+]
+
 # ─── ЗАГРУЗКА ДАННЫХ ───
 
-# Слова — миграция из репозитория
 DATA_EMPTY = False
 try:
     with open(WORDS_FILE, "r", encoding="utf-8") as f:
@@ -64,7 +160,6 @@ def save_words():
     with open(WORDS_FILE, "w", encoding="utf-8") as f:
         json.dump(words, f, ensure_ascii=False, indent=2)
 
-# Миграция фраз из репозитория
 PHRASES_EMPTY = False
 try:
     with open(PHRASES_FILE, "r", encoding="utf-8") as f:
@@ -152,14 +247,11 @@ def index():
         total_phrases=total_phrases,
         total_topics_done=total_topics_done,
         total_topics=total_topics,
-        streak=streak
+        streak=streak,
+        quote=get_daily_quote()
     )
 
 # ─── СЛОВА ───
-
-@app.route("/words")
-def words_page():
-    return render_template("words.html", words=words, sections=SECTIONS)
 
 @app.route("/add", methods=["POST"])
 def add():
@@ -195,7 +287,7 @@ def edit():
         save_words()
     return jsonify({"status": "ok"})
 
-# ─── РАЗДЕЛЫ ───
+# ─── КАТЕГОРИИ ───
 
 @app.route("/sections")
 def sections_page():
@@ -454,7 +546,6 @@ def topic_new():
         title = request.form.get("title", "").strip()
         if not title:
             return redirect("/topics/new")
-        import time
         tid = "custom_" + str(int(time.time()))
         topics[tid] = {"title": title, "text": "", "done": False}
         save_topics()
@@ -492,7 +583,6 @@ def exam_save():
         return jsonify({"status": "error"})
     topic_info = next((t for t in FIXED_TOPICS if t["id"] == tid), None)
     title = topic_info["title"] if topic_info else topics.get(tid, {}).get("title", "Своя тема")
-    import time
     exam_id = str(int(time.time()))
     exams[exam_id] = {
         "topic_id": tid,
@@ -544,314 +634,7 @@ def translate():
 def faq_page():
     return render_template("faq.html")
 
-# ─── ИГРОВЫЕ РЕЖИМЫ ───
-
-HANGMAN_STATE = {}
-
-@app.route("/games")
-def games_page():
-    return render_template("games.html")
-
-@app.route("/games/hangman")
-def hangman_page():
-    # Фильтруем слова: 4-12 букв, без пробелов
-    available = [w for w in words.keys() if 4 <= len(w) <= 12 and " " not in w]
-    if not available:
-        return render_template("hangman.html", empty=True)
-    word = random.choice(available).lower()
-    section_id = words[word]["section"]
-    section = next((s for s in SECTIONS if s["id"] == section_id), SECTIONS[-1])
-    session["hangman_word"] = word
-    session["hangman_guessed"] = []
-    session["hangman_errors"] = 0
-    display = " ".join(["_" for _ in word])
-    return render_template(
-        "hangman.html",
-        empty=False,
-        display=display,
-        errors=0,
-        max_errors=6,
-        guessed=[],
-        word_length=len(word),
-        section=section
-    )
-
-@app.route("/games/hangman/guess", methods=["POST"])
-def hangman_guess():
-    data = request.json
-    letter = data.get("letter", "").strip().lower()
-    if len(letter) != 1 or not letter.isalpha() or not letter.isascii():
-        return jsonify({"status": "error", "message": "Только одна английская буква"})
-    
-    word = session.get("hangman_word", "")
-    guessed = session.get("hangman_guessed", [])
-    errors = session.get("hangman_errors", 0)
-    
-    if not word:
-        return jsonify({"status": "error", "message": "Игра не найдена"})
-    
-    if letter in guessed:
-        return jsonify({
-            "status": "already",
-            "display": " ".join([c if c in guessed else "_" for c in word]),
-            "errors": errors,
-            "guessed": guessed,
-            "message": "Эту букву уже называл"
-        })
-    
-    guessed.append(letter)
-    if letter not in word:
-        errors += 1
-    
-    session["hangman_guessed"] = guessed
-    session["hangman_errors"] = errors
-    
-    display = " ".join([c if c in guessed else "_" for c in word])
-    
-    if all(c in guessed for c in word):
-        return jsonify({
-            "status": "win",
-            "display": display,
-            "word": word,
-            "errors": errors,
-            "guessed": guessed,
-            "message": "🎉 Ты угадал! Слово: " + word
-        })
-    
-    if errors >= 6:
-        return jsonify({
-            "status": "lose",
-            "display": display,
-            "word": word,
-            "errors": errors,
-            "guessed": guessed,
-            "message": "💀 Ты проиграл. Слово было: " + word
-        })
-    
-    return jsonify({
-        "status": "ok",
-        "display": display,
-        "errors": errors,
-        "guessed": guessed
-    })
-
-# ─── КВИЗ ───
-
-QUIZ_STATE = {}
-
-@app.route("/games/quiz")
-def quiz_page():
-    # Фильтруем: 4-12 букв, без пробелов
-    available = [w for w in words.keys() if 4 <= len(w) <= 12 and " " not in w]
-    if len(available) < 4:
-        return render_template("quiz.html", empty=True)
-    session["quiz_score"] = 0
-    session["quiz_question"] = 0
-    session["quiz_total"] = 10
-    session["quiz_used"] = []
-    session["quiz_errors"] = []
-    return render_template("quiz.html", empty=False)
-
-@app.route("/games/quiz/question")
-def quiz_question():
-    available = [w for w in words.keys() if 4 <= len(w) <= 12 and " " not in w and w not in session.get("quiz_used", [])]
-    if not available:
-        return jsonify({"status": "end"})
-    
-    word = random.choice(available)
-    session["quiz_used"] = session.get("quiz_used", []) + [word]
-    session["quiz_current"] = word
-    
-    # Правильный ответ
-    correct = words[word]["rus"]
-    
-    # 3 неправильных варианта
-    others = [w for w in words.keys() if w != word and words[w]["rus"] != correct]
-    wrong_options = random.sample(others, min(3, len(others)))
-    wrong_answers = [words[w]["rus"] for w in wrong_options]
-    
-    # Смешиваем
-    options = [correct] + wrong_answers
-    random.shuffle(options)
-    
-    question_num = session.get("quiz_question", 0) + 1
-    session["quiz_question"] = question_num
-    
-    return jsonify({
-        "status": "ok",
-        "word": word,
-        "options": options,
-        "correct": correct,
-        "question_num": question_num,
-        "total": session.get("quiz_total", 10)
-    })
-
-@app.route("/games/quiz/answer", methods=["POST"])
-def quiz_answer():
-    data = request.json
-    answer = data.get("answer", "").strip()
-    word = session.get("quiz_current", "")
-    if not word or word not in words:
-        return jsonify({"status": "error"})
-    
-    correct = words[word]["rus"]
-    is_correct = (answer == correct)
-    
-    if is_correct:
-        session["quiz_score"] = session.get("quiz_score", 0) + 1
-    else:
-        errors = session.get("quiz_errors", [])
-        errors.append({"word": word, "correct": correct, "chosen": answer})
-        session["quiz_errors"] = errors
-    
-    return jsonify({
-        "status": "ok",
-        "correct": is_correct,
-        "correct_answer": correct,
-        "score": session.get("quiz_score", 0)
-    })
-
-@app.route("/games/quiz/result")
-def quiz_result():
-    score = session.get("quiz_score", 0)
-    total = session.get("quiz_total", 10)
-    errors = session.get("quiz_errors", [])
-    return jsonify({
-        "score": score,
-        "total": total,
-        "errors": errors
-    })
-
-# ─── СКОРОСТНОЙ РЕЖИМ ───
-
-@app.route("/games/speed")
-def speed_page():
-    available = [w for w in words.keys() if 2 <= len(w) <= 15]
-    if len(available) < 5:
-        return render_template("speed.html", empty=True)
-    return render_template("speed.html", empty=False)
-
-@app.route("/games/speed/start")
-def speed_start():
-    available = [w for w in words.keys() if 2 <= len(w) <= 15]
-    if len(available) < 5:
-        return jsonify({"status": "error"})
-    chosen = random.sample(available, min(10, len(available)))
-    session["speed_words"] = chosen
-    session["speed_index"] = 0
-    session["speed_score"] = 0
-    session["speed_start"] = time.time()
-    return jsonify({"status": "ok", "total": len(chosen)})
-
-@app.route("/games/speed/next")
-def speed_next():
-    speed_words = session.get("speed_words", [])
-    index = session.get("speed_index", 0)
-    if index >= len(speed_words):
-        return jsonify({"status": "end"})
-    word = speed_words[index]
-    return jsonify({
-        "status": "ok",
-        "word": word,
-        "index": index + 1,
-        "total": len(speed_words)
-    })
-
-@app.route("/games/speed/check", methods=["POST"])
-def speed_check():
-    data = request.json
-    answer = data.get("answer", "").strip().lower()
-    speed_words = session.get("speed_words", [])
-    index = session.get("speed_index", 0)
-    if index >= len(speed_words):
-        return jsonify({"status": "error"})
-    word = speed_words[index]
-    correct = words[word]["rus"].strip().lower()
-    is_correct = (answer == correct)
-    if is_correct:
-        session["speed_score"] = session.get("speed_score", 0) + 1
-    session["speed_index"] = index + 1
-    return jsonify({
-        "status": "ok",
-        "correct": is_correct,
-        "correct_answer": words[word]["rus"],
-        "score": session.get("speed_score", 0),
-        "index": index + 1,
-        "total": len(speed_words)
-    })
-
-@app.route("/games/speed/result")
-def speed_result():
-    return jsonify({
-        "score": session.get("speed_score", 0),
-        "total": len(session.get("speed_words", []))
-    })
-
 # ─── УЧЁБА ───
-
-IRREGULAR_VERBS = [
-    {"base": "be", "past": "was/were", "pp": "been", "rus": "быть"},
-    {"base": "become", "past": "became", "pp": "become", "rus": "становиться"},
-    {"base": "begin", "past": "began", "pp": "begun", "rus": "начинать"},
-    {"base": "break", "past": "broke", "pp": "broken", "rus": "ломать"},
-    {"base": "bring", "past": "brought", "pp": "brought", "rus": "приносить"},
-    {"base": "build", "past": "built", "pp": "built", "rus": "строить"},
-    {"base": "buy", "past": "bought", "pp": "bought", "rus": "покупать"},
-    {"base": "catch", "past": "caught", "pp": "caught", "rus": "ловить"},
-    {"base": "choose", "past": "chose", "pp": "chosen", "rus": "выбирать"},
-    {"base": "come", "past": "came", "pp": "come", "rus": "приходить"},
-    {"base": "cost", "past": "cost", "pp": "cost", "rus": "стоить"},
-    {"base": "cut", "past": "cut", "pp": "cut", "rus": "резать"},
-    {"base": "do", "past": "did", "pp": "done", "rus": "делать"},
-    {"base": "draw", "past": "drew", "pp": "drawn", "rus": "рисовать"},
-    {"base": "drink", "past": "drank", "pp": "drunk", "rus": "пить"},
-    {"base": "drive", "past": "drove", "pp": "driven", "rus": "водить"},
-    {"base": "eat", "past": "ate", "pp": "eaten", "rus": "есть"},
-    {"base": "fall", "past": "fell", "pp": "fallen", "rus": "падать"},
-    {"base": "feel", "past": "felt", "pp": "felt", "rus": "чувствовать"},
-    {"base": "fight", "past": "fought", "pp": "fought", "rus": "бороться"},
-    {"base": "find", "past": "found", "pp": "found", "rus": "находить"},
-    {"base": "fly", "past": "flew", "pp": "flown", "rus": "летать"},
-    {"base": "forget", "past": "forgot", "pp": "forgotten", "rus": "забывать"},
-    {"base": "get", "past": "got", "pp": "got/gotten", "rus": "получать"},
-    {"base": "give", "past": "gave", "pp": "given", "rus": "давать"},
-    {"base": "go", "past": "went", "pp": "gone", "rus": "идти"},
-    {"base": "grow", "past": "grew", "pp": "grown", "rus": "расти"},
-    {"base": "have", "past": "had", "pp": "had", "rus": "иметь"},
-    {"base": "hear", "past": "heard", "pp": "heard", "rus": "слышать"},
-    {"base": "hold", "past": "held", "pp": "held", "rus": "держать"},
-    {"base": "keep", "past": "kept", "pp": "kept", "rus": "хранить"},
-    {"base": "know", "past": "knew", "pp": "known", "rus": "знать"},
-    {"base": "leave", "past": "left", "pp": "left", "rus": "уходить"},
-    {"base": "lose", "past": "lost", "pp": "lost", "rus": "терять"},
-    {"base": "make", "past": "made", "pp": "made", "rus": "делать"},
-    {"base": "meet", "past": "met", "pp": "met", "rus": "встречать"},
-    {"base": "pay", "past": "paid", "pp": "paid", "rus": "платить"},
-    {"base": "put", "past": "put", "pp": "put", "rus": "класть"},
-    {"base": "read", "past": "read", "pp": "read", "rus": "читать"},
-    {"base": "ride", "past": "rode", "pp": "ridden", "rus": "ехать"},
-    {"base": "run", "past": "ran", "pp": "run", "rus": "бегать"},
-    {"base": "say", "past": "said", "pp": "said", "rus": "говорить"},
-    {"base": "see", "past": "saw", "pp": "seen", "rus": "видеть"},
-    {"base": "sell", "past": "sold", "pp": "sold", "rus": "продавать"},
-    {"base": "send", "past": "sent", "pp": "sent", "rus": "отправлять"},
-    {"base": "sing", "past": "sang", "pp": "sung", "rus": "петь"},
-    {"base": "sit", "past": "sat", "pp": "sat", "rus": "сидеть"},
-    {"base": "sleep", "past": "slept", "pp": "slept", "rus": "спать"},
-    {"base": "speak", "past": "spoke", "pp": "spoken", "rus": "говорить"},
-    {"base": "spend", "past": "spent", "pp": "spent", "rus": "тратить"},
-    {"base": "stand", "past": "stood", "pp": "stood", "rus": "стоять"},
-    {"base": "swim", "past": "swam", "pp": "swum", "rus": "плавать"},
-    {"base": "take", "past": "took", "pp": "taken", "rus": "брать"},
-    {"base": "teach", "past": "taught", "pp": "taught", "rus": "учить"},
-    {"base": "tell", "past": "told", "pp": "told", "rus": "рассказывать"},
-    {"base": "think", "past": "thought", "pp": "thought", "rus": "думать"},
-    {"base": "understand", "past": "understood", "pp": "understood", "rus": "понимать"},
-    {"base": "wake", "past": "woke", "pp": "woken", "rus": "просыпаться"},
-    {"base": "wear", "past": "wore", "pp": "worn", "rus": "носить"},
-    {"base": "win", "past": "won", "pp": "won", "rus": "побеждать"},
-    {"base": "write", "past": "wrote", "pp": "written", "rus": "писать"},
-]
 
 @app.route("/study")
 def study_page():
@@ -860,8 +643,6 @@ def study_page():
 @app.route("/study/irregular")
 def irregular_page():
     return render_template("irregular.html", verbs=IRREGULAR_VERBS)
-
-# ─── ТРЕНИРОВКА НЕПРАВИЛЬНЫХ ГЛАГОЛОВ ───
 
 @app.route("/study/irregular/train")
 def irregular_train():
@@ -898,7 +679,7 @@ def irregular_next():
             "question_label": "Base → Past Participle",
             "hint": "Какая форма Past Participle?"
         })
-    else:  # mixed
+    else:
         form = random.choice(["past", "pp"])
         session["irr_mixed_form"] = form
         if form == "past":
@@ -925,14 +706,14 @@ def irregular_check():
     verb = next((v for v in IRREGULAR_VERBS if v["base"] == base), None)
     if not verb:
         return jsonify({"status": "error"})
-    
+
     if mode == "past":
         correct = verb["past"].lower()
         correct_display = verb["past"]
     elif mode == "pp":
         correct = verb["pp"].lower()
         correct_display = verb["pp"]
-    else:  # mixed
+    else:
         form = session.get("irr_mixed_form", "past")
         if form == "past":
             correct = verb["past"].lower()
@@ -940,13 +721,13 @@ def irregular_check():
         else:
             correct = verb["base"].lower()
             correct_display = verb["base"]
-    
+
     is_correct = answer == correct
     if is_correct:
         session["irr_correct"] = session.get("irr_correct", 0) + 1
     else:
         session["irr_wrong"] = session.get("irr_wrong", 0) + 1
-    
+
     return jsonify({
         "status": "ok",
         "correct": is_correct,
@@ -955,6 +736,6 @@ def irregular_check():
         "wrong": session.get("irr_wrong", 0)
     })
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=False)
+# ─── ИГРОВЫЕ РЕЖИМЫ ───
+
+HANGMAN_STATE
