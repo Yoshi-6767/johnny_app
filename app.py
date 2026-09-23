@@ -3,6 +3,7 @@ import json
 from deep_translator import MyMemoryTranslator
 import random
 import os
+import time
 from datetime import date, timedelta
 
 app = Flask(__name__)
@@ -542,6 +543,94 @@ def translate():
 @app.route("/faq")
 def faq_page():
     return render_template("faq.html")
+
+# ─── ИГРОВЫЕ РЕЖИМЫ ───
+
+HANGMAN_STATE = {}
+
+@app.route("/games")
+def games_page():
+    return render_template("games.html")
+
+@app.route("/games/hangman")
+def hangman_page():
+    # Фильтруем слова: 4-12 букв, без пробелов
+    available = [w for w in words.keys() if 4 <= len(w) <= 12 and " " not in w]
+    if not available:
+        return render_template("hangman.html", empty=True)
+    word = random.choice(available).lower()
+    session["hangman_word"] = word
+    session["hangman_guessed"] = []
+    session["hangman_errors"] = 0
+    display = " ".join(["_" for _ in word])
+    return render_template(
+        "hangman.html",
+        empty=False,
+        display=display,
+        errors=0,
+        max_errors=6,
+        guessed=[],
+        word_length=len(word)
+    )
+
+@app.route("/games/hangman/guess", methods=["POST"])
+def hangman_guess():
+    data = request.json
+    letter = data.get("letter", "").strip().lower()
+    if len(letter) != 1 or not letter.isalpha() or not letter.isascii():
+        return jsonify({"status": "error", "message": "Только одна английская буква"})
+    
+    word = session.get("hangman_word", "")
+    guessed = session.get("hangman_guessed", [])
+    errors = session.get("hangman_errors", 0)
+    
+    if not word:
+        return jsonify({"status": "error", "message": "Игра не найдена"})
+    
+    if letter in guessed:
+        return jsonify({
+            "status": "already",
+            "display": " ".join([c if c in guessed else "_" for c in word]),
+            "errors": errors,
+            "guessed": guessed,
+            "message": "Эту букву уже называл"
+        })
+    
+    guessed.append(letter)
+    if letter not in word:
+        errors += 1
+    
+    session["hangman_guessed"] = guessed
+    session["hangman_errors"] = errors
+    
+    display = " ".join([c if c in guessed else "_" for c in word])
+    
+    if all(c in guessed for c in word):
+        return jsonify({
+            "status": "win",
+            "display": display,
+            "word": word,
+            "errors": errors,
+            "guessed": guessed,
+            "message": "🎉 Ты угадал! Слово: " + word
+        })
+    
+    if errors >= 6:
+        return jsonify({
+            "status": "lose",
+            "display": display,
+            "word": word,
+            "errors": errors,
+            "guessed": guessed,
+            "message": "💀 Ты проиграл. Слово было: " + word
+        })
+    
+    return jsonify({
+        "status": "ok",
+        "display": display,
+        "errors": errors,
+        "guessed": guessed
+    })
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
