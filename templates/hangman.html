@@ -21,6 +21,7 @@
             margin-bottom: 25px;
             color: #333;
             letter-spacing: 6px;
+            word-break: break-all;
         }
         .hangman-stats {
             display: flex;
@@ -83,6 +84,7 @@
             gap: 8px;
             margin-bottom: 20px;
             justify-content: center;
+            min-height: 34px;
         }
         .guessed span {
             background: #e3f2fd;
@@ -116,6 +118,7 @@
                     <a href="/words">Слова</a>
                     <a href="/phrases">Фразы</a>
                     <a href="/topics">Топики</a>
+                    <a href="/sections">Категории</a>
                     <a href="/games">Игры</a>
                     <a href="/progress">Прогресс</a>
                 </nav>
@@ -173,7 +176,7 @@
             const input = document.getElementById("letter");
             const letter = input.value.trim().toLowerCase();
             if (!letter) return;
-            
+
             fetch("/games/hangman/guess", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -183,16 +186,16 @@
             .then(data => {
                 const message = document.getElementById("message");
                 input.value = "";
-                
+
                 if (data.status === "already") {
                     message.className = "hangman-message info show";
                     message.textContent = data.message;
                     return;
                 }
-                
+
                 document.getElementById("word").textContent = data.display;
                 document.getElementById("errors-count").textContent = data.errors;
-                
+
                 const guessedDiv = document.getElementById("guessed");
                 guessedDiv.innerHTML = "";
                 if (data.guessed && data.guessed.length > 0) {
@@ -202,18 +205,20 @@
                         guessedDiv.appendChild(span);
                     });
                 }
-                
+
                 if (data.status === "win") {
                     message.className = "hangman-message win show";
                     message.textContent = data.message;
+                    document.getElementById("word").textContent = data.word.toUpperCase();
                     input.disabled = true;
                 } else if (data.status === "lose") {
                     message.className = "hangman-message lose show";
                     message.textContent = data.message;
+                    document.getElementById("word").textContent = data.word.toUpperCase();
                     input.disabled = true;
                 } else {
-                    message.className = "hangman-message show";
-                    message.style.display = "none";
+                    message.className = "hangman-message";
+                    message.textContent = "";
                 }
             });
         }
