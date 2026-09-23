@@ -722,6 +722,71 @@ def quiz_result():
         "errors": errors
     })
 
+# ─── СКОРОСТНОЙ РЕЖИМ ───
+
+@app.route("/games/speed")
+def speed_page():
+    available = [w for w in words.keys() if 2 <= len(w) <= 15]
+    if len(available) < 5:
+        return render_template("speed.html", empty=True)
+    return render_template("speed.html", empty=False)
+
+@app.route("/games/speed/start")
+def speed_start():
+    available = [w for w in words.keys() if 2 <= len(w) <= 15]
+    if len(available) < 5:
+        return jsonify({"status": "error"})
+    chosen = random.sample(available, min(10, len(available)))
+    session["speed_words"] = chosen
+    session["speed_index"] = 0
+    session["speed_score"] = 0
+    session["speed_start"] = time.time()
+    return jsonify({"status": "ok", "total": len(chosen)})
+
+@app.route("/games/speed/next")
+def speed_next():
+    speed_words = session.get("speed_words", [])
+    index = session.get("speed_index", 0)
+    if index >= len(speed_words):
+        return jsonify({"status": "end"})
+    word = speed_words[index]
+    return jsonify({
+        "status": "ok",
+        "word": word,
+        "index": index + 1,
+        "total": len(speed_words)
+    })
+
+@app.route("/games/speed/check", methods=["POST"])
+def speed_check():
+    data = request.json
+    answer = data.get("answer", "").strip().lower()
+    speed_words = session.get("speed_words", [])
+    index = session.get("speed_index", 0)
+    if index >= len(speed_words):
+        return jsonify({"status": "error"})
+    word = speed_words[index]
+    correct = words[word]["rus"].strip().lower()
+    is_correct = (answer == correct)
+    if is_correct:
+        session["speed_score"] = session.get("speed_score", 0) + 1
+    session["speed_index"] = index + 1
+    return jsonify({
+        "status": "ok",
+        "correct": is_correct,
+        "correct_answer": words[word]["rus"],
+        "score": session.get("speed_score", 0),
+        "index": index + 1,
+        "total": len(speed_words)
+    })
+
+@app.route("/games/speed/result")
+def speed_result():
+    return jsonify({
+        "score": session.get("speed_score", 0),
+        "total": len(session.get("speed_words", []))
+    })
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
