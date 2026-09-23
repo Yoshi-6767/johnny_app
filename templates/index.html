@@ -1,101 +1,66 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flow & Word</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <div class="header">
-        <div class="container">
-            <div class="header-inner">
-                <a href="/" class="logo">Flow <span>&</span> Word</a>
-                <nav class="nav">
-                    <a href="/words">Слова</a>
-                    <a href="/phrases">Фразы</a>
-                    <a href="/topics">Топики</a>
-                    <a href="/sections">Категории</a>
-                    <a href="/games">Игры</a>
-                    <a href="/progress">Прогресс</a>
-                </nav>
-                <a href="/faq" class="faq-link">FAQ</a>
-            </div>
+{% extends "base.html" %}
+
+{% block title %}Flow & Word{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Твой английский в потоке</h1>
+    <p>{{ total_words }} слов • {{ total_phrases }} фраз • стрик {{ streak }} 🔥</p>
+    <a href="/train" class="train-main">🔥 Тренировать слова</a>
+</div>
+
+<div class="cards">
+    <a href="/phrases" class="card">
+        <div>
+            <div class="card-emoji">💬</div>
+            <div class="card-title">Фразы</div>
+            <div class="card-count">{{ total_phrases }} в базе</div>
         </div>
-    </div>
+    </a>
 
-    <div class="container">
-        <div class="hero">
-            <h1>Твой английский в потоке</h1>
-            <p>{{ total_words }} слов • {{ total_phrases }} фраз • стрик {{ streak }} 🔥</p>
-            <a href="/train" class="train-main">🔥 Тренировать слова</a>
+    <a href="/topics" class="card">
+        <div>
+            <div class="card-emoji">📝</div>
+            <div class="card-title">Топики</div>
+            <div class="card-count">{{ total_topics_done }} / {{ total_topics }} написано</div>
         </div>
+    </a>
 
-        <div class="cards">
-            <a href="/words" class="card">
-                <div>
-                    <div class="card-emoji">📚</div>
-                    <div class="card-title">Слова</div>
-                    <div class="card-count">{{ total_words }} в базе</div>
-                </div>
-            </a>
-
-            <a href="/phrases" class="card">
-                <div>
-                    <div class="card-emoji">💬</div>
-                    <div class="card-title">Фразы</div>
-                    <div class="card-count">{{ total_phrases }} в базе</div>
-                </div>
-            </a>
-
-            <a href="/topics" class="card">
-                <div>
-                    <div class="card-emoji">📝</div>
-                    <div class="card-title">Топики</div>
-                    <div class="card-count">{{ total_topics_done }} / {{ total_topics }} написано</div>
-                </div>
-            </a>
-
-            <a href="/sections" class="card">
-                <div>
-                    <div class="card-emoji">📚</div>
-                    <div class="card-title">Категории</div>
-                    <div class="card-count">Слова по темам</div>
-                </div>
-            </a>
-
-            <a href="/games" class="card">
-                <div>
-                    <div class="card-emoji">🎮</div>
-                    <div class="card-title">Игры</div>
-                    <div class="card-count">Виселица, квиз, скоростной</div>
-                </div>
-            </a>
-
-            <a href="/progress" class="card">
-                <div>
-                    <div class="card-emoji">📊</div>
-                    <div class="card-title">Прогресс</div>
-                    <div class="card-count">Статистика</div>
-                </div>
-            </a>
-
-            <a href="/translator" class="card">
-                <div>
-                    <div class="card-emoji">🌐</div>
-                    <div class="card-title">Переводчик</div>
-                    <div class="card-count">RU ↔ EN</div>
-                </div>
-            </a>
+    <a href="/sections" class="card">
+        <div>
+            <div class="card-emoji">📚</div>
+            <div class="card-title">Категории</div>
+            <div class="card-count">Слова по темам</div>
         </div>
+    </a>
 
-        <div class="extra">
-            <a href="/exam">🎓 Экзамен</a>
-            <a href="/phrases/train">🎯 Тренировать фразы</a>
+    <a href="/games" class="card">
+        <div>
+            <div class="card-emoji">🎮</div>
+            <div class="card-title">Игры</div>
+            <div class="card-count">Виселица, квиз, скоростной</div>
         </div>
-    </div>
-</body>
-</html>
+    </a>
+
+    <a href="/progress" class="card">
+        <div>
+            <div class="card-emoji">📊</div>
+            <div class="card-title">Прогресс</div>
+            <div class="card-count">Статистика</div>
+        </div>
+    </a>
+
+    <a href="/translator" class="card">
+        <div>
+            <div class="card-emoji">🌐</div>
+            <div class="card-title">Переводчик</div>
+            <div class="card-count">RU ↔ EN</div>
+        </div>
+    </a>
+</div>
+
+<div class="extra">
+    <a href="/exam">🎓 Экзамен</a>
+    <a href="/phrases/train">🎯 Тренировать фразы</a>
+</div>
+{% endblock %}
