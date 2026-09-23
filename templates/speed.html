@@ -1,258 +1,236 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Скоростной режим — Flow & Word</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/style.css">
-    <style>
-        .speed-timer {
-            text-align: center;
-            font-size: 48px;
-            font-weight: 900;
-            color: #2196f3;
-            margin-bottom: 20px;
-            padding: 20px;
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-        }
-        .speed-timer.warning { color: #f44336; }
-        .speed-word {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-left: 4px solid #2196f3;
-            padding: 40px;
-            border-radius: 14px;
-            text-align: center;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: #333;
-        }
-        .speed-progress {
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-        .speed-form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .speed-form input {
-            flex: 1;
-            padding: 16px 20px;
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            color: #333;
-            font-size: 18px;
-            font-family: 'Rubik', sans-serif;
-            outline: none;
-        }
-        .speed-form input:focus { border-color: #2196f3; }
-        .speed-feedback {
-            text-align: center;
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-size: 16px;
-            font-weight: 600;
-            min-height: 24px;
-        }
-        .speed-feedback.correct { color: #4caf50; }
-        .speed-feedback.wrong { color: #f44336; }
-        .speed-result {
-            display: none;
-            text-align: center;
-            padding: 40px;
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 14px;
-        }
-        .speed-result .score {
-            font-size: 48px;
-            font-weight: 900;
-            color: #2196f3;
-            margin-bottom: 10px;
-        }
-        .speed-result .label {
-            color: #888;
-            font-size: 16px;
-            margin-bottom: 25px;
-        }
-        .speed-nav {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .speed-nav a {
-            color: #888;
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 500;
-            border: 1px solid #e0e0e0;
-        }
-        .speed-nav a:hover { color: #2196f3; border-color: #2196f3; }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="container">
-            <div class="header-inner">
-                <a href="/" class="logo">Flow <span>&</span> Word</a>
-                <nav class="nav">
-                    <a href="/words">Слова</a>
-                    <a href="/phrases">Фразы</a>
-                    <a href="/topics">Топики</a>
-                    <a href="/sections">Категории</a>
-                    <a href="/games">Игры</a>
-                    <a href="/progress">Прогресс</a>
-                </nav>
-                <a href="/faq" class="faq-link">FAQ</a>
-            </div>
+{% extends "base.html" %}
+
+{% block title %}Скоростной режим — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .speed-timer {
+        text-align: center;
+        font-size: 48px;
+        font-weight: 900;
+        color: #2196f3;
+        margin-bottom: 20px;
+        padding: 20px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+    }
+    .speed-timer.warning { color: #f44336; }
+    .speed-word {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-left: 4px solid #2196f3;
+        padding: 40px;
+        border-radius: 14px;
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: #333;
+    }
+    .speed-progress {
+        text-align: center;
+        color: #888;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    .speed-form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .speed-form input {
+        flex: 1;
+        padding: 16px 20px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        color: #333;
+        font-size: 18px;
+        font-family: 'Rubik', sans-serif;
+        outline: none;
+    }
+    .speed-form input:focus { border-color: #2196f3; }
+    .speed-feedback {
+        text-align: center;
+        padding: 12px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        min-height: 24px;
+    }
+    .speed-feedback.correct { color: #4caf50; }
+    .speed-feedback.wrong { color: #f44336; }
+    .speed-result {
+        display: none;
+        text-align: center;
+        padding: 40px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 14px;
+    }
+    .speed-result .score {
+        font-size: 48px;
+        font-weight: 900;
+        color: #2196f3;
+        margin-bottom: 10px;
+    }
+    .speed-result .label {
+        color: #888;
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+    .speed-nav {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .speed-nav a {
+        color: #888;
+        text-decoration: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 500;
+        border: 1px solid #e0e0e0;
+    }
+    .speed-nav a:hover { color: #2196f3; border-color: #2196f3; }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if empty %}
+    <div class="empty">
+        <h1>⚡ Пока мало слов</h1>
+        <p>Нужно минимум <strong>5 слов</strong>.</p>
+        <p>Добавь в <a href="/sections" style="color: #2196f3;">категориях</a>.</p>
+    </div>
+{% else %}
+    <div id="speed-start-screen">
+        <h1>⚡ Скоростной режим</h1>
+        <div class="subtitle">30 секунд. 10 слов. Успеешь?</div>
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn" onclick="startGame()" style="padding: 20px 50px; font-size: 18px;">Начать</button>
         </div>
     </div>
 
-    <div class="container" style="max-width: 600px;">
-        {% if empty %}
-            <div class="empty">
-                <h1>⚡ Пока мало слов</h1>
-                <p>Нужно минимум <strong>5 слов</strong>.</p>
-                <p>Добавь в <a href="/words" style="color: #2196f3;">словаре</a>.</p>
-            </div>
-        {% else %}
-            <div id="speed-start-screen">
-                <h1>⚡ Скоростной режим</h1>
-                <div class="subtitle">30 секунд. 10 слов. Успеешь?</div>
-                <div style="text-align: center; margin-top: 30px;">
-                    <button class="btn" onclick="startGame()" style="padding: 20px 50px; font-size: 18px;">Начать</button>
-                </div>
-            </div>
+    <div id="speed-play" style="display: none;">
+        <h1>⚡ Скоростной режим</h1>
+        <div class="speed-timer" id="timer">30</div>
+        <div class="speed-progress" id="progress">Слово 1 из 10</div>
 
-            <div id="speed-play" style="display: none;">
-                <h1>⚡ Скоростной режим</h1>
-                <div class="speed-timer" id="timer">30</div>
-                <div class="speed-progress" id="progress">Слово 1 из 10</div>
+        <div class="speed-word" id="word">...</div>
 
-                <div class="speed-word" id="word">...</div>
+        <div class="speed-feedback" id="feedback"></div>
 
-                <div class="speed-feedback" id="feedback"></div>
-
-                <div class="speed-form">
-                    <input id="answer" placeholder="Введи перевод..." autofocus>
-                    <button class="btn" onclick="checkAnswer()">Ответить</button>
-                </div>
-            </div>
-
-            <div class="speed-result" id="result">
-                <div class="score" id="result-score">0</div>
-                <div class="label">из 10</div>
-                <div class="speed-nav">
-                    <a href="/games/speed">🔄 Ещё раз</a>
-                    <a href="/games">⬅️ К играм</a>
-                </div>
-            </div>
-        {% endif %}
+        <div class="speed-form">
+            <input id="answer" placeholder="Введи перевод..." autofocus>
+            <button class="btn" onclick="checkAnswer()">Ответить</button>
+        </div>
     </div>
 
-    <script>
-        let timeLeft = 30;
-        let timerInterval = null;
-        let currentTotal = 0;
-        let answered = false;
+    <div class="speed-result" id="result">
+        <div class="score" id="result-score">0</div>
+        <div class="label">из 10</div>
+        <div class="speed-nav">
+            <a href="/games/speed">🔄 Ещё раз</a>
+            <a href="/games">⬅️ К играм</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
 
-        function startGame() {
-            document.getElementById("speed-start-screen").style.display = "none";
-            document.getElementById("speed-play").style.display = "block";
+{% block scripts %}
+<script>
+    let timeLeft = 30;
+    let timerInterval = null;
+    let currentTotal = 0;
+    let answered = false;
 
-            fetch("/games/speed/start")
-            .then(r => r.json())
-            .then(data => {
-                if (data.status === "ok") {
-                    currentTotal = data.total;
-                    loadNextWord();
-                    startTimer();
-                }
-            });
-        }
+    function startGame() {
+        document.getElementById("speed-start-screen").style.display = "none";
+        document.getElementById("speed-play").style.display = "block";
 
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                const timerEl = document.getElementById("timer");
-                timerEl.textContent = timeLeft;
-                if (timeLeft <= 10) timerEl.classList.add("warning");
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    showResult();
-                }
-            }, 1000);
-        }
-
-        function loadNextWord() {
-            fetch("/games/speed/next")
-            .then(r => r.json())
-            .then(data => {
-                if (data.status === "end") {
-                    clearInterval(timerInterval);
-                    showResult();
-                    return;
-                }
-                document.getElementById("word").textContent = data.word;
-                document.getElementById("progress").textContent = "Слово " + data.index + " из " + data.total;
-                document.getElementById("answer").value = "";
-                document.getElementById("answer").focus();
-                document.getElementById("feedback").textContent = "";
-                answered = false;
-            });
-        }
-
-        function checkAnswer() {
-            if (answered) return;
-            const answer = document.getElementById("answer").value.trim();
-            if (!answer) return;
-            answered = true;
-
-            fetch("/games/speed/check", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({answer: answer})
-            })
-            .then(r => r.json())
-            .then(data => {
-                const feedback = document.getElementById("feedback");
-                if (data.correct) {
-                    feedback.className = "speed-feedback correct";
-                    feedback.textContent = "✅ Верно!";
-                } else {
-                    feedback.className = "speed-feedback wrong";
-                    feedback.textContent = "❌ " + data.correct_answer;
-                }
-                setTimeout(() => loadNextWord(), 500);
-            });
-        }
-
-        function showResult() {
-            fetch("/games/speed/result")
-            .then(r => r.json())
-            .then(data => {
-                document.getElementById("speed-play").style.display = "none";
-                document.getElementById("result").style.display = "block";
-                document.getElementById("result-score").textContent = data.score + " / " + data.total;
-            });
-        }
-
-        document.getElementById("answer").addEventListener("keypress", function(e) {
-            if (e.key === "Enter") checkAnswer();
+        fetch("/games/speed/start")
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "ok") {
+                currentTotal = data.total;
+                loadNextWord();
+                startTimer();
+            }
         });
-    </script>
-</body>
-</html>
+    }
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            const timerEl = document.getElementById("timer");
+            timerEl.textContent = timeLeft;
+            if (timeLeft <= 10) timerEl.classList.add("warning");
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                showResult();
+            }
+        }, 1000);
+    }
+
+    function loadNextWord() {
+        fetch("/games/speed/next")
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "end") {
+                clearInterval(timerInterval);
+                showResult();
+                return;
+            }
+            document.getElementById("word").textContent = data.word;
+            document.getElementById("progress").textContent = "Слово " + data.index + " из " + data.total;
+            document.getElementById("answer").value = "";
+            document.getElementById("answer").focus();
+            document.getElementById("feedback").textContent = "";
+            answered = false;
+        });
+    }
+
+    function checkAnswer() {
+        if (answered) return;
+        const answer = document.getElementById("answer").value.trim();
+        if (!answer) return;
+        answered = true;
+
+        fetch("/games/speed/check", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({answer: answer})
+        })
+        .then(r => r.json())
+        .then(data => {
+            const feedback = document.getElementById("feedback");
+            if (data.correct) {
+                feedback.className = "speed-feedback correct";
+                feedback.textContent = "✅ Верно!";
+            } else {
+                feedback.className = "speed-feedback wrong";
+                feedback.textContent = "❌ " + data.correct_answer;
+            }
+            setTimeout(() => loadNextWord(), 500);
+        });
+    }
+
+    function showResult() {
+        fetch("/games/speed/result")
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById("speed-play").style.display = "none";
+            document.getElementById("result").style.display = "block";
+            document.getElementById("result-score").textContent = data.score + " / " + data.total;
+        });
+    }
+
+    document.getElementById("answer").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") checkAnswer();
+    });
+</script>
+{% endblock %}
