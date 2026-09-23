@@ -231,8 +231,8 @@ li:hover {
     margin-bottom: 30px;
 }
 .card {
-    background: #fff;
-    border: 1px solid #e0e0e0;
+    background: #e3f2fd;
+    border: 1px solid #bbdefb;
     border-radius: 12px;
     padding: 25px;
     text-decoration: none;
@@ -244,8 +244,9 @@ li:hover {
     min-height: 140px;
 }
 .card:hover {
-    box-shadow: 0 4px 20px rgba(33, 150, 243, 0.15);
+    box-shadow: 0 4px 20px rgba(33, 150, 243, 0.25);
     transform: translateY(-3px);
+    background: #bbdefb;
 }
 .card-emoji { font-size: 32px; margin-bottom: 10px; }
 .card-title { font-size: 17px; font-weight: 700; margin-bottom: 5px; color: #333; }
