@@ -1100,6 +1100,63 @@ def speed_result():
         "total": len(session.get("speed_words", []))
     })
 
+# ─── УТИЛИТЫ ───
+
+from flask import Response
+
+@app.route("/utils")
+def utils_page():
+    return render_template("utils.html")
+
+@app.route("/export/words")
+def export_words():
+    text = "МОИ СЛОВА\n\n"
+    for eng, data in words.items():
+        section = get_section(data["section"])
+        text += f"{eng} - {data['rus']} ({section['title']})\n"
+    return Response(
+        text,
+        mimetype="text/plain",
+        headers={"Content-Disposition": "attachment; filename=my_words.txt"}
+    )
+
+@app.route("/export/phrases")
+def export_phrases():
+    text = "МОИ ФРАЗЫ\n\n"
+    for eng, rus in phrases.items():
+        text += f"{eng} - {rus}\n"
+    return Response(
+        text,
+        mimetype="text/plain",
+        headers={"Content-Disposition": "attachment; filename=my_phrases.txt"}
+    )
+
+@app.route("/export/section/<sid>")
+def export_section(sid):
+    section = get_section(sid)
+    text = f"КАТЕГОРИЯ: {section['title'].upper()}\n\n"
+    for eng, data in words.items():
+        if data["section"] == sid:
+            text += f"{eng} - {data['rus']}\n"
+    return Response(
+        text,
+        mimetype="text/plain",
+        headers={"Content-Disposition": f"attachment; filename={sid}.txt"}
+    )
+
+@app.route("/export/topics")
+def export_topics():
+    text = "МОИ ТОПИКИ\n\n"
+    for tid, data in topics.items():
+        if data.get("done"):
+            text += f"=== {data.get('title', 'Без названия')} ===\n"
+            text += data.get("text", "") + "\n\n"
+    return Response(
+        text,
+        mimetype="text/plain",
+        headers={"Content-Disposition": "attachment; filename=my_topics.txt"}
+    )
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
