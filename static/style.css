@@ -51,18 +51,53 @@ body {
 }
 .faq-link:hover { text-decoration: underline; }
 
-/* ─── ЗАГОЛОВОК СТРАНИЦЫ ─── */
+/* ─── ЗАГОЛОВОК ─── */
 h1 {
     font-size: 32px;
     font-weight: 900;
     color: #333;
     margin-bottom: 10px;
 }
+h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+}
 .subtitle {
     color: #888;
     font-size: 15px;
     margin-bottom: 25px;
 }
+
+/* ─── HERO (главная) ─── */
+.hero {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.hero h1 {
+    font-size: 38px;
+    font-weight: 900;
+    color: #333;
+    margin-bottom: 12px;
+}
+.hero p {
+    color: #888;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+.train-main {
+    display: inline-block;
+    background: #2196f3;
+    color: #fff;
+    padding: 18px 50px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 17px;
+    transition: background 0.2s;
+}
+.train-main:hover { background: #1976d2; }
 
 /* ─── КНОПКИ ─── */
 .btn {
@@ -122,9 +157,7 @@ h1 {
 .form input::placeholder { color: #aaa; }
 
 /* ─── ПОИСК ─── */
-.search {
-    margin-bottom: 25px;
-}
+.search { margin-bottom: 25px; }
 .search input {
     width: 100%;
     padding: 14px 18px;
@@ -157,20 +190,16 @@ li:hover {
     transform: translateY(-2px);
 }
 
-.word-text {
-    color: #333;
-    font-weight: 500;
-}
+.word-text { color: #333; font-weight: 500; }
 .word-text::before {
     content: "→ ";
     color: #2196f3;
     font-weight: bold;
 }
-
 .word-section {
     font-size: 12px;
     color: #888;
-    background: #f5f5f5;
+    background: #fff;
     padding: 3px 10px;
     border-radius: 6px;
     margin-left: 10px;
@@ -190,28 +219,9 @@ li:hover {
 }
 .actions button:hover {
     color: #2196f3;
-    background: #f5f5f5;
+    background: #fff;
 }
 .actions .delete-btn:hover { color: #f44336; }
-
-/* ─── ПУСТО ─── */
-.empty {
-    text-align: center;
-    color: #aaa;
-    padding: 60px 20px;
-    font-size: 16px;
-}
-
-/* ─── АДАПТИВ ─── */
-@media (max-width: 768px) {
-    h1 { font-size: 26px; }
-    .header-inner { flex-direction: column; align-items: flex-start; }
-    .nav { gap: 15px; font-size: 14px; }
-    .form { flex-direction: column; }
-    .form input, .form select { min-width: 100%; }
-    li { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .actions { align-self: flex-end; }
-}
 
 /* ─── КАРТОЧКИ ─── */
 .cards {
@@ -240,6 +250,34 @@ li:hover {
 .card-emoji { font-size: 32px; margin-bottom: 10px; }
 .card-title { font-size: 17px; font-weight: 700; margin-bottom: 5px; color: #333; }
 .card-count { font-size: 14px; color: #888; }
+
+/* ─── EXTRA (нижние кнопки) ─── */
+.extra {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+}
+.extra a {
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+    text-align: center;
+    padding: 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.2s;
+    border: 2px solid #2196f3;
+    color: #2196f3;
+    background: #fff;
+}
+.extra a:hover {
+    background: #2196f3;
+    color: #fff;
+}
 
 /* ─── МОДАЛЬНОЕ ОКНО ─── */
 .modal-overlay {
@@ -273,7 +311,24 @@ li:hover {
     font-size: 15px;
 }
 
-/* ─── АДАПТИВ КАРТОЧЕК ─── */
+/* ─── ПУСТО ─── */
+.empty {
+    text-align: center;
+    color: #aaa;
+    padding: 60px 20px;
+    font-size: 16px;
+}
+
+/* ─── АДАПТИВ ─── */
 @media (max-width: 768px) {
+    h1 { font-size: 26px; }
+    .hero h1 { font-size: 28px; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .nav { gap: 15px; font-size: 14px; }
+    .form { flex-direction: column; }
+    .form input, .form select { min-width: 100%; }
+    li { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .actions { align-self: flex-end; }
     .cards { grid-template-columns: 1fr; }
+    .extra a { min-width: 100%; }
 }
