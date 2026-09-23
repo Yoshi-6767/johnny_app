@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% block title %}Тренировка глаголов — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .train-word {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-left: 4px solid #2196f3;
+        padding: 40px;
+        border-radius: 14px;
+        text-align: center;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: #333;
+    }
+    .train-label {
+        text-align: center;
+        color: #888;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+    .train-form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .train-form input {
+        flex: 1;
+        padding: 16px 20px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        color: #333;
+        font-size: 16px;
+        font-family: 'Rubik', sans-serif;
+        outline: none;
+    }
+    .train-form input:focus { border-color: #2196f3; }
+    .result {
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        display: none;
+    }
+    .result.correct {
+        background: #e8f5e9;
+        border-left: 4px solid #4caf50;
+        color: #2e7d32;
+    }
+    .result.wrong {
+        background: #ffebee;
+        border-left: 4px solid #f44336;
+        color: #c62828;
+    }
+    .stats {
+        display: flex;
+        justify-content: space-around;
+        padding: 16px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    .stats div { text-align: center; }
+    .stats .num { font-size: 24px; font-weight: 700; color: #2196f3; }
+    .stats .label { font-size: 13px; color: #888; margin-top: 4px; }
+    .nav { display: flex; gap: 10px; justify-content: center; }
+    .nav a {
+        color: #888;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+    .nav a:hover { color: #2196f3; background: #f5f7fa; }
+    .finish {
+        display: none;
+        text-align: center;
+        padding: 40px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 14px;
+    }
+    .finish .score {
+        font-size: 48px;
+        font-weight: 900;
+        color: #2196f3;
+        margin-bottom: 10px;
+    }
+    .finish .label {
+        color: #888;
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if empty %}
+    <div class="empty">
+        <h1>🔤 Пока нет глаголов</h1>
+        <p>Вернись в <a href="/study/irregular" style="color: #2196f3;">раздел глаголов</a>.</p>
+    </div>
+{% else %}
+    <div id="train-play">
+        <h1>🔤 Тренировка глаголов</h1>
+        <div class="subtitle">Режим: {% if mode == 'past' %}Base → Past{% elif mode == 'pp' %}Base → Past Participle{% else %}Перемешанный{% endif %}</div>
+
+        <div class="train-label" id="train-label">Загрузка...</div>
+
+        <div class="stats">
+            <div>
+                <div class="num" id="correct-count">0</div>
+                <div class="label">✅ Верно</div>
+            </div>
+            <div>
+                <div class="num" id="wrong-count">0</div>
+                <div class="label">❌ Ошибок</div>
+            </div>
+        </div>
+
+        <div class="train-word" id="word">...</div>
+
+        <div class="result" id="result"></div>
+
+        <div class="train-form">
+            <input id="answer" placeholder="Введи ответ..." autofocus>
+            <button class="btn" onclick="checkAnswer()">Проверить</button>
+        </div>
+
+        <div class="nav">
+            <a href="/study/irregular/train?mode={{ mode }}">🔄 Заново</a>
+            <a href="/study/irregular">⬅️ К глаголам</a>
+        </div>
+    </div>
+
+    <div class="finish" id="finish">
+        <div class="score" id="finish-score">0</div>
+        <div class="label">Всего правильных</div>
+        <div class="nav">
+            <a href="/study/irregular/train?mode={{ mode }}">🔄 Ещё раз</a>
+            <a href="/study/irregular">⬅️ К глаголам</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function loadNext() {
+        fetch("/study/irregular/next")
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "end") {
+                document.getElementById("train-play").style.display = "none";
+                document.getElementById("finish").style.display = "block";
+                document.getElementById("finish-score").textContent = document.getElementById("correct-count").textContent;
+                return;
+            }
+            document.getElementById("word").textContent = data.question;
+            document.getElementById("train-label").textContent = data.question_label + " — " + data.hint;
+            document.getElementById("answer").value = "";
+            document.getElementById("answer").focus();
+            document.getElementById("result").style.display = "none";
+        });
+    }
+
+    function checkAnswer() {
+        const answer = document.getElementById("answer").value.trim();
+        if (!answer) return;
+        fetch("/study/irregular/check", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({answer: answer})
+        })
+        .then(r => r.json())
+        .then(data => {
+            const result = document.getElementById("result");
+            result.style.display = "block";
+            if (data.correct) {
+                result.className = "result correct";
+                result.textContent = "✅ Верно!";
+            } else {
+                result.className = "result wrong";
+                result.textContent = "❌ Правильно: " + data.correct_answer;
+            }
+            document.getElementById("correct-count").textContent = data.score;
+            document.getElementById("wrong-count").textContent = data.wrong;
+            setTimeout(() => loadNext(), 1200);
+        });
+    }
+
+    document.getElementById("answer").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") checkAnswer();
+    });
+
+    loadNext();
+</script>
+{% endblock %}
