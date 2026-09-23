@@ -1,2 +1,5 @@
 Flask
 deep-translator
+Flask-SQLAlchemy
+Flask-Login
+Werkzeug
