@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ — Flow & Word</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .faq-item {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 20px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .faq-question:hover { background: #f5f7fa; }
+        .faq-question .icon {
+            color: #2196f3;
+            font-size: 20px;
+            font-weight: 700;
+            transition: transform 0.3s;
+        }
+        .faq-item.open .faq-question .icon {
+            transform: rotate(45deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 25px;
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+            padding: 0 25px 20px 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="/" class="logo">Flow <span>&</span> Word</a>
+                <nav class="nav">
+                    <a href="/words">Слова</a>
+                    <a href="/phrases">Фразы</a>
+                    <a href="/topics">Топики</a>
+                    <a href="/sections">Разделы</a>
+                    <a href="/progress">Прогресс</a>
+                </nav>
+                <a href="/faq" class="faq-link">FAQ</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="max-width: 800px;">
+        <h1>❓ FAQ</h1>
+        <div class="subtitle">Ответы на частые вопросы</div>
+
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-question">
+                Что такое Flow & Word?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Flow & Word — это приложение для изучения английского языка. Ты добавляешь свои слова и фразы, тренируешь их, пишешь топики, сдаёшь экзамены и следишь за прогрессом. Всё в одном месте.
+            </div>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-question">
+                Как добавить слова?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Зайди в раздел «Слова» → введи английское слово и русский перевод → выбери раздел (Еда, Спорт, Работа и т.д.) → нажми «Добавить». Слово появится в твоём словаре.
+            </div>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-question">
+                Как тренировать слова?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Нажми «Тренировать слова» на главной. Бот покажет слово на английском — введи перевод. Можно переключить режим на «RU → EN» (наоборот). Также можно тренировать только один раздел.
+            </div>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-question">
+                Что такое топики?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Топики — это тексты на английском по определённой теме. Ты пишешь своими словами, используешь слова-помощники и сохраняешь. Минимум — 50 слов. Это тренировка письма.
+            </div>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-question">
+                Что такое разделы?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Разделы — это категории слов (Еда, Спорт, Работа, Путешествия, Семья, Общее). Ты можешь учить слова по темам и тренировать только один раздел.
+            </div>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-question">
+                Что такое стрик?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Стрик — это количество дней подряд, в которые ты тренировался. Если пропустишь день — стрик сбрасывается. Стрик показывает, насколько ты постоянен.
+            </div>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-question">
+                Что такое экзамен?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Экзамен — это режим, где тебе случайно выпадает одна тема, и ты пишешь текст без подсказок. Таймер — 15 минут. После сохранения текст попадает в историю экзаменов.
+            </div>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-question">
+                Как работает переводчик?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Переводчик переводит слова и тексты между русским и английским. Выбери направление (RU → EN или EN → RU), введи текст и нажми «Перевести».
+            </div>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-question">
+                Это бесплатно?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Да, сейчас всё бесплатно. В будущем планируется подписка (неделя бесплатно, потом 180 ₽/мес) — но базовые функции останутся бесплатными.
+            </div>
+        </div>
+
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+            <div class="faq-question">
+                Как экспортировать слова?
+                <span class="icon">+</span>
+            </div>
+            <div class="faq-answer">
+                Пока экспорт не добавлен на сайт. В боте была команда /export. В ближайшее время добавим на сайт.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
