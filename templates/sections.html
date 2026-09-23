@@ -1,65 +1,92 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Категории — Flow & Word</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <div class="header">
-        <div class="container">
-            <div class="header-inner">
-                <a href="/" class="logo">Flow <span>&</span> Word</a>
-                <nav class="nav">
-                    <a href="/words">Слова</a>
-                    <a href="/phrases">Фразы</a>
-                    <a href="/topics">Топики</a>
-                    <a href="/sections">Категории</a>
-                    <a href="/games">Игры</a>
-                    <a href="/progress">Прогресс</a>
-                </nav>
-                <a href="/faq" class="faq-link">FAQ</a>
+{% extends "base.html" %}
+
+{% block title %}Категории — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .section-actions {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+    }
+    .section-actions a, .section-actions button {
+        flex: 1;
+        min-width: 180px;
+        text-align: center;
+    }
+    .add-form {
+        display: none;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>📚 Категории</h1>
+<div class="subtitle">Всего слов в базе: {{ total_words }}</div>
+
+<div class="section-actions">
+    <a href="/train" class="btn">🔥 Тренировать все слова</a>
+    <button class="btn-outline" onclick="document.getElementById('addForm').style.display='block'">➕ Добавить слово</button>
+</div>
+
+<div class="add-form" id="addForm">
+    <div class="form" style="margin-bottom: 0;">
+        <input id="eng" placeholder="Английское слово">
+        <input id="rus" placeholder="Русский перевод">
+        <select id="section">
+            {% for s in sections %}
+            <option value="{{ s.id }}">{{ s.emoji }} {{ s.title }}</option>
+            {% endfor %}
+        </select>
+        <button class="btn" onclick="addWord()">Добавить</button>
+    </div>
+</div>
+
+<div class="cards">
+    <a href="/sections/general" class="card">
+        <div>
+            <div class="card-emoji">📦</div>
+            <div class="card-title">Свои слова</div>
+            <div class="card-count">
+                {% for s in sections %}
+                    {% if s.id == 'general' %}{{ s.count }} слов{% endif %}
+                {% endfor %}
             </div>
         </div>
-    </div>
+    </a>
 
-    <div class="container">
-        <h1>📚 Категории</h1>
-        <div class="subtitle">Всего слов в базе: {{ total_words }}</div>
+    {% for s in sections %}
+        {% if s.id != 'general' %}
+        <a href="/sections/{{ s.id }}" class="card">
+            <div>
+                <div class="card-emoji">{{ s.emoji }}</div>
+                <div class="card-title">{{ s.title }}</div>
+                <div class="card-count">{{ s.count }} слов</div>
+            </div>
+        </a>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
 
-        <div class="cards">
-            <a href="/sections/general" class="card">
-                <div>
-                    <div class="card-emoji">📦</div>
-                    <div class="card-title">Свои слова</div>
-                    <div class="card-count">
-                        {% for s in sections %}
-                            {% if s.id == 'general' %}{{ s.count }} слов{% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-            </a>
-
-            {% for s in sections %}
-                {% if s.id != 'general' %}
-                <a href="/sections/{{ s.id }}" class="card">
-                    <div>
-                        <div class="card-emoji">{{ s.emoji }}</div>
-                        <div class="card-title">{{ s.title }}</div>
-                        <div class="card-count">{{ s.count }} слов</div>
-                    </div>
-                </a>
-                {% endif %}
-            {% endfor %}
-        </div>
-
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="/train" class="btn">🔥 Тренировать всё</a>
-        </div>
-    </div>
-</body>
-</html>
+{% block scripts %}
+<script>
+    function addWord() {
+        const eng = document.getElementById("eng").value.trim();
+        const rus = document.getElementById("rus").value.trim();
+        const section = document.getElementById("section").value;
+        if (!eng || !rus) return;
+        fetch("/add", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({eng: eng, rus: rus, section: section})
+        }).then(() => location.reload());
+    }
+</script>
+{% endblock %}
