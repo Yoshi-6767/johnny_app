@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, session, redirect
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import json
 from deep_translator import MyMemoryTranslator
 import random
@@ -6,9 +6,35 @@ import os
 import time
 from datetime import date, timedelta
 from datetime import date as date_module
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = "flow_and_word_secret_key"
+
+# ─── БАЗА ДАННЫХ ───
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////data/users.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+# ─── АВТОРИЗАЦИЯ ───
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    username = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(200), nullable=False)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+with app.app_context():
+    db.create_all()
 
 WORDS_FILE = "/data/words.json"
 PHRASES_FILE = "/data/phrases.json"
@@ -1156,6 +1182,56 @@ def export_topics():
         mimetype="text/plain",
         headers={"Content-Disposition": "attachment; filename=my_topics.txt"}
     )
+
+# ─── АВТОРИЗАЦИЯ ───
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        email = request.form.get("email", "").strip().lower()
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
+        
+        if not email or not username or not password:
+            return render_template("register.html", error="Заполни все поля")
+        
+        if User.query.filter_by(email=email).first():
+            return render_template("register.html", error="Этот email уже занят")
+        
+        hashed = generate_password_hash(password)
+        user = User(email=email, username=username, password=hashed)
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        return redirect("/")
+    
+    return render_template("register.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
+        
+        user = User.query.filter_by(email=email).first()
+        if not user or not check_password_hash(user.password, password):
+            return render_template("login.html", error="Неверный email или пароль")
+        
+        login_user(user)
+        return redirect("/")
+    
+    return render_template("login.html")
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")
+
+@app.route("/profile")
+@login_required
+def profile():
+    return render_template("profile.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
