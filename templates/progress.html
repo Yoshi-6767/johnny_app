@@ -1,141 +1,117 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Прогресс — Flow & Word</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/style.css">
-    <style>
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        .stat-card {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-        }
-        .stat-card .num {
-            font-size: 28px;
-            font-weight: 900;
-            color: #2196f3;
-        }
-        .stat-card .label {
-            font-size: 13px;
-            color: #888;
-            margin-top: 6px;
-        }
-        .chart {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 25px;
-        }
-        .chart-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        .chart-label {
-            width: 55px;
-            font-size: 13px;
-            color: #888;
-        }
-        .chart-bar {
-            flex: 1;
-            height: 24px;
-            background: #f5f7fa;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-        .chart-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #2196f3, #42a5f5);
-            border-radius: 6px;
-            transition: width 0.5s;
-        }
-        .chart-value {
-            width: 30px;
-            text-align: right;
-            font-size: 13px;
-            color: #2196f3;
-            font-weight: 600;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="container">
-            <div class="header-inner">
-                <a href="/" class="logo">Flow <span>&</span> Word</a>
-                <nav class="nav">
-                    <a href="/words">Слова</a>
-                    <a href="/phrases">Фразы</a>
-                    <a href="/topics">Топики</a>
-                    <a href="/sections">Категории</a>
-                    <a href="/games">Игры</a>
-                    <a href="/progress">Прогресс</a>
-                </nav>
-                <a href="/faq" class="faq-link">FAQ</a>
-            </div>
-        </div>
+{% extends "base.html" %}
+
+{% block title %}Прогресс — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+    .stat-card {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+    }
+    .stat-card .num {
+        font-size: 28px;
+        font-weight: 900;
+        color: #2196f3;
+    }
+    .stat-card .label {
+        font-size: 13px;
+        color: #888;
+        margin-top: 6px;
+    }
+    .chart {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 25px;
+    }
+    .chart-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+    .chart-label {
+        width: 55px;
+        font-size: 13px;
+        color: #888;
+    }
+    .chart-bar {
+        flex: 1;
+        height: 24px;
+        background: #f5f7fa;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .chart-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #2196f3, #42a5f5);
+        border-radius: 6px;
+        transition: width 0.5s;
+    }
+    .chart-value {
+        width: 30px;
+        text-align: right;
+        font-size: 13px;
+        color: #2196f3;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>📊 Дневник прогресса</h1>
+<div class="subtitle">Твоя статистика за всё время</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="num">{{ total_words }}</div>
+        <div class="label">📚 Слов</div>
     </div>
-
-    <div class="container">
-        <h1>📊 Дневник прогресса</h1>
-        <div class="subtitle">Твоя статистика за всё время</div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="num">{{ total_words }}</div>
-                <div class="label">📚 Слов</div>
-            </div>
-            <div class="stat-card">
-                <div class="num">{{ total_phrases }}</div>
-                <div class="label">💬 Фраз</div>
-            </div>
-            <div class="stat-card">
-                <div class="num">{{ streak }}</div>
-                <div class="label">🔥 Серия дней</div>
-            </div>
-            <div class="stat-card">
-                <div class="num">{{ total_correct }}</div>
-                <div class="label">✅ Верно</div>
-            </div>
-            <div class="stat-card">
-                <div class="num">{{ total_wrong }}</div>
-                <div class="label">❌ Ошибок</div>
-            </div>
-            <div class="stat-card">
-                <div class="num">{{ accuracy }}%</div>
-                <div class="label">📈 Точность</div>
-            </div>
-        </div>
-
-        <h2>📈 Активность за неделю</h2>
-        <div class="chart">
-            {% if last_7 %}
-                {% for day in last_7 %}
-                <div class="chart-row">
-                    <div class="chart-label">{{ day.label }}</div>
-                    <div class="chart-bar">
-                        <div class="chart-fill" style="width: {{ (day.correct + day.wrong) / max_day * 100 }}%"></div>
-                    </div>
-                    <div class="chart-value">{{ day.correct + day.wrong }}</div>
-                </div>
-                {% endfor %}
-            {% else %}
-                <div class="empty">Пока нет данных. Начни тренироваться!</div>
-            {% endif %}
-        </div>
+    <div class="stat-card">
+        <div class="num">{{ total_phrases }}</div>
+        <div class="label">💬 Фраз</div>
     </div>
-</body>
-</html>
+    <div class="stat-card">
+        <div class="num">{{ streak }}</div>
+        <div class="label">🔥 Серия дней</div>
+    </div>
+    <div class="stat-card">
+        <div class="num">{{ total_correct }}</div>
+        <div class="label">✅ Верно</div>
+    </div>
+    <div class="stat-card">
+        <div class="num">{{ total_wrong }}</div>
+        <div class="label">❌ Ошибок</div>
+    </div>
+    <div class="stat-card">
+        <div class="num">{{ accuracy }}%</div>
+        <div class="label">📈 Точность</div>
+    </div>
+</div>
+
+<h2>📈 Активность за неделю</h2>
+<div class="chart">
+    {% if last_7 %}
+        {% for day in last_7 %}
+        <div class="chart-row">
+            <div class="chart-label">{{ day.label }}</div>
+            <div class="chart-bar">
+                <div class="chart-fill" style="width: {{ (day.correct + day.wrong) / max_day * 100 }}%"></div>
+            </div>
+            <div class="chart-value">{{ day.correct + day.wrong }}</div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty">Пока нет данных. Начни тренироваться!</div>
+    {% endif %}
+</div>
+{% endblock %}
