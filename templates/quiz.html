@@ -1,268 +1,246 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Квиз — Flow & Word</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/style.css">
-    <style>
-        .quiz-word {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-left: 4px solid #2196f3;
-            padding: 40px;
-            border-radius: 14px;
-            text-align: center;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: #333;
-        }
-        .quiz-progress {
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-        .quiz-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .quiz-option {
-            padding: 18px 20px;
-            background: #fff;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 16px;
-            font-family: 'Rubik', sans-serif;
-            font-weight: 500;
-            color: #333;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
-        }
-        .quiz-option:hover:not(:disabled) {
-            border-color: #2196f3;
-            color: #2196f3;
-        }
-        .quiz-option:disabled { cursor: default; }
-        .quiz-option.correct {
-            background: #e8f5e9;
-            border-color: #4caf50;
-            color: #2e7d32;
-            font-weight: 700;
-        }
-        .quiz-option.wrong {
-            background: #ffebee;
-            border-color: #f44336;
-            color: #c62828;
-            font-weight: 700;
-        }
-        .quiz-result {
-            text-align: center;
-            padding: 40px;
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 14px;
-            display: none;
-        }
-        .quiz-result .score {
-            font-size: 48px;
-            font-weight: 900;
-            color: #2196f3;
-            margin-bottom: 10px;
-        }
-        .quiz-result .label {
-            color: #888;
-            font-size: 16px;
-            margin-bottom: 25px;
-        }
-        .quiz-errors {
-            text-align: left;
-            margin: 20px 0;
-            padding: 20px;
-            background: #f5f7fa;
-            border-radius: 12px;
-        }
-        .quiz-errors h3 {
-            color: #333;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-        .quiz-errors .error-item {
-            padding: 10px 0;
-            border-bottom: 1px solid #e0e0e0;
-            font-size: 14px;
-            color: #555;
-        }
-        .quiz-errors .error-item:last-child { border-bottom: none; }
-        .quiz-errors .error-item strong { color: #f44336; }
-        .quiz-nav {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .quiz-nav a {
-            color: #888;
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 500;
-            border: 1px solid #e0e0e0;
-        }
-        .quiz-nav a:hover { color: #2196f3; border-color: #2196f3; }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="container">
-            <div class="header-inner">
-                <a href="/" class="logo">Flow <span>&</span> Word</a>
-                <nav class="nav">
-                    <a href="/words">Слова</a>
-                    <a href="/phrases">Фразы</a>
-                    <a href="/topics">Топики</a>
-                    <a href="/sections">Категории</a>
-                    <a href="/games">Игры</a>
-                    <a href="/progress">Прогресс</a>
-                </nav>
-                <a href="/faq" class="faq-link">FAQ</a>
-            </div>
+{% extends "base.html" %}
+
+{% block title %}Квиз — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .quiz-word {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-left: 4px solid #2196f3;
+        padding: 40px;
+        border-radius: 14px;
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: #333;
+    }
+    .quiz-progress {
+        text-align: center;
+        color: #888;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .quiz-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+    .quiz-option {
+        padding: 18px 20px;
+        background: #fff;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        font-size: 16px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 500;
+        color: #333;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+    }
+    .quiz-option:hover:not(:disabled) {
+        border-color: #2196f3;
+        color: #2196f3;
+    }
+    .quiz-option:disabled { cursor: default; }
+    .quiz-option.correct {
+        background: #e8f5e9;
+        border-color: #4caf50;
+        color: #2e7d32;
+        font-weight: 700;
+    }
+    .quiz-option.wrong {
+        background: #ffebee;
+        border-color: #f44336;
+        color: #c62828;
+        font-weight: 700;
+    }
+    .quiz-result {
+        text-align: center;
+        padding: 40px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 14px;
+        display: none;
+    }
+    .quiz-result .score {
+        font-size: 48px;
+        font-weight: 900;
+        color: #2196f3;
+        margin-bottom: 10px;
+    }
+    .quiz-result .label {
+        color: #888;
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+    .quiz-errors {
+        text-align: left;
+        margin: 20px 0;
+        padding: 20px;
+        background: #f5f7fa;
+        border-radius: 12px;
+    }
+    .quiz-errors h3 {
+        color: #333;
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    .quiz-errors .error-item {
+        padding: 10px 0;
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 14px;
+        color: #555;
+    }
+    .quiz-errors .error-item:last-child { border-bottom: none; }
+    .quiz-errors .error-item strong { color: #f44336; }
+    .quiz-nav {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .quiz-nav a {
+        color: #888;
+        text-decoration: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 500;
+        border: 1px solid #e0e0e0;
+    }
+    .quiz-nav a:hover { color: #2196f3; border-color: #2196f3; }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if empty %}
+    <div class="empty">
+        <h1>❓ Пока мало слов</h1>
+        <p>Нужно минимум <strong>4 слова</strong> от 4 до 12 букв.</p>
+        <p>Добавь в <a href="/sections" style="color: #2196f3;">категориях</a>.</p>
+    </div>
+{% else %}
+    <div id="quiz-play">
+        <h1>❓ Квиз</h1>
+        <div class="quiz-progress" id="progress">Вопрос 1 из 10</div>
+
+        <div class="quiz-word" id="word">...</div>
+
+        <div class="quiz-options" id="options"></div>
+    </div>
+
+    <div class="quiz-result" id="result">
+        <div class="score" id="result-score">0</div>
+        <div class="label">из 10</div>
+
+        <div class="quiz-errors" id="errors-box" style="display: none;">
+            <h3>❌ Твои ошибки:</h3>
+            <div id="errors-list"></div>
+        </div>
+
+        <div class="quiz-nav">
+            <a href="/games/quiz">🔄 Ещё раз</a>
+            <a href="/games">⬅️ К играм</a>
         </div>
     </div>
+{% endif %}
+{% endblock %}
 
-    <div class="container" style="max-width: 600px;">
-        {% if empty %}
-            <div class="empty">
-                <h1>❓ Пока мало слов</h1>
-                <p>Нужно минимум <strong>4 слова</strong> от 4 до 12 букв.</p>
-                <p>Добавь в <a href="/words" style="color: #2196f3;">словаре</a>.</p>
-            </div>
-        {% else %}
-            <div id="quiz-play">
-                <h1>❓ Квиз</h1>
-                <div class="quiz-progress" id="progress">Вопрос 1 из 10</div>
+{% block scripts %}
+<script>
+    let currentWord = "";
+    let currentCorrect = "";
+    let answered = false;
 
-                <div class="quiz-word" id="word">...</div>
-
-                <div class="quiz-options" id="options"></div>
-            </div>
-
-            <div class="quiz-result" id="result">
-                <div class="score" id="result-score">0</div>
-                <div class="label">из 10</div>
-
-                <div class="quiz-errors" id="errors-box" style="display: none;">
-                    <h3>❌ Твои ошибки:</h3>
-                    <div id="errors-list"></div>
-                </div>
-
-                <div class="quiz-nav">
-                    <a href="/games/quiz">🔄 Ещё раз</a>
-                    <a href="/games">⬅️ К играм</a>
-                </div>
-            </div>
-        {% endif %}
-    </div>
-
-    <script>
-        let currentWord = "";
-        let currentCorrect = "";
-        let answered = false;
-
-        function loadQuestion() {
-            fetch("/games/quiz/question")
-            .then(r => r.json())
-            .then(data => {
-                if (data.status === "end") {
-                    showResult();
-                    return;
-                }
-                currentWord = data.word;
-                currentCorrect = data.correct;
-                answered = false;
-                document.getElementById("progress").textContent = "Вопрос " + data.question_num + " из " + data.total;
-                document.getElementById("word").textContent = data.word;
-
-                const optionsDiv = document.getElementById("options");
-                optionsDiv.innerHTML = "";
-                data.options.forEach(opt => {
-                    const btn = document.createElement("button");
-                    btn.className = "quiz-option";
-                    btn.textContent = opt;
-                    btn.onclick = () => checkAnswer(opt, btn);
-                    optionsDiv.appendChild(btn);
-                });
-            });
-        }
-
-        function checkAnswer(answer, btn) {
-            if (answered) return;
-            answered = true;
-
-            fetch("/games/quiz/answer", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({answer: answer})
-            })
-            .then(r => r.json())
-            .then(data => {
-                const buttons = document.querySelectorAll(".quiz-option");
-                buttons.forEach(b => {
-                    b.disabled = true;
-                    if (b.textContent === data.correct_answer) {
-                        b.classList.add("correct");
-                    }
-                });
-                if (!data.correct) {
-                    btn.classList.add("wrong");
-                }
-
-                setTimeout(() => {
-                    loadNext();
-                }, 1500);
-            });
-        }
-
-        function loadNext() {
-            const progress = document.getElementById("progress").textContent;
-            const match = progress.match(/Вопрос (\d+) из (\d+)/);
-            if (match && parseInt(match[1]) >= parseInt(match[2])) {
+    function loadQuestion() {
+        fetch("/games/quiz/question")
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "end") {
                 showResult();
-            } else {
-                loadQuestion();
+                return;
             }
-        }
+            currentWord = data.word;
+            currentCorrect = data.correct;
+            answered = false;
+            document.getElementById("progress").textContent = "Вопрос " + data.question_num + " из " + data.total;
+            document.getElementById("word").textContent = data.word;
 
-        function showResult() {
-            fetch("/games/quiz/result")
-            .then(r => r.json())
-            .then(data => {
-                document.getElementById("quiz-play").style.display = "none";
-                document.getElementById("result").style.display = "block";
-                document.getElementById("result-score").textContent = data.score + " / " + data.total;
+            const optionsDiv = document.getElementById("options");
+            optionsDiv.innerHTML = "";
+            data.options.forEach(opt => {
+                const btn = document.createElement("button");
+                btn.className = "quiz-option";
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer(opt, btn);
+                optionsDiv.appendChild(btn);
+            });
+        });
+    }
 
-                if (data.errors && data.errors.length > 0) {
-                    document.getElementById("errors-box").style.display = "block";
-                    const list = document.getElementById("errors-list");
-                    list.innerHTML = "";
-                    data.errors.forEach(err => {
-                        const div = document.createElement("div");
-                        div.className = "error-item";
-                        div.innerHTML = "<strong>" + err.word + "</strong> → " + err.correct + " (ты выбрал: " + err.chosen + ")";
-                        list.appendChild(div);
-                    });
+    function checkAnswer(answer, btn) {
+        if (answered) return;
+        answered = true;
+
+        fetch("/games/quiz/answer", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({answer: answer})
+        })
+        .then(r => r.json())
+        .then(data => {
+            const buttons = document.querySelectorAll(".quiz-option");
+            buttons.forEach(b => {
+                b.disabled = true;
+                if (b.textContent === data.correct_answer) {
+                    b.classList.add("correct");
                 }
             });
-        }
+            if (!data.correct) {
+                btn.classList.add("wrong");
+            }
 
-        loadQuestion();
-    </script>
-</body>
-</html>
+            setTimeout(() => {
+                loadNext();
+            }, 1500);
+        });
+    }
+
+    function loadNext() {
+        const progress = document.getElementById("progress").textContent;
+        const match = progress.match(/Вопрос (\d+) из (\d+)/);
+        if (match && parseInt(match[1]) >= parseInt(match[2])) {
+            showResult();
+        } else {
+            loadQuestion();
+        }
+    }
+
+    function showResult() {
+        fetch("/games/quiz/result")
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById("quiz-play").style.display = "none";
+            document.getElementById("result").style.display = "block";
+            document.getElementById("result-score").textContent = data.score + " / " + data.total;
+
+            if (data.errors && data.errors.length > 0) {
+                document.getElementById("errors-box").style.display = "block";
+                const list = document.getElementById("errors-list");
+                list.innerHTML = "";
+                data.errors.forEach(err => {
+                    const div = document.createElement("div");
+                    div.className = "error-item";
+                    div.innerHTML = "<strong>" + err.word + "</strong> → " + err.correct + " (ты выбрал: " + err.chosen + ")";
+                    list.appendChild(div);
+                });
+            }
+        });
+    }
+
+    loadQuestion();
+</script>
+{% endblock %}
