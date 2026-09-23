@@ -16,7 +16,7 @@
             margin-bottom: 20px;
         }
         .exam-header .emoji { font-size: 56px; }
-        .exam-header h1 { margin: 0; }
+        .exam-header h2 { margin: 0; color: #2196f3; font-size: 24px; }
         .timer {
             text-align: center;
             font-size: 32px;
@@ -64,12 +64,12 @@
             <div class="header-inner">
                 <a href="/" class="logo">Flow <span>&</span> Word</a>
                 <nav class="nav">
-    <a href="/words">Слова</a>
-    <a href="/phrases">Фразы</a>
-    <a href="/topics">Топики</a>
-    <a href="/games">Игры</a>
-    <a href="/progress">Прогресс</a>
-</nav>
+                    <a href="/words">Слова</a>
+                    <a href="/phrases">Фразы</a>
+                    <a href="/topics">Топики</a>
+                    <a href="/games">Игры</a>
+                    <a href="/progress">Прогресс</a>
+                </nav>
                 <a href="/faq" class="faq-link">FAQ</a>
             </div>
         </div>
@@ -87,7 +87,7 @@
 
             <div class="exam-header">
                 <div class="emoji">{{ topic.emoji }}</div>
-                <h2 style="color: #2196f3; font-size: 24px;">{{ topic.title }}</h2>
+                <h2>{{ topic.title }}</h2>
             </div>
 
             <div class="timer" id="timer">15:00</div>
