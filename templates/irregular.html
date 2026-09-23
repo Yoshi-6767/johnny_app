@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Неправильные глаголы — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .verb-search {
+        margin-bottom: 25px;
+    }
+    .verb-search input {
+        width: 100%;
+        padding: 14px 18px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        color: #333;
+        font-size: 15px;
+        font-family: 'Rubik', sans-serif;
+        outline: none;
+    }
+    .verb-search input:focus { border-color: #2196f3; }
+
+    .verb-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .verb-table th {
+        background: #2196f3;
+        color: #fff;
+        padding: 15px;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .verb-table td {
+        padding: 15px;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 15px;
+        color: #333;
+    }
+    .verb-table tr:last-child td { border-bottom: none; }
+    .verb-table tr:hover td { background: #f5f7fa; }
+    .verb-base { font-weight: 700; color: #2196f3; }
+    .verb-rus { color: #888; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>🔤 Неправильные глаголы</h1>
+<div class="subtitle">Всего: {{ verbs|length }} глаголов</div>
+
+<div class="verb-search">
+    <input id="search" placeholder="🔍 Поиск по глаголу или переводу..." oninput="filterVerbs()">
+</div>
+
+<table class="verb-table">
+    <thead>
+        <tr>
+            <th>Base</th>
+            <th>Past</th>
+            <th>Past Participle</th>
+            <th>Перевод</th>
+        </tr>
+    </thead>
+    <tbody id="verbs-body">
+        {% for v in verbs %}
+        <tr data-word="{{ v.base }} {{ v.rus }}">
+            <td class="verb-base">{{ v.base }}</td>
+            <td>{{ v.past }}</td>
+            <td>{{ v.pp }}</td>
+            <td class="verb-rus">{{ v.rus }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function filterVerbs() {
+        const query = document.getElementById("search").value.toLowerCase();
+        const rows = document.querySelectorAll("#verbs-body tr");
+        rows.forEach(row => {
+            const text = row.dataset.word.toLowerCase();
+            row.style.display = text.includes(query) ? "table-row" : "none";
+        });
+    }
+</script>
+{% endblock %}
