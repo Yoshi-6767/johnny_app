@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Разделы — Flow & Word</title>
+    <title>Категории — Flow & Word</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -32,14 +32,24 @@
         <div class="subtitle">Всего слов в базе: {{ total_words }}</div>
 
         <div class="cards">
-            {% for s in sections %}
-            <a href="/sections/{{ s.id }}" class="card">
+            <a href="/sections/general" class="card">
                 <div>
-                    <div class="card-emoji">{{ s.emoji }}</div>
-                    <div class="card-title">{{ s.title }}</div>
-                    <div class="card-count">Слов: {{ s.count }}</div>
+                    <div class="card-emoji">📦</div>
+                    <div class="card-title">Свои слова</div>
+                    <div class="card-count">{{ sections|selectattr('id', 'equalto', 'general')|map(attribute='count')|first }} слов</div>
                 </div>
             </a>
+
+            {% for s in sections %}
+                {% if s.id != 'general' %}
+                <a href="/sections/{{ s.id }}" class="card">
+                    <div>
+                        <div class="card-emoji">{{ s.emoji }}</div>
+                        <div class="card-title">{{ s.title }}</div>
+                        <div class="card-count">{{ s.count }} слов</div>
+                    </div>
+                </a>
+                {% endif %}
             {% endfor %}
         </div>
 
