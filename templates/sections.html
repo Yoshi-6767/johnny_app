@@ -36,7 +36,11 @@
                 <div>
                     <div class="card-emoji">📦</div>
                     <div class="card-title">Свои слова</div>
-                    <div class="card-count">{{ sections|selectattr('id', 'equalto', 'general')|map(attribute='count')|first }} слов</div>
+                    <div class="card-count">
+                        {% for s in sections %}
+                            {% if s.id == 'general' %}{{ s.count }} слов{% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </a>
 
