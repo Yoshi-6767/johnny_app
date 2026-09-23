@@ -14,7 +14,7 @@ PROGRESS_FILE = "/data/progress.json"
 TOPICS_FILE = "/data/topics.json"
 EXAM_FILE = "/data/exams.json"
 
-# ─── РАЗДЕЛЫ ───
+# ─── КАТЕГОРИИ ───
 
 SECTIONS = [
     {"id": "food", "title": "Еда", "emoji": "🍔"},
