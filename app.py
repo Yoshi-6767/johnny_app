@@ -861,6 +861,100 @@ def study_page():
 def irregular_page():
     return render_template("irregular.html", verbs=IRREGULAR_VERBS)
 
+# ─── ТРЕНИРОВКА НЕПРАВИЛЬНЫХ ГЛАГОЛОВ ───
+
+@app.route("/study/irregular/train")
+def irregular_train():
+    mode = request.args.get("mode", "past")
+    if not IRREGULAR_VERBS:
+        return render_template("irregular_train.html", empty=True)
+    session["irr_mode"] = mode
+    session["irr_correct"] = 0
+    session["irr_wrong"] = 0
+    session["irr_used"] = []
+    return render_template("irregular_train.html", empty=False, mode=mode)
+
+@app.route("/study/irregular/next")
+def irregular_next():
+    mode = session.get("irr_mode", "past")
+    used = session.get("irr_used", [])
+    available = [v for v in IRREGULAR_VERBS if v["base"] not in used]
+    if not available:
+        return jsonify({"status": "end"})
+    verb = random.choice(available)
+    session["irr_used"] = used + [verb["base"]]
+    session["irr_current"] = verb["base"]
+    if mode == "past":
+        return jsonify({
+            "status": "ok",
+            "question": verb["base"],
+            "question_label": "Base → Past",
+            "hint": "Какая форма Past?"
+        })
+    elif mode == "pp":
+        return jsonify({
+            "status": "ok",
+            "question": verb["base"],
+            "question_label": "Base → Past Participle",
+            "hint": "Какая форма Past Participle?"
+        })
+    else:  # mixed
+        form = random.choice(["past", "pp"])
+        session["irr_mixed_form"] = form
+        if form == "past":
+            return jsonify({
+                "status": "ok",
+                "question": verb["base"],
+                "question_label": "Base → Past",
+                "hint": "Какая форма Past?"
+            })
+        else:
+            return jsonify({
+                "status": "ok",
+                "question": verb["pp"],
+                "question_label": "Past Participle → Base",
+                "hint": "Какой это глагол?"
+            })
+
+@app.route("/study/irregular/check", methods=["POST"])
+def irregular_check():
+    data = request.json
+    answer = data.get("answer", "").strip().lower()
+    base = session.get("irr_current", "")
+    mode = session.get("irr_mode", "past")
+    verb = next((v for v in IRREGULAR_VERBS if v["base"] == base), None)
+    if not verb:
+        return jsonify({"status": "error"})
+    
+    if mode == "past":
+        correct = verb["past"].lower()
+        correct_display = verb["past"]
+    elif mode == "pp":
+        correct = verb["pp"].lower()
+        correct_display = verb["pp"]
+    else:  # mixed
+        form = session.get("irr_mixed_form", "past")
+        if form == "past":
+            correct = verb["past"].lower()
+            correct_display = verb["past"]
+        else:
+            correct = verb["base"].lower()
+            correct_display = verb["base"]
+    
+    is_correct = answer == correct
+    if is_correct:
+        session["irr_correct"] = session.get("irr_correct", 0) + 1
+    else:
+        session["irr_wrong"] = session.get("irr_wrong", 0) + 1
+    
+    return jsonify({
+        "status": "ok",
+        "correct": is_correct,
+        "correct_answer": correct_display,
+        "score": session.get("irr_correct", 0),
+        "wrong": session.get("irr_wrong", 0)
+    })
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
