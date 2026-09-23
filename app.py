@@ -738,4 +738,242 @@ def irregular_check():
 
 # ─── ИГРОВЫЕ РЕЖИМЫ ───
 
-HANGMAN_STATE
+HANGMAN_STATE = {}
+
+@app.route("/games")
+def games_page():
+    return render_template("games.html")
+
+@app.route("/games/hangman")
+def hangman_page():
+    available = [w for w in words.keys() if 4 <= len(w) <= 12 and " " not in w]
+    if not available:
+        return render_template("hangman.html", empty=True)
+    word = random.choice(available).lower()
+    section_id = words[word]["section"]
+    section = next((s for s in SECTIONS if s["id"] == section_id), SECTIONS[-1])
+    session["hangman_word"] = word
+    session["hangman_guessed"] = []
+    session["hangman_errors"] = 0
+    display = " ".join(["_" for _ in word])
+    return render_template(
+        "hangman.html",
+        empty=False,
+        display=display,
+        errors=0,
+        max_errors=6,
+        guessed=[],
+        word_length=len(word),
+        section=section
+    )
+
+@app.route("/games/hangman/guess", methods=["POST"])
+def hangman_guess():
+    data = request.json
+    letter = data.get("letter", "").strip().lower()
+    if len(letter) != 1 or not letter.isalpha() or not letter.isascii():
+        return jsonify({"status": "error", "message": "Только одна английская буква"})
+
+    word = session.get("hangman_word", "")
+    guessed = session.get("hangman_guessed", [])
+    errors = session.get("hangman_errors", 0)
+
+    if not word:
+        return jsonify({"status": "error", "message": "Игра не найдена"})
+
+    if letter in guessed:
+        return jsonify({
+            "status": "already",
+            "display": " ".join([c if c in guessed else "_" for c in word]),
+            "errors": errors,
+            "guessed": guessed,
+            "message": "Эту букву уже называл"
+        })
+
+    guessed.append(letter)
+    if letter not in word:
+        errors += 1
+
+    session["hangman_guessed"] = guessed
+    session["hangman_errors"] = errors
+
+    display = " ".join([c if c in guessed else "_" for c in word])
+
+    if all(c in guessed for c in word):
+        return jsonify({
+            "status": "win",
+            "display": display,
+            "word": word,
+            "errors": errors,
+            "guessed": guessed,
+            "message": "🎉 Ты угадал! Слово: " + word
+        })
+
+    if errors >= 6:
+        return jsonify({
+            "status": "lose",
+            "display": display,
+            "word": word,
+            "errors": errors,
+            "guessed": guessed,
+            "message": "💀 Ты проиграл. Слово было: " + word
+        })
+
+    return jsonify({
+        "status": "ok",
+        "display": display,
+        "errors": errors,
+        "guessed": guessed
+    })
+
+# ─── КВИЗ ───
+
+QUIZ_STATE = {}
+
+@app.route("/games/quiz")
+def quiz_page():
+    available = [w for w in words.keys() if 4 <= len(w) <= 12 and " " not in w]
+    if len(available) < 4:
+        return render_template("quiz.html", empty=True)
+    session["quiz_score"] = 0
+    session["quiz_question"] = 0
+    session["quiz_total"] = 10
+    session["quiz_used"] = []
+    session["quiz_errors"] = []
+    return render_template("quiz.html", empty=False)
+
+@app.route("/games/quiz/question")
+def quiz_question():
+    available = [w for w in words.keys() if 4 <= len(w) <= 12 and " " not in w and w not in session.get("quiz_used", [])]
+    if not available:
+        return jsonify({"status": "end"})
+
+    word = random.choice(available)
+    session["quiz_used"] = session.get("quiz_used", []) + [word]
+    session["quiz_current"] = word
+
+    correct = words[word]["rus"]
+
+    others = [w for w in words.keys() if w != word and words[w]["rus"] != correct]
+    wrong_options = random.sample(others, min(3, len(others)))
+    wrong_answers = [words[w]["rus"] for w in wrong_options]
+
+    options = [correct] + wrong_answers
+    random.shuffle(options)
+
+    question_num = session.get("quiz_question", 0) + 1
+    session["quiz_question"] = question_num
+
+    return jsonify({
+        "status": "ok",
+        "word": word,
+        "options": options,
+        "correct": correct,
+        "question_num": question_num,
+        "total": session.get("quiz_total", 10)
+    })
+
+@app.route("/games/quiz/answer", methods=["POST"])
+def quiz_answer():
+    data = request.json
+    answer = data.get("answer", "").strip()
+    word = session.get("quiz_current", "")
+    if not word or word not in words:
+        return jsonify({"status": "error"})
+
+    correct = words[word]["rus"]
+    is_correct = (answer == correct)
+
+    if is_correct:
+        session["quiz_score"] = session.get("quiz_score", 0) + 1
+    else:
+        errors = session.get("quiz_errors", [])
+        errors.append({"word": word, "correct": correct, "chosen": answer})
+        session["quiz_errors"] = errors
+
+    return jsonify({
+        "status": "ok",
+        "correct": is_correct,
+        "correct_answer": correct,
+        "score": session.get("quiz_score", 0)
+    })
+
+@app.route("/games/quiz/result")
+def quiz_result():
+    score = session.get("quiz_score", 0)
+    total = session.get("quiz_total", 10)
+    errors = session.get("quiz_errors", [])
+    return jsonify({
+        "score": score,
+        "total": total,
+        "errors": errors
+    })
+
+# ─── СКОРОСТНОЙ РЕЖИМ ───
+
+@app.route("/games/speed")
+def speed_page():
+    available = [w for w in words.keys() if 2 <= len(w) <= 15]
+    if len(available) < 5:
+        return render_template("speed.html", empty=True)
+    return render_template("speed.html", empty=False)
+
+@app.route("/games/speed/start")
+def speed_start():
+    available = [w for w in words.keys() if 2 <= len(w) <= 15]
+    if len(available) < 5:
+        return jsonify({"status": "error"})
+    chosen = random.sample(available, min(10, len(available)))
+    session["speed_words"] = chosen
+    session["speed_index"] = 0
+    session["speed_score"] = 0
+    session["speed_start"] = time.time()
+    return jsonify({"status": "ok", "total": len(chosen)})
+
+@app.route("/games/speed/next")
+def speed_next():
+    speed_words = session.get("speed_words", [])
+    index = session.get("speed_index", 0)
+    if index >= len(speed_words):
+        return jsonify({"status": "end"})
+    word = speed_words[index]
+    return jsonify({
+        "status": "ok",
+        "word": word,
+        "index": index + 1,
+        "total": len(speed_words)
+    })
+
+@app.route("/games/speed/check", methods=["POST"])
+def speed_check():
+    data = request.json
+    answer = data.get("answer", "").strip().lower()
+    speed_words = session.get("speed_words", [])
+    index = session.get("speed_index", 0)
+    if index >= len(speed_words):
+        return jsonify({"status": "error"})
+    word = speed_words[index]
+    correct = words[word]["rus"].strip().lower()
+    is_correct = (answer == correct)
+    if is_correct:
+        session["speed_score"] = session.get("speed_score", 0) + 1
+    session["speed_index"] = index + 1
+    return jsonify({
+        "status": "ok",
+        "correct": is_correct,
+        "correct_answer": words[word]["rus"],
+        "score": session.get("speed_score", 0),
+        "index": index + 1,
+        "total": len(speed_words)
+    })
+
+@app.route("/games/speed/result")
+def speed_result():
+    return jsonify({
+        "score": session.get("speed_score", 0),
+        "total": len(session.get("speed_words", []))
+    })
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
