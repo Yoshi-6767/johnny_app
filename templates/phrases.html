@@ -1,108 +1,83 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мои фразы — Flow & Word</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <div class="header">
-        <div class="container">
-            <div class="header-inner">
-                <a href="/" class="logo">Flow <span>&</span> Word</a>
-                <nav class="nav">
-                    <a href="/words">Слова</a>
-                    <a href="/phrases">Фразы</a>
-                    <a href="/topics">Топики</a>
-                    <a href="/sections">Категории</a>
-                    <a href="/games">Игры</a>
-                    <a href="/progress">Прогресс</a>
-                </nav>
-                <a href="/faq" class="faq-link">FAQ</a>
+{% extends "base.html" %}
+
+{% block title %}Мои фразы — Flow & Word{% endblock %}
+
+{% block content %}
+<h1>💬 Мои фразы</h1>
+<div class="subtitle">Всего фраз: {{ phrases|length }}</div>
+
+<div style="margin-bottom: 25px;">
+    <a href="/phrases/train" class="btn">🔥 Тренировать фразы</a>
+</div>
+
+<div class="form">
+    <input id="eng" placeholder="Английская фраза">
+    <input id="rus" placeholder="Русский перевод">
+    <button class="btn" onclick="addPhrase()">Добавить</button>
+</div>
+
+<div class="search">
+    <input id="search" placeholder="🔍 Поиск..." oninput="filterPhrases()">
+</div>
+
+<ul id="phrases-list">
+    {% if phrases %}
+        {% for eng, rus in phrases.items() %}
+        <li data-word="{{ eng }} {{ rus }}">
+            <span class="word-text">{{ eng }} → {{ rus }}</span>
+            <div class="actions">
+                <button onclick="editPhrase('{{ eng }}', '{{ rus }}')">✏️</button>
+                <button class="delete-btn" onclick="deletePhrase('{{ eng }}')">✖</button>
             </div>
-        </div>
-    </div>
+        </li>
+        {% endfor %}
+    {% else %}
+        <div class="empty">Пока нет фраз. Добавь первую!</div>
+    {% endif %}
+</ul>
+{% endblock %}
 
-    <div class="container">
-        <h1>💬 Мои фразы</h1>
-        <div class="subtitle">Всего фраз: {{ phrases|length }}</div>
+{% block scripts %}
+<script>
+    function addPhrase() {
+        const eng = document.getElementById("eng").value.trim();
+        const rus = document.getElementById("rus").value.trim();
+        if (!eng || !rus) return;
+        fetch("/phrases/add", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({eng: eng, rus: rus})
+        }).then(() => location.reload());
+    }
 
-        <div style="margin-bottom: 25px;">
-            <a href="/phrases/train" class="btn">🔥 Тренировать фразы</a>
-        </div>
+    function deletePhrase(eng) {
+        if (!confirm("Удалить фразу «" + eng + "»?")) return;
+        fetch("/phrases/delete", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({eng: eng})
+        }).then(() => location.reload());
+    }
 
-        <div class="form">
-            <input id="eng" placeholder="Английская фраза">
-            <input id="rus" placeholder="Русский перевод">
-            <button class="btn" onclick="addPhrase()">Добавить</button>
-        </div>
+    function editPhrase(eng, rus) {
+        const newEng = prompt("Английская фраза:", eng);
+        if (newEng === null) return;
+        const newRus = prompt("Русский перевод:", rus);
+        if (newRus === null) return;
+        fetch("/phrases/edit", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({old_eng: eng, new_eng: newEng.trim(), new_rus: newRus.trim()})
+        }).then(() => location.reload());
+    }
 
-        <div class="search">
-            <input id="search" placeholder="🔍 Поиск..." oninput="filterPhrases()">
-        </div>
-
-        <ul id="phrases-list">
-            {% if phrases %}
-                {% for eng, rus in phrases.items() %}
-                <li data-word="{{ eng }} {{ rus }}">
-                    <span class="word-text">{{ eng }} → {{ rus }}</span>
-                    <div class="actions">
-                        <button onclick="editPhrase('{{ eng }}', '{{ rus }}')">✏️</button>
-                        <button class="delete-btn" onclick="deletePhrase('{{ eng }}')">✖</button>
-                    </div>
-                </li>
-                {% endfor %}
-            {% else %}
-                <div class="empty">Пока нет фраз. Добавь первую!</div>
-            {% endif %}
-        </ul>
-    </div>
-
-    <script>
-        function addPhrase() {
-            const eng = document.getElementById("eng").value.trim();
-            const rus = document.getElementById("rus").value.trim();
-            if (!eng || !rus) return;
-            fetch("/phrases/add", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({eng: eng, rus: rus})
-            }).then(() => location.reload());
-        }
-
-        function deletePhrase(eng) {
-            if (!confirm("Удалить фразу «" + eng + "»?")) return;
-            fetch("/phrases/delete", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({eng: eng})
-            }).then(() => location.reload());
-        }
-
-        function editPhrase(eng, rus) {
-            const newEng = prompt("Английская фраза:", eng);
-            if (newEng === null) return;
-            const newRus = prompt("Русский перевод:", rus);
-            if (newRus === null) return;
-            fetch("/phrases/edit", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({old_eng: eng, new_eng: newEng.trim(), new_rus: newRus.trim()})
-            }).then(() => location.reload());
-        }
-
-        function filterPhrases() {
-            const query = document.getElementById("search").value.toLowerCase();
-            const items = document.querySelectorAll("#phrases-list li");
-            items.forEach(item => {
-                const text = item.dataset.word.toLowerCase();
-                item.style.display = text.includes(query) ? "flex" : "none";
-            });
-        }
-    </script>
-</body>
-</html>
+    function filterPhrases() {
+        const query = document.getElementById("search").value.toLowerCase();
+        const items = document.querySelectorAll("#phrases-list li");
+        items.forEach(item => {
+            const text = item.dataset.word.toLowerCase();
+            item.style.display = text.includes(query) ? "flex" : "none";
+        });
+    }
+</script>
+{% endblock %}
