@@ -635,6 +635,93 @@ def hangman_guess():
         "guessed": guessed
     })
 
+# ─── КВИЗ ───
+
+QUIZ_STATE = {}
+
+@app.route("/games/quiz")
+def quiz_page():
+    # Фильтруем: 4-12 букв, без пробелов
+    available = [w for w in words.keys() if 4 <= len(w) <= 12 and " " not in w]
+    if len(available) < 4:
+        return render_template("quiz.html", empty=True)
+    session["quiz_score"] = 0
+    session["quiz_question"] = 0
+    session["quiz_total"] = 10
+    session["quiz_used"] = []
+    session["quiz_errors"] = []
+    return render_template("quiz.html", empty=False)
+
+@app.route("/games/quiz/question")
+def quiz_question():
+    available = [w for w in words.keys() if 4 <= len(w) <= 12 and " " not in w and w not in session.get("quiz_used", [])]
+    if not available:
+        return jsonify({"status": "end"})
+    
+    word = random.choice(available)
+    session["quiz_used"] = session.get("quiz_used", []) + [word]
+    session["quiz_current"] = word
+    
+    # Правильный ответ
+    correct = words[word]["rus"]
+    
+    # 3 неправильных варианта
+    others = [w for w in words.keys() if w != word and words[w]["rus"] != correct]
+    wrong_options = random.sample(others, min(3, len(others)))
+    wrong_answers = [words[w]["rus"] for w in wrong_options]
+    
+    # Смешиваем
+    options = [correct] + wrong_answers
+    random.shuffle(options)
+    
+    question_num = session.get("quiz_question", 0) + 1
+    session["quiz_question"] = question_num
+    
+    return jsonify({
+        "status": "ok",
+        "word": word,
+        "options": options,
+        "correct": correct,
+        "question_num": question_num,
+        "total": session.get("quiz_total", 10)
+    })
+
+@app.route("/games/quiz/answer", methods=["POST"])
+def quiz_answer():
+    data = request.json
+    answer = data.get("answer", "").strip()
+    word = session.get("quiz_current", "")
+    if not word or word not in words:
+        return jsonify({"status": "error"})
+    
+    correct = words[word]["rus"]
+    is_correct = (answer == correct)
+    
+    if is_correct:
+        session["quiz_score"] = session.get("quiz_score", 0) + 1
+    else:
+        errors = session.get("quiz_errors", [])
+        errors.append({"word": word, "correct": correct, "chosen": answer})
+        session["quiz_errors"] = errors
+    
+    return jsonify({
+        "status": "ok",
+        "correct": is_correct,
+        "correct_answer": correct,
+        "score": session.get("quiz_score", 0)
+    })
+
+@app.route("/games/quiz/result")
+def quiz_result():
+    score = session.get("quiz_score", 0)
+    total = session.get("quiz_total", 10)
+    errors = session.get("quiz_errors", [])
+    return jsonify({
+        "score": score,
+        "total": total,
+        "errors": errors
+    })
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
