@@ -53,6 +53,12 @@
 <h1>🔤 Неправильные глаголы</h1>
 <div class="subtitle">Всего: {{ verbs|length }} глаголов</div>
 
+<div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
+    <a href="/study/irregular/train?mode=past" class="btn">🔥 Тренировать (Base → Past)</a>
+    <a href="/study/irregular/train?mode=pp" class="btn-outline">Base → Past Participle</a>
+    <a href="/study/irregular/train?mode=mixed" class="btn-outline">Перемешанный</a>
+</div>
+
 <div class="verb-search">
     <input id="search" placeholder="🔍 Поиск по глаголу или переводу..." oninput="filterVerbs()">
 </div>
