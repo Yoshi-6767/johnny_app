@@ -1,40 +1,36 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Своя тема — Flow & Word</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <div class="header">
-        <div class="container">
-            <div class="header-inner">
-                <a href="/" class="logo">Flow <span>&</span> Word</a>
-                <nav class="nav">
-                    <a href="/words">Слова</a>
-                    <a href="/phrases">Фразы</a>
-                    <a href="/topics">Топики</a>
-                    <a href="/sections">Категории</a>
-                    <a href="/games">Игры</a>
-                    <a href="/progress">Прогресс</a>
-                </nav>
-                <a href="/faq" class="faq-link">FAQ</a>
-            </div>
-        </div>
-    </div>
+{% extends "base.html" %}
 
-    <div class="container" style="max-width: 500px;">
-        <h1>➕ Своя тема</h1>
-        <div class="subtitle">Напиши название темы на английском</div>
+{% block title %}Своя тема — Flow & Word{% endblock %}
 
-        <form method="POST">
-            <input name="title" placeholder="Например: My Job" required autofocus style="width: 100%; padding: 16px 20px; background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; color: #333; font-size: 16px; font-family: 'Rubik', sans-serif; outline: none; margin-bottom: 20px;">
-            <button type="submit" class="btn" style="width: 100%;">Создать</button>
-        </form>
-    </div>
-</body>
-</html>
+{% block styles %}
+<style>
+    .topic-form {
+        max-width: 500px;
+    }
+    .topic-form input {
+        width: 100%;
+        padding: 16px 20px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        color: #333;
+        font-size: 16px;
+        font-family: 'Rubik', sans-serif;
+        outline: none;
+        margin-bottom: 20px;
+    }
+    .topic-form input:focus { border-color: #2196f3; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="topic-form">
+    <h1>➕ Своя тема</h1>
+    <div class="subtitle">Напиши название темы на английском</div>
+
+    <form method="POST">
+        <input name="title" placeholder="Например: My Job" required autofocus>
+        <button type="submit" class="btn" style="width: 100%;">Создать</button>
+    </form>
+</div>
+{% endblock %}
