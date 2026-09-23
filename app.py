@@ -559,6 +559,8 @@ def hangman_page():
     if not available:
         return render_template("hangman.html", empty=True)
     word = random.choice(available).lower()
+    section_id = words[word]["section"]
+    section = next((s for s in SECTIONS if s["id"] == section_id), SECTIONS[-1])
     session["hangman_word"] = word
     session["hangman_guessed"] = []
     session["hangman_errors"] = 0
@@ -570,7 +572,8 @@ def hangman_page():
         errors=0,
         max_errors=6,
         guessed=[],
-        word_length=len(word)
+        word_length=len(word),
+        section=section
     )
 
 @app.route("/games/hangman/guess", methods=["POST"])
