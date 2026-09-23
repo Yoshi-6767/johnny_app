@@ -34,9 +34,7 @@
             font-weight: 700;
             transition: transform 0.3s;
         }
-        .faq-item.open .faq-question .icon {
-            transform: rotate(45deg);
-        }
+        .faq-item.open .faq-question .icon { transform: rotate(45deg); }
         .faq-answer {
             max-height: 0;
             overflow: hidden;
@@ -61,6 +59,7 @@
                     <a href="/words">Слова</a>
                     <a href="/phrases">Фразы</a>
                     <a href="/topics">Топики</a>
+                    <a href="/sections">Категории</a>
                     <a href="/games">Игры</a>
                     <a href="/progress">Прогресс</a>
                 </nav>
@@ -74,103 +73,53 @@
         <div class="subtitle">Ответы на частые вопросы</div>
 
         <div class="faq-item" onclick="this.classList.toggle('open')">
-            <div class="faq-question">
-                Что такое Flow & Word?
-                <span class="icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Flow & Word — это приложение для изучения английского языка. Ты добавляешь свои слова и фразы, тренируешь их, пишешь топики, сдаёшь экзамены и следишь за прогрессом. Всё в одном месте.
-            </div>
+            <div class="faq-question">Что такое Flow & Word?<span class="icon">+</span></div>
+            <div class="faq-answer">Flow & Word — это приложение для изучения английского языка. Ты добавляешь свои слова и фразы, тренируешь их, пишешь топики, сдаёшь экзамены и следишь за прогрессом. Всё в одном месте.</div>
         </div>
 
         <div class="faq-item" onclick="this.classList.toggle('open')">
-            <div class="faq-question">
-                Как добавить слова?
-                <span class="icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Зайди в раздел «Слова» → введи английское слово и русский перевод → выбери категорию (Еда, Спорт, Работа и т.д.) → нажми «Добавить». Слово появится в твоём словаре.
-            </div>
+            <div class="faq-question">Как добавить слова?<span class="icon">+</span></div>
+            <div class="faq-answer">Зайди в раздел «Слова» → введи английское слово и русский перевод → выбери категорию → нажми «Добавить». Или зайди в «Категории» → выбери тему → нажми «Добавить слово».</div>
         </div>
 
         <div class="faq-item" onclick="this.classList.toggle('open')">
-            <div class="faq-question">
-                Как тренировать слова?
-                <span class="icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Нажми «Тренировать слова» на главной. Бот покажет слово на английском — введи перевод. Можно переключить режим на «RU → EN» (наоборот). Также можно тренировать только одну категорию.
-            </div>
+            <div class="faq-question">Как тренировать слова?<span class="icon">+</span></div>
+            <div class="faq-answer">Нажми «Тренировать слова» на главной. Бот покажет слово на английском — введи перевод. Можно переключить режим на «RU → EN». Также можно тренировать только одну категорию — зайди в неё и нажми «Тренировать тему».</div>
         </div>
 
         <div class="faq-item" onclick="this.classList.toggle('open')">
-            <div class="faq-question">
-                Что такое топики?
-                <span class="icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Топики — это тексты на английском по определённой теме. Ты пишешь своими словами, используешь слова-помощники и сохраняешь. Минимум — 50 слов. Это тренировка письма.
-            </div>
+            <div class="faq-question">Что такое топики?<span class="icon">+</span></div>
+            <div class="faq-answer">Топики — это тексты на английском по определённой теме. Ты пишешь своими словами, используешь слова-помощники и сохраняешь. Минимум — 50 слов.</div>
         </div>
 
         <div class="faq-item" onclick="this.classList.toggle('open')">
-            <div class="faq-question">
-                Какие есть игры?
-                <span class="icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Сейчас доступны три игры: <strong>Виселица</strong> (угадай слово по буквам), <strong>Квиз</strong> (выбери правильный перевод из 4 вариантов) и <strong>Скоростной режим</strong> (30 секунд на 10 слов).
-            </div>
+            <div class="faq-question">Какие есть игры?<span class="icon">+</span></div>
+            <div class="faq-answer">Сейчас доступны три игры: <strong>Виселица</strong> (угадай слово по буквам), <strong>Квиз</strong> (выбери правильный перевод из 4 вариантов) и <strong>Скоростной режим</strong> (30 секунд на 10 слов).</div>
         </div>
 
         <div class="faq-item" onclick="this.classList.toggle('open')">
-            <div class="faq-question">
-                Что такое стрик?
-                <span class="icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Стрик — это количество дней подряд, в которые ты тренировался. Если пропустишь день — стрик сбрасывается. Стрик показывает, насколько ты постоянен.
-            </div>
+            <div class="faq-question">Что такое стрик?<span class="icon">+</span></div>
+            <div class="faq-answer">Стрик — это количество дней подряд, в которые ты тренировался. Если пропустишь день — стрик сбрасывается.</div>
         </div>
 
         <div class="faq-item" onclick="this.classList.toggle('open')">
-            <div class="faq-question">
-                Что такое экзамен?
-                <span class="icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Экзамен — это режим, где тебе случайно выпадает одна тема, и ты пишешь текст без подсказок. Таймер — 15 минут. После сохранения текст попадает в историю экзаменов.
-            </div>
+            <div class="faq-question">Что такое экзамен?<span class="icon">+</span></div>
+            <div class="faq-answer">Экзамен — это режим, где тебе случайно выпадает одна тема, и ты пишешь текст без подсказок. Таймер — 15 минут. После сохранения текст попадает в историю экзаменов.</div>
         </div>
 
         <div class="faq-item" onclick="this.classList.toggle('open')">
-            <div class="faq-question">
-                Как работает переводчик?
-                <span class="icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Переводчик переводит слова и тексты между русским и английским. Выбери направление (RU → EN или EN → RU), введи текст и нажми «Перевести».
-            </div>
+            <div class="faq-question">Как работает переводчик?<span class="icon">+</span></div>
+            <div class="faq-answer">Переводчик переводит слова и тексты между русским и английским. Выбери направление (RU → EN или EN → RU), введи текст и нажми «Перевести».</div>
         </div>
 
         <div class="faq-item" onclick="this.classList.toggle('open')">
-            <div class="faq-question">
-                Это бесплатно?
-                <span class="icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Да, сейчас всё бесплатно. В будущем планируется подписка (неделя бесплатно, потом 139 ₽/мес) — но базовые функции останутся бесплатными.
-            </div>
+            <div class="faq-question">Это бесплатно?<span class="icon">+</span></div>
+            <div class="faq-answer">Да, сейчас всё бесплатно. В будущем планируется подписка (неделя бесплатно, потом 139 ₽/мес) — но базовые функции останутся бесплатными.</div>
         </div>
 
         <div class="faq-item" onclick="this.classList.toggle('open')">
-            <div class="faq-question">
-                Как экспортировать слова?
-                <span class="icon">+</span>
-            </div>
-            <div class="faq-answer">
-                Пока экспорт не добавлен на сайт. В ближайшее время добавим.
-            </div>
+            <div class="faq-question">Как экспортировать слова?<span class="icon">+</span></div>
+            <div class="faq-answer">Пока экспорт не добавлен на сайт. В ближайшее время добавим.</div>
         </div>
     </div>
 </body>
