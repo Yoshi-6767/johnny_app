@@ -25,9 +25,15 @@
                     <a href="/utils">Утилиты</a>
                 </nav>
                 <div style="display: flex; align-items: center; gap: 15px;">
-                    <button id="theme-toggle" onclick="toggleTheme()" style="background: transparent; border: none; font-size: 22px; cursor: pointer; padding: 0;">🌙</button>
-                    <a href="/faq" class="faq-link">FAQ</a>
-                </div>
+    <button id="theme-toggle" onclick="toggleTheme()" style="background: transparent; border: none; font-size: 22px; cursor: pointer; padding: 0;">🌙</button>
+    {% if current_user.is_authenticated %}
+        <a href="/profile" style="color: #2196f3; text-decoration: none; font-weight: 600; font-size: 14px;">{{ current_user.username }}</a>
+        <a href="/logout" style="color: #888; text-decoration: none; font-size: 14px;">Выйти</a>
+    {% else %}
+        <a href="/login" style="color: #2196f3; text-decoration: none; font-weight: 600; font-size: 14px;">Войти</a>
+    {% endif %}
+    <a href="/faq" class="faq-link">FAQ</a>
+</div>
             </div>
         </div>
     </div>
