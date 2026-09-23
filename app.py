@@ -45,7 +45,6 @@ EXAM_FILE = "/data/exams.json"
 # ─── КАТЕГОРИИ ───
 
 SECTIONS = [
-    SECTIONS = [
     # ─── A1-A2 ───
     {"id": "family", "title": "Family", "emoji": "👨‍👩‍👧", "level": "A1-A2"},
     {"id": "home", "title": "Home", "emoji": "🏠", "level": "A1-A2"},
