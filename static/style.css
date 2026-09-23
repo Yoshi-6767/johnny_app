@@ -141,8 +141,8 @@ h1 {
 /* ─── СПИСОК ─── */
 ul { list-style: none; }
 li {
-    background: #fff;
-    border: 1px solid #e0e0e0;
+    background: #e3f2fd;
+    border: 1px solid #bbdefb;
     padding: 16px 20px;
     margin: 10px 0;
     border-radius: 12px;
@@ -153,12 +153,12 @@ li {
     transition: box-shadow 0.2s, transform 0.1s;
 }
 li:hover {
-    box-shadow: 0 4px 20px rgba(33, 150, 243, 0.15);
+    box-shadow: 0 4px 20px rgba(33, 150, 243, 0.25);
     transform: translateY(-2px);
 }
 
 .word-text {
-    color: #2196f3;
+    color: #333;
     font-weight: 500;
 }
 .word-text::before {
