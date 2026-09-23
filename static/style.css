@@ -333,3 +333,124 @@ li:hover {
     .cards { grid-template-columns: 1fr; }
     .extra a { min-width: 100%; }
 }
+
+/* ─── ТЁМНАЯ ТЕМА ─── */
+
+body.dark {
+    background: #0f0f0f;
+    color: #e0e0e0;
+}
+body.dark .header {
+    background: #1a1a1a;
+    border-bottom-color: #2a2a2a;
+}
+body.dark .logo { color: #2196f3; }
+body.dark .logo span { color: #e0e0e0; }
+body.dark .nav a { color: #e0e0e0; }
+body.dark .nav a:hover { color: #2196f3; }
+body.dark .faq-link { color: #2196f3; }
+body.dark h1, body.dark h2 { color: #e0e0e0; }
+body.dark .subtitle { color: #888; }
+body.dark .card {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+}
+body.dark .card:hover { background: #2a2a2a; }
+body.dark .card-title { color: #e0e0e0; }
+body.dark .card-count { color: #888; }
+body.dark li {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+    color: #e0e0e0;
+}
+body.dark li:hover { background: #2a2a2a; }
+body.dark .word-text { color: #e0e0e0; }
+body.dark .word-section { background: #2a2a2a; color: #888; }
+body.dark .form input, body.dark .form select, body.dark .search input {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+    color: #e0e0e0;
+}
+body.dark .stat-card, body.dark .chart, body.dark .weak-words,
+body.dark .calendar, body.dark .quote, body.dark .recommendation {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+}
+body.dark .calendar-day {
+    background: #2a2a2a;
+    color: #666;
+}
+body.dark .calendar-day.trained { background: #2196f3; color: #fff; }
+body.dark .calendar-day.today { border-color: #2196f3; }
+body.dark .weak-word { color: #2196f3; }
+body.dark .weak-count { background: #3d1a1a; color: #ef9a9a; }
+body.dark .recommendation {
+    background: #1a2a3d;
+    border-left-color: #2196f3;
+}
+body.dark .recommendation h2 { color: #2196f3; }
+body.dark .recommendation p { color: #ccc; }
+body.dark .modal {
+    background: #1e1e1e;
+    border-left-color: #2196f3;
+}
+body.dark .modal h2 { color: #2196f3; }
+body.dark .modal p { color: #ccc; }
+body.dark .empty { color: #666; }
+body.dark .btn-outline {
+    background: #1e1e1e;
+    color: #2196f3;
+    border-color: #2196f3;
+}
+body.dark .btn-outline:hover { background: #2196f3; color: #fff; }
+body.dark table { background: #1e1e1e; }
+body.dark th { background: #2196f3; }
+body.dark td { color: #e0e0e0; border-bottom-color: #2a2a2a; }
+body.dark .verb-table tr:hover td { background: #2a2a2a; }
+body.dark textarea {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+    color: #e0e0e0;
+}
+body.dark .topic-textarea, body.dark .exam-textarea { background: #1e1e1e; border-color: #2a2a2a; color: #e0e0e0; }
+body.dark .mode-switch a {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+    color: #888;
+}
+body.dark .mode-switch a.active { background: #2196f3; color: #fff; }
+body.dark .word, body.dark .phrase, body.dark .hangman-word, body.dark .quiz-word, body.dark .speed-word, body.dark .train-word {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+    color: #e0e0e0;
+}
+body.dark .hangman-stats, body.dark .stats, body.dark .speed-timer, body.dark .timer {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+    color: #2196f3;
+}
+body.dark .speed-result, body.dark .quiz-result, body.dark .finish {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+}
+body.dark .quiz-option {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+    color: #e0e0e0;
+}
+body.dark .guessed span { background: #2a2a2a; color: #2196f3; }
+body.dark .helper { background: #1e1e1e; border-color: #2a2a2a; }
+body.dark .chip { background: #2a2a2a; color: #2196f3; }
+body.dark .direction button {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+    color: #888;
+}
+body.dark .direction button.active { background: #2196f3; border-color: #2196f3; color: #fff; }
+body.dark .translator-textarea { background: #1e1e1e; border-color: #2a2a2a; color: #e0e0e0; }
+body.dark .result { background: #1e1e1e; border-color: #2a2a2a; color: #e0e0e0; }
+body.dark .result.empty { color: #666; }
+body.dark .faq-item { background: #1e1e1e; border-color: #2a2a2a; }
+body.dark .faq-question { color: #e0e0e0; }
+body.dark .faq-question:hover { background: #2a2a2a; }
+body.dark .faq-answer { color: #ccc; }
