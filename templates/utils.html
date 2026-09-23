@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Утилиты — Flow & Word{% endblock %}
+
+{% block content %}
+<h1>🛠️ Утилиты</h1>
+<div class="subtitle">Экспорт, импорт и другие инструменты</div>
+
+<h2>📤 Экспорт данных</h2>
+<div class="cards">
+    <a href="/export/words" class="card">
+        <div>
+            <div class="card-emoji">📚</div>
+            <div class="card-title">Все слова</div>
+            <div class="card-count">Скачать TXT</div>
+        </div>
+    </a>
+
+    <a href="/export/phrases" class="card">
+        <div>
+            <div class="card-emoji">💬</div>
+            <div class="card-title">Все фразы</div>
+            <div class="card-count">Скачать TXT</div>
+        </div>
+    </a>
+
+    <a href="/export/topics" class="card">
+        <div>
+            <div class="card-emoji">📝</div>
+            <div class="card-title">Все топики</div>
+            <div class="card-count">Скачать TXT</div>
+        </div>
+    </a>
+</div>
+
+<h2 style="margin-top: 30px;">📥 Импорт данных</h2>
+<div class="cards">
+    <a href="#" class="card" style="opacity: 0.5; pointer-events: none;">
+        <div>
+            <div class="card-emoji">📥</div>
+            <div class="card-title">Загрузить слова</div>
+            <div class="card-count">Скоро</div>
+        </div>
+    </a>
+
+    <a href="#" class="card" style="opacity: 0.5; pointer-events: none;">
+        <div>
+            <div class="card-emoji">📥</div>
+            <div class="card-title">Загрузить фразы</div>
+            <div class="card-count">Скоро</div>
+        </div>
+    </a>
+</div>
+{% endblock %}
