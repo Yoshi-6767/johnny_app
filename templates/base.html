@@ -8,118 +8,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
+    <script>
+        // Применяем тему и цвет ДО отрисовки — чтобы не мигало
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') document.documentElement.setAttribute('data-theme-pending', 'dark');
+            const accent = localStorage.getItem('accent') || 'blue';
+            document.documentElement.setAttribute('data-accent-pending', accent);
+        })();
+    </script>
     {% block styles %}{% endblock %}
 </head>
 <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <div class="header">
         <div class="container">
             <div class="header-top">
                 <a href="/" class="logo">Flow <span>&</span> Word</a>
                 <div class="header-right">
+                    <div class="accent-picker">
+                        <div class="accent-toggle" onclick="toggleAccentMenu(event)" title="Цвет сайта"></div>
+                        <div class="accent-dropdown" id="accentDropdown">
+                            <div class="accent-swatch" data-accent="blue" style="background: #2196f3;" onclick="setAccent('blue')"></div>
+                            <div class="accent-swatch" data-accent="green" style="background: #4caf50;" onclick="setAccent('green')"></div>
+                            <div class="accent-swatch" data-accent="purple" style="background: #9c27b0;" onclick="setAccent('purple')"></div>
+                            <div class="accent-swatch" data-accent="pink" style="background: #e91e63;" onclick="setAccent('pink')"></div>
+                            <div class="accent-swatch" data-accent="orange" style="background: #ff9800;" onclick="setAccent('orange')"></div>
+                            <div class="accent-swatch" data-accent="red" style="background: #f44336;" onclick="setAccent('red')"></div>
+                        </div>
+                    </div>
                     <div class="theme-switch" onclick="toggleTheme()">
                         <span class="theme-icon">🌙</span>
                         <div class="theme-slider"></div>
                         <span class="theme-icon">☀️</span>
                     </div>
-                    {% if current_user.is_authenticated %}
-                        <div class="user-menu" onclick="toggleUserMenu(event)">
-                            {% if current_user.avatar %}
-                                <img src="/avatars/{{ current_user.avatar }}" class="avatar" alt="Avatar" style="object-fit: cover;">
-                            {% else %}
-                                <div class="avatar">{{ current_user.username[0]|upper }}</div>
-                            {% endif %}
-                            <span class="username">{{ current_user.username }}</span>
-                            <div class="user-dropdown" id="userDropdown">
-                                <a href="/profile">Профиль</a>
-                                <a href="/achievements">Достижения</a>
-                                <a href="/goals">Цели</a>
-                                <a href="/logout">Выйти</a>
-                            </div>
-                        </div>
-                    {% else %}
-                        <a href="/login" class="login-link">Войти</a>
-                    {% endif %}
-                </div>
-            </div>
-            <nav class="nav">
-                <a href="/sections">Категории</a>
-                <a href="/phrases">Фразы</a>
-                <a href="/topics">Топики</a>
-                <a href="/study">Учёба</a>
-                <a href="/games">Игры</a>
-                <a href="/achievements">Достижения</a>
-                <a href="/goals">Цели</a>
-                <a href="/progress">Прогресс</a>
-                <a href="/utils">Утилиты</a>
-                <a href="/faq">FAQ</a>
-            </nav>
-        </div>
-    </div>
-
-    <div class="container">
-        {% block content %}{% endblock %}
-    </div>
-
-    {% block scripts %}{% endblock %}
-
-    {% if new_achievements %}
-    <div class="ach-modal-overlay" id="achModal">
-        <div class="ach-modal">
-            <div class="ach-modal-emoji">🏆</div>
-            <h2>Новое достижение!</h2>
-            <div class="ach-modal-list">
-                {% for a in new_achievements %}
-                <div class="ach-modal-item">
-                    <span class="ach-modal-item-emoji">{{ a.emoji }}</span>
-                    <div>
-                        <div class="ach-modal-item-title">{{ a.title }}</div>
-                        <div class="ach-modal-item-desc">{{ a.desc }}</div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            <button class="btn" onclick="document.getElementById('achModal').style.display='none'" style="width: 100%; margin-top: 15px;">Круто!</button>
-        </div>
-    </div>
-    {% endif %}
-
-    <script>
-        function toggleTheme() {
-            document.body.classList.toggle('dark');
-            const isDark = document.body.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            document.querySelector('.theme-slider').classList.toggle('active', !isDark);
-        }
-
-        (function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark');
-                document.addEventListener('DOMContentLoaded', function() {
-                    const slider = document.querySelector('.theme-slider');
-                    if (slider) slider.classList.remove('active');
-                });
-            } else {
-                document.addEventListener('DOMContentLoaded', function() {
-                    const slider = document.querySelector('.theme-slider');
-                    if (slider) slider.classList.add('active');
-                });
-            }
-        })();
-
-        function toggleUserMenu(e) {
-            e.stopPropagation();
-            const dropdown = document.getElementById('userDropdown');
-            if (dropdown) dropdown.classList.toggle('active');
-        }
-
-        document.addEventListener('click', function(e) {
-            const menu = document.querySelector('.user-menu');
-            const dropdown = document.getElementById('userDropdown');
-            if (dropdown && menu && !menu.contains(e.target)) {
-                dropdown.classList.remove('active');
-            }
-        });
-    </script>
-</body>
-</html>
