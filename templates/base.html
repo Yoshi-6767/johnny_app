@@ -9,12 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
     <script>
-        // Применяем тему и цвет ДО отрисовки — чтобы не мигало
+        // Применяем тему ДО отрисовки — чтобы не мигало
         (function() {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') document.documentElement.setAttribute('data-theme-pending', 'dark');
-            const accent = localStorage.getItem('accent') || 'blue';
-            document.documentElement.setAttribute('data-accent-pending', accent);
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme !== 'light') {
+                document.documentElement.setAttribute('data-theme-pending', theme);
+            }
         })();
     </script>
     {% block styles %}{% endblock %}
@@ -27,22 +27,6 @@
             <div class="header-top">
                 <a href="/" class="logo">Flow <span>&</span> Word</a>
                 <div class="header-right">
-                    <div class="accent-picker">
-                        <div class="accent-toggle" onclick="toggleAccentMenu(event)" title="Цвет сайта"></div>
-                        <div class="accent-dropdown" id="accentDropdown">
-                            <div class="accent-swatch" data-accent="blue" style="background: #2196f3;" onclick="setAccent('blue')"></div>
-                            <div class="accent-swatch" data-accent="green" style="background: #4caf50;" onclick="setAccent('green')"></div>
-                            <div class="accent-swatch" data-accent="purple" style="background: #9c27b0;" onclick="setAccent('purple')"></div>
-                            <div class="accent-swatch" data-accent="pink" style="background: #e91e63;" onclick="setAccent('pink')"></div>
-                            <div class="accent-swatch" data-accent="orange" style="background: #ff9800;" onclick="setAccent('orange')"></div>
-                            <div class="accent-swatch" data-accent="red" style="background: #f44336;" onclick="setAccent('red')"></div>
-                        </div>
-                    </div>
-                    <div class="theme-switch" onclick="toggleTheme()">
-                        <span class="theme-icon">🌙</span>
-                        <div class="theme-slider"></div>
-                        <span class="theme-icon">☀️</span>
-                    </div>
                     {% if current_user.is_authenticated %}
                         <div class="user-menu" onclick="toggleUserMenu(event)">
                             {% if current_user.avatar %}
@@ -106,55 +90,26 @@
     {% endif %}
 
     <script>
-        // ═══ ПРИМЕНЕНИЕ ТЕМЫ И ЦВЕТА ═══
+        // ═══ ТЕМА ═══
         (function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark');
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme !== 'light') {
+                document.body.setAttribute('data-theme', theme);
             }
-            const savedAccent = localStorage.getItem('accent') || 'blue';
-            document.body.setAttribute('data-accent', savedAccent);
-
-            document.addEventListener('DOMContentLoaded', function() {
-                const slider = document.querySelector('.theme-slider');
-                if (slider) slider.classList.toggle('active', savedTheme !== 'dark');
-                updateAccentSwatches(savedAccent);
-            });
+            document.documentElement.removeAttribute('data-theme-pending');
         })();
 
-        function toggleTheme() {
-            document.body.classList.toggle('dark');
-            const isDark = document.body.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            document.querySelector('.theme-slider').classList.toggle('active', !isDark);
-        }
-
-        // ═══ АКЦЕНТНЫЙ ЦВЕТ ═══
-        function setAccent(accent) {
-            document.body.setAttribute('data-accent', accent);
-            localStorage.setItem('accent', accent);
-            updateAccentSwatches(accent);
-            document.getElementById('accentDropdown').classList.remove('active');
-        }
-
-        function updateAccentSwatches(accent) {
-            document.querySelectorAll('.accent-swatch').forEach(sw => {
-                sw.classList.toggle('active', sw.dataset.accent === accent);
-            });
-            // Обновляем цвет кружка-кнопки
-            const toggle = document.querySelector('.accent-toggle');
-            if (toggle) {
-                const colors = {
-                    blue: '#2196f3', green: '#4caf50', purple: '#9c27b0',
-                    pink: '#e91e63', orange: '#ff9800', red: '#f44336'
-                };
-                toggle.style.background = colors[accent] || colors.blue;
+        function setTheme(theme) {
+            localStorage.setItem('theme', theme);
+            if (theme === 'light') {
+                document.body.removeAttribute('data-theme');
+            } else {
+                document.body.setAttribute('data-theme', theme);
             }
-        }
-
-        function toggleAccentMenu(e) {
-            e.stopPropagation();
-            document.getElementById('accentDropdown').classList.toggle('active');
+            // Обновляем активную карточку в профиле, если она есть на странице
+            document.querySelectorAll('.theme-card').forEach(card => {
+                card.classList.toggle('active', card.dataset.theme === theme);
+            });
         }
 
         // ═══ ПРОГРЕСС-БАР СКРОЛЛА ═══
@@ -162,10 +117,11 @@
             const scrollTop = window.scrollY;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            document.getElementById('scrollProgress').style.width = percent + '%';
+            const el = document.getElementById('scrollProgress');
+            if (el) el.style.width = percent + '%';
         });
 
-        // ═══ ЮЗЕР-МЕНЮ И АКЦЕНТ ═══
+        // ═══ ЮЗЕР-МЕНЮ ═══
         function toggleUserMenu(e) {
             e.stopPropagation();
             const dropdown = document.getElementById('userDropdown');
@@ -177,11 +133,6 @@
             const dropdown = document.getElementById('userDropdown');
             if (dropdown && menu && !menu.contains(e.target)) {
                 dropdown.classList.remove('active');
-            }
-            const accentMenu = document.querySelector('.accent-picker');
-            const accentDropdown = document.getElementById('accentDropdown');
-            if (accentDropdown && accentMenu && !accentMenu.contains(e.target)) {
-                accentDropdown.classList.remove('active');
             }
         });
     </script>
