@@ -12,10 +12,10 @@
     }
     .filter-btn {
         padding: 10px 20px;
-        background: #fff;
-        border: 2px solid #bbdefb;
+        background: var(--bg-card);
+        border: 2px solid var(--accent-light);
         border-radius: 20px;
-        color: #555;
+        color: var(--text-sub);
         font-size: 14px;
         font-family: 'Rubik', sans-serif;
         font-weight: 500;
@@ -23,12 +23,12 @@
         transition: all 0.2s;
     }
     .filter-btn:hover {
-        border-color: #2196f3;
-        color: #2196f3;
+        border-color: var(--accent);
+        color: var(--accent);
     }
     .filter-btn.active {
-        background: #2196f3;
-        border-color: #2196f3;
+        background: var(--accent);
+        border-color: var(--accent);
         color: #fff;
     }
     .section-actions {
@@ -44,27 +44,20 @@
     }
     .card-passed {
         border-color: #4caf50 !important;
-        background: linear-gradient(135deg, #ffffff 0%, #f1f8e9 100%);
+        background: linear-gradient(135deg, var(--bg-card) 0%, #f1f8e9 100%);
     }
     .card-passed .card-title::after {
         content: " ✅";
     }
     .learned-badge {
         display: inline-block;
-        background: #e8f5e9;
-        color: #2e7d32;
+        background: var(--accent-lighter);
+        color: var(--accent);
         padding: 2px 8px;
         border-radius: 6px;
         font-size: 12px;
         font-weight: 600;
         margin-left: 5px;
-    }
-    body.dark .card-passed {
-        background: linear-gradient(135deg, #1e1e1e 0%, #1a2a1a 100%);
-    }
-    body.dark .learned-badge {
-        background: #1a3d1a;
-        color: #a5d6a7;
     }
 </style>
 {% endblock %}
