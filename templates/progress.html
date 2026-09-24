@@ -11,8 +11,8 @@
         margin-bottom: 30px;
     }
     .stat-card {
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 12px;
         padding: 20px;
         text-align: center;
@@ -20,18 +20,17 @@
     .stat-card .num {
         font-size: 28px;
         font-weight: 900;
-        color: #2196f3;
+        color: var(--accent);
     }
     .stat-card .label {
         font-size: 13px;
-        color: #888;
+        color: var(--text-sub);
         margin-top: 6px;
     }
 
-    /* Календарь */
     .calendar {
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 12px;
         padding: 25px;
         margin-bottom: 30px;
@@ -40,7 +39,7 @@
         text-align: center;
         font-size: 18px;
         font-weight: 700;
-        color: #333;
+        color: var(--text);
         margin-bottom: 20px;
         text-transform: capitalize;
     }
@@ -53,7 +52,7 @@
         text-align: center;
         font-size: 13px;
         font-weight: 600;
-        color: #888;
+        color: var(--text-sub);
         padding: 8px 0;
     }
     .calendar-day {
@@ -64,25 +63,24 @@
         border-radius: 8px;
         font-size: 14px;
         font-weight: 500;
-        background: #f5f7fa;
-        color: #aaa;
+        background: var(--bg-hover);
+        color: var(--text-muted);
     }
     .calendar-day.trained {
-        background: #2196f3;
+        background: var(--accent);
         color: #fff;
     }
     .calendar-day.today {
-        border: 2px solid #2196f3;
+        border: 2px solid var(--accent);
         font-weight: 700;
     }
     .calendar-day.empty {
         background: transparent;
     }
 
-    /* Слабые слова */
     .weak-words {
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 12px;
         padding: 25px;
         margin-bottom: 30px;
@@ -90,7 +88,7 @@
     .weak-words h2 {
         font-size: 20px;
         font-weight: 700;
-        color: #333;
+        color: var(--text);
         margin-bottom: 15px;
     }
     .weak-item {
@@ -98,11 +96,11 @@
         align-items: center;
         justify-content: space-between;
         padding: 12px 0;
-        border-bottom: 1px solid #f0f0f0;
+        border-bottom: 1px solid var(--border-soft);
     }
     .weak-item:last-child { border-bottom: none; }
-    .weak-word { font-weight: 600; color: #2196f3; }
-    .weak-rus { color: #888; font-size: 14px; margin-left: 10px; }
+    .weak-word { font-weight: 600; color: var(--accent); }
+    .weak-rus { color: var(--text-sub); font-size: 14px; margin-left: 10px; }
     .weak-count {
         background: #ffebee;
         color: #c62828;
@@ -112,8 +110,8 @@
         font-weight: 600;
     }
     .recommendation {
-        background: #e3f2fd;
-        border-left: 4px solid #2196f3;
+        background: var(--bg-subtle);
+        border-left: 4px solid var(--accent);
         border-radius: 12px;
         padding: 20px;
         margin-bottom: 30px;
@@ -121,19 +119,18 @@
     .recommendation h2 {
         font-size: 18px;
         font-weight: 700;
-        color: #2196f3;
+        color: var(--accent);
         margin-bottom: 10px;
     }
     .recommendation p {
-        color: #555;
+        color: var(--text-sub);
         font-size: 15px;
         line-height: 1.6;
     }
 
-    /* График */
     .chart {
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 12px;
         padding: 25px;
     }
@@ -143,24 +140,24 @@
         gap: 12px;
         margin-bottom: 12px;
     }
-    .chart-label { width: 55px; font-size: 13px; color: #888; }
+    .chart-label { width: 55px; font-size: 13px; color: var(--text-sub); }
     .chart-bar {
         flex: 1;
         height: 24px;
-        background: #f5f7fa;
+        background: var(--bg-hover);
         border-radius: 6px;
         overflow: hidden;
     }
     .chart-fill {
         height: 100%;
-        background: linear-gradient(90deg, #2196f3, #42a5f5);
+        background: linear-gradient(90deg, var(--accent), var(--accent-dark));
         border-radius: 6px;
     }
     .chart-value {
         width: 30px;
         text-align: right;
         font-size: 13px;
-        color: #2196f3;
+        color: var(--accent);
         font-weight: 600;
     }
 </style>
@@ -201,7 +198,7 @@
 <div class="recommendation">
     <h2>💡 Рекомендация</h2>
     <p>Повтори эти слова — ты чаще всего ошибаешься в них:</p>
-    <p style="margin-top: 10px; font-weight: 600; color: #2196f3;">
+    <p style="margin-top: 10px; font-weight: 600; color: var(--accent);">
         {% for w in weak_words[:5] %}{{ w.word }}{% if not loop.last %}, {% endif %}{% endfor %}
     </p>
 </div>
