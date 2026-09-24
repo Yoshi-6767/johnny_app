@@ -12,9 +12,9 @@
 
 {% if exams %}
     {% for exam in exams %}
-    <div style="background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; margin: 10px 0;">
-        <div style="font-size: 17px; font-weight: 700; color: #333;">{{ exam.title }}</div>
-        <div style="font-size: 13px; color: #888; margin-top: 5px;">{{ exam.date }} • {{ exam.word_count }} слов</div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 10px 0;">
+        <div style="font-size: 17px; font-weight: 700; color: var(--text);">{{ exam.title }}</div>
+        <div style="font-size: 13px; color: var(--text-sub); margin-top: 5px;">{{ exam.date }} • {{ exam.word_count }} слов</div>
     </div>
     {% endfor %}
 {% else %}
