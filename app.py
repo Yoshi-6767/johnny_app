@@ -3,13 +3,13 @@ import json
 import random
 import os
 import time
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from deep_translator import MyMemoryTranslator
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from config import Config
-from models import db, User, EmailCode, LearnedWord, WordProgress, SectionExam
+from models import db, User, EmailCode, LearnedWord, WordProgress, SectionExam, Achievement, Goal
 from data import SECTIONS, QUOTES, IRREGULAR_VERBS, PHRASAL_VERBS, IDIOMS, FIXED_TOPICS, get_section
 from utils import (
     send_verification_code, COMMON_WORDS,
@@ -17,17 +17,19 @@ from utils import (
     get_all_words, get_learned_words, is_learned, mark_learned, unmark_learned,
     record_training, get_section_stats,
 )
+from achievements import (
+    ACHIEVEMENTS, get_achievement, get_unlocked_codes, unlock,
+    check_all as check_all_achievements,
+)
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
 db.init_app(app)
 
-# ─── АВАТАРЫ ───
 if not os.path.exists(app.config['AVATAR_FOLDER']):
     os.makedirs(app.config['AVATAR_FOLDER'])
 
-# ─── АВТОРИЗАЦИЯ ───
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -42,11 +44,47 @@ with app.app_context():
     db.create_all()
 
 
-# ─── ЦИТАТА ДНЯ ───
+# ═══════════════════════════════════════════════
+# ХЕЛПЕРЫ
+# ═══════════════════════════════════════════════
+
 def get_daily_quote():
     today = date.today()
     day_of_year = today.timetuple().tm_yday
     return QUOTES[day_of_year % len(QUOTES)]
+
+
+def check_user_achievements(uid):
+    """Собирает статистику юзера, проверяет ачивки, возвращает список новых кодов."""
+    progress = get_user_progress(uid)
+    gw = get_user_general_words(uid)
+    phrases = get_user_phrases(uid)
+    topics = get_user_topics(uid)
+    topics_done = sum(1 for t in topics.values() if t.get("done"))
+    exams_count = SectionExam.query.filter_by(user_id=uid, is_passed=True).count()
+    learned_count = LearnedWord.query.filter_by(user_id=uid).count()
+
+    # Игровые и учебные статы пока не храним — будет позже
+    games_stats = {}
+    study_stats = {}
+
+    return check_all_achievements(
+        user_id=uid,
+        progress=progress,
+        general_words_count=len(gw),
+        phrases_count=len(phrases),
+        topics_done=topics_done,
+        exams_count=exams_count,
+        learned_count=learned_count,
+        games_stats=games_stats,
+        study_stats=study_stats,
+    )
+
+
+def pop_new_achievements():
+    """Забирает из сессии новые ачивки и превращает в объекты для модалки."""
+    codes = session.pop("new_achievements", [])
+    return [get_achievement(c) for c in codes if get_achievement(c)]
 
 
 # ═══════════════════════════════════════════════
@@ -55,6 +93,8 @@ def get_daily_quote():
 
 @app.route("/")
 def index():
+    new_achievements = pop_new_achievements()
+
     if current_user.is_authenticated:
         uid = current_user.id
         all_w = get_all_words(uid)
@@ -66,7 +106,6 @@ def index():
         progress = get_user_progress(uid)
         streak = progress.get("streak", 0)
 
-        # Для дашборда дня
         weak_words = progress.get("weak_words", {})
         weak_sorted = sorted(weak_words.items(), key=lambda x: x[1], reverse=True)[:5]
         weak_list = []
@@ -78,6 +117,18 @@ def index():
         today_correct = 0
         if progress.get("history") and progress["history"][-1]["date"] == today_str:
             today_correct = progress["history"][-1]["correct"]
+
+        goals = Goal.query.filter_by(user_id=uid, is_completed=False).order_by(Goal.created_at.desc()).limit(2).all()
+        goals_data = []
+        for g in goals:
+            if g.goal_type == "words":
+                current = len(all_w)
+            elif g.goal_type == "streak":
+                current = streak
+            else:
+                current = 0
+            percent = min(100, int(current / g.target * 100)) if g.target > 0 else 0
+            goals_data.append({"id": g.id, "goal_type": g.goal_type, "target": g.target, "current": current, "percent": percent})
     else:
         total_words = len(COMMON_WORDS)
         total_phrases = 0
@@ -86,6 +137,7 @@ def index():
         streak = 0
         weak_list = []
         today_correct = 0
+        goals_data = []
 
     return render_template(
         "index.html",
@@ -96,12 +148,14 @@ def index():
         streak=streak,
         weak_list=weak_list,
         today_correct=today_correct,
-        quote=get_daily_quote()
+        goals=goals_data,
+        quote=get_daily_quote(),
+        new_achievements=new_achievements,
     )
 
 
 # ═══════════════════════════════════════════════
-# АВАТАР
+# АВАТАР И ПРОФИЛЬ
 # ═══════════════════════════════════════════════
 
 @app.route("/avatars/<filename>")
@@ -112,7 +166,42 @@ def avatar_file(filename):
 @app.route("/profile")
 @login_required
 def profile():
-    return render_template("profile.html", user=current_user)
+    uid = current_user.id
+    check_user_achievements(uid)
+
+    all_w = get_all_words(uid)
+    progress = get_user_progress(uid)
+    unlocked = get_unlocked_codes(uid)
+    total_ach = len(ACHIEVEMENTS)
+
+    # Последние 6 открытых ачивок
+    rows = Achievement.query.filter_by(user_id=uid).order_by(Achievement.unlocked_at.desc()).limit(6).all()
+    recent_ach = [get_achievement(r.code) for r in rows if get_achievement(r.code)]
+
+    goals = Goal.query.filter_by(user_id=uid, is_completed=False).order_by(Goal.created_at.desc()).limit(3).all()
+    goals_data = []
+    for g in goals:
+        if g.goal_type == "words":
+            current = len(all_w)
+        elif g.goal_type == "streak":
+            current = progress.get("streak", 0)
+        else:
+            current = 0
+        percent = min(100, int(current / g.target * 100)) if g.target > 0 else 0
+        goals_data.append({"id": g.id, "goal_type": g.goal_type, "target": g.target, "current": current, "percent": percent})
+
+    return render_template(
+        "profile.html",
+        user=current_user,
+        total_words=len(all_w),
+        total_phrases=len(get_user_phrases(uid)),
+        streak=progress.get("streak", 0),
+        achievements_unlocked=len(unlocked),
+        achievements_total=total_ach,
+        recent_achievements=recent_ach,
+        goals=goals_data,
+        new_achievements=pop_new_achievements(),
+    )
 
 
 @app.route("/profile/upload_avatar", methods=["POST"])
@@ -146,6 +235,9 @@ def add():
     if section != "general":
         return jsonify({"status": "error", "message": "Можно добавлять только в «Общее»"})
     get_user_general_words(current_user.id)[eng] = {"rus": rus, "section": "general"}
+    new_ach = check_user_achievements(current_user.id)
+    if new_ach:
+        session["new_achievements"] = new_ach
     return jsonify({"status": "ok"})
 
 
@@ -185,22 +277,17 @@ def sections_page():
     sections_data = []
     for s in SECTIONS:
         stats = get_section_stats(uid, s["id"])
-        # Закрыта ли категория (по экзамену)
         passed_exam = SectionExam.query.filter_by(
             user_id=uid, section_id=s["id"], is_passed=True
         ).first() is not None
-
         sections_data.append({
-            "id": s["id"],
-            "title": s["title"],
-            "emoji": s["emoji"],
-            "count": stats["total"],
-            "learned": stats["learned"],
-            "level": s.get("level", "general"),
-            "is_passed": passed_exam,
+            "id": s["id"], "title": s["title"], "emoji": s["emoji"],
+            "count": stats["total"], "learned": stats["learned"],
+            "level": s.get("level", "general"), "is_passed": passed_exam,
         })
     all_w = get_all_words(uid)
-    return render_template("sections.html", sections=sections_data, total_words=len(all_w))
+    return render_template("sections.html", sections=sections_data, total_words=len(all_w),
+                           new_achievements=pop_new_achievements())
 
 
 @app.route("/sections/<sid>")
@@ -214,25 +301,16 @@ def section_page(sid):
         section_words = {k: v for k, v in COMMON_WORDS.items() if v.get("section") == sid}
 
     learned_set = get_learned_words(uid)
-    # Разметка: какое слово learned
     words_data = []
     for eng, data in section_words.items():
-        words_data.append({
-            "eng": eng,
-            "rus": data["rus"],
-            "learned": eng in learned_set,
-        })
+        words_data.append({"eng": eng, "rus": data["rus"], "learned": eng in learned_set})
 
     passed_exam = SectionExam.query.filter_by(
         user_id=uid, section_id=sid, is_passed=True
     ).first() is not None
 
-    return render_template(
-        "section.html",
-        section=section,
-        words=words_data,
-        is_passed=passed_exam,
-    )
+    return render_template("section.html", section=section, words=words_data,
+                           is_passed=passed_exam, new_achievements=pop_new_achievements())
 
 
 @app.route("/learn_word", methods=["POST"])
@@ -244,6 +322,9 @@ def learn_word():
     if not word:
         return jsonify({"status": "error"})
     mark_learned(current_user.id, word, section)
+    new_ach = check_user_achievements(current_user.id)
+    if new_ach:
+        session["new_achievements"] = new_ach
     return jsonify({"status": "ok"})
 
 
@@ -275,7 +356,6 @@ def exam_section(sid):
     if not section_words:
         return render_template("exam_section.html", empty=True, section=section)
 
-    # Формируем список вопросов: RU → EN для каждого слова
     words_list = list(section_words.keys())
     random.shuffle(words_list)
     session["exam_section_words"] = words_list
@@ -292,24 +372,14 @@ def exam_section_next(sid):
     uid = current_user.id
     words = session.get("exam_section_words", [])
     index = session.get("exam_section_index", 0)
-
     if index >= len(words):
         return jsonify({"status": "end"})
-
     word = words[index]
-    # Найти перевод
     if sid == "general":
-        gw = get_user_general_words(uid)
-        rus = gw.get(word, {}).get("rus", "")
+        rus = get_user_general_words(uid).get(word, {}).get("rus", "")
     else:
         rus = COMMON_WORDS.get(word, {}).get("rus", "")
-
-    return jsonify({
-        "status": "ok",
-        "question_num": index + 1,
-        "total": len(words),
-        "word": rus,  # показываем РУССКОЕ, отвечаем английским
-    })
+    return jsonify({"status": "ok", "question_num": index + 1, "total": len(words), "word": rus})
 
 
 @app.route("/exam/section/<sid>/check", methods=["POST"])
@@ -318,36 +388,26 @@ def exam_section_check(sid):
     uid = current_user.id
     data = request.json
     answer = data.get("answer", "").strip().lower()
-
     words = session.get("exam_section_words", [])
     index = session.get("exam_section_index", 0)
-
     if index >= len(words):
         return jsonify({"status": "end"})
-
     word = words[index]
-    correct = word.lower()
-    is_correct = answer == correct
+    is_correct = answer == word.lower()
 
     if not is_correct:
         errors = session.get("exam_section_errors", [])
-        # для отображения ошибки — русский + правильный английский
         if sid == "general":
-            gw = get_user_general_words(uid)
-            rus = gw.get(word, {}).get("rus", "")
+            rus = get_user_general_words(uid).get(word, {}).get("rus", "")
         else:
             rus = COMMON_WORDS.get(word, {}).get("rus", "")
         errors.append({"rus": rus, "correct": word, "user": answer})
         session["exam_section_errors"] = errors
 
     session["exam_section_index"] = index + 1
-
     return jsonify({
-        "status": "ok",
-        "correct": is_correct,
-        "correct_answer": word,
-        "question_num": index + 1,
-        "total": len(words),
+        "status": "ok", "correct": is_correct, "correct_answer": word,
+        "question_num": index + 1, "total": len(words),
     })
 
 
@@ -361,30 +421,27 @@ def exam_section_finish(sid):
     correct_count = total - len(errors)
     is_passed = (len(errors) == 0)
 
-    # Сохраняем в БД
     exam = SectionExam(
-        user_id=uid,
-        section_id=sid,
-        is_passed=is_passed,
-        total_questions=total,
-        correct_answers=correct_count,
+        user_id=uid, section_id=sid, is_passed=is_passed,
+        total_questions=total, correct_answers=correct_count,
         errors_json=json.dumps(errors, ensure_ascii=False),
     )
     db.session.add(exam)
     db.session.commit()
 
-    # Очищаем сессию
+    new_ach = check_user_achievements(uid)
+    if new_ach:
+        session["new_achievements"] = new_ach
+
     session.pop("exam_section_words", None)
     session.pop("exam_section_id", None)
     session.pop("exam_section_index", None)
     session.pop("exam_section_errors", None)
 
     return jsonify({
-        "status": "ok",
-        "is_passed": is_passed,
-        "total": total,
-        "correct": correct_count,
-        "errors": errors,
+        "status": "ok", "is_passed": is_passed, "total": total,
+        "correct": correct_count, "errors": errors,
+        "new_achievements": [get_achievement(c) for c in new_ach if get_achievement(c)],
     })
 
 
@@ -400,7 +457,6 @@ def train():
     reverse = request.args.get("reverse", "0") == "1"
     reset = request.args.get("reset", "0") == "1"
 
-    # Сброс счётчика при входе с меню/кнопки (кроме переходов внутри тренировки)
     if reset or "train_correct" not in session:
         session["train_correct"] = 0
         session["train_wrong"] = 0
@@ -412,11 +468,9 @@ def train():
     else:
         filtered = get_all_words(uid)
 
-    # Исключаем learned
     learned_set = get_learned_words(uid)
     filtered = {k: v for k, v in filtered.items() if k not in learned_set}
 
-    # Исключаем предыдущее слово
     last_word = session.get("last_train_word")
     if len(filtered) > 1 and last_word in filtered:
         filtered = {k: v for k, v in filtered.items() if k != last_word}
@@ -432,20 +486,12 @@ def train():
     session["train_reverse"] = reverse
     session["train_section"] = section_id
 
-    if reverse:
-        display = filtered[eng]["rus"]
-    else:
-        display = eng
+    display = filtered[eng]["rus"] if reverse else eng
 
-    return render_template(
-        "train.html",
-        word=display,
-        empty=False,
-        reverse=reverse,
-        section=section_id,
-        correct_count=session.get("train_correct", 0),
-        wrong_count=session.get("train_wrong", 0),
-    )
+    return render_template("train.html", word=display, empty=False, reverse=reverse, section=section_id,
+                           correct_count=session.get("train_correct", 0),
+                           wrong_count=session.get("train_wrong", 0))
+
 
 @app.route("/check", methods=["POST"])
 @login_required
@@ -460,14 +506,14 @@ def check():
     if not eng or eng not in all_w:
         return jsonify({"status": "error"})
 
-    if reverse:
-        correct_answer = eng.lower()
-    else:
-        correct_answer = all_w[eng]["rus"].strip().lower()
+    correct_answer = eng.lower() if reverse else all_w[eng]["rus"].strip().lower()
 
     if user_answer == correct_answer:
         session["train_correct"] = session.get("train_correct", 0) + 1
         record_training(True, eng)
+        new_ach = check_user_achievements(uid)
+        if new_ach:
+            session["new_achievements"] = new_ach
         return jsonify({
             "status": "correct",
             "correct_answer": eng if reverse else all_w[eng]["rus"],
@@ -492,7 +538,8 @@ def check():
 @app.route("/phrases")
 @login_required
 def phrases_page():
-    return render_template("phrases.html", phrases=get_user_phrases(current_user.id))
+    return render_template("phrases.html", phrases=get_user_phrases(current_user.id),
+                           new_achievements=pop_new_achievements())
 
 
 @app.route("/phrases/add", methods=["POST"])
@@ -500,6 +547,9 @@ def phrases_page():
 def phrases_add():
     data = request.json
     get_user_phrases(current_user.id)[data["eng"]] = data["rus"]
+    new_ach = check_user_achievements(current_user.id)
+    if new_ach:
+        session["new_achievements"] = new_ach
     return jsonify({"status": "ok"})
 
 
@@ -560,10 +610,7 @@ def phrases_check():
     reverse = session.get("phrase_reverse", False)
     if not eng or eng not in p:
         return jsonify({"status": "error"})
-    if reverse:
-        correct_answer = eng.lower()
-    else:
-        correct_answer = p[eng].strip().lower()
+    correct_answer = eng.lower() if reverse else p[eng].strip().lower()
 
     if user_answer == correct_answer:
         session["phrases_correct"] = session.get("phrases_correct", 0) + 1
@@ -595,8 +642,6 @@ def progress_page():
     uid = current_user.id
     progress = get_user_progress(uid)
     all_w = get_all_words(uid)
-    total_words = len(all_w)
-    total_phrases = len(get_user_phrases(uid))
     total_correct = sum(d["correct"] for d in progress["history"])
     total_wrong = sum(d["wrong"] for d in progress["history"])
     total_answers = total_correct + total_wrong
@@ -644,8 +689,8 @@ def progress_page():
 
     return render_template(
         "progress.html",
-        total_words=total_words,
-        total_phrases=total_phrases,
+        total_words=len(all_w),
+        total_phrases=len(get_user_phrases(uid)),
         total_correct=total_correct,
         total_wrong=total_wrong,
         accuracy=accuracy,
@@ -655,7 +700,114 @@ def progress_page():
         calendar_days=calendar_days,
         weak_words=weak_list,
         month_name=today.strftime("%B %Y"),
+        new_achievements=pop_new_achievements(),
     )
+
+
+# ═══════════════════════════════════════════════
+# ДОСТИЖЕНИЯ
+# ═══════════════════════════════════════════════
+
+@app.route("/achievements")
+@login_required
+def achievements_page():
+    uid = current_user.id
+    check_user_achievements(uid)
+
+    unlocked = get_unlocked_codes(uid)
+    categories = {}
+    for a in ACHIEVEMENTS:
+        cat = a["category"]
+        categories.setdefault(cat, []).append({**a, "unlocked": a["code"] in unlocked})
+
+    return render_template(
+        "achievements.html",
+        categories=categories,
+        total=len(ACHIEVEMENTS),
+        unlocked_count=len(unlocked),
+        new_achievements=pop_new_achievements(),
+    )
+
+
+# ═══════════════════════════════════════════════
+# ЦЕЛИ
+# ═══════════════════════════════════════════════
+
+@app.route("/goals")
+@login_required
+def goals_page():
+    uid = current_user.id
+    goals = Goal.query.filter_by(user_id=uid).order_by(Goal.is_completed, Goal.created_at.desc()).all()
+
+    progress = get_user_progress(uid)
+    all_w = get_all_words(uid)
+
+    goals_data = []
+    for g in goals:
+        if g.goal_type == "words":
+            current = len(all_w)
+        elif g.goal_type == "streak":
+            current = progress.get("streak", 0)
+        else:
+            current = 0
+
+        percent = min(100, int(current / g.target * 100)) if g.target > 0 else 0
+        if current >= g.target and not g.is_completed:
+            g.is_completed = True
+            g.completed_at = datetime.utcnow()
+            db.session.commit()
+
+        goals_data.append({
+            "id": g.id, "goal_type": g.goal_type, "target": g.target,
+            "deadline": g.deadline, "current": current,
+            "percent": percent, "is_completed": g.is_completed,
+        })
+
+    return render_template("goals.html", goals=goals_data,
+                           new_achievements=pop_new_achievements())
+
+
+@app.route("/goals/new", methods=["POST"])
+@login_required
+def goal_new():
+    uid = current_user.id
+    data = request.json
+    goal_type = data.get("goal_type", "").strip()
+    target = data.get("target", 0)
+    deadline_str = data.get("deadline", "").strip()
+
+    if goal_type not in ("words", "streak"):
+        return jsonify({"status": "error", "message": "Неверный тип"})
+    try:
+        target = int(target)
+        if target <= 0 or target > 100000:
+            raise ValueError
+    except (ValueError, TypeError):
+        return jsonify({"status": "error", "message": "Неверное число"})
+
+    deadline = None
+    if deadline_str:
+        try:
+            deadline = datetime.strptime(deadline_str, "%Y-%m-%d").date()
+        except ValueError:
+            return jsonify({"status": "error", "message": "Неверная дата"})
+
+    db.session.add(Goal(user_id=uid, goal_type=goal_type, target=target, deadline=deadline))
+    db.session.commit()
+    return jsonify({"status": "ok"})
+
+
+@app.route("/goals/delete", methods=["POST"])
+@login_required
+def goal_delete():
+    uid = current_user.id
+    data = request.json
+    gid = data.get("id")
+    goal = Goal.query.filter_by(id=gid, user_id=uid).first()
+    if goal:
+        db.session.delete(goal)
+        db.session.commit()
+    return jsonify({"status": "ok"})
 
 
 # ═══════════════════════════════════════════════
@@ -682,7 +834,8 @@ def topics_page():
                 "text": data.get("text", ""), "done": data.get("done", False),
                 "word_count": len(data.get("text", "").split()) if data.get("text") else 0,
             })
-    return render_template("topics.html", topics=all_topics)
+    return render_template("topics.html", topics=all_topics,
+                           new_achievements=pop_new_achievements())
 
 
 @app.route("/topics/<tid>")
@@ -711,6 +864,11 @@ def topic_save(tid):
     topic_info = next((t for t in FIXED_TOPICS if t["id"] == tid), None)
     title = topic_info["title"] if topic_info else get_user_topics(uid).get(tid, {}).get("title", "Своя тема")
     get_user_topics(uid)[tid] = {"title": title, "text": text, "done": True}
+
+    new_ach = check_user_achievements(uid)
+    if new_ach:
+        session["new_achievements"] = new_ach
+
     return jsonify({"status": "ok"})
 
 
@@ -737,7 +895,7 @@ def topic_delete(tid):
 
 
 # ═══════════════════════════════════════════════
-# ЭКЗАМЕН (письмо текста)
+# ЭКЗАМЕН-ТЕКСТ
 # ═══════════════════════════════════════════════
 
 @app.route("/exam")
@@ -772,6 +930,11 @@ def exam_save():
         "topic_id": tid, "title": title, "text": text,
         "date": str(date.today()), "word_count": len(text.split()),
     }
+
+    # Ачивка за письменный экзамен
+    if unlock(uid, "exam_text_1"):
+        session["new_achievements"] = ["exam_text_1"]
+
     return jsonify({"status": "ok", "exam_id": exam_id})
 
 
@@ -811,10 +974,6 @@ def translate():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
-
-# ═══════════════════════════════════════════════
-# FAQ
-# ═══════════════════════════════════════════════
 
 @app.route("/faq")
 def faq_page():
@@ -897,19 +1056,15 @@ def irregular_check():
         return jsonify({"status": "error"})
 
     if mode == "past":
-        correct = verb["past"].lower()
-        correct_display = verb["past"]
+        correct, correct_display = verb["past"].lower(), verb["past"]
     elif mode == "pp":
-        correct = verb["pp"].lower()
-        correct_display = verb["pp"]
+        correct, correct_display = verb["pp"].lower(), verb["pp"]
     else:
         form = session.get("irr_mixed_form", "past")
         if form == "past":
-            correct = verb["past"].lower()
-            correct_display = verb["past"]
+            correct, correct_display = verb["past"].lower(), verb["past"]
         else:
-            correct = verb["base"].lower()
-            correct_display = verb["base"]
+            correct, correct_display = verb["base"].lower(), verb["base"]
 
     is_correct = answer == correct
     if is_correct:
@@ -942,8 +1097,7 @@ def hangman_page():
     if not available:
         return render_template("hangman.html", empty=True)
     word = random.choice(available).lower()
-    section_id = all_w[word]["section"]
-    section = get_section(section_id)
+    section = get_section(all_w[word]["section"])
     session["hangman_word"] = word
     session["hangman_guessed"] = []
     session["hangman_errors"] = 0
@@ -982,6 +1136,7 @@ def hangman_guess():
     display = " ".join([c if c in guessed else "_" for c in word])
 
     if all(c in guessed for c in word):
+        unlock(current_user.id, "game_hangman_win")
         return jsonify({"status": "win", "display": display, "word": word, "errors": errors,
                         "guessed": guessed, "message": "🎉 Ты угадал! Слово: " + word})
     if errors >= 6:
@@ -1054,9 +1209,12 @@ def quiz_answer():
 @app.route("/games/quiz/result")
 @login_required
 def quiz_result():
+    score = session.get("quiz_score", 0)
+    total = session.get("quiz_total", 10)
+    if score == total and total >= 10:
+        unlock(current_user.id, "game_quiz_10")
     return jsonify({
-        "score": session.get("quiz_score", 0),
-        "total": session.get("quiz_total", 10),
+        "score": score, "total": total,
         "errors": session.get("quiz_errors", []),
     })
 
@@ -1119,7 +1277,11 @@ def speed_check():
 @app.route("/games/speed/result")
 @login_required
 def speed_result():
-    return jsonify({"score": session.get("speed_score", 0), "total": len(session.get("speed_words", []))})
+    score = session.get("speed_score", 0)
+    total = len(session.get("speed_words", []))
+    if score == total and total >= 10:
+        unlock(current_user.id, "game_speed_10")
+    return jsonify({"score": score, "total": total})
 
 
 # ═══════════════════════════════════════════════
