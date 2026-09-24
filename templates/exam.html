@@ -11,36 +11,36 @@
         margin-bottom: 20px;
     }
     .exam-header .emoji { font-size: 56px; }
-    .exam-header h2 { margin: 0; color: #2196f3; font-size: 24px; }
+    .exam-header h2 { margin: 0; color: var(--accent); font-size: 24px; }
     .timer {
         text-align: center;
         font-size: 32px;
         font-weight: 900;
-        color: #2196f3;
+        color: var(--accent);
         margin-bottom: 25px;
         padding: 20px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 12px;
     }
     .exam-textarea {
         width: 100%;
         min-height: 300px;
         padding: 20px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 12px;
-        color: #333;
+        color: var(--text);
         font-size: 16px;
         font-family: 'Rubik', sans-serif;
         line-height: 1.6;
         resize: vertical;
         outline: none;
     }
-    .exam-textarea:focus { border-color: #2196f3; }
+    .exam-textarea:focus { border-color: var(--accent); }
     .word-counter {
         text-align: right;
-        color: #888;
+        color: var(--text-sub);
         font-size: 14px;
         margin: 10px 0 20px;
     }
@@ -58,7 +58,7 @@
 {% if empty %}
     <div class="empty">
         <h1>📝 Пока нет тем</h1>
-        <p>Добавь топики в <a href="/topics" style="color: #2196f3;">разделе топиков</a>.</p>
+        <p>Добавь топики в <a href="/topics" style="color: var(--accent);">разделе топиков</a>.</p>
     </div>
 {% else %}
     <h1>🎓 Экзамен</h1>
