@@ -9,6 +9,8 @@ from datetime import date as date_module
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+import smtplib
+from email.mime.text import MIMEText
 
 app = Flask(__name__)
 app.secret_key = "flow_and_word_secret_key"
@@ -28,6 +30,13 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     username = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(200), nullable=False)
+    is_verified = db.Column(db.Boolean, default=False)
+
+class EmailCode(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), nullable=False)
+    code = db.Column(db.String(6), nullable=False)
+    created_at = db.Column(db.DateTime, default=date_module.today)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -35,6 +44,22 @@ def load_user(user_id):
 
 with app.app_context():
     db.create_all()
+
+# ─── SMTP ЯНДЕКС ───
+SMTP_SERVER = "smtp.yandex.ru"
+SMTP_PORT = 465
+SMTP_USER = "твой_ящик@yandex.ru"      # ЗАМЕНИ
+SMTP_PASSWORD = "пароль_приложения"     # ЗАМЕНИ
+
+def send_verification_code(to_email, code):
+    msg = MIMEText(f"Твой код подтверждения: {code}\n\nКод действует 15 минут.")
+    msg['Subject'] = 'Подтверждение регистрации — Flow & Word'
+    msg['From'] = SMTP_USER
+    msg['To'] = to_email
+    
+    with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT) as server:
+        server.login(SMTP_USER, SMTP_PASSWORD)
+        server.send_message(msg)
 
 WORDS_FILE = "/data/words.json"
 PHRASES_FILE = "/data/phrases.json"
@@ -1230,14 +1255,54 @@ def register():
         if User.query.filter_by(email=email).first():
             return render_template("register.html", error="Этот email уже занят")
         
-        hashed = generate_password_hash(password)
-        user = User(email=email, username=username, password=hashed)
+        code = str(random.randint(100000, 999999))
+        
+        new_code = EmailCode(email=email, code=code)
+        db.session.add(new_code)
+        db.session.commit()
+        
+        try:
+            send_verification_code(email, code)
+        except Exception as e:
+            return render_template("register.html", error=f"Ошибка отправки: {e}")
+        
+        session["reg_email"] = email
+        session["reg_username"] = username
+        session["reg_password"] = password
+        
+        return redirect("/verify")
+    
+    return render_template("register.html")
+
+@app.route("/verify", methods=["GET", "POST"])
+def verify():
+    if request.method == "POST":
+        user_code = request.form.get("code", "").strip()
+        email = session.get("reg_email")
+        
+        if not email:
+            return redirect("/register")
+        
+        record = EmailCode.query.filter_by(email=email).order_by(EmailCode.id.desc()).first()
+        
+        if not record or record.code != user_code:
+            return render_template("verify.html", error="Неверный код")
+        
+        db.session.delete(record)
+        
+        hashed = generate_password_hash(session.get("reg_password"))
+        user = User(email=email, username=session.get("reg_username"), password=hashed, is_verified=True)
         db.session.add(user)
         db.session.commit()
         login_user(user)
+        
+        session.pop("reg_email", None)
+        session.pop("reg_username", None)
+        session.pop("reg_password", None)
+        
         return redirect("/")
     
-    return render_template("register.html")
+    return render_template("verify.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
