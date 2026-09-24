@@ -1400,8 +1400,6 @@ def logout():
     logout_user()
     return redirect("/")
 
-if os.path.exists("/data/users.db"):
-    os.remove("/data/users.db")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
