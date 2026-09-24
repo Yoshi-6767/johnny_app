@@ -48,8 +48,8 @@ with app.app_context():
 # ─── SMTP ЯНДЕКС ───
 SMTP_SERVER = "smtp.yandex.ru"
 SMTP_PORT = 465
-SMTP_USER = "твой_ящик@yandex.ru"      # ЗАМЕНИ
-SMTP_PASSWORD = "пароль_приложения"     # ЗАМЕНИ
+SMTP_USER = "DiKeyTokyo@yandex.ru"      # ЗАМЕНИ
+SMTP_PASSWORD = "lljmhqxxvbhahwtp"     # ЗАМЕНИ
 
 def send_verification_code(to_email, code):
     msg = MIMEText(f"Твой код подтверждения: {code}\n\nКод действует 15 минут.")
