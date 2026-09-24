@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for, Response
 import json
 from deep_translator import MyMemoryTranslator
 import random
@@ -44,19 +44,12 @@ def load_user(user_id):
 
 with app.app_context():
     db.create_all()
-    # Миграция: добавляем is_verified, если нет
-    try:
-        db.session.execute(db.text("ALTER TABLE user ADD COLUMN is_verified BOOLEAN DEFAULT 0"))
-        db.session.commit()
-        print("Колонка is_verified добавлена")
-    except Exception as e:
-        print(f"Миграция: {e}")
 
 # ─── SMTP ЯНДЕКС ───
 SMTP_SERVER = "smtp.yandex.ru"
 SMTP_PORT = 587
-SMTP_USER = "DiKeyTokyo@yandex.ru"      # ЗАМЕНИ
-SMTP_PASSWORD = "lljmhqxxvbhahwtp"     # ЗАМЕНИ
+SMTP_USER = "DiKeyTokyo@yandex.ru"
+SMTP_PASSWORD = "lljmhqxxvbhahwtp"
 
 def send_verification_code(to_email, code):
     msg = MIMEText(f"Твой код подтверждения: {code}\n\nКод действует 15 минут.")
@@ -64,21 +57,17 @@ def send_verification_code(to_email, code):
     msg['From'] = SMTP_USER
     msg['To'] = to_email
     
-    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-        server.starttls()
-        server.login(SMTP_USER, SMTP_PASSWORD)
-        server.send_message(msg)
-
-WORDS_FILE = "/data/words.json"
-PHRASES_FILE = "/data/phrases.json"
-PROGRESS_FILE = "/data/progress.json"
-TOPICS_FILE = "/data/topics.json"
-EXAM_FILE = "/data/exams.json"
+    server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+    server.login(SMTP_USER, SMTP_PASSWORD)
+    server.send_message(msg)
+    server.quit()
 
 # ─── КАТЕГОРИИ ───
 
 SECTIONS = [
-    # ─── A1-A2 ───
     {"id": "family", "title": "Family", "emoji": "👨‍👩‍👧", "level": "A1-A2"},
     {"id": "home", "title": "Home", "emoji": "🏠", "level": "A1-A2"},
     {"id": "routine", "title": "Daily Routine", "emoji": "⏰", "level": "A1-A2"},
@@ -91,8 +80,6 @@ SECTIONS = [
     {"id": "health", "title": "Health", "emoji": "💊", "level": "A1-A2"},
     {"id": "shopping", "title": "Shopping", "emoji": "🛒", "level": "A1-A2"},
     {"id": "holidays", "title": "Holidays", "emoji": "🏖️", "level": "A1-A2"},
-    
-    # ─── B1 ───
     {"id": "feelings", "title": "Feelings", "emoji": "😊", "level": "B1"},
     {"id": "character", "title": "Character", "emoji": "🎭", "level": "B1"},
     {"id": "relationships", "title": "Relationships", "emoji": "💕", "level": "B1"},
@@ -105,15 +92,11 @@ SECTIONS = [
     {"id": "nature", "title": "Nature", "emoji": "🌳", "level": "B1"},
     {"id": "time", "title": "Time", "emoji": "🕐", "level": "B1"},
     {"id": "housework", "title": "Housework", "emoji": "🧹", "level": "B1"},
-    
-    # ─── B2+ ───
     {"id": "business", "title": "Business & Negotiations", "emoji": "🤝", "level": "B2+"},
     {"id": "politics", "title": "Politics & Law", "emoji": "⚖️", "level": "B2+"},
     {"id": "environment", "title": "Environment", "emoji": "🌍", "level": "B2+"},
     {"id": "art", "title": "Art & Culture", "emoji": "🎨", "level": "B2+"},
     {"id": "science", "title": "Science", "emoji": "🔬", "level": "B2+"},
-    
-    # ─── Общее ───
     {"id": "general", "title": "Общее", "emoji": "📦", "level": "general"},
 ]
 
@@ -296,126 +279,39 @@ IDIOMS = [
     {"idiom": "easier said than done", "rus": "легко сказать, да трудно сделать", "literal": "легче сказать, чем сделать"},
 ]
 
-# ─── ЗАГРУЗКА ДАННЫХ ───
+# ─── ХРАНИЛИЩЕ ПОЛЬЗОВАТЕЛЕЙ ───
 
-DATA_EMPTY = False
-try:
-    with open(WORDS_FILE, "r", encoding="utf-8") as f:
-        raw_words = json.load(f)
-    if not raw_words:
-        DATA_EMPTY = True
-except:
-    DATA_EMPTY = True
+users_data = {}
 
-if DATA_EMPTY:
-    try:
-        with open("words.json", "r", encoding="utf-8") as f:
-            raw_words = json.load(f)
-        with open(WORDS_FILE, "w", encoding="utf-8") as f:
-            json.dump(raw_words, f, ensure_ascii=False, indent=2)
-    except:
-        raw_words = {}
-
-words = {}
-for k, v in raw_words.items():
-    if isinstance(v, dict):
-        section = v.get("section", "general")
-        if section not in [s["id"] for s in SECTIONS]:
-            section = "general"
-        words[k] = {"rus": v.get("rus", ""), "section": section}
-    else:
-        words[k] = {"rus": v, "section": "general"}
-
-def save_words():
-    with open(WORDS_FILE, "w", encoding="utf-8") as f:
-        json.dump(words, f, ensure_ascii=False, indent=2)
-
-PHRASES_EMPTY = False
-try:
-    with open(PHRASES_FILE, "r", encoding="utf-8") as f:
-        phrases = json.load(f)
-    if not phrases:
-        PHRASES_EMPTY = True
-except:
-    PHRASES_EMPTY = True
-
-if PHRASES_EMPTY:
-    try:
-        with open("phrases.json", "r", encoding="utf-8") as f:
-            phrases = json.load(f)
-        with open(PHRASES_FILE, "w", encoding="utf-8") as f:
-            json.dump(phrases, f, ensure_ascii=False, indent=2)
-    except:
-        phrases = {}
-
-def save_phrases():
-    with open(PHRASES_FILE, "w", encoding="utf-8") as f:
-        json.dump(phrases, f, ensure_ascii=False, indent=2)
-
-try:
-    with open(PROGRESS_FILE, "r", encoding="utf-8") as f:
-        progress = json.load(f)
-except:
-    progress = {"history": [], "streak": 0, "last_day": "", "weak_words": {}}
-
-def save_progress():
-    with open(PROGRESS_FILE, "w", encoding="utf-8") as f:
-        json.dump(progress, f, ensure_ascii=False, indent=2)
-
-try:
-    with open(TOPICS_FILE, "r", encoding="utf-8") as f:
-        topics = json.load(f)
-except:
-    topics = {}
-
-def save_topics():
-    with open(TOPICS_FILE, "w", encoding="utf-8") as f:
-        json.dump(topics, f, ensure_ascii=False, indent=2)
-
-try:
-    with open(EXAM_FILE, "r", encoding="utf-8") as f:
-        exams = json.load(f)
-except:
-    exams = {}
-
-def save_exams():
-    with open(EXAM_FILE, "w", encoding="utf-8") as f:
-        json.dump(exams, f, ensure_ascii=False, indent=2)
-
-def record_training(correct: bool, word=None):
-    today = str(date.today())
-    if progress["last_day"] != today:
-        yesterday = str(date.today() - timedelta(days=1))
-        if progress["last_day"] == yesterday:
-            progress["streak"] += 1
-        else:
-            progress["streak"] = 1
-        progress["last_day"] = today
-
-    if not progress["history"] or progress["history"][-1]["date"] != today:
-        progress["history"].append({"date": today, "correct": 0, "wrong": 0})
-
-    if correct:
-        progress["history"][-1]["correct"] += 1
-    else:
-        progress["history"][-1]["wrong"] += 1
-
-    if word and not correct:
-        if "weak_words" not in progress:
-            progress["weak_words"] = {}
-        progress["weak_words"][word] = progress["weak_words"].get(word, 0) + 1
-
-    save_progress()
+def get_user_data(user_id):
+    if user_id not in users_data:
+        users_data[user_id] = {
+            "words": {},
+            "phrases": {},
+            "progress": {"history": [], "streak": 0, "last_day": "", "weak_words": {}},
+            "topics": {},
+            "exams": {}
+        }
+    return users_data[user_id]
 
 # ─── ГЛАВНАЯ ───
 
 @app.route("/")
 def index():
-    total_words = len(words)
-    total_phrases = len(phrases)
-    total_topics_done = sum(1 for t in topics.values() if t.get("done"))
-    total_topics = len(FIXED_TOPICS) + sum(1 for t in topics.keys() if t.startswith("custom_"))
-    streak = progress.get("streak", 0)
+    if current_user.is_authenticated:
+        data = get_user_data(current_user.id)
+        total_words = len(data["words"])
+        total_phrases = len(data["phrases"])
+        total_topics_done = sum(1 for t in data["topics"].values() if t.get("done"))
+        total_topics = len(FIXED_TOPICS) + sum(1 for t in data["topics"].keys() if t.startswith("custom_"))
+        streak = data["progress"].get("streak", 0)
+    else:
+        total_words = 0
+        total_phrases = 0
+        total_topics_done = 0
+        total_topics = len(FIXED_TOPICS)
+        streak = 0
+    
     return render_template(
         "index.html",
         total_words=total_words,
@@ -429,46 +325,51 @@ def index():
 # ─── СЛОВА ───
 
 @app.route("/add", methods=["POST"])
+@login_required
 def add():
     data = request.json
+    user_data = get_user_data(current_user.id)
     eng = data["eng"].strip()
     rus = data["rus"].strip()
     section = data.get("section", "general")
     if section not in [s["id"] for s in SECTIONS]:
         section = "general"
-    words[eng] = {"rus": rus, "section": section}
-    save_words()
+    user_data["words"][eng] = {"rus": rus, "section": section}
     return jsonify({"status": "ok"})
 
 @app.route("/delete", methods=["POST"])
+@login_required
 def delete():
     data = request.json
+    user_data = get_user_data(current_user.id)
     eng = data["eng"]
-    if eng in words:
-        del words[eng]
-        save_words()
+    if eng in user_data["words"]:
+        del user_data["words"][eng]
     return jsonify({"status": "ok"})
 
 @app.route("/edit", methods=["POST"])
+@login_required
 def edit():
     data = request.json
+    user_data = get_user_data(current_user.id)
     old_eng = data["old_eng"]
     new_eng = data["new_eng"].strip()
     new_rus = data["new_rus"].strip()
     section = data.get("section", "general")
-    if old_eng in words:
-        del words[old_eng]
-        words[new_eng] = {"rus": new_rus, "section": section}
-        save_words()
+    if old_eng in user_data["words"]:
+        del user_data["words"][old_eng]
+        user_data["words"][new_eng] = {"rus": new_rus, "section": section}
     return jsonify({"status": "ok"})
 
 # ─── КАТЕГОРИИ ───
 
 @app.route("/sections")
+@login_required
 def sections_page():
+    user_data = get_user_data(current_user.id)
     sections_data = []
     for s in SECTIONS:
-        count = sum(1 for v in words.values() if v["section"] == s["id"])
+        count = sum(1 for v in user_data["words"].values() if v["section"] == s["id"])
         sections_data.append({
             "id": s["id"],
             "title": s["title"],
@@ -476,24 +377,28 @@ def sections_page():
             "count": count,
             "level": s.get("level", "general")
         })
-    return render_template("sections.html", sections=sections_data, total_words=len(words))
+    return render_template("sections.html", sections=sections_data, total_words=len(user_data["words"]))
 
 @app.route("/sections/<sid>")
+@login_required
 def section_page(sid):
+    user_data = get_user_data(current_user.id)
     section = get_section(sid)
-    section_words = {k: v for k, v in words.items() if v["section"] == sid}
+    section_words = {k: v for k, v in user_data["words"].items() if v["section"] == sid}
     return render_template("section.html", section=section, words=section_words)
 
 # ─── ТРЕНИРОВКА СЛОВ ───
 
 @app.route("/train")
+@login_required
 def train():
+    user_data = get_user_data(current_user.id)
     section_id = request.args.get("section", "")
     reverse = request.args.get("reverse", "0") == "1"
     if section_id:
-        filtered = {k: v for k, v in words.items() if v["section"] == section_id}
+        filtered = {k: v for k, v in user_data["words"].items() if v["section"] == section_id}
     else:
-        filtered = words
+        filtered = user_data["words"]
     if not filtered:
         return render_template("train.html", word=None, empty=True, reverse=reverse, section=section_id)
     eng = random.choice(list(filtered.keys()))
@@ -507,22 +412,24 @@ def train():
     return render_template("train.html", word=display, empty=False, reverse=reverse, section=section_id)
 
 @app.route("/check", methods=["POST"])
+@login_required
 def check():
     data = request.json
+    user_data = get_user_data(current_user.id)
     user_answer = data["answer"].strip().lower()
     eng = session.get("current_word")
     reverse = session.get("train_reverse", False)
-    if not eng or eng not in words:
+    if not eng or eng not in user_data["words"]:
         return jsonify({"status": "error"})
     if reverse:
         correct_answer = eng.lower()
     else:
-        correct_answer = words[eng]["rus"].strip().lower()
+        correct_answer = user_data["words"][eng]["rus"].strip().lower()
     if user_answer == correct_answer:
         record_training(True, eng)
         return jsonify({
             "status": "correct",
-            "correct_answer": eng if reverse else words[eng]["rus"],
+            "correct_answer": eng if reverse else user_data["words"][eng]["rus"],
             "correct_count": session.get("correct", 0) + 1,
             "wrong_count": session.get("wrong", 0)
         })
@@ -530,7 +437,7 @@ def check():
         record_training(False, eng)
         return jsonify({
             "status": "wrong",
-            "correct_answer": eng if reverse else words[eng]["rus"],
+            "correct_answer": eng if reverse else user_data["words"][eng]["rus"],
             "correct_count": session.get("correct", 0),
             "wrong_count": session.get("wrong", 0) + 1
         })
@@ -538,65 +445,74 @@ def check():
 # ─── ФРАЗЫ ───
 
 @app.route("/phrases")
+@login_required
 def phrases_page():
-    return render_template("phrases.html", phrases=phrases)
+    user_data = get_user_data(current_user.id)
+    return render_template("phrases.html", phrases=user_data["phrases"])
 
 @app.route("/phrases/add", methods=["POST"])
+@login_required
 def phrases_add():
     data = request.json
-    phrases[data["eng"]] = data["rus"]
-    save_phrases()
+    user_data = get_user_data(current_user.id)
+    user_data["phrases"][data["eng"]] = data["rus"]
     return jsonify({"status": "ok"})
 
 @app.route("/phrases/delete", methods=["POST"])
+@login_required
 def phrases_delete():
     data = request.json
+    user_data = get_user_data(current_user.id)
     eng = data["eng"]
-    if eng in phrases:
-        del phrases[eng]
-        save_phrases()
+    if eng in user_data["phrases"]:
+        del user_data["phrases"][eng]
     return jsonify({"status": "ok"})
 
 @app.route("/phrases/edit", methods=["POST"])
+@login_required
 def phrases_edit():
     data = request.json
+    user_data = get_user_data(current_user.id)
     old_eng = data["old_eng"]
     new_eng = data["new_eng"]
     new_rus = data["new_rus"]
-    if old_eng in phrases:
-        del phrases[old_eng]
-        phrases[new_eng] = new_rus
-        save_phrases()
+    if old_eng in user_data["phrases"]:
+        del user_data["phrases"][old_eng]
+        user_data["phrases"][new_eng] = new_rus
     return jsonify({"status": "ok"})
 
 @app.route("/phrases/train")
+@login_required
 def phrases_train():
+    user_data = get_user_data(current_user.id)
     reverse = request.args.get("reverse", "0") == "1"
-    if not phrases:
+    if not user_data["phrases"]:
         return render_template("train_phrases.html", phrase=None, empty=True, reverse=reverse)
-    eng = random.choice(list(phrases.keys()))
+    eng = random.choice(list(user_data["phrases"].keys()))
     session["current_phrase"] = eng
     session["phrase_reverse"] = reverse
-    display = phrases[eng] if reverse else eng
+    display = user_data["phrases"][eng] if reverse else eng
     return render_template("train_phrases.html", phrase=display, empty=False, reverse=reverse)
 
 @app.route("/phrases/check", methods=["POST"])
+@login_required
 def phrases_check():
     data = request.json
+    user_data = get_user_data(current_user.id)
     user_answer = data["answer"].strip().lower()
     eng = session.get("current_phrase")
     reverse = session.get("phrase_reverse", False)
-    if not eng or eng not in phrases:
+    if not eng or eng not in user_data["phrases"]:
         return jsonify({"status": "error"})
     if reverse:
         correct_answer = eng.lower()
     else:
-        correct_answer = phrases[eng].strip().lower()
+        correct_answer = user_data["phrases"][eng].strip().lower()
     if user_answer == correct_answer:
         record_training(True)
         return jsonify({
             "status": "correct",
-            "correct_answer": eng if reverse else phrases[eng],
+            "correct_answer": eng if reverse else user_data["phrases"][eng],
             "correct_count": session.get("phrases_correct", 0) + 1,
             "wrong_count": session.get("phrases_wrong", 0)
         })
@@ -604,7 +520,7 @@ def phrases_check():
         record_training(False)
         return jsonify({
             "status": "wrong",
-            "correct_answer": eng if reverse else phrases[eng],
+            "correct_answer": eng if reverse else user_data["phrases"][eng],
             "correct_count": session.get("phrases_correct", 0),
             "wrong_count": session.get("phrases_wrong", 0) + 1
         })
@@ -612,18 +528,21 @@ def phrases_check():
 # ─── ПРОГРЕСС ───
 
 @app.route("/progress")
+@login_required
 def progress_page():
-    total_words = len(words)
-    total_phrases = len(phrases)
-    total_correct = sum(d["correct"] for d in progress["history"])
-    total_wrong = sum(d["wrong"] for d in progress["history"])
+    user_data = get_user_data(current_user.id)
+    user_progress = user_data["progress"]
+    total_words = len(user_data["words"])
+    total_phrases = len(user_data["phrases"])
+    total_correct = sum(d["correct"] for d in user_progress["history"])
+    total_wrong = sum(d["wrong"] for d in user_progress["history"])
     total_answers = total_correct + total_wrong
     accuracy = round(total_correct / total_answers * 100) if total_answers > 0 else 0
 
     last_7 = []
     for i in range(6, -1, -1):
         day = str(date.today() - timedelta(days=i))
-        day_data = next((d for d in progress["history"] if d["date"] == day), None)
+        day_data = next((d for d in user_progress["history"] if d["date"] == day), None)
         last_7.append({
             "date": day,
             "label": day[8:10] + "." + day[5:7],
@@ -649,7 +568,7 @@ def progress_page():
         calendar_days.append({"empty": True})
     for day_num in range(1, days_in_month + 1):
         day_str = str(today.replace(day=day_num))
-        trained = any(d["date"] == day_str and (d["correct"] + d["wrong"]) > 0 for d in progress["history"])
+        trained = any(d["date"] == day_str and (d["correct"] + d["wrong"]) > 0 for d in user_progress["history"])
         is_today = (day_num == today.day)
         calendar_days.append({
             "empty": False,
@@ -658,12 +577,12 @@ def progress_page():
             "today": is_today
         })
 
-    weak_words = progress.get("weak_words", {})
+    weak_words = user_progress.get("weak_words", {})
     weak_sorted = sorted(weak_words.items(), key=lambda x: x[1], reverse=True)[:10]
     weak_list = []
     for w, count in weak_sorted:
-        if w in words:
-            weak_list.append({"word": w, "rus": words[w]["rus"], "count": count})
+        if w in user_data["words"]:
+            weak_list.append({"word": w, "rus": user_data["words"][w]["rus"], "count": count})
 
     return render_template(
         "progress.html",
@@ -672,13 +591,40 @@ def progress_page():
         total_correct=total_correct,
         total_wrong=total_wrong,
         accuracy=accuracy,
-        streak=progress["streak"],
+        streak=user_progress["streak"],
         last_7=last_7,
         max_day=max_day,
         calendar_days=calendar_days,
         weak_words=weak_list,
         month_name=today.strftime("%B %Y")
     )
+
+# ─── ЗАПИСЬ ТРЕНИРОВКИ ───
+
+def record_training(correct: bool, word=None):
+    user_data = get_user_data(current_user.id)
+    progress = user_data["progress"]
+    today = str(date.today())
+    if progress["last_day"] != today:
+        yesterday = str(date.today() - timedelta(days=1))
+        if progress["last_day"] == yesterday:
+            progress["streak"] += 1
+        else:
+            progress["streak"] = 1
+        progress["last_day"] = today
+
+    if not progress["history"] or progress["history"][-1]["date"] != today:
+        progress["history"].append({"date": today, "correct": 0, "wrong": 0})
+
+    if correct:
+        progress["history"][-1]["correct"] += 1
+    else:
+        progress["history"][-1]["wrong"] += 1
+
+    if word and not correct:
+        if "weak_words" not in progress:
+            progress["weak_words"] = {}
+        progress["weak_words"][word] = progress["weak_words"].get(word, 0) + 1
 
 # ─── ТОПИКИ ───
 
@@ -688,13 +634,21 @@ FIXED_TOPICS = [
     {"id": "my_hobbies", "title": "My Hobbies", "emoji": "🎮", "helper": ["play", "read", "music", "sport", "game", "draw", "sing", "dance"]},
     {"id": "my_city", "title": "My City", "emoji": "🏙️", "helper": ["street", "park", "shop", "museum", "beautiful", "big", "small", "center"]},
     {"id": "my_dreams", "title": "My Dreams", "emoji": "💭", "helper": ["want", "future", "travel", "family", "success", "dream", "hope", "believe"]},
+    {"id": "my_job", "title": "My Job", "emoji": "💼", "helper": ["office", "boss", "meeting", "colleague", "task", "project", "career", "salary"]},
+    {"id": "my_travels", "title": "My Travels", "emoji": "✈️", "helper": ["airport", "ticket", "hotel", "luggage", "passport", "flight", "beach", "tourist"]},
+    {"id": "my_food", "title": "My Food", "emoji": "🍕", "helper": ["breakfast", "lunch", "dinner", "tasty", "cook", "restaurant", "hungry", "delicious"]},
+    {"id": "my_health", "title": "My Health", "emoji": "💪", "helper": ["sport", "gym", "doctor", "healthy", "sleep", "water", "vitamins", "energy"]},
+    {"id": "my_future", "title": "My Future", "emoji": "🚀", "helper": ["career", "family", "travel", "success", "dream", "plan", "goal", "achieve"]},
 ]
 
 @app.route("/topics")
+@login_required
 def topics_page():
+    user_data = get_user_data(current_user.id)
+    user_topics = user_data["topics"]
     all_topics = []
     for t in FIXED_TOPICS:
-        data = topics.get(t["id"], {})
+        data = user_topics.get(t["id"], {})
         all_topics.append({
             "id": t["id"],
             "title": t["title"],
@@ -703,7 +657,7 @@ def topics_page():
             "done": data.get("done", False),
             "word_count": len(data.get("text", "").split()) if data.get("text") else 0
         })
-    for tid, data in topics.items():
+    for tid, data in user_topics.items():
         if tid.startswith("custom_"):
             all_topics.append({
                 "id": tid,
@@ -716,19 +670,21 @@ def topics_page():
     return render_template("topics.html", topics=all_topics)
 
 @app.route("/topics/<tid>")
+@login_required
 def topic_page(tid):
+    user_data = get_user_data(current_user.id)
     topic_info = next((t for t in FIXED_TOPICS if t["id"] == tid), None)
     if not topic_info:
-        if tid in topics:
+        if tid in user_data["topics"]:
             topic_info = {
                 "id": tid,
-                "title": topics[tid].get("title", "Своя тема"),
+                "title": user_data["topics"][tid].get("title", "Своя тема"),
                 "emoji": "📝",
                 "helper": []
             }
         else:
             return "Тема не найдена", 404
-    data = topics.get(tid, {"text": "", "done": False})
+    data = user_data["topics"].get(tid, {"text": "", "done": False})
     return render_template(
         "topic.html",
         topic=topic_info,
@@ -737,43 +693,48 @@ def topic_page(tid):
     )
 
 @app.route("/topics/<tid>/save", methods=["POST"])
+@login_required
 def topic_save(tid):
+    user_data = get_user_data(current_user.id)
     data = request.json
     text = data["text"].strip()
     word_count = len(text.split())
     if word_count < 50:
         return jsonify({"status": "error", "message": "Минимум 50 слов"})
     topic_info = next((t for t in FIXED_TOPICS if t["id"] == tid), None)
-    title = topic_info["title"] if topic_info else topics.get(tid, {}).get("title", "Своя тема")
-    topics[tid] = {"title": title, "text": text, "done": True}
-    save_topics()
+    title = topic_info["title"] if topic_info else user_data["topics"].get(tid, {}).get("title", "Своя тема")
+    user_data["topics"][tid] = {"title": title, "text": text, "done": True}
     return jsonify({"status": "ok"})
 
 @app.route("/topics/new", methods=["GET", "POST"])
+@login_required
 def topic_new():
     if request.method == "POST":
         title = request.form.get("title", "").strip()
         if not title:
             return redirect("/topics/new")
         tid = "custom_" + str(int(time.time()))
-        topics[tid] = {"title": title, "text": "", "done": False}
-        save_topics()
+        user_data = get_user_data(current_user.id)
+        user_data["topics"][tid] = {"title": title, "text": "", "done": False}
         return redirect(f"/topics/{tid}")
     return render_template("topic_new.html")
 
 @app.route("/topics/<tid>/delete", methods=["POST"])
+@login_required
 def topic_delete(tid):
-    if tid in topics and tid.startswith("custom_"):
-        del topics[tid]
-        save_topics()
+    user_data = get_user_data(current_user.id)
+    if tid in user_data["topics"] and tid.startswith("custom_"):
+        del user_data["topics"][tid]
     return jsonify({"status": "ok"})
 
 # ─── ЭКЗАМЕН ───
 
 @app.route("/exam")
+@login_required
 def exam_page():
+    user_data = get_user_data(current_user.id)
     all_topics = list(FIXED_TOPICS)
-    for tid, data in topics.items():
+    for tid, data in user_data["topics"].items():
         if tid.startswith("custom_"):
             all_topics.append({"id": tid, "title": data.get("title", "Своя тема"), "emoji": "📝", "helper": []})
     if not all_topics:
@@ -784,29 +745,32 @@ def exam_page():
     return render_template("exam.html", topic=topic, empty=False)
 
 @app.route("/exam/save", methods=["POST"])
+@login_required
 def exam_save():
+    user_data = get_user_data(current_user.id)
     data = request.json
     text = data["text"].strip()
     tid = session.get("exam_topic")
     if not tid:
         return jsonify({"status": "error"})
     topic_info = next((t for t in FIXED_TOPICS if t["id"] == tid), None)
-    title = topic_info["title"] if topic_info else topics.get(tid, {}).get("title", "Своя тема")
+    title = topic_info["title"] if topic_info else user_data["topics"].get(tid, {}).get("title", "Своя тема")
     exam_id = str(int(time.time()))
-    exams[exam_id] = {
+    user_data["exams"][exam_id] = {
         "topic_id": tid,
         "title": title,
         "text": text,
         "date": str(date.today()),
         "word_count": len(text.split())
     }
-    save_exams()
     return jsonify({"status": "ok", "exam_id": exam_id})
 
 @app.route("/exam/history")
+@login_required
 def exam_history():
+    user_data = get_user_data(current_user.id)
     exams_list = []
-    for eid, data in sorted(exams.items(), key=lambda x: x[0], reverse=True):
+    for eid, data in sorted(user_data["exams"].items(), key=lambda x: x[0], reverse=True):
         exams_list.append({
             "id": eid,
             "title": data["title"],
@@ -818,10 +782,12 @@ def exam_history():
 # ─── ПЕРЕВОДЧИК ───
 
 @app.route("/translator")
+@login_required
 def translator_page():
     return render_template("translator.html")
 
 @app.route("/translate", methods=["POST"])
+@login_required
 def translate():
     data = request.json
     text = data.get("text", "").strip()
@@ -846,22 +812,27 @@ def faq_page():
 # ─── УЧЁБА ───
 
 @app.route("/study")
+@login_required
 def study_page():
     return render_template("study.html")
 
 @app.route("/study/irregular")
+@login_required
 def irregular_page():
     return render_template("irregular.html", verbs=IRREGULAR_VERBS)
 
 @app.route("/study/phrasal")
+@login_required
 def phrasal_page():
     return render_template("phrasal.html", verbs=PHRASAL_VERBS)
 
 @app.route("/study/idioms")
+@login_required
 def idioms_page():
     return render_template("idioms.html", idioms=IDIOMS)
 
 @app.route("/study/irregular/train")
+@login_required
 def irregular_train():
     mode = request.args.get("mode", "past")
     if not IRREGULAR_VERBS:
@@ -873,6 +844,7 @@ def irregular_train():
     return render_template("irregular_train.html", empty=False, mode=mode)
 
 @app.route("/study/irregular/next")
+@login_required
 def irregular_next():
     mode = session.get("irr_mode", "past")
     used = session.get("irr_used", [])
@@ -915,6 +887,7 @@ def irregular_next():
             })
 
 @app.route("/study/irregular/check", methods=["POST"])
+@login_required
 def irregular_check():
     data = request.json
     answer = data.get("answer", "").strip().lower()
@@ -958,16 +931,19 @@ def irregular_check():
 HANGMAN_STATE = {}
 
 @app.route("/games")
+@login_required
 def games_page():
     return render_template("games.html")
 
 @app.route("/games/hangman")
+@login_required
 def hangman_page():
-    available = [w for w in words.keys() if 4 <= len(w) <= 12 and " " not in w]
+    user_data = get_user_data(current_user.id)
+    available = [w for w in user_data["words"].keys() if 4 <= len(w) <= 12 and " " not in w]
     if not available:
         return render_template("hangman.html", empty=True)
     word = random.choice(available).lower()
-    section_id = words[word]["section"]
+    section_id = user_data["words"][word]["section"]
     section = next((s for s in SECTIONS if s["id"] == section_id), SECTIONS[-1])
     session["hangman_word"] = word
     session["hangman_guessed"] = []
@@ -985,6 +961,7 @@ def hangman_page():
     )
 
 @app.route("/games/hangman/guess", methods=["POST"])
+@login_required
 def hangman_guess():
     data = request.json
     letter = data.get("letter", "").strip().lower()
@@ -1048,8 +1025,10 @@ def hangman_guess():
 QUIZ_STATE = {}
 
 @app.route("/games/quiz")
+@login_required
 def quiz_page():
-    available = [w for w in words.keys() if 4 <= len(w) <= 12 and " " not in w]
+    user_data = get_user_data(current_user.id)
+    available = [w for w in user_data["words"].keys() if 4 <= len(w) <= 12 and " " not in w]
     if len(available) < 4:
         return render_template("quiz.html", empty=True)
     session["quiz_score"] = 0
@@ -1060,8 +1039,10 @@ def quiz_page():
     return render_template("quiz.html", empty=False)
 
 @app.route("/games/quiz/question")
+@login_required
 def quiz_question():
-    available = [w for w in words.keys() if 4 <= len(w) <= 12 and " " not in w and w not in session.get("quiz_used", [])]
+    user_data = get_user_data(current_user.id)
+    available = [w for w in user_data["words"].keys() if 4 <= len(w) <= 12 and " " not in w and w not in session.get("quiz_used", [])]
     if not available:
         return jsonify({"status": "end"})
 
@@ -1069,11 +1050,11 @@ def quiz_question():
     session["quiz_used"] = session.get("quiz_used", []) + [word]
     session["quiz_current"] = word
 
-    correct = words[word]["rus"]
+    correct = user_data["words"][word]["rus"]
 
-    others = [w for w in words.keys() if w != word and words[w]["rus"] != correct]
+    others = [w for w in user_data["words"].keys() if w != word and user_data["words"][w]["rus"] != correct]
     wrong_options = random.sample(others, min(3, len(others)))
-    wrong_answers = [words[w]["rus"] for w in wrong_options]
+    wrong_answers = [user_data["words"][w]["rus"] for w in wrong_options]
 
     options = [correct] + wrong_answers
     random.shuffle(options)
@@ -1091,14 +1072,16 @@ def quiz_question():
     })
 
 @app.route("/games/quiz/answer", methods=["POST"])
+@login_required
 def quiz_answer():
+    user_data = get_user_data(current_user.id)
     data = request.json
     answer = data.get("answer", "").strip()
     word = session.get("quiz_current", "")
-    if not word or word not in words:
+    if not word or word not in user_data["words"]:
         return jsonify({"status": "error"})
 
-    correct = words[word]["rus"]
+    correct = user_data["words"][word]["rus"]
     is_correct = (answer == correct)
 
     if is_correct:
@@ -1116,6 +1099,7 @@ def quiz_answer():
     })
 
 @app.route("/games/quiz/result")
+@login_required
 def quiz_result():
     score = session.get("quiz_score", 0)
     total = session.get("quiz_total", 10)
@@ -1129,15 +1113,19 @@ def quiz_result():
 # ─── СКОРОСТНОЙ РЕЖИМ ───
 
 @app.route("/games/speed")
+@login_required
 def speed_page():
-    available = [w for w in words.keys() if 2 <= len(w) <= 15]
+    user_data = get_user_data(current_user.id)
+    available = [w for w in user_data["words"].keys() if 2 <= len(w) <= 15]
     if len(available) < 5:
         return render_template("speed.html", empty=True)
     return render_template("speed.html", empty=False)
 
 @app.route("/games/speed/start")
+@login_required
 def speed_start():
-    available = [w for w in words.keys() if 2 <= len(w) <= 15]
+    user_data = get_user_data(current_user.id)
+    available = [w for w in user_data["words"].keys() if 2 <= len(w) <= 15]
     if len(available) < 5:
         return jsonify({"status": "error"})
     chosen = random.sample(available, min(10, len(available)))
@@ -1148,6 +1136,7 @@ def speed_start():
     return jsonify({"status": "ok", "total": len(chosen)})
 
 @app.route("/games/speed/next")
+@login_required
 def speed_next():
     speed_words = session.get("speed_words", [])
     index = session.get("speed_index", 0)
@@ -1162,7 +1151,9 @@ def speed_next():
     })
 
 @app.route("/games/speed/check", methods=["POST"])
+@login_required
 def speed_check():
+    user_data = get_user_data(current_user.id)
     data = request.json
     answer = data.get("answer", "").strip().lower()
     speed_words = session.get("speed_words", [])
@@ -1170,7 +1161,7 @@ def speed_check():
     if index >= len(speed_words):
         return jsonify({"status": "error"})
     word = speed_words[index]
-    correct = words[word]["rus"].strip().lower()
+    correct = user_data["words"][word]["rus"].strip().lower()
     is_correct = (answer == correct)
     if is_correct:
         session["speed_score"] = session.get("speed_score", 0) + 1
@@ -1178,13 +1169,14 @@ def speed_check():
     return jsonify({
         "status": "ok",
         "correct": is_correct,
-        "correct_answer": words[word]["rus"],
+        "correct_answer": user_data["words"][word]["rus"],
         "score": session.get("speed_score", 0),
         "index": index + 1,
         "total": len(speed_words)
     })
 
 @app.route("/games/speed/result")
+@login_required
 def speed_result():
     return jsonify({
         "score": session.get("speed_score", 0),
@@ -1193,16 +1185,17 @@ def speed_result():
 
 # ─── УТИЛИТЫ ───
 
-from flask import Response
-
 @app.route("/utils")
+@login_required
 def utils_page():
     return render_template("utils.html")
 
 @app.route("/export/words")
+@login_required
 def export_words():
+    user_data = get_user_data(current_user.id)
     text = "МОИ СЛОВА\n\n"
-    for eng, data in words.items():
+    for eng, data in user_data["words"].items():
         section = get_section(data["section"])
         text += f"{eng} - {data['rus']} ({section['title']})\n"
     return Response(
@@ -1212,9 +1205,11 @@ def export_words():
     )
 
 @app.route("/export/phrases")
+@login_required
 def export_phrases():
+    user_data = get_user_data(current_user.id)
     text = "МОИ ФРАЗЫ\n\n"
-    for eng, rus in phrases.items():
+    for eng, rus in user_data["phrases"].items():
         text += f"{eng} - {rus}\n"
     return Response(
         text,
@@ -1223,10 +1218,12 @@ def export_phrases():
     )
 
 @app.route("/export/section/<sid>")
+@login_required
 def export_section(sid):
+    user_data = get_user_data(current_user.id)
     section = get_section(sid)
     text = f"КАТЕГОРИЯ: {section['title'].upper()}\n\n"
-    for eng, data in words.items():
+    for eng, data in user_data["words"].items():
         if data["section"] == sid:
             text += f"{eng} - {data['rus']}\n"
     return Response(
@@ -1236,9 +1233,11 @@ def export_section(sid):
     )
 
 @app.route("/export/topics")
+@login_required
 def export_topics():
+    user_data = get_user_data(current_user.id)
     text = "МОИ ТОПИКИ\n\n"
-    for tid, data in topics.items():
+    for tid, data in user_data["topics"].items():
         if data.get("done"):
             text += f"=== {data.get('title', 'Без названия')} ===\n"
             text += data.get("text", "") + "\n\n"
@@ -1337,7 +1336,6 @@ def logout():
 @login_required
 def profile():
     return render_template("profile.html")
-
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
