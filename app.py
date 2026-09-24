@@ -54,7 +54,7 @@ with app.app_context():
 
 # ─── SMTP ЯНДЕКС ───
 SMTP_SERVER = "smtp.yandex.ru"
-SMTP_PORT = 465
+SMTP_PORT = 587
 SMTP_USER = "DiKeyTokyo@yandex.ru"      # ЗАМЕНИ
 SMTP_PASSWORD = "lljmhqxxvbhahwtp"     # ЗАМЕНИ
 
@@ -64,9 +64,10 @@ def send_verification_code(to_email, code):
     msg['From'] = SMTP_USER
     msg['To'] = to_email
     
-    with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT) as server:
-        server.login(SMTP_USER, SMTP_PASSWORD)
-        server.send_message(msg)
+    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+    server.starttls()
+    server.login(SMTP_USER, SMTP_PASSWORD)
+    server.send_message(msg)
 
 WORDS_FILE = "/data/words.json"
 PHRASES_FILE = "/data/phrases.json"
