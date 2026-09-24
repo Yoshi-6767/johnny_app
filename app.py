@@ -65,9 +65,9 @@ def send_verification_code(to_email, code):
     msg['To'] = to_email
     
     with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-    server.starttls()
-    server.login(SMTP_USER, SMTP_PASSWORD)
-    server.send_message(msg)
+        server.starttls()
+        server.login(SMTP_USER, SMTP_PASSWORD)
+        server.send_message(msg)
 
 WORDS_FILE = "/data/words.json"
 PHRASES_FILE = "/data/phrases.json"
