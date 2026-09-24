@@ -2,11 +2,139 @@
 
 {% block title %}Flow & Word{% endblock %}
 
+{% block styles %}
+<style>
+    .today-block {
+        background: linear-gradient(135deg, #2196f3, #1976d2);
+        color: #fff;
+        padding: 30px;
+        border-radius: 16px;
+        margin-bottom: 30px;
+    }
+    .today-block h2 {
+        color: #fff;
+        margin-bottom: 20px;
+        font-size: 22px;
+    }
+    .today-stats {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+    .today-stat .num {
+        font-size: 32px;
+        font-weight: 900;
+        line-height: 1;
+    }
+    .today-stat .label {
+        font-size: 13px;
+        opacity: 0.85;
+        margin-top: 5px;
+    }
+    .today-btn {
+        display: inline-block;
+        background: #fff;
+        color: #1976d2;
+        padding: 14px 28px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 15px;
+    }
+    .today-btn:hover { background: #f5f7fa; }
+
+    .goal-home {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 18px 22px;
+        margin-bottom: 15px;
+    }
+    .goal-home-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    .goal-home-bar {
+        height: 10px;
+        background: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    .goal-home-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #2196f3, #42a5f5);
+        border-radius: 5px;
+    }
+    .goal-home-text {
+        font-size: 13px;
+        color: #888;
+        margin-top: 6px;
+    }
+    body.dark .goal-home { background: #1e1e1e; border-color: #2a2a2a; }
+    body.dark .goal-home-title { color: #e0e0e0; }
+    body.dark .goal-home-bar { background: #2a2a2a; }
+</style>
+{% endblock %}
+
 {% block content %}
+{% if current_user.is_authenticated %}
+<div class="today-block">
+    <h2>👋 Привет, {{ current_user.username }}!</h2>
+    <div class="today-stats">
+        <div class="today-stat">
+            <div class="num">{{ streak }}</div>
+            <div class="label">🔥 Дней подряд</div>
+        </div>
+        <div class="today-stat">
+            <div class="num">{{ today_correct }}</div>
+            <div class="label">✅ Правильно сегодня</div>
+        </div>
+        <div class="today-stat">
+            <div class="num">{{ weak_list|length }}</div>
+            <div class="label">⚠️ Слабых слов</div>
+        </div>
+    </div>
+    {% if weak_list %}
+    <a href="/train?reset=1" class="today-btn">🔥 Тренировать сейчас</a>
+    {% else %}
+    <a href="/sections" class="today-btn">📚 К категориям</a>
+    {% endif %}
+</div>
+
+{% if goals %}
+{% for g in goals %}
+<div class="goal-home">
+    <div class="goal-home-title">
+        {% if g.goal_type == "words" %}📚 Цель: {{ g.target }} слов
+        {% elif g.goal_type == "streak" %}🔥 Цель: стрик {{ g.target }} дней{% endif %}
+    </div>
+    <div class="goal-home-bar">
+        <div class="goal-home-fill" style="width: {{ g.percent }}%"></div>
+    </div>
+    <div class="goal-home-text">{{ g.current }} / {{ g.target }} ({{ g.percent }}%)</div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if weak_list %}
+<div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 18px 22px; border-radius: 12px; margin-bottom: 30px;">
+    <div style="font-weight: 700; color: #e65100; margin-bottom: 8px;">⚠️ Слабые слова</div>
+    <div style="font-size: 14px; color: #555;">
+        {% for w in weak_list %}{{ w.word }}{% if not loop.last %}, {% endif %}{% endfor %}
+    </div>
+</div>
+{% endif %}
+{% else %}
 <div class="hero">
     <h1>Твой английский в потоке</h1>
-    <p>{{ total_words }} слов • {{ total_phrases }} фраз • стрик {{ streak }} 🔥</p>
+    <p>{{ total_words }} слов • учись бесплатно</p>
+</div>
+{% endif %}
 
+<div class="hero" style="margin-top: {% if current_user.is_authenticated %}30px{% else %}0{% endif %};">
     <div class="quote">
         <div class="quote-text">«{{ quote.text }}»</div>
         <div class="quote-author">— {{ quote.author }}</div>
@@ -18,7 +146,7 @@
         <div>
             <div class="card-emoji">📚</div>
             <div class="card-title">Категории</div>
-            <div class="card-count">Слова по темам</div>
+            <div class="card-count">{{ total_words }} слов</div>
         </div>
     </a>
 
@@ -70,17 +198,25 @@
         </div>
     </a>
 
-    <a href="#" class="card" style="opacity: 0.5; pointer-events: none;">
+    <a href="/achievements" class="card">
+        <div>
+            <div class="card-emoji">🏆</div>
+            <div class="card-title">Достижения</div>
+            <div class="card-count">Награды за прогресс</div>
+        </div>
+    </a>
+
+    <a href="/goals" class="card">
         <div>
             <div class="card-emoji">🎯</div>
-            <div class="card-title">Скоро</div>
-            <div class="card-count">Новый раздел</div>
+            <div class="card-title">Цели</div>
+            <div class="card-count">Ставь и добивайся</div>
         </div>
     </a>
 </div>
 
 <div class="extra">
-    <a href="/exam">🎓 Экзамен</a>
-    <a href="/phrases/train">🎯 Тренировать фразы</a>
+    <a href="/exam">🎓 Экзамен-текст</a>
+    <a href="/phrases/train?reset=1">🎯 Тренировать фразы</a>
 </div>
 {% endblock %}
