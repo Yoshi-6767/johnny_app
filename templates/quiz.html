@@ -5,20 +5,20 @@
 {% block styles %}
 <style>
     .quiz-word {
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        border-left: 4px solid #2196f3;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
         padding: 40px;
         border-radius: 14px;
         text-align: center;
         font-size: 36px;
         font-weight: 700;
         margin-bottom: 25px;
-        color: #333;
+        color: var(--text);
     }
     .quiz-progress {
         text-align: center;
-        color: #888;
+        color: var(--text-sub);
         font-size: 14px;
         margin-bottom: 20px;
     }
@@ -30,20 +30,20 @@
     }
     .quiz-option {
         padding: 18px 20px;
-        background: #fff;
-        border: 2px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 2px solid var(--border);
         border-radius: 12px;
         font-size: 16px;
         font-family: 'Rubik', sans-serif;
         font-weight: 500;
-        color: #333;
+        color: var(--text);
         cursor: pointer;
         transition: all 0.2s;
         text-align: center;
     }
     .quiz-option:hover:not(:disabled) {
-        border-color: #2196f3;
-        color: #2196f3;
+        border-color: var(--accent);
+        color: var(--accent);
     }
     .quiz-option:disabled { cursor: default; }
     .quiz-option.correct {
@@ -61,19 +61,19 @@
     .quiz-result {
         text-align: center;
         padding: 40px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 14px;
         display: none;
     }
     .quiz-result .score {
         font-size: 48px;
         font-weight: 900;
-        color: #2196f3;
+        color: var(--accent);
         margin-bottom: 10px;
     }
     .quiz-result .label {
-        color: #888;
+        color: var(--text-sub);
         font-size: 16px;
         margin-bottom: 25px;
     }
@@ -81,19 +81,19 @@
         text-align: left;
         margin: 20px 0;
         padding: 20px;
-        background: #f5f7fa;
+        background: var(--bg-subtle);
         border-radius: 12px;
     }
     .quiz-errors h3 {
-        color: #333;
+        color: var(--text);
         font-size: 16px;
         margin-bottom: 15px;
     }
     .quiz-errors .error-item {
         padding: 10px 0;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid var(--border);
         font-size: 14px;
-        color: #555;
+        color: var(--text-sub);
     }
     .quiz-errors .error-item:last-child { border-bottom: none; }
     .quiz-errors .error-item strong { color: #f44336; }
@@ -104,14 +104,14 @@
         margin-top: 20px;
     }
     .quiz-nav a {
-        color: #888;
+        color: var(--text-sub);
         text-decoration: none;
         padding: 12px 25px;
         border-radius: 8px;
         font-weight: 500;
-        border: 1px solid #e0e0e0;
+        border: 1px solid var(--border);
     }
-    .quiz-nav a:hover { color: #2196f3; border-color: #2196f3; }
+    .quiz-nav a:hover { color: var(--accent); border-color: var(--accent); }
 </style>
 {% endblock %}
 
@@ -120,7 +120,7 @@
     <div class="empty">
         <h1>❓ Пока мало слов</h1>
         <p>Нужно минимум <strong>4 слова</strong> от 4 до 12 букв.</p>
-        <p>Добавь в <a href="/sections" style="color: #2196f3;">категориях</a>.</p>
+        <p>Добавь в <a href="/sections" style="color: var(--accent);">категориях</a>.</p>
     </div>
 {% else %}
     <div id="quiz-play">
