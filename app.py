@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for, Response
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for, Response, send_from_directory
 import json
 from deep_translator import MyMemoryTranslator
 import random
@@ -9,6 +9,7 @@ from datetime import date as date_module
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 import smtplib
 from email.mime.text import MIMEText
 
@@ -19,6 +20,12 @@ app.secret_key = "flow_and_word_secret_key"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////data/users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+# ─── АВАТАРЫ ───
+AVATAR_FOLDER = "/data/avatars"
+if not os.path.exists(AVATAR_FOLDER):
+    os.makedirs(AVATAR_FOLDER)
+app.config['AVATAR_FOLDER'] = AVATAR_FOLDER
 
 # ─── АВТОРИЗАЦИЯ ───
 login_manager = LoginManager()
@@ -31,6 +38,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(200), nullable=False)
     is_verified = db.Column(db.Boolean, default=False)
+    avatar = db.Column(db.String(200), default=None)
 
 class EmailCode(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -128,7 +136,6 @@ def get_user_data(user_id):
     return users_data[user_id]
 
 def get_all_words(user_id):
-    """Общие слова + личные (general)"""
     user_data = get_user_data(user_id)
     all_w = {}
     for k, v in common_words.items():
@@ -341,6 +348,33 @@ def index():
         streak=streak,
         quote=get_daily_quote()
     )
+
+# ─── АВАТАР ───
+
+@app.route("/avatars/<filename>")
+def avatar_file(filename):
+    return send_from_directory(app.config['AVATAR_FOLDER'], filename)
+
+@app.route("/profile")
+@login_required
+def profile():
+    return render_template("profile.html", user=current_user)
+
+@app.route("/profile/upload_avatar", methods=["POST"])
+@login_required
+def upload_avatar():
+    file = request.files.get("avatar")
+    if not file:
+        return redirect("/profile")
+    ext = file.filename.rsplit(".", 1)[-1].lower()
+    if ext not in ["jpg", "jpeg", "png", "gif"]:
+        return redirect("/profile")
+    filename = f"user_{current_user.id}.{ext}"
+    filepath = os.path.join(app.config['AVATAR_FOLDER'], filename)
+    file.save(filepath)
+    current_user.avatar = filename
+    db.session.commit()
+    return redirect("/profile")
 
 # ─── СЛОВА (только general) ───
 
@@ -1365,11 +1399,6 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
-
-@app.route("/profile")
-@login_required
-def profile():
-    return render_template("profile.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
