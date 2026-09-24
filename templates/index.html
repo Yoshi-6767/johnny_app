@@ -13,14 +13,14 @@
     }
     .today-block h2 {
         color: #fff;
-        margin-bottom: 20px;
+        margin-bottom: 22px;
         font-size: 22px;
     }
     .today-stats {
         display: flex;
-        gap: 30px;
+        gap: 35px;
         flex-wrap: wrap;
-        margin-bottom: 20px;
+        margin-bottom: 22px;
     }
     .today-stat .num {
         font-size: 32px;
@@ -29,21 +29,141 @@
     }
     .today-stat .label {
         font-size: 13px;
-        opacity: 0.85;
+        opacity: 0.9;
         margin-top: 5px;
     }
+    .today-btn-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
     .today-btn {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         background: #fff;
         color: #1976d2;
-        padding: 14px 28px;
+        padding: 13px 26px;
         border-radius: 30px;
         text-decoration: none;
         font-weight: 700;
         font-size: 15px;
+        transition: transform 0.15s, box-shadow 0.15s;
     }
-    .today-btn:hover { background: #f5f7fa; }
+    .today-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .today-btn.weak-btn {
+        background: #ff9800;
+        color: #fff;
+    }
+    .today-btn.weak-btn:hover {
+        background: #f57c00;
+    }
+    .today-btn.ghost {
+        background: rgba(255,255,255,0.15);
+        color: #fff;
+        border: 1.5px solid rgba(255,255,255,0.5);
+    }
+    .today-btn.ghost:hover {
+        background: rgba(255,255,255,0.25);
+    }
 
+    /* ЦЕЛЬ ДНЯ */
+    .daily-goal {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 14px;
+        padding: 22px 25px;
+        margin-bottom: 25px;
+    }
+    .daily-goal-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .daily-goal-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #333;
+    }
+    .daily-goal-count {
+        font-size: 14px;
+        color: #2196f3;
+        font-weight: 700;
+    }
+    .daily-goal.done {
+        border-color: #4caf50;
+        background: linear-gradient(135deg, #ffffff, #f1f8e9);
+    }
+    .daily-goal.done .daily-goal-title {
+        color: #2e7d32;
+    }
+    .daily-goal.done .daily-goal-count {
+        color: #4caf50;
+    }
+    .daily-goal-bar {
+        height: 12px;
+        background: #e0e0e0;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .daily-goal-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #2196f3, #42a5f5);
+        border-radius: 6px;
+        transition: width 0.5s ease;
+    }
+    .daily-goal.done .daily-goal-fill {
+        background: linear-gradient(90deg, #4caf50, #66bb6a);
+    }
+
+    /* СЛАБЫЕ СЛОВА */
+    .weak-block {
+        background: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 20px 24px;
+        border-radius: 14px;
+        margin-bottom: 25px;
+    }
+    .weak-block-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .weak-block-title {
+        font-weight: 700;
+        color: #e65100;
+        font-size: 16px;
+    }
+    .weak-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .weak-chip {
+        background: #fff;
+        border: 1px solid #ffcc80;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        color: #e65100;
+        font-weight: 600;
+    }
+    .weak-chip .rus {
+        color: #999;
+        font-weight: 400;
+        margin-left: 6px;
+    }
+
+    /* ЦЕЛИ (goal-home) */
     .goal-home {
         background: #fff;
         border: 1px solid #e0e0e0;
@@ -73,6 +193,13 @@
         color: #888;
         margin-top: 6px;
     }
+
+    body.dark .daily-goal { background: #1e1e1e; border-color: #2a2a2a; }
+    body.dark .daily-goal-title { color: #e0e0e0; }
+    body.dark .daily-goal.done { background: linear-gradient(135deg, #1e1e1e, #1a2a1a); }
+    body.dark .daily-goal-bar { background: #2a2a2a; }
+    body.dark .weak-block { background: #2a1e0f; }
+    body.dark .weak-chip { background: #1e1e1e; border-color: #4a2f10; color: #ffb74d; }
     body.dark .goal-home { background: #1e1e1e; border-color: #2a2a2a; }
     body.dark .goal-home-title { color: #e0e0e0; }
     body.dark .goal-home-bar { background: #2a2a2a; }
@@ -97,12 +224,39 @@
             <div class="label">⚠️ Слабых слов</div>
         </div>
     </div>
-    {% if weak_list %}
-    <a href="/train?reset=1" class="today-btn">🔥 Тренировать сейчас</a>
-    {% else %}
-    <a href="/sections" class="today-btn">📚 К категориям</a>
-    {% endif %}
+    <div class="today-btn-row">
+        {% if weak_list %}
+        <a href="/train?weak=1&reset=1" class="today-btn weak-btn">🎯 Тренировать слабые</a>
+        {% endif %}
+        <a href="/train?reset=1" class="today-btn {% if weak_list %}ghost{% endif %}">🔥 Тренировать все</a>
+    </div>
 </div>
+
+<div class="daily-goal {% if daily_done %}done{% endif %}">
+    <div class="daily-goal-head">
+        <div class="daily-goal-title">
+            {% if daily_done %}✅ Цель дня выполнена!{% else %}🎯 Цель дня: {{ daily_goal }} слов{% endif %}
+        </div>
+        <div class="daily-goal-count">{{ today_correct }} / {{ daily_goal }}</div>
+    </div>
+    <div class="daily-goal-bar">
+        <div class="daily-goal-fill" style="width: {{ daily_percent }}%"></div>
+    </div>
+</div>
+
+{% if weak_list %}
+<div class="weak-block">
+    <div class="weak-block-head">
+        <div class="weak-block-title">⚠️ Слабые слова</div>
+        <a href="/train?weak=1&reset=1" style="font-size: 13px; color: #e65100; text-decoration: none; font-weight: 700;">Тренировать →</a>
+    </div>
+    <div class="weak-chips">
+        {% for w in weak_list %}
+        <span class="weak-chip">{{ w.word }}<span class="rus">{{ w.rus }}</span></span>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
 
 {% if goals %}
 {% for g in goals %}
@@ -119,14 +273,6 @@
 {% endfor %}
 {% endif %}
 
-{% if weak_list %}
-<div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 18px 22px; border-radius: 12px; margin-bottom: 30px;">
-    <div style="font-weight: 700; color: #e65100; margin-bottom: 8px;">⚠️ Слабые слова</div>
-    <div style="font-size: 14px; color: #555;">
-        {% for w in weak_list %}{{ w.word }}{% if not loop.last %}, {% endif %}{% endfor %}
-    </div>
-</div>
-{% endif %}
 {% else %}
 <div class="hero">
     <h1>Твой английский в потоке</h1>
