@@ -398,6 +398,12 @@ def train():
     uid = current_user.id
     section_id = request.args.get("section", "")
     reverse = request.args.get("reverse", "0") == "1"
+    reset = request.args.get("reset", "0") == "1"
+
+    # Сброс счётчика при входе с меню/кнопки (кроме переходов внутри тренировки)
+    if reset or "train_correct" not in session:
+        session["train_correct"] = 0
+        session["train_wrong"] = 0
 
     if section_id == "general":
         filtered = get_user_general_words(uid)
@@ -440,7 +446,6 @@ def train():
         correct_count=session.get("train_correct", 0),
         wrong_count=session.get("train_wrong", 0),
     )
-
 
 @app.route("/check", methods=["POST"])
 @login_required
@@ -525,10 +530,17 @@ def phrases_edit():
 def phrases_train():
     p = get_user_phrases(current_user.id)
     reverse = request.args.get("reverse", "0") == "1"
+    reset = request.args.get("reset", "0") == "1"
+
+    if reset or "phrases_correct" not in session:
+        session["phrases_correct"] = 0
+        session["phrases_wrong"] = 0
+
     if not p:
         return render_template("train_phrases.html", phrase=None, empty=True, reverse=reverse,
                                correct_count=session.get("phrases_correct", 0),
                                wrong_count=session.get("phrases_wrong", 0))
+
     eng = random.choice(list(p.keys()))
     session["current_phrase"] = eng
     session["phrase_reverse"] = reverse
