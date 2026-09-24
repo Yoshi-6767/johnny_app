@@ -103,6 +103,40 @@ SECTIONS = [
 def get_section(sid):
     return next((s for s in SECTIONS if s["id"] == sid), SECTIONS[-1])
 
+# ─── ЗАГРУЗКА ОБЩИХ СЛОВ ───
+
+WORDS_FILE = "words.json"
+try:
+    with open(WORDS_FILE, "r", encoding="utf-8") as f:
+        common_words = json.load(f)
+except:
+    common_words = {}
+
+# ─── ХРАНИЛИЩЕ ПОЛЬЗОВАТЕЛЕЙ ───
+
+users_data = {}
+
+def get_user_data(user_id):
+    if user_id not in users_data:
+        users_data[user_id] = {
+            "general_words": {},
+            "phrases": {},
+            "progress": {"history": [], "streak": 0, "last_day": "", "weak_words": {}},
+            "topics": {},
+            "exams": {}
+        }
+    return users_data[user_id]
+
+def get_all_words(user_id):
+    """Общие слова + личные (general)"""
+    user_data = get_user_data(user_id)
+    all_w = {}
+    for k, v in common_words.items():
+        all_w[k] = v
+    for k, v in user_data["general_words"].items():
+        all_w[k] = v
+    return all_w
+
 # ─── ЦИТАТЫ ДНЯ ───
 
 QUOTES = [
@@ -279,34 +313,20 @@ IDIOMS = [
     {"idiom": "easier said than done", "rus": "легко сказать, да трудно сделать", "literal": "легче сказать, чем сделать"},
 ]
 
-# ─── ХРАНИЛИЩЕ ПОЛЬЗОВАТЕЛЕЙ ───
-
-users_data = {}
-
-def get_user_data(user_id):
-    if user_id not in users_data:
-        users_data[user_id] = {
-            "words": {},
-            "phrases": {},
-            "progress": {"history": [], "streak": 0, "last_day": "", "weak_words": {}},
-            "topics": {},
-            "exams": {}
-        }
-    return users_data[user_id]
-
 # ─── ГЛАВНАЯ ───
 
 @app.route("/")
 def index():
     if current_user.is_authenticated:
-        data = get_user_data(current_user.id)
-        total_words = len(data["words"])
-        total_phrases = len(data["phrases"])
-        total_topics_done = sum(1 for t in data["topics"].values() if t.get("done"))
-        total_topics = len(FIXED_TOPICS) + sum(1 for t in data["topics"].keys() if t.startswith("custom_"))
-        streak = data["progress"].get("streak", 0)
+        user_data = get_user_data(current_user.id)
+        all_w = get_all_words(current_user.id)
+        total_words = len(all_w)
+        total_phrases = len(user_data["phrases"])
+        total_topics_done = sum(1 for t in user_data["topics"].values() if t.get("done"))
+        total_topics = len(FIXED_TOPICS) + sum(1 for t in user_data["topics"].keys() if t.startswith("custom_"))
+        streak = user_data["progress"].get("streak", 0)
     else:
-        total_words = 0
+        total_words = len(common_words)
         total_phrases = 0
         total_topics_done = 0
         total_topics = len(FIXED_TOPICS)
@@ -322,7 +342,7 @@ def index():
         quote=get_daily_quote()
     )
 
-# ─── СЛОВА ───
+# ─── СЛОВА (только general) ───
 
 @app.route("/add", methods=["POST"])
 @login_required
@@ -332,9 +352,9 @@ def add():
     eng = data["eng"].strip()
     rus = data["rus"].strip()
     section = data.get("section", "general")
-    if section not in [s["id"] for s in SECTIONS]:
-        section = "general"
-    user_data["words"][eng] = {"rus": rus, "section": section}
+    if section != "general":
+        return jsonify({"status": "error", "message": "Можно добавлять только в «Общее»"})
+    user_data["general_words"][eng] = {"rus": rus, "section": "general"}
     return jsonify({"status": "ok"})
 
 @app.route("/delete", methods=["POST"])
@@ -343,8 +363,8 @@ def delete():
     data = request.json
     user_data = get_user_data(current_user.id)
     eng = data["eng"]
-    if eng in user_data["words"]:
-        del user_data["words"][eng]
+    if eng in user_data["general_words"]:
+        del user_data["general_words"][eng]
     return jsonify({"status": "ok"})
 
 @app.route("/edit", methods=["POST"])
@@ -355,10 +375,9 @@ def edit():
     old_eng = data["old_eng"]
     new_eng = data["new_eng"].strip()
     new_rus = data["new_rus"].strip()
-    section = data.get("section", "general")
-    if old_eng in user_data["words"]:
-        del user_data["words"][old_eng]
-        user_data["words"][new_eng] = {"rus": new_rus, "section": section}
+    if old_eng in user_data["general_words"]:
+        del user_data["general_words"][old_eng]
+        user_data["general_words"][new_eng] = {"rus": new_rus, "section": "general"}
     return jsonify({"status": "ok"})
 
 # ─── КАТЕГОРИИ ───
@@ -369,7 +388,10 @@ def sections_page():
     user_data = get_user_data(current_user.id)
     sections_data = []
     for s in SECTIONS:
-        count = sum(1 for v in user_data["words"].values() if v["section"] == s["id"])
+        if s["id"] == "general":
+            count = len(user_data["general_words"])
+        else:
+            count = sum(1 for v in common_words.values() if v.get("section") == s["id"])
         sections_data.append({
             "id": s["id"],
             "title": s["title"],
@@ -377,17 +399,21 @@ def sections_page():
             "count": count,
             "level": s.get("level", "general")
         })
-    return render_template("sections.html", sections=sections_data, total_words=len(user_data["words"]))
+    all_w = get_all_words(current_user.id)
+    return render_template("sections.html", sections=sections_data, total_words=len(all_w))
 
 @app.route("/sections/<sid>")
 @login_required
 def section_page(sid):
     user_data = get_user_data(current_user.id)
     section = get_section(sid)
-    section_words = {k: v for k, v in user_data["words"].items() if v["section"] == sid}
+    if sid == "general":
+        section_words = user_data["general_words"]
+    else:
+        section_words = {k: v for k, v in common_words.items() if v.get("section") == sid}
     return render_template("section.html", section=section, words=section_words)
 
-# ─── ТРЕНИРОВКА СЛОВ ───
+# ─── ТРЕНИРОВКА ───
 
 @app.route("/train")
 @login_required
@@ -396,9 +422,12 @@ def train():
     section_id = request.args.get("section", "")
     reverse = request.args.get("reverse", "0") == "1"
     if section_id:
-        filtered = {k: v for k, v in user_data["words"].items() if v["section"] == section_id}
+        if section_id == "general":
+            filtered = user_data["general_words"]
+        else:
+            filtered = {k: v for k, v in common_words.items() if v.get("section") == section_id}
     else:
-        filtered = user_data["words"]
+        filtered = get_all_words(current_user.id)
     if not filtered:
         return render_template("train.html", word=None, empty=True, reverse=reverse, section=section_id)
     eng = random.choice(list(filtered.keys()))
@@ -415,21 +444,21 @@ def train():
 @login_required
 def check():
     data = request.json
-    user_data = get_user_data(current_user.id)
+    all_w = get_all_words(current_user.id)
     user_answer = data["answer"].strip().lower()
     eng = session.get("current_word")
     reverse = session.get("train_reverse", False)
-    if not eng or eng not in user_data["words"]:
+    if not eng or eng not in all_w:
         return jsonify({"status": "error"})
     if reverse:
         correct_answer = eng.lower()
     else:
-        correct_answer = user_data["words"][eng]["rus"].strip().lower()
+        correct_answer = all_w[eng]["rus"].strip().lower()
     if user_answer == correct_answer:
         record_training(True, eng)
         return jsonify({
             "status": "correct",
-            "correct_answer": eng if reverse else user_data["words"][eng]["rus"],
+            "correct_answer": eng if reverse else all_w[eng]["rus"],
             "correct_count": session.get("correct", 0) + 1,
             "wrong_count": session.get("wrong", 0)
         })
@@ -437,7 +466,7 @@ def check():
         record_training(False, eng)
         return jsonify({
             "status": "wrong",
-            "correct_answer": eng if reverse else user_data["words"][eng]["rus"],
+            "correct_answer": eng if reverse else all_w[eng]["rus"],
             "correct_count": session.get("correct", 0),
             "wrong_count": session.get("wrong", 0) + 1
         })
@@ -532,7 +561,8 @@ def phrases_check():
 def progress_page():
     user_data = get_user_data(current_user.id)
     user_progress = user_data["progress"]
-    total_words = len(user_data["words"])
+    all_w = get_all_words(current_user.id)
+    total_words = len(all_w)
     total_phrases = len(user_data["phrases"])
     total_correct = sum(d["correct"] for d in user_progress["history"])
     total_wrong = sum(d["wrong"] for d in user_progress["history"])
@@ -581,8 +611,8 @@ def progress_page():
     weak_sorted = sorted(weak_words.items(), key=lambda x: x[1], reverse=True)[:10]
     weak_list = []
     for w, count in weak_sorted:
-        if w in user_data["words"]:
-            weak_list.append({"word": w, "rus": user_data["words"][w]["rus"], "count": count})
+        if w in all_w:
+            weak_list.append({"word": w, "rus": all_w[w]["rus"], "count": count})
 
     return render_template(
         "progress.html",
@@ -938,12 +968,12 @@ def games_page():
 @app.route("/games/hangman")
 @login_required
 def hangman_page():
-    user_data = get_user_data(current_user.id)
-    available = [w for w in user_data["words"].keys() if 4 <= len(w) <= 12 and " " not in w]
+    all_w = get_all_words(current_user.id)
+    available = [w for w in all_w.keys() if 4 <= len(w) <= 12 and " " not in w]
     if not available:
         return render_template("hangman.html", empty=True)
     word = random.choice(available).lower()
-    section_id = user_data["words"][word]["section"]
+    section_id = all_w[word]["section"]
     section = next((s for s in SECTIONS if s["id"] == section_id), SECTIONS[-1])
     session["hangman_word"] = word
     session["hangman_guessed"] = []
@@ -1027,8 +1057,8 @@ QUIZ_STATE = {}
 @app.route("/games/quiz")
 @login_required
 def quiz_page():
-    user_data = get_user_data(current_user.id)
-    available = [w for w in user_data["words"].keys() if 4 <= len(w) <= 12 and " " not in w]
+    all_w = get_all_words(current_user.id)
+    available = [w for w in all_w.keys() if 4 <= len(w) <= 12 and " " not in w]
     if len(available) < 4:
         return render_template("quiz.html", empty=True)
     session["quiz_score"] = 0
@@ -1041,8 +1071,8 @@ def quiz_page():
 @app.route("/games/quiz/question")
 @login_required
 def quiz_question():
-    user_data = get_user_data(current_user.id)
-    available = [w for w in user_data["words"].keys() if 4 <= len(w) <= 12 and " " not in w and w not in session.get("quiz_used", [])]
+    all_w = get_all_words(current_user.id)
+    available = [w for w in all_w.keys() if 4 <= len(w) <= 12 and " " not in w and w not in session.get("quiz_used", [])]
     if not available:
         return jsonify({"status": "end"})
 
@@ -1050,11 +1080,11 @@ def quiz_question():
     session["quiz_used"] = session.get("quiz_used", []) + [word]
     session["quiz_current"] = word
 
-    correct = user_data["words"][word]["rus"]
+    correct = all_w[word]["rus"]
 
-    others = [w for w in user_data["words"].keys() if w != word and user_data["words"][w]["rus"] != correct]
+    others = [w for w in all_w.keys() if w != word and all_w[w]["rus"] != correct]
     wrong_options = random.sample(others, min(3, len(others)))
-    wrong_answers = [user_data["words"][w]["rus"] for w in wrong_options]
+    wrong_answers = [all_w[w]["rus"] for w in wrong_options]
 
     options = [correct] + wrong_answers
     random.shuffle(options)
@@ -1074,14 +1104,14 @@ def quiz_question():
 @app.route("/games/quiz/answer", methods=["POST"])
 @login_required
 def quiz_answer():
-    user_data = get_user_data(current_user.id)
+    all_w = get_all_words(current_user.id)
     data = request.json
     answer = data.get("answer", "").strip()
     word = session.get("quiz_current", "")
-    if not word or word not in user_data["words"]:
+    if not word or word not in all_w:
         return jsonify({"status": "error"})
 
-    correct = user_data["words"][word]["rus"]
+    correct = all_w[word]["rus"]
     is_correct = (answer == correct)
 
     if is_correct:
@@ -1115,8 +1145,8 @@ def quiz_result():
 @app.route("/games/speed")
 @login_required
 def speed_page():
-    user_data = get_user_data(current_user.id)
-    available = [w for w in user_data["words"].keys() if 2 <= len(w) <= 15]
+    all_w = get_all_words(current_user.id)
+    available = [w for w in all_w.keys() if 2 <= len(w) <= 15]
     if len(available) < 5:
         return render_template("speed.html", empty=True)
     return render_template("speed.html", empty=False)
@@ -1124,8 +1154,8 @@ def speed_page():
 @app.route("/games/speed/start")
 @login_required
 def speed_start():
-    user_data = get_user_data(current_user.id)
-    available = [w for w in user_data["words"].keys() if 2 <= len(w) <= 15]
+    all_w = get_all_words(current_user.id)
+    available = [w for w in all_w.keys() if 2 <= len(w) <= 15]
     if len(available) < 5:
         return jsonify({"status": "error"})
     chosen = random.sample(available, min(10, len(available)))
@@ -1153,7 +1183,7 @@ def speed_next():
 @app.route("/games/speed/check", methods=["POST"])
 @login_required
 def speed_check():
-    user_data = get_user_data(current_user.id)
+    all_w = get_all_words(current_user.id)
     data = request.json
     answer = data.get("answer", "").strip().lower()
     speed_words = session.get("speed_words", [])
@@ -1161,7 +1191,7 @@ def speed_check():
     if index >= len(speed_words):
         return jsonify({"status": "error"})
     word = speed_words[index]
-    correct = user_data["words"][word]["rus"].strip().lower()
+    correct = all_w[word]["rus"].strip().lower()
     is_correct = (answer == correct)
     if is_correct:
         session["speed_score"] = session.get("speed_score", 0) + 1
@@ -1169,7 +1199,7 @@ def speed_check():
     return jsonify({
         "status": "ok",
         "correct": is_correct,
-        "correct_answer": user_data["words"][word]["rus"],
+        "correct_answer": all_w[word]["rus"],
         "score": session.get("speed_score", 0),
         "index": index + 1,
         "total": len(speed_words)
@@ -1194,8 +1224,9 @@ def utils_page():
 @login_required
 def export_words():
     user_data = get_user_data(current_user.id)
+    all_w = get_all_words(current_user.id)
     text = "МОИ СЛОВА\n\n"
-    for eng, data in user_data["words"].items():
+    for eng, data in all_w.items():
         section = get_section(data["section"])
         text += f"{eng} - {data['rus']} ({section['title']})\n"
     return Response(
@@ -1222,10 +1253,13 @@ def export_phrases():
 def export_section(sid):
     user_data = get_user_data(current_user.id)
     section = get_section(sid)
+    if sid == "general":
+        words_to_export = user_data["general_words"]
+    else:
+        words_to_export = {k: v for k, v in common_words.items() if v.get("section") == sid}
     text = f"КАТЕГОРИЯ: {section['title'].upper()}\n\n"
-    for eng, data in user_data["words"].items():
-        if data["section"] == sid:
-            text += f"{eng} - {data['rus']}\n"
+    for eng, data in words_to_export.items():
+        text += f"{eng} - {data['rus']}\n"
     return Response(
         text,
         mimetype="text/plain",
