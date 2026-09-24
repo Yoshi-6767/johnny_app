@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block title %}Цели — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .goals-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+    .goal-form {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+    .goal-form h3 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .goal-form-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: flex-end;
+    }
+    .goal-form-field {
+        flex: 1;
+        min-width: 160px;
+    }
+    .goal-form-field label {
+        display: block;
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 6px;
+        font-weight: 600;
+    }
+    .goal-form-field select,
+    .goal-form-field input {
+        width: 100%;
+        padding: 12px 15px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        color: #333;
+        font-size: 15px;
+        font-family: 'Rubik', sans-serif;
+        outline: none;
+    }
+    .goal-form-field select:focus,
+    .goal-form-field input:focus { border-color: #2196f3; }
+    .goal-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .goal-card {
+        background: #fff;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 22px 25px;
+    }
+    .goal-card.completed {
+        border-color: #4caf50;
+        background: linear-gradient(135deg, #ffffff, #f1f8e9);
+    }
+    .goal-card-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .goal-card-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: #333;
+    }
+    .goal-card-title .emoji {
+        font-size: 22px;
+        margin-right: 8px;
+    }
+    .goal-card-deadline {
+        font-size: 13px;
+        color: #888;
+    }
+    .goal-card-progress-bar {
+        height: 12px;
+        background: #e0e0e0;
+        border-radius: 6px;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+    .goal-card-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #2196f3, #42a5f5);
+        border-radius: 6px;
+        transition: width 0.5s ease;
+    }
+    .goal-card.completed .goal-card-progress-fill {
+        background: linear-gradient(90deg, #4caf50, #66bb6a);
+    }
+    .goal-card-footer {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #666;
+        align-items: center;
+    }
+    .goal-card-delete {
+        background: transparent;
+        border: none;
+        color: #f44336;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .goal-card-delete:hover {
+        text-decoration: underline;
+    }
+    body.dark .goal-form { background: #1e1e1e; border-color: #2a2a2a; }
+    body.dark .goal-form h3 { color: #e0e0e0; }
+    body.dark .goal-form-field select,
+    body.dark .goal-form-field input { background: #1e1e1e; border-color: #2a2a2a; color: #e0e0e0; }
+    body.dark .goal-card { background: #1e1e1e; border-color: #2a2a2a; }
+    body.dark .goal-card.completed { background: linear-gradient(135deg, #1e1e1e, #1a2a1a); }
+    body.dark .goal-card-title { color: #e0e0e0; }
+    body.dark .goal-card-progress-bar { background: #2a2a2a; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="goals-header">
+    <div>
+        <h1>🎯 Мои цели</h1>
+        <div class="subtitle">Ставь цель — и добивайся</div>
+    </div>
+    <a href="/achievements" class="btn-outline">🏆 Достижения</a>
+</div>
+
+<div class="goal-form">
+    <h3>➕ Новая цель</h3>
+    <div class="goal-form-row">
+        <div class="goal-form-field">
+            <label>Что</label>
+            <select id="goal-type">
+                <option value="words">📚 Слова (всего выучено)</option>
+                <option value="streak">🔥 Стрик (дней подряд)</option>
+            </select>
+        </div>
+        <div class="goal-form-field">
+            <label>Сколько</label>
+            <input id="goal-target" type="number" min="1" max="100000" placeholder="100">
+        </div>
+        <div class="goal-form-field">
+            <label>До (необязательно)</label>
+            <input id="goal-deadline" type="date">
+        </div>
+        <button class="btn" onclick="createGoal()" style="padding: 12px 25px;">Создать</button>
+    </div>
+</div>
+
+{% if goals %}
+<div class="goal-list">
+    {% for g in goals %}
+    <div class="goal-card {% if g.is_completed %}completed{% endif %}">
+        <div class="goal-card-head">
+            <div class="goal-card-title">
+                {% if g.goal_type == "words" %}
+                    <span class="emoji">📚</span>Выучить {{ g.target }} слов
+                {% elif g.goal_type == "streak" %}
+                    <span class="emoji">🔥</span>Стрик {{ g.target }} дней
+                {% endif %}
+            </div>
+            <div class="goal-card-deadline">
+                {% if g.is_completed %}
+                    ✅ Достигнуто!
+                {% elif g.deadline %}
+                    До {{ g.deadline }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="goal-card-progress-bar">
+            <div class="goal-card-progress-fill" style="width: {{ g.percent }}%"></div>
+        </div>
+        <div class="goal-card-footer">
+            <span>{{ g.current }} / {{ g.target }} ({{ g.percent }}%)</span>
+            <button class="goal-card-delete" onclick="deleteGoal({{ g.id }})">Удалить</button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty">
+    Пока нет целей. Создай первую!
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function createGoal() {
+        const type = document.getElementById("goal-type").value;
+        const target = document.getElementById("goal-target").value;
+        const deadline = document.getElementById("goal-deadline").value;
+
+        if (!target || parseInt(target) <= 0) {
+            alert("Введи число больше 0");
+            return;
+        }
+
+        fetch("/goals/new", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({goal_type: type, target: target, deadline: deadline})
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "ok") location.reload();
+            else alert(data.message || "Ошибка");
+        });
+    }
+
+    function deleteGoal(id) {
+        if (!confirm("Удалить цель?")) return;
+        fetch("/goals/delete", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({id: id})
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "ok") location.reload();
+        });
+    }
+</script>
+{% endblock %}
