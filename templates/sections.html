@@ -37,18 +37,34 @@
         margin-bottom: 25px;
         flex-wrap: wrap;
     }
-    .section-actions a, .section-actions button {
+    .section-actions a {
         flex: 1;
         min-width: 180px;
         text-align: center;
     }
-    .add-form {
-        display: none;
-        background: #fff;
-        border: 1px solid #bbdefb;
-        padding: 20px;
-        border-radius: 12px;
-        margin-bottom: 25px;
+    .card-passed {
+        border-color: #4caf50 !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f1f8e9 100%);
+    }
+    .card-passed .card-title::after {
+        content: " ✅";
+    }
+    .learned-badge {
+        display: inline-block;
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-left: 5px;
+    }
+    body.dark .card-passed {
+        background: linear-gradient(135deg, #1e1e1e 0%, #1a2a1a 100%);
+    }
+    body.dark .learned-badge {
+        background: #1a3d1a;
+        color: #a5d6a7;
     }
 </style>
 {% endblock %}
@@ -67,42 +83,34 @@
 
 <div class="section-actions">
     <a href="/train" class="btn">🔥 Тренировать все слова</a>
-    <button class="btn-outline" onclick="document.getElementById('addForm').style.display='block'">➕ Добавить слово</button>
-</div>
-
-<div class="add-form" id="addForm">
-    <div class="form" style="margin-bottom: 0;">
-        <input id="eng" placeholder="Английское слово">
-        <input id="rus" placeholder="Русский перевод">
-        <select id="section">
-            {% for s in sections %}
-            <option value="{{ s.id }}">{{ s.emoji }} {{ s.title }}</option>
-            {% endfor %}
-        </select>
-        <button class="btn" onclick="addWord()">Добавить</button>
-    </div>
 </div>
 
 <div class="cards" id="sections-grid">
-    <a href="/sections/general" class="card" data-level="general">
+    <a href="/sections/general" class="card {% if sections|selectattr('id','equalto','general')|selectattr('is_passed')|list %}card-passed{% endif %}" data-level="general">
         <div>
             <div class="card-emoji">📦</div>
             <div class="card-title">Общее</div>
             <div class="card-count">
                 {% for s in sections %}
-                    {% if s.id == 'general' %}{{ s.count }} слов{% endif %}
+                    {% if s.id == 'general' %}
+                        {{ s.count }} слов
+                        {% if s.learned > 0 %}<span class="learned-badge">✅ {{ s.learned }}</span>{% endif %}
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
     </a>
 
     {% for s in sections %}
-        {% if s.id != 'general' %}
-        <a href="/sections/{{ s.id }}" class="card" data-level="{{ s.level }}">
+        {% if s.id != "general" %}
+        <a href="/sections/{{ s.id }}" class="card {% if s.is_passed %}card-passed{% endif %}" data-level="{{ s.level }}">
             <div>
                 <div class="card-emoji">{{ s.emoji }}</div>
                 <div class="card-title">{{ s.title }}</div>
-                <div class="card-count">{{ s.count }} слов • {{ s.level }}</div>
+                <div class="card-count">
+                    {{ s.count }} слов • {{ s.level }}
+                    {% if s.learned > 0 %}<span class="learned-badge">✅ {{ s.learned }}</span>{% endif %}
+                </div>
             </div>
         </a>
         {% endif %}
@@ -128,18 +136,6 @@
             const cardLevel = card.dataset.level;
             card.style.display = (currentLevel === "all" || cardLevel === currentLevel) ? "flex" : "none";
         });
-    }
-
-    function addWord() {
-        const eng = document.getElementById("eng").value.trim();
-        const rus = document.getElementById("rus").value.trim();
-        const section = document.getElementById("section").value;
-        if (!eng || !rus) return;
-        fetch("/add", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({eng: eng, rus: rus, section: section})
-        }).then(() => location.reload());
     }
 </script>
 {% endblock %}
