@@ -32,7 +32,11 @@
                     </div>
                     {% if current_user.is_authenticated %}
                         <div class="user-menu" onclick="toggleUserMenu()">
-                            <div class="avatar">{{ current_user.username[0]|upper }}</div>
+                            {% if current_user.avatar %}
+    <img src="/avatars/{{ current_user.avatar }}" class="avatar" alt="Avatar" style="object-fit: cover;">
+{% else %}
+    <div class="avatar">{{ current_user.username[0]|upper }}</div>
+{% endif %}
                             <span class="username">{{ current_user.username }}</span>
                             <div class="user-dropdown" id="userDropdown">
                                 <a href="/profile">Профиль</a>
