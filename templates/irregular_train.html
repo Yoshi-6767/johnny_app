@@ -5,20 +5,20 @@
 {% block styles %}
 <style>
     .train-word {
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        border-left: 4px solid #2196f3;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
         padding: 40px;
         border-radius: 14px;
         text-align: center;
         font-size: 32px;
         font-weight: 700;
         margin-bottom: 25px;
-        color: #333;
+        color: var(--text);
     }
     .train-label {
         text-align: center;
-        color: #888;
+        color: var(--text-sub);
         font-size: 14px;
         margin-bottom: 15px;
     }
@@ -30,15 +30,15 @@
     .train-form input {
         flex: 1;
         padding: 16px 20px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 10px;
-        color: #333;
+        color: var(--text);
         font-size: 16px;
         font-family: 'Rubik', sans-serif;
         outline: none;
     }
-    .train-form input:focus { border-color: #2196f3; }
+    .train-form input:focus { border-color: var(--accent); }
     .result {
         padding: 16px 20px;
         border-radius: 10px;
@@ -60,39 +60,39 @@
         display: flex;
         justify-content: space-around;
         padding: 16px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 10px;
         margin-bottom: 20px;
     }
     .stats div { text-align: center; }
-    .stats .num { font-size: 24px; font-weight: 700; color: #2196f3; }
-    .stats .label { font-size: 13px; color: #888; margin-top: 4px; }
+    .stats .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+    .stats .label { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
     .nav { display: flex; gap: 10px; justify-content: center; }
     .nav a {
-        color: #888;
+        color: var(--text-sub);
         text-decoration: none;
         padding: 10px 20px;
         border-radius: 8px;
         font-weight: 500;
     }
-    .nav a:hover { color: #2196f3; background: #f5f7fa; }
+    .nav a:hover { color: var(--accent); background: var(--bg-hover); }
     .finish {
         display: none;
         text-align: center;
         padding: 40px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 14px;
     }
     .finish .score {
         font-size: 48px;
         font-weight: 900;
-        color: #2196f3;
+        color: var(--accent);
         margin-bottom: 10px;
     }
     .finish .label {
-        color: #888;
+        color: var(--text-sub);
         font-size: 16px;
         margin-bottom: 25px;
     }
@@ -103,7 +103,7 @@
 {% if empty %}
     <div class="empty">
         <h1>🔤 Пока нет глаголов</h1>
-        <p>Вернись в <a href="/study/irregular" style="color: #2196f3;">раздел глаголов</a>.</p>
+        <p>Вернись в <a href="/study/irregular" style="color: var(--accent);">раздел глаголов</a>.</p>
     </div>
 {% else %}
     <div id="train-play">
