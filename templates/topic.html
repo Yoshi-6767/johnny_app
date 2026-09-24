@@ -13,14 +13,14 @@
     .topic-header .emoji { font-size: 56px; }
     .topic-header h1 { margin: 0; }
     .helper {
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         padding: 20px;
         border-radius: 12px;
         margin-bottom: 20px;
     }
     .helper .label {
-        color: #888;
+        color: var(--text-sub);
         font-size: 13px;
         margin-bottom: 12px;
     }
@@ -30,8 +30,8 @@
         gap: 8px;
     }
     .chip {
-        background: #e3f2fd;
-        color: #2196f3;
+        background: var(--bg-subtle);
+        color: var(--accent);
         padding: 6px 14px;
         border-radius: 20px;
         font-size: 14px;
@@ -39,25 +39,25 @@
         transition: background 0.2s;
         font-weight: 500;
     }
-    .chip:hover { background: #bbdefb; }
+    .chip:hover { background: var(--bg-hover); }
     .topic-textarea {
         width: 100%;
         min-height: 300px;
         padding: 20px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 12px;
-        color: #333;
+        color: var(--text);
         font-size: 16px;
         font-family: 'Rubik', sans-serif;
         line-height: 1.6;
         resize: vertical;
         outline: none;
     }
-    .topic-textarea:focus { border-color: #2196f3; }
+    .topic-textarea:focus { border-color: var(--accent); }
     .word-counter {
         text-align: right;
-        color: #888;
+        color: var(--text-sub);
         font-size: 14px;
         margin: 10px 0 20px;
     }
@@ -65,7 +65,7 @@
     .save-btn {
         width: 100%;
         padding: 18px;
-        background: #2196f3;
+        background: var(--accent);
         color: #fff;
         border: none;
         border-radius: 12px;
@@ -75,10 +75,10 @@
         cursor: pointer;
         transition: all 0.2s;
     }
-    .save-btn:hover:not(:disabled) { background: #1976d2; }
+    .save-btn:hover:not(:disabled) { background: var(--accent-dark); }
     .save-btn:disabled {
-        background: #e0e0e0;
-        color: #aaa;
+        background: var(--border);
+        color: var(--text-muted);
         cursor: not-allowed;
     }
     .status {
