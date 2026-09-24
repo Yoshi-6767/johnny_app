@@ -7,20 +7,20 @@
     .auth-form {
         max-width: 400px;
         margin: 0 auto;
-        background: #fff;
-        border: 1px solid #bbdefb;
+        background: var(--bg-card);
+        border: 1px solid var(--accent-light);
         border-radius: 14px;
         padding: 30px;
     }
     .auth-form h1 { text-align: center; margin-bottom: 15px; }
-    .auth-form p { color: #888; text-align: center; margin-bottom: 25px; font-size: 14px; }
+    .auth-form p { color: var(--text-sub); text-align: center; margin-bottom: 25px; font-size: 14px; }
     .auth-form input {
         width: 100%;
         padding: 16px;
-        background: #fff;
-        border: 1px solid #bbdefb;
+        background: var(--bg-card);
+        border: 1px solid var(--accent-light);
         border-radius: 10px;
-        color: #333;
+        color: var(--text);
         font-size: 24px;
         font-family: 'Rubik', sans-serif;
         outline: none;
@@ -28,11 +28,11 @@
         text-align: center;
         letter-spacing: 8px;
     }
-    .auth-form input:focus { border-color: #2196f3; }
+    .auth-form input:focus { border-color: var(--accent); }
     .auth-form button {
         width: 100%;
         padding: 16px;
-        background: #2196f3;
+        background: var(--accent);
         color: #fff;
         border: none;
         border-radius: 10px;
@@ -41,7 +41,7 @@
         font-family: 'Rubik', sans-serif;
         cursor: pointer;
     }
-    .auth-form button:hover { background: #1976d2; }
+    .auth-form button:hover { background: var(--accent-dark); }
     .auth-error {
         background: #ffebee;
         color: #c62828;
@@ -58,11 +58,11 @@
 <div class="auth-form">
     <h1>📧 Подтверждение</h1>
     <p>Мы отправили код на твой email</p>
-    
+
     {% if error %}
     <div class="auth-error">{{ error }}</div>
     {% endif %}
-    
+
     <form method="POST">
         <input name="code" placeholder="000000" maxlength="6" required autofocus>
         <button type="submit">Подтвердить</button>
