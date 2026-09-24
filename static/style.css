@@ -43,13 +43,6 @@ body {
     transition: color 0.2s;
 }
 .nav a:hover { color: #2196f3; }
-.faq-link {
-    color: #2196f3;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 15px;
-}
-.faq-link:hover { text-decoration: underline; }
 
 /* ─── ЗАГОЛОВОК ─── */
 h1 {
@@ -357,7 +350,6 @@ body.dark .logo { color: #2196f3; }
 body.dark .logo span { color: #e0e0e0; }
 body.dark .nav a { color: #e0e0e0; }
 body.dark .nav a:hover { color: #2196f3; }
-body.dark .faq-link { color: #2196f3; }
 body.dark h1, body.dark h2 { color: #e0e0e0; }
 body.dark .subtitle { color: #888; }
 body.dark .hero h1 { color: #e0e0e0; }
@@ -481,3 +473,126 @@ body.dark .faq-item { background: #1e1e1e; border-color: #2a2a2a; }
 body.dark .faq-question { color: #e0e0e0; }
 body.dark .faq-question:hover { background: #2a2a2a; }
 body.dark .faq-answer { color: #ccc; }
+
+/* ─── ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ ─── */
+.theme-switch {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+.theme-icon {
+    font-size: 16px;
+    transition: opacity 0.2s;
+}
+.theme-slider {
+    width: 40px;
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    position: relative;
+    transition: background 0.3s;
+}
+.theme-slider::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.theme-slider.active {
+    background: #2196f3;
+}
+.theme-slider.active::after {
+    transform: translateX(20px);
+}
+
+/* ─── МЕНЮ ПОЛЬЗОВАТЕЛЯ ─── */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    position: relative;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: background 0.2s;
+}
+.user-menu:hover {
+    background: #f5f7fa;
+}
+.avatar {
+    width: 36px;
+    height: 36px;
+    background: #2196f3;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+}
+.username {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 8px 0;
+    min-width: 150px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    z-index: 100;
+}
+.user-dropdown.active {
+    display: block;
+}
+.user-dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+.user-dropdown a:hover {
+    background: #f5f7fa;
+    color: #2196f3;
+}
+
+/* ─── ТЁМНАЯ ТЕМА ДЛЯ НОВЫХ ЭЛЕМЕНТОВ ─── */
+body.dark .theme-slider {
+    background: #2a2a2a;
+}
+body.dark .theme-slider.active {
+    background: #2196f3;
+}
+body.dark .username {
+    color: #e0e0e0;
+}
+body.dark .user-menu:hover {
+    background: #2a2a2a;
+}
+body.dark .user-dropdown {
+    background: #1e1e1e;
+    border-color: #2a2a2a;
+}
+body.dark .user-dropdown a {
+    color: #e0e0e0;
+}
+body.dark .user-dropdown a:hover {
+    background: #2a2a2a;
+}
