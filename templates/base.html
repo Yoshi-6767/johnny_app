@@ -41,8 +41,10 @@
     <div class="avatar">{{ current_user.username[0]|upper }}</div>
 {% endif %}
                             <span class="username">{{ current_user.username }}</span>
-                            <div class="user-dropdown" id="userDropdown">
+                                                        <div class="user-dropdown" id="userDropdown">
                                 <a href="/profile">Профиль</a>
+                                <a href="/achievements">Достижения</a>
+                                <a href="/goals">Цели</a>
                                 <a href="/logout">Выйти</a>
                             </div>
                         </div>
