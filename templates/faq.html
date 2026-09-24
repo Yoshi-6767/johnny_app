@@ -5,8 +5,8 @@
 {% block styles %}
 <style>
     .faq-item {
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 12px;
         margin-bottom: 12px;
         overflow: hidden;
@@ -15,16 +15,16 @@
         padding: 20px 25px;
         font-size: 16px;
         font-weight: 600;
-        color: #333;
+        color: var(--text);
         cursor: pointer;
         display: flex;
         justify-content: space-between;
         align-items: center;
         transition: background 0.2s;
     }
-    .faq-question:hover { background: #f5f7fa; }
+    .faq-question:hover { background: var(--bg-hover); }
     .faq-question .icon {
-        color: #2196f3;
+        color: var(--accent);
         font-size: 22px;
         font-weight: 700;
         transition: transform 0.3s;
@@ -37,7 +37,7 @@
         overflow: hidden;
         transition: max-height 0.3s ease-out;
         padding: 0 25px;
-        color: #555;
+        color: var(--text-sub);
         font-size: 15px;
         line-height: 1.6;
     }
@@ -47,17 +47,13 @@
     }
     .faq-category {
         font-size: 13px;
-        color: #2196f3;
+        color: var(--accent);
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
         margin: 30px 0 12px 0;
     }
     .faq-category:first-of-type { margin-top: 0; }
-    body.dark .faq-item { background: #1e1e1e; border-color: #2a2a2a; }
-    body.dark .faq-question { color: #e0e0e0; }
-    body.dark .faq-question:hover { background: #2a2a2a; }
-    body.dark .faq-answer { color: #ccc; }
 </style>
 {% endblock %}
 
