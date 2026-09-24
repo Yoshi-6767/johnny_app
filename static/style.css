@@ -22,7 +22,7 @@ body {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 15px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 .header-right {
     display: flex;
@@ -41,8 +41,9 @@ body {
     gap: 18px;
     flex-wrap: wrap;
     justify-content: center;
-    padding-top: 10px;
+    padding-top: 6px;
     border-top: 1px solid #f0f0f0;
+    margin-top: 4px;
 }
 .nav a {
     color: #333;
@@ -81,7 +82,7 @@ h2 {
 /* ─── HERO ─── */
 .hero {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 .hero h1 {
     font-size: 38px;
@@ -92,7 +93,7 @@ h2 {
 .hero p {
     color: #888;
     font-size: 16px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 .quote {
     background: #fff;
@@ -100,7 +101,6 @@ h2 {
     border-left: 4px solid #2196f3;
     border-radius: 12px;
     padding: 25px 30px;
-    max-width: 700px;
     margin: 0 auto;
     text-align: center;
 }
@@ -423,6 +423,14 @@ li:hover {
 .user-dropdown a:hover {
     background: #f5f7fa;
     color: #2196f3;
+}
+
+/* ─── БЛОК «СЕГОДНЯ» ─── */
+.today-btn-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 /* ─── АДАПТИВ ─── */
