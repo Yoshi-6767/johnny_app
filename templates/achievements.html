@@ -13,8 +13,8 @@
         margin-bottom: 25px;
     }
     .ach-progress {
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 12px;
         padding: 20px 25px;
         margin-bottom: 30px;
@@ -23,19 +23,19 @@
         display: flex;
         justify-content: space-between;
         font-size: 14px;
-        color: #555;
+        color: var(--text-sub);
         margin-bottom: 10px;
         font-weight: 600;
     }
     .ach-progress-bar {
         height: 12px;
-        background: #e0e0e0;
+        background: var(--border);
         border-radius: 6px;
         overflow: hidden;
     }
     .ach-progress-fill {
         height: 100%;
-        background: linear-gradient(90deg, #2196f3, #42a5f5);
+        background: linear-gradient(90deg, var(--accent), var(--accent-dark));
         border-radius: 6px;
         transition: width 0.5s ease;
     }
@@ -45,7 +45,7 @@
     .ach-category-title {
         font-size: 20px;
         font-weight: 700;
-        color: #333;
+        color: var(--text);
         margin-bottom: 15px;
     }
     .ach-grid {
@@ -54,8 +54,8 @@
         gap: 15px;
     }
     .ach-card {
-        background: #fff;
-        border: 2px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 2px solid var(--border);
         border-radius: 12px;
         padding: 20px;
         text-align: center;
@@ -64,11 +64,11 @@
     }
     .ach-card.unlocked {
         border-color: #4caf50;
-        background: linear-gradient(135deg, #ffffff, #f1f8e9);
+        background: linear-gradient(135deg, var(--bg-card), #f1f8e9);
     }
-    .ach-card.unlocked.bronze { border-color: #cd7f32; background: linear-gradient(135deg, #ffffff, #fdf3e8); }
-    .ach-card.unlocked.silver { border-color: #b0bec5; background: linear-gradient(135deg, #ffffff, #f0f4f7); }
-    .ach-card.unlocked.gold { border-color: #ffc107; background: linear-gradient(135deg, #ffffff, #fff8e1); }
+    .ach-card.unlocked.bronze { border-color: #cd7f32; background: linear-gradient(135deg, var(--bg-card), #fdf3e8); }
+    .ach-card.unlocked.silver { border-color: #b0bec5; background: linear-gradient(135deg, var(--bg-card), #f0f4f7); }
+    .ach-card.unlocked.gold { border-color: #ffc107; background: linear-gradient(135deg, var(--bg-card), #fff8e1); }
     .ach-card.locked {
         opacity: 0.55;
     }
@@ -83,12 +83,12 @@
     .ach-card-title {
         font-size: 15px;
         font-weight: 700;
-        color: #333;
+        color: var(--text);
         margin-bottom: 6px;
     }
     .ach-card-desc {
         font-size: 13px;
-        color: #888;
+        color: var(--text-sub);
         line-height: 1.4;
     }
     .ach-card-lock {
@@ -96,20 +96,11 @@
         top: 10px;
         right: 12px;
         font-size: 16px;
-        color: #bbb;
+        color: var(--text-muted);
     }
     .ach-card.unlocked .ach-card-lock {
         display: none;
     }
-    body.dark .ach-progress { background: #1e1e1e; border-color: #2a2a2a; }
-    body.dark .ach-progress-bar { background: #2a2a2a; }
-    body.dark .ach-card { background: #1e1e1e; border-color: #2a2a2a; }
-    body.dark .ach-card.unlocked { background: linear-gradient(135deg, #1e1e1e, #1a2a1a); }
-    body.dark .ach-card.unlocked.bronze { background: linear-gradient(135deg, #1e1e1e, #2a1e0f); }
-    body.dark .ach-card.unlocked.silver { background: linear-gradient(135deg, #1e1e1e, #1f2a2f); }
-    body.dark .ach-card.unlocked.gold { background: linear-gradient(135deg, #1e1e1e, #2a2510); }
-    body.dark .ach-card-title { color: #e0e0e0; }
-    body.dark .ach-category-title { color: #e0e0e0; }
 </style>
 {% endblock %}
 
