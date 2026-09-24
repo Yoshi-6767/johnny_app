@@ -5,16 +5,16 @@
 {% block styles %}
 <style>
     .hangman-word {
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        border-left: 4px solid #2196f3;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
         padding: 40px;
         border-radius: 14px;
         text-align: center;
         font-size: 32px;
         font-weight: 700;
         margin-bottom: 25px;
-        color: #333;
+        color: var(--text);
         letter-spacing: 6px;
         word-break: break-all;
     }
@@ -22,14 +22,14 @@
         display: flex;
         justify-content: space-around;
         padding: 16px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 10px;
         margin-bottom: 20px;
     }
     .hangman-stats div { text-align: center; }
-    .hangman-stats .num { font-size: 24px; font-weight: 700; color: #2196f3; }
-    .hangman-stats .label { font-size: 13px; color: #888; margin-top: 4px; }
+    .hangman-stats .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+    .hangman-stats .label { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
     .hangman-form {
         display: flex;
         gap: 10px;
@@ -38,17 +38,17 @@
     .hangman-form input {
         flex: 1;
         padding: 16px 20px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 10px;
-        color: #333;
+        color: var(--text);
         font-size: 18px;
         font-family: 'Rubik', sans-serif;
         outline: none;
         text-align: center;
         text-transform: lowercase;
     }
-    .hangman-form input:focus { border-color: #2196f3; }
+    .hangman-form input:focus { border-color: var(--accent); }
     .hangman-message {
         padding: 16px 20px;
         border-radius: 10px;
@@ -69,9 +69,9 @@
         color: #c62828;
     }
     .hangman-message.info {
-        background: #e3f2fd;
-        border-left: 4px solid #2196f3;
-        color: #1565c0;
+        background: var(--bg-subtle);
+        border-left: 4px solid var(--accent);
+        color: var(--accent);
     }
     .guessed {
         display: flex;
@@ -82,8 +82,8 @@
         min-height: 34px;
     }
     .guessed span {
-        background: #e3f2fd;
-        color: #2196f3;
+        background: var(--bg-subtle);
+        color: var(--accent);
         padding: 6px 14px;
         border-radius: 20px;
         font-size: 14px;
@@ -95,13 +95,21 @@
         justify-content: center;
     }
     .hangman-nav a {
-        color: #888;
+        color: var(--text-sub);
         text-decoration: none;
         padding: 10px 20px;
         border-radius: 8px;
         font-weight: 500;
     }
-    .hangman-nav a:hover { color: #2196f3; background: #f5f7fa; }
+    .hangman-nav a:hover { color: var(--accent); background: var(--bg-hover); }
+    .section-info {
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 12px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+    }
 </style>
 {% endblock %}
 
@@ -109,16 +117,16 @@
 {% if empty %}
     <div class="empty">
         <h1>🪢 Пока нет слов</h1>
-        <p>Добавь слова в <a href="/sections" style="color: #2196f3;">категориях</a>, чтобы играть.</p>
+        <p>Добавь слова в <a href="/sections" style="color: var(--accent);">категориях</a>, чтобы играть.</p>
         <p style="margin-top: 10px; font-size: 14px;">Нужны слова от 4 до 12 букв.</p>
     </div>
 {% else %}
     <h1>🪢 Виселица</h1>
     <div class="subtitle">Угадай слово. 6 ошибок — проигрыш.</div>
 
-    <div style="text-align: center; margin-bottom: 20px; padding: 12px; background: #fff; border: 1px solid #e0e0e0; border-radius: 10px;">
-        <span style="color: #888; font-size: 14px;">Категория: </span>
-        <span style="color: #2196f3; font-weight: 700; font-size: 16px;">{{ section.emoji }} {{ section.title }}</span>
+    <div class="section-info">
+        <span style="color: var(--text-sub); font-size: 14px;">Категория: </span>
+        <span style="color: var(--accent); font-weight: 700; font-size: 16px;">{{ section.emoji }} {{ section.title }}</span>
     </div>
 
     <div class="hangman-stats">
