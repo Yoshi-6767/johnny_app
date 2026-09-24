@@ -15,73 +15,169 @@
         min-width: 180px;
         text-align: center;
     }
-    .add-form {
-        display: none;
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        padding: 20px;
-        border-radius: 12px;
+    .exam-banner {
+        background: linear-gradient(135deg, #2196f3, #1976d2);
+        color: #fff;
+        padding: 25px 30px;
+        border-radius: 14px;
         margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .exam-banner h2 {
+        color: #fff;
+        margin: 0 0 5px 0;
+        font-size: 20px;
+    }
+    .exam-banner p {
+        color: rgba(255,255,255,0.85);
+        margin: 0;
+        font-size: 14px;
+    }
+    .exam-banner .btn-white {
+        background: #fff;
+        color: #1976d2;
+        padding: 14px 28px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 15px;
+        white-space: nowrap;
+    }
+    .exam-banner .btn-white:hover {
+        background: #f5f7fa;
+    }
+    .passed-banner {
+        background: linear-gradient(135deg, #4caf50, #388e3c);
+        color: #fff;
+        padding: 20px 25px;
+        border-radius: 14px;
+        margin-bottom: 25px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 17px;
+    }
+    li.learned {
+        background: #e8f5e9 !important;
+        border-color: #a5d6a7 !important;
+        opacity: 0.85;
+    }
+    li.learned .word-text {
+        text-decoration: line-through;
+        color: #558b2f;
+    }
+    .actions button.btn-learn {
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .actions button.btn-learn:hover {
+        background: #4caf50;
+        color: #fff;
+    }
+    .actions button.btn-unlearn {
+        background: #fff3e0;
+        color: #e65100;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .actions button.btn-unlearn:hover {
+        background: #ff9800;
+        color: #fff;
+    }
+    body.dark li.learned {
+        background: #1a3d1a !important;
+        border-color: #2e7d32 !important;
+    }
+    body.dark li.learned .word-text {
+        color: #a5d6a7;
     }
 </style>
 {% endblock %}
 
 {% block content %}
 <h1>{{ section.emoji }} {{ section.title }}</h1>
-<div class="subtitle">Слов в категории: {{ words|length }}</div>
+<div class="subtitle">
+    Всего в категории: {{ words|length }}
+    {% set learned_count = words|selectattr('learned')|list|length %}
+    {% if learned_count > 0 %} • ✅ Выучено: {{ learned_count }}{% endif %}
+</div>
+
+{% if is_passed %}
+<div class="passed-banner">
+    ✅ Категория закрыта! Ты сдал экзамен по всем словам.
+</div>
+{% endif %}
+
+{% if words %}
+<div class="exam-banner">
+    <div>
+        <h2>🎓 Сдать экзамен по категории</h2>
+        <p>Ответь правильно на все {{ words|length }} слов — и категория закроется</p>
+    </div>
+    <a href="/exam/section/{{ section.id }}" class="btn-white">Начать экзамен</a>
+</div>
+{% endif %}
 
 <div class="section-actions">
     <a href="/train?section={{ section.id }}" class="btn">🔥 Тренировать тему</a>
-    <button class="btn-outline" onclick="document.getElementById('addForm').style.display='block'">➕ Добавить слово</button>
     <a href="/export/section/{{ section.id }}" class="btn-outline">📤 Экспорт категории</a>
 </div>
 
-<div class="add-form" id="addForm">
-    <div class="form" style="margin-bottom: 0;">
-        <input id="eng" placeholder="Английское слово">
-        <input id="rus" placeholder="Русский перевод">
-        <input type="hidden" id="section-id" value="{{ section.id }}">
-        <button class="btn" onclick="addWord()">Добавить</button>
-    </div>
-</div>
-
-<ul>
+<ul id="words-list">
     {% if words %}
-        {% for eng, data in words.items() %}
-        <li>
-            <span class="word-text">{{ eng }} → {{ data.rus }}</span>
+        {% for w in words %}
+        <li class="{% if w.learned %}learned{% endif %}" data-word="{{ w.eng }}">
+            <span class="word-text">{{ w.eng }} → {{ w.rus }}</span>
             <div class="actions">
-                <button class="delete-btn" onclick="deleteWord('{{ eng }}')">✖</button>
+                {% if w.learned %}
+                    <button class="btn-unlearn" onclick="unlearnWord('{{ w.eng }}')">⬜ Снять</button>
+                {% else %}
+                    <button class="btn-learn" onclick="learnWord('{{ w.eng }}')">✅ Выучил</button>
+                {% endif %}
             </div>
         </li>
         {% endfor %}
     {% else %}
-        <div class="empty">В этой категории пока нет слов. Добавь первое!</div>
+        <div class="empty">
+            В этой категории пока нет слов.
+            <br><br>
+            Свои слова можно добавлять в <a href="/sections/general" style="color: #2196f3;">«Общее»</a>.
+        </div>
     {% endif %}
 </ul>
 {% endblock %}
 
 {% block scripts %}
 <script>
-    function addWord() {
-        const eng = document.getElementById("eng").value.trim();
-        const rus = document.getElementById("rus").value.trim();
-        const section = document.getElementById("section-id").value;
-        if (!eng || !rus) return;
-        fetch("/add", {
+    const SECTION_ID = "{{ section.id }}";
+
+    function learnWord(eng) {
+        fetch("/learn_word", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({eng: eng, rus: rus, section: section})
-        }).then(() => location.reload());
+            body: JSON.stringify({word: eng, section: SECTION_ID})
+        }).then(r => r.json()).then(data => {
+            if (data.status === "ok") location.reload();
+        });
     }
 
-    function deleteWord(eng) {
-        if (!confirm("Удалить слово «" + eng + "»?")) return;
-        fetch("/delete", {
+    function unlearnWord(eng) {
+        fetch("/unlearn_word", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({eng: eng})
-        }).then(() => location.reload());
+            body: JSON.stringify({word: eng})
+        }).then(r => r.json()).then(data => {
+            if (data.status === "ok") location.reload();
+        });
     }
 </script>
 {% endblock %}
