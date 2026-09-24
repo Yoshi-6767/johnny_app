@@ -13,4 +13,91 @@
         padding: 40px;
         text-align: center;
     }
-   
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        display: block;
+        object-fit: cover;
+        border: 3px solid #2196f3;
+    }
+    .profile-avatar-letter {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        background: #2196f3;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        font-weight: 700;
+    }
+    .profile-name {
+        font-size: 24px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 5px;
+    }
+    .profile-email {
+        color: #888;
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+    .profile-upload {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    .profile-upload input[type="file"] {
+        display: none;
+    }
+    .profile-upload label {
+        display: inline-block;
+        background: #2196f3;
+        color: #fff;
+        padding: 14px 30px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 15px;
+        transition: background 0.2s;
+    }
+    .profile-upload label:hover {
+        background: #1976d2;
+    }
+    .profile-logout {
+        display: inline-block;
+        margin-top: 25px;
+        color: #888;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .profile-logout:hover {
+        color: #f44336;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="profile-card">
+    {% if user.avatar %}
+        <img src="/avatars/{{ user.avatar }}" class="profile-avatar" alt="Avatar">
+    {% else %}
+        <div class="profile-avatar-letter">{{ user.username[0]|upper }}</div>
+    {% endif %}
+    
+    <div class="profile-name">{{ user.username }}</div>
+    <div class="profile-email">{{ user.email }}</div>
+    
+    <form method="POST" action="/profile/upload_avatar" enctype="multipart/form-data" class="profile-upload">
+        <input type="file" name="avatar" id="avatarInput" accept="image/*" onchange="this.form.submit()">
+        <label for="avatarInput">📷 Загрузить аватар</label>
+    </form>
+    
+    <a href="/logout" class="profile-logout">Выйти из аккаунта</a>
+</div>
+{% endblock %}
