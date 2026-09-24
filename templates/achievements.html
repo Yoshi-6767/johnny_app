@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Достижения — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .ach-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+    .ach-progress {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 20px 25px;
+        margin-bottom: 30px;
+    }
+    .ach-progress-text {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+    .ach-progress-bar {
+        height: 12px;
+        background: #e0e0e0;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .ach-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #2196f3, #42a5f5);
+        border-radius: 6px;
+        transition: width 0.5s ease;
+    }
+    .ach-category {
+        margin-bottom: 35px;
+    }
+    .ach-category-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 15px;
+    }
+    .ach-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 15px;
+    }
+    .ach-card {
+        background: #fff;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.2s;
+        position: relative;
+    }
+    .ach-card.unlocked {
+        border-color: #4caf50;
+        background: linear-gradient(135deg, #ffffff, #f1f8e9);
+    }
+    .ach-card.unlocked.bronze { border-color: #cd7f32; background: linear-gradient(135deg, #ffffff, #fdf3e8); }
+    .ach-card.unlocked.silver { border-color: #b0bec5; background: linear-gradient(135deg, #ffffff, #f0f4f7); }
+    .ach-card.unlocked.gold { border-color: #ffc107; background: linear-gradient(135deg, #ffffff, #fff8e1); }
+    .ach-card.locked {
+        opacity: 0.55;
+    }
+    .ach-card-emoji {
+        font-size: 42px;
+        margin-bottom: 10px;
+        filter: grayscale(1);
+    }
+    .ach-card.unlocked .ach-card-emoji {
+        filter: none;
+    }
+    .ach-card-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 6px;
+    }
+    .ach-card-desc {
+        font-size: 13px;
+        color: #888;
+        line-height: 1.4;
+    }
+    .ach-card-lock {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        font-size: 16px;
+        color: #bbb;
+    }
+    .ach-card.unlocked .ach-card-lock {
+        display: none;
+    }
+    body.dark .ach-progress { background: #1e1e1e; border-color: #2a2a2a; }
+    body.dark .ach-progress-bar { background: #2a2a2a; }
+    body.dark .ach-card { background: #1e1e1e; border-color: #2a2a2a; }
+    body.dark .ach-card.unlocked { background: linear-gradient(135deg, #1e1e1e, #1a2a1a); }
+    body.dark .ach-card.unlocked.bronze { background: linear-gradient(135deg, #1e1e1e, #2a1e0f); }
+    body.dark .ach-card.unlocked.silver { background: linear-gradient(135deg, #1e1e1e, #1f2a2f); }
+    body.dark .ach-card.unlocked.gold { background: linear-gradient(135deg, #1e1e1e, #2a2510); }
+    body.dark .ach-card-title { color: #e0e0e0; }
+    body.dark .ach-category-title { color: #e0e0e0; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="ach-header">
+    <div>
+        <h1>🏆 Достижения</h1>
+        <div class="subtitle">Открыто: {{ unlocked_count }} из {{ total }}</div>
+    </div>
+    <a href="/goals" class="btn-outline">🎯 Мои цели</a>
+</div>
+
+<div class="ach-progress">
+    <div class="ach-progress-text">
+        <span>Прогресс</span>
+        <span>{{ unlocked_count }} / {{ total }}</span>
+    </div>
+    <div class="ach-progress-bar">
+        <div class="ach-progress-fill" style="width: {{ (unlocked_count / total * 100) if total > 0 else 0 }}%"></div>
+    </div>
+</div>
+
+{% set category_names = {
+    "streak": "🔥 Стрик",
+    "words": "📚 Свои слова",
+    "learned": "🧠 Выучено",
+    "exams": "🎓 Экзамены",
+    "games": "🎮 Игры",
+    "study": "📖 Учёба",
+    "topics": "📝 Топики",
+    "phrases": "💬 Фразы",
+    "special": "🌟 Особые"
+} %}
+
+{% for cat_key, cat_list in categories.items() %}
+<div class="ach-category">
+    <div class="ach-category-title">{{ category_names.get(cat_key, cat_key) }}</div>
+    <div class="ach-grid">
+        {% for a in cat_list %}
+        <div class="ach-card {% if a.unlocked %}unlocked {{ a.tier }}{% else %}locked{% endif %}">
+            {% if not a.unlocked %}<div class="ach-card-lock">🔒</div>{% endif %}
+            <div class="ach-card-emoji">{{ a.emoji }}</div>
+            <div class="ach-card-title">{{ a.title }}</div>
+            <div class="ach-card-desc">{{ a.desc }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
