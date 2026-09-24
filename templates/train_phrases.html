@@ -17,31 +17,31 @@
         text-decoration: none;
         font-weight: 600;
         font-size: 14px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        color: #888;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        color: var(--text-sub);
         transition: all 0.2s;
     }
     .mode-switch a.active {
-        background: #2196f3;
-        border-color: #2196f3;
+        background: var(--accent);
+        border-color: var(--accent);
         color: #fff;
     }
     .mode-switch a:hover:not(.active) {
-        border-color: #2196f3;
-        color: #2196f3;
+        border-color: var(--accent);
+        color: var(--accent);
     }
     .phrase {
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        border-left: 4px solid #2196f3;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
         padding: 30px;
         border-radius: 14px;
         text-align: center;
         font-size: 22px;
         font-weight: 700;
         margin-bottom: 25px;
-        color: #333;
+        color: var(--text);
     }
     .train-form {
         display: flex;
@@ -51,15 +51,15 @@
     .train-form input {
         flex: 1;
         padding: 16px 20px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 10px;
-        color: #333;
+        color: var(--text);
         font-size: 16px;
         font-family: 'Rubik', sans-serif;
         outline: none;
     }
-    .train-form input:focus { border-color: #2196f3; }
+    .train-form input:focus { border-color: var(--accent); }
     .result {
         padding: 16px 20px;
         border-radius: 10px;
@@ -81,28 +81,23 @@
         display: flex;
         justify-content: space-around;
         padding: 16px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 10px;
         margin-bottom: 20px;
     }
     .stats div { text-align: center; }
-    .stats .num { font-size: 24px; font-weight: 700; color: #2196f3; }
-    .stats .label { font-size: 13px; color: #888; margin-top: 4px; }
+    .stats .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+    .stats .label { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
     .train-nav { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
     .train-nav a {
-        color: #888;
+        color: var(--text-sub);
         text-decoration: none;
         padding: 10px 20px;
         border-radius: 8px;
         font-weight: 500;
     }
-    .train-nav a:hover { color: #2196f3; background: #f5f7fa; }
-    body.dark .phrase { background: #1e1e1e; border-color: #2a2a2a; color: #e0e0e0; border-left-color: #2196f3; }
-    body.dark .train-form input { background: #1e1e1e; border-color: #2a2a2a; color: #e0e0e0; }
-    body.dark .stats { background: #1e1e1e; border-color: #2a2a2a; }
-    body.dark .mode-switch a { background: #1e1e1e; border-color: #2a2a2a; }
-    body.dark .mode-switch a.active { background: #2196f3; border-color: #2196f3; }
+    .train-nav a:hover { color: var(--accent); background: var(--bg-hover); }
 </style>
 {% endblock %}
 
@@ -110,7 +105,7 @@
 {% if empty %}
     <div class="empty">
         <h1>💬 Пока нет фраз</h1>
-        <p>Добавь фразы в <a href="/phrases" style="color: #2196f3;">разделе фраз</a>, чтобы тренироваться.</p>
+        <p>Добавь фразы в <a href="/phrases" style="color: var(--accent);">разделе фраз</a>, чтобы тренироваться.</p>
     </div>
 {% else %}
     <h1>🎯 Тренировка фраз</h1>
