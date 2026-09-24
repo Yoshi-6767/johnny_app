@@ -31,6 +31,23 @@
         border-color: #2196f3;
         color: #2196f3;
     }
+    .weak-banner {
+        background: #fff3e0;
+        border-left: 4px solid #ff9800;
+        padding: 14px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    .weak-banner-title {
+        font-weight: 700;
+        color: #e65100;
+        font-size: 15px;
+    }
+    .weak-banner-desc {
+        font-size: 13px;
+        color: #888;
+        margin-top: 4px;
+    }
     .word {
         background: #fff;
         border: 1px solid #e0e0e0;
@@ -103,6 +120,7 @@
     body.dark .stats { background: #1e1e1e; border-color: #2a2a2a; }
     body.dark .mode-switch a { background: #1e1e1e; border-color: #2a2a2a; }
     body.dark .mode-switch a.active { background: #2196f3; border-color: #2196f3; }
+    body.dark .weak-banner { background: #2a1e0f; }
 </style>
 {% endblock %}
 
@@ -110,15 +128,27 @@
 {% if empty %}
     <div class="empty">
         <h1>📚 Пока нет слов</h1>
+        {% if weak_mode %}
+        <p>Слабых слов нет — ты молодец! 🎉</p>
+        <p style="margin-top: 10px;"><a href="/train?reset=1" style="color: #2196f3;">Тренировать все слова →</a></p>
+        {% else %}
         <p>Добавь слова в <a href="/sections" style="color: #2196f3;">категориях</a>, чтобы тренироваться.</p>
         {% if section %}<p style="margin-top: 10px; font-size: 14px;">В этой категории все слова выучены — снимай ✅, чтобы повторить.</p>{% endif %}
+        {% endif %}
     </div>
 {% else %}
+    {% if weak_mode %}
+    <div class="weak-banner">
+        <div class="weak-banner-title">🎯 Тренировка слабых слов</div>
+        <div class="weak-banner-desc">Слова, в которых ты чаще всего ошибаешься</div>
+    </div>
+    {% endif %}
+
     <h1>🔥 Тренировка слов</h1>
 
     <div class="mode-switch">
-        <a href="/train?reset=1{% if section %}&section={{ section }}{% endif %}" class="{% if not reverse %}active{% endif %}">🇬🇧 EN → 🇷🇺 RU</a>
-        <a href="/train?reverse=1&reset=1{% if section %}&section={{ section }}{% endif %}" class="{% if reverse %}active{% endif %}">🇷🇺 RU → 🇬🇧 EN</a>
+        <a href="/train?reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}" class="{% if not reverse %}active{% endif %}">🇬🇧 EN → 🇷🇺 RU</a>
+        <a href="/train?reverse=1&reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}" class="{% if reverse %}active{% endif %}">🇷🇺 RU → 🇬🇧 EN</a>
     </div>
 
     <div class="stats">
@@ -142,9 +172,13 @@
     </div>
 
     <div class="train-nav">
-        <a href="/train?reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}">🔄 Следующее</a>
+        <a href="/train?reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}">🔄 Следующее</a>
+        {% if weak_mode %}
+        <a href="/">⬅️ На главную</a>
+        {% else %}
         <a href="/sections{% if section %}/{{ section }}{% endif %}">⬅️ К категории</a>
         <a href="/sections">📚 Все категории</a>
+        {% endif %}
     </div>
 {% endif %}
 {% endblock %}
@@ -174,7 +208,7 @@
                 document.getElementById("correct-count").textContent = data.correct_count;
                 document.getElementById("wrong-count").textContent = data.wrong_count;
                 setTimeout(() => {
-                    location.href = "/train?reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}";
+                    location.href = "/train?reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}";
                 }, 1200);
             } else {
                 result.className = "result wrong";
