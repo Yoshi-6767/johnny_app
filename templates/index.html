@@ -5,7 +5,7 @@
 {% block styles %}
 <style>
     .today-block {
-        background: linear-gradient(135deg, #2196f3, #1976d2);
+        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
         color: #fff;
         padding: 30px;
         border-radius: 16px;
@@ -36,13 +36,14 @@
         display: flex;
         gap: 12px;
         flex-wrap: wrap;
+        justify-content: center;
     }
     .today-btn {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: #fff;
-        color: #1976d2;
+        background: var(--bg-card);
+        color: var(--accent-dark);
         padding: 13px 26px;
         border-radius: 30px;
         text-decoration: none;
@@ -70,10 +71,9 @@
         background: rgba(255,255,255,0.25);
     }
 
-    /* ЦЕЛЬ ДНЯ */
     .daily-goal {
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 14px;
         padding: 22px 25px;
         margin-bottom: 25px;
@@ -89,16 +89,16 @@
     .daily-goal-title {
         font-size: 16px;
         font-weight: 700;
-        color: #333;
+        color: var(--text);
     }
     .daily-goal-count {
         font-size: 14px;
-        color: #2196f3;
+        color: var(--accent);
         font-weight: 700;
     }
     .daily-goal.done {
         border-color: #4caf50;
-        background: linear-gradient(135deg, #ffffff, #f1f8e9);
+        background: linear-gradient(135deg, var(--bg-card), #f1f8e9);
     }
     .daily-goal.done .daily-goal-title {
         color: #2e7d32;
@@ -108,13 +108,13 @@
     }
     .daily-goal-bar {
         height: 12px;
-        background: #e0e0e0;
+        background: var(--border);
         border-radius: 6px;
         overflow: hidden;
     }
     .daily-goal-fill {
         height: 100%;
-        background: linear-gradient(90deg, #2196f3, #42a5f5);
+        background: linear-gradient(90deg, var(--accent), var(--accent-dark));
         border-radius: 6px;
         transition: width 0.5s ease;
     }
@@ -122,10 +122,9 @@
         background: linear-gradient(90deg, #4caf50, #66bb6a);
     }
 
-    /* СЛАБЫЕ СЛОВА */
     .weak-block {
-        background: #fff3e0;
-        border-left: 4px solid #ff9800;
+        background: var(--bg-subtle);
+        border-left: 4px solid var(--accent);
         padding: 20px 24px;
         border-radius: 14px;
         margin-bottom: 25px;
@@ -140,7 +139,7 @@
     }
     .weak-block-title {
         font-weight: 700;
-        color: #e65100;
+        color: var(--accent);
         font-size: 16px;
     }
     .weak-chips {
@@ -149,24 +148,23 @@
         gap: 8px;
     }
     .weak-chip {
-        background: #fff;
-        border: 1px solid #ffcc80;
+        background: var(--bg-card);
+        border: 1px solid var(--accent-light);
         padding: 6px 14px;
         border-radius: 20px;
         font-size: 13px;
-        color: #e65100;
+        color: var(--accent);
         font-weight: 600;
     }
     .weak-chip .rus {
-        color: #999;
+        color: var(--text-sub);
         font-weight: 400;
         margin-left: 6px;
     }
 
-    /* ЦЕЛИ (goal-home) */
     .goal-home {
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 12px;
         padding: 18px 22px;
         margin-bottom: 15px;
@@ -174,35 +172,25 @@
     .goal-home-title {
         font-size: 15px;
         font-weight: 700;
-        color: #333;
+        color: var(--text);
         margin-bottom: 10px;
     }
     .goal-home-bar {
         height: 10px;
-        background: #e0e0e0;
+        background: var(--border);
         border-radius: 5px;
         overflow: hidden;
     }
     .goal-home-fill {
         height: 100%;
-        background: linear-gradient(90deg, #2196f3, #42a5f5);
+        background: linear-gradient(90deg, var(--accent), var(--accent-dark));
         border-radius: 5px;
     }
     .goal-home-text {
         font-size: 13px;
-        color: #888;
+        color: var(--text-sub);
         margin-top: 6px;
     }
-
-    body.dark .daily-goal { background: #1e1e1e; border-color: #2a2a2a; }
-    body.dark .daily-goal-title { color: #e0e0e0; }
-    body.dark .daily-goal.done { background: linear-gradient(135deg, #1e1e1e, #1a2a1a); }
-    body.dark .daily-goal-bar { background: #2a2a2a; }
-    body.dark .weak-block { background: #2a1e0f; }
-    body.dark .weak-chip { background: #1e1e1e; border-color: #4a2f10; color: #ffb74d; }
-    body.dark .goal-home { background: #1e1e1e; border-color: #2a2a2a; }
-    body.dark .goal-home-title { color: #e0e0e0; }
-    body.dark .goal-home-bar { background: #2a2a2a; }
 </style>
 {% endblock %}
 
@@ -248,7 +236,7 @@
 <div class="weak-block">
     <div class="weak-block-head">
         <div class="weak-block-title">⚠️ Слабые слова</div>
-        <a href="/train?weak=1&reset=1" style="font-size: 13px; color: #e65100; text-decoration: none; font-weight: 700;">Тренировать →</a>
+        <a href="/train?weak=1&reset=1" style="font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 700;">Тренировать →</a>
     </div>
     <div class="weak-chips">
         {% for w in weak_list %}
