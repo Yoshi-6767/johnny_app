@@ -55,7 +55,6 @@ def get_daily_quote():
 
 
 def check_user_achievements(uid):
-    """Собирает статистику юзера, проверяет ачивки, возвращает список новых кодов."""
     progress = get_user_progress(uid)
     gw = get_user_general_words(uid)
     phrases = get_user_phrases(uid)
@@ -64,7 +63,6 @@ def check_user_achievements(uid):
     exams_count = SectionExam.query.filter_by(user_id=uid, is_passed=True).count()
     learned_count = LearnedWord.query.filter_by(user_id=uid).count()
 
-    # Игровые и учебные статы пока не храним — будет позже
     games_stats = {}
     study_stats = {}
 
@@ -82,7 +80,6 @@ def check_user_achievements(uid):
 
 
 def pop_new_achievements():
-    """Забирает из сессии новые ачивки и превращает в объекты для модалки."""
     codes = session.pop("new_achievements", [])
     return [get_achievement(c) for c in codes if get_achievement(c)]
 
@@ -118,6 +115,10 @@ def index():
         if progress.get("history") and progress["history"][-1]["date"] == today_str:
             today_correct = progress["history"][-1]["correct"]
 
+        daily_goal = 10
+        daily_percent = min(100, int(today_correct / daily_goal * 100))
+        daily_done = today_correct >= daily_goal
+
         goals = Goal.query.filter_by(user_id=uid, is_completed=False).order_by(Goal.created_at.desc()).limit(2).all()
         goals_data = []
         for g in goals:
@@ -137,6 +138,9 @@ def index():
         streak = 0
         weak_list = []
         today_correct = 0
+        daily_goal = 10
+        daily_percent = 0
+        daily_done = False
         goals_data = []
 
     return render_template(
@@ -148,6 +152,9 @@ def index():
         streak=streak,
         weak_list=weak_list,
         today_correct=today_correct,
+        daily_goal=daily_goal,
+        daily_percent=daily_percent,
+        daily_done=daily_done,
         goals=goals_data,
         quote=get_daily_quote(),
         new_achievements=new_achievements,
@@ -172,9 +179,7 @@ def profile():
     all_w = get_all_words(uid)
     progress = get_user_progress(uid)
     unlocked = get_unlocked_codes(uid)
-    total_ach = len(ACHIEVEMENTS)
 
-    # Последние 6 открытых ачивок
     rows = Achievement.query.filter_by(user_id=uid).order_by(Achievement.unlocked_at.desc()).limit(6).all()
     recent_ach = [get_achievement(r.code) for r in rows if get_achievement(r.code)]
 
@@ -197,7 +202,7 @@ def profile():
         total_phrases=len(get_user_phrases(uid)),
         streak=progress.get("streak", 0),
         achievements_unlocked=len(unlocked),
-        achievements_total=total_ach,
+        achievements_total=len(ACHIEVEMENTS),
         recent_achievements=recent_ach,
         goals=goals_data,
         new_achievements=pop_new_achievements(),
@@ -456,12 +461,18 @@ def train():
     section_id = request.args.get("section", "")
     reverse = request.args.get("reverse", "0") == "1"
     reset = request.args.get("reset", "0") == "1"
+    weak_mode = request.args.get("weak", "0") == "1"
 
     if reset or "train_correct" not in session:
         session["train_correct"] = 0
         session["train_wrong"] = 0
 
-    if section_id == "general":
+    if weak_mode:
+        progress = get_user_progress(uid)
+        weak_set = set(progress.get("weak_words", {}).keys())
+        all_w = get_all_words(uid)
+        filtered = {k: v for k, v in all_w.items() if k in weak_set}
+    elif section_id == "general":
         filtered = get_user_general_words(uid)
     elif section_id:
         filtered = {k: v for k, v in COMMON_WORDS.items() if v.get("section") == section_id}
@@ -478,7 +489,8 @@ def train():
     if not filtered:
         return render_template("train.html", word=None, empty=True, reverse=reverse, section=section_id,
                                correct_count=session.get("train_correct", 0),
-                               wrong_count=session.get("train_wrong", 0))
+                               wrong_count=session.get("train_wrong", 0),
+                               weak_mode=weak_mode)
 
     eng = random.choice(list(filtered.keys()))
     session["current_word"] = eng
@@ -490,7 +502,8 @@ def train():
 
     return render_template("train.html", word=display, empty=False, reverse=reverse, section=section_id,
                            correct_count=session.get("train_correct", 0),
-                           wrong_count=session.get("train_wrong", 0))
+                           wrong_count=session.get("train_wrong", 0),
+                           weak_mode=weak_mode)
 
 
 @app.route("/check", methods=["POST"])
@@ -931,7 +944,6 @@ def exam_save():
         "date": str(date.today()), "word_count": len(text.split()),
     }
 
-    # Ачивка за письменный экзамен
     if unlock(uid, "exam_text_1"):
         session["new_achievements"] = ["exam_text_1"]
 
