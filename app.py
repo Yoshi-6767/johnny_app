@@ -13,7 +13,11 @@ from models import db, User, EmailCode, LearnedWord, WordProgress, SectionExam, 
 from data import SECTIONS, QUOTES, IRREGULAR_VERBS, PHRASAL_VERBS, IDIOMS, FIXED_TOPICS, get_section
 from utils import (
     send_verification_code, COMMON_WORDS,
-    get_user_general_words, get_user_phrases, get_user_topics, get_user_exams, get_user_progress,
+    get_user_general_words, add_user_word, delete_user_word, edit_user_word,
+    get_user_phrases, add_user_phrase, delete_user_phrase, edit_user_phrase,
+    get_user_topics, save_user_topic, create_user_topic, delete_user_topic,
+    get_user_exams, save_user_exam,
+    get_user_progress,
     get_all_words, get_learned_words, is_learned, mark_learned, unmark_learned,
     record_training, get_section_stats,
 )
@@ -63,9 +67,6 @@ def check_user_achievements(uid):
     exams_count = SectionExam.query.filter_by(user_id=uid, is_passed=True).count()
     learned_count = LearnedWord.query.filter_by(user_id=uid).count()
 
-    games_stats = {}
-    study_stats = {}
-
     return check_all_achievements(
         user_id=uid,
         progress=progress,
@@ -74,8 +75,8 @@ def check_user_achievements(uid):
         topics_done=topics_done,
         exams_count=exams_count,
         learned_count=learned_count,
-        games_stats=games_stats,
-        study_stats=study_stats,
+        games_stats={},
+        study_stats={},
     )
 
 
@@ -239,7 +240,7 @@ def add():
     section = data.get("section", "general")
     if section != "general":
         return jsonify({"status": "error", "message": "Можно добавлять только в «Общее»"})
-    get_user_general_words(current_user.id)[eng] = {"rus": rus, "section": "general"}
+    add_user_word(current_user.id, eng, rus, section="general")
     new_ach = check_user_achievements(current_user.id)
     if new_ach:
         session["new_achievements"] = new_ach
@@ -250,10 +251,7 @@ def add():
 @login_required
 def delete():
     data = request.json
-    eng = data["eng"]
-    gw = get_user_general_words(current_user.id)
-    if eng in gw:
-        del gw[eng]
+    delete_user_word(current_user.id, data["eng"])
     return jsonify({"status": "ok"})
 
 
@@ -261,13 +259,7 @@ def delete():
 @login_required
 def edit():
     data = request.json
-    gw = get_user_general_words(current_user.id)
-    old_eng = data["old_eng"]
-    new_eng = data["new_eng"].strip()
-    new_rus = data["new_rus"].strip()
-    if old_eng in gw:
-        del gw[old_eng]
-        gw[new_eng] = {"rus": new_rus, "section": "general"}
+    edit_user_word(current_user.id, data["old_eng"], data["new_eng"].strip(), data["new_rus"].strip())
     return jsonify({"status": "ok"})
 
 
@@ -559,7 +551,7 @@ def phrases_page():
 @login_required
 def phrases_add():
     data = request.json
-    get_user_phrases(current_user.id)[data["eng"]] = data["rus"]
+    add_user_phrase(current_user.id, data["eng"], data["rus"])
     new_ach = check_user_achievements(current_user.id)
     if new_ach:
         session["new_achievements"] = new_ach
@@ -570,9 +562,7 @@ def phrases_add():
 @login_required
 def phrases_delete():
     data = request.json
-    p = get_user_phrases(current_user.id)
-    if data["eng"] in p:
-        del p[data["eng"]]
+    delete_user_phrase(current_user.id, data["eng"])
     return jsonify({"status": "ok"})
 
 
@@ -580,11 +570,7 @@ def phrases_delete():
 @login_required
 def phrases_edit():
     data = request.json
-    p = get_user_phrases(current_user.id)
-    old = data["old_eng"]
-    if old in p:
-        del p[old]
-        p[data["new_eng"]] = data["new_rus"]
+    edit_user_phrase(current_user.id, data["old_eng"], data["new_eng"], data["new_rus"])
     return jsonify({"status": "ok"})
 
 
@@ -875,8 +861,9 @@ def topic_save(tid):
     if len(text.split()) < 50:
         return jsonify({"status": "error", "message": "Минимум 50 слов"})
     topic_info = next((t for t in FIXED_TOPICS if t["id"] == tid), None)
-    title = topic_info["title"] if topic_info else get_user_topics(uid).get(tid, {}).get("title", "Своя тема")
-    get_user_topics(uid)[tid] = {"title": title, "text": text, "done": True}
+    existing = get_user_topics(uid).get(tid, {})
+    title = topic_info["title"] if topic_info else existing.get("title", "Своя тема")
+    save_user_topic(uid, tid, title, text, True)
 
     new_ach = check_user_achievements(uid)
     if new_ach:
@@ -893,7 +880,7 @@ def topic_new():
         if not title:
             return redirect("/topics/new")
         tid = "custom_" + str(int(time.time()))
-        get_user_topics(current_user.id)[tid] = {"title": title, "text": "", "done": False}
+        create_user_topic(current_user.id, tid, title)
         return redirect(f"/topics/{tid}")
     return render_template("topic_new.html")
 
@@ -901,9 +888,8 @@ def topic_new():
 @app.route("/topics/<tid>/delete", methods=["POST"])
 @login_required
 def topic_delete(tid):
-    t = get_user_topics(current_user.id)
-    if tid in t and tid.startswith("custom_"):
-        del t[tid]
+    if tid.startswith("custom_"):
+        delete_user_topic(current_user.id, tid)
     return jsonify({"status": "ok"})
 
 
@@ -939,10 +925,7 @@ def exam_save():
     topic_info = next((t for t in FIXED_TOPICS if t["id"] == tid), None)
     title = topic_info["title"] if topic_info else get_user_topics(uid).get(tid, {}).get("title", "Своя тема")
     exam_id = str(int(time.time()))
-    get_user_exams(uid)[exam_id] = {
-        "topic_id": tid, "title": title, "text": text,
-        "date": str(date.today()), "word_count": len(text.split()),
-    }
+    save_user_exam(uid, exam_id, tid, title, text, len(text.split()))
 
     if unlock(uid, "exam_text_1"):
         session["new_achievements"] = ["exam_text_1"]
@@ -954,7 +937,7 @@ def exam_save():
 @login_required
 def exam_history():
     exams_list = []
-    for eid, data in sorted(get_user_exams(current_user.id).items(), key=lambda x: x[0], reverse=True):
+    for eid, data in get_user_exams(current_user.id).items():
         exams_list.append({"id": eid, "title": data["title"], "date": data["date"], "word_count": data["word_count"]})
     return render_template("exam_history.html", exams=exams_list)
 
