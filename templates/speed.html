@@ -8,29 +8,29 @@
         text-align: center;
         font-size: 48px;
         font-weight: 900;
-        color: #2196f3;
+        color: var(--accent);
         margin-bottom: 20px;
         padding: 20px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 12px;
     }
     .speed-timer.warning { color: #f44336; }
     .speed-word {
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        border-left: 4px solid #2196f3;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
         padding: 40px;
         border-radius: 14px;
         text-align: center;
         font-size: 36px;
         font-weight: 700;
         margin-bottom: 25px;
-        color: #333;
+        color: var(--text);
     }
     .speed-progress {
         text-align: center;
-        color: #888;
+        color: var(--text-sub);
         font-size: 14px;
         margin-bottom: 15px;
     }
@@ -42,15 +42,15 @@
     .speed-form input {
         flex: 1;
         padding: 16px 20px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 10px;
-        color: #333;
+        color: var(--text);
         font-size: 18px;
         font-family: 'Rubik', sans-serif;
         outline: none;
     }
-    .speed-form input:focus { border-color: #2196f3; }
+    .speed-form input:focus { border-color: var(--accent); }
     .speed-feedback {
         text-align: center;
         padding: 12px;
@@ -66,18 +66,18 @@
         display: none;
         text-align: center;
         padding: 40px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 14px;
     }
     .speed-result .score {
         font-size: 48px;
         font-weight: 900;
-        color: #2196f3;
+        color: var(--accent);
         margin-bottom: 10px;
     }
     .speed-result .label {
-        color: #888;
+        color: var(--text-sub);
         font-size: 16px;
         margin-bottom: 25px;
     }
@@ -88,14 +88,14 @@
         margin-top: 20px;
     }
     .speed-nav a {
-        color: #888;
+        color: var(--text-sub);
         text-decoration: none;
         padding: 12px 25px;
         border-radius: 8px;
         font-weight: 500;
-        border: 1px solid #e0e0e0;
+        border: 1px solid var(--border);
     }
-    .speed-nav a:hover { color: #2196f3; border-color: #2196f3; }
+    .speed-nav a:hover { color: var(--accent); border-color: var(--accent); }
 </style>
 {% endblock %}
 
@@ -104,7 +104,7 @@
     <div class="empty">
         <h1>⚡ Пока мало слов</h1>
         <p>Нужно минимум <strong>5 слов</strong>.</p>
-        <p>Добавь в <a href="/sections" style="color: #2196f3;">категориях</a>.</p>
+        <p>Добавь в <a href="/sections" style="color: var(--accent);">категориях</a>.</p>
     </div>
 {% else %}
     <div id="speed-start-screen">
