@@ -4,39 +4,40 @@
 
 {% block styles %}
 <style>
-    .profile-card {
-        max-width: 500px;
-        margin: 0 auto;
-        background: #fff;
-        border: 2px solid #bbdefb;
-        border-radius: 14px;
-        padding: 40px;
-        text-align: center;
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
     }
     .profile-avatar {
-        width: 120px;
-        height: 120px;
+        width: 110px;
+        height: 110px;
         border-radius: 50%;
-        margin: 0 auto 20px;
-        display: block;
         object-fit: cover;
         border: 3px solid #2196f3;
+        flex-shrink: 0;
     }
     .profile-avatar-letter {
-        width: 120px;
-        height: 120px;
+        width: 110px;
+        height: 110px;
         border-radius: 50%;
-        margin: 0 auto 20px;
         background: #2196f3;
         color: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 48px;
+        font-size: 44px;
         font-weight: 700;
+        flex-shrink: 0;
+    }
+    .profile-info {
+        flex: 1;
+        min-width: 200px;
     }
     .profile-name {
-        font-size: 24px;
+        font-size: 26px;
         font-weight: 700;
         color: #333;
         margin-bottom: 5px;
@@ -44,60 +45,226 @@
     .profile-email {
         color: #888;
         font-size: 14px;
-        margin-bottom: 30px;
+        margin-bottom: 12px;
     }
-    .profile-upload {
+    .profile-actions {
         display: flex;
-        flex-direction: column;
-        gap: 15px;
-        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
     }
-    .profile-upload input[type="file"] {
-        display: none;
-    }
+    .profile-upload input[type="file"] { display: none; }
     .profile-upload label {
         display: inline-block;
         background: #2196f3;
         color: #fff;
-        padding: 14px 30px;
-        border-radius: 30px;
+        padding: 10px 20px;
+        border-radius: 20px;
         cursor: pointer;
-        font-weight: 700;
-        font-size: 15px;
-        transition: background 0.2s;
-    }
-    .profile-upload label:hover {
-        background: #1976d2;
-    }
-    .profile-logout {
-        display: inline-block;
-        margin-top: 25px;
-        color: #888;
-        text-decoration: none;
+        font-weight: 600;
         font-size: 14px;
     }
-    .profile-logout:hover {
-        color: #f44336;
+    .profile-upload label:hover { background: #1976d2; }
+
+    .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
     }
+    .stat-mini {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 18px;
+        text-align: center;
+    }
+    .stat-mini .num {
+        font-size: 26px;
+        font-weight: 900;
+        color: #2196f3;
+    }
+    .stat-mini .label {
+        font-size: 13px;
+        color: #888;
+        margin-top: 4px;
+    }
+
+    .section-block {
+        margin-bottom: 30px;
+    }
+    .section-block-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .section-block-header h2 {
+        font-size: 20px;
+        color: #333;
+        margin: 0;
+    }
+    .section-block-header a {
+        font-size: 14px;
+        color: #2196f3;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .section-block-header a:hover { text-decoration: underline; }
+
+    .ach-mini-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 12px;
+    }
+    .ach-mini {
+        background: #fff;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 15px;
+        text-align: center;
+    }
+    .ach-mini.bronze { border-color: #cd7f32; }
+    .ach-mini.silver { border-color: #b0bec5; }
+    .ach-mini.gold { border-color: #ffc107; }
+    .ach-mini-emoji { font-size: 32px; margin-bottom: 6px; }
+    .ach-mini-title { font-size: 12px; color: #555; font-weight: 600; }
+
+    .goal-mini-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .goal-mini {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 15px 18px;
+    }
+    .goal-mini-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+    }
+    .goal-mini-bar {
+        height: 8px;
+        background: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .goal-mini-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #2196f3, #42a5f5);
+        border-radius: 4px;
+    }
+    .goal-mini-text {
+        font-size: 12px;
+        color: #888;
+        margin-top: 5px;
+    }
+
+    .logout-link {
+        display: inline-block;
+        color: #f44336;
+        text-decoration: none;
+        font-size: 14px;
+        margin-top: 20px;
+        font-weight: 600;
+    }
+    .logout-link:hover { text-decoration: underline; }
+
+    body.dark .profile-name { color: #e0e0e0; }
+    body.dark .stat-mini { background: #1e1e1e; border-color: #2a2a2a; }
+    body.dark .section-block-header h2 { color: #e0e0e0; }
+    body.dark .ach-mini { background: #1e1e1e; border-color: #2a2a2a; }
+    body.dark .ach-mini-title { color: #ccc; }
+    body.dark .goal-mini { background: #1e1e1e; border-color: #2a2a2a; }
+    body.dark .goal-mini-title { color: #e0e0e0; }
+    body.dark .goal-mini-bar { background: #2a2a2a; }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="profile-card">
+<div class="profile-header">
     {% if user.avatar %}
         <img src="/avatars/{{ user.avatar }}" class="profile-avatar" alt="Avatar">
     {% else %}
         <div class="profile-avatar-letter">{{ user.username[0]|upper }}</div>
     {% endif %}
-    
-    <div class="profile-name">{{ user.username }}</div>
-    <div class="profile-email">{{ user.email }}</div>
-    
-    <form method="POST" action="/profile/upload_avatar" enctype="multipart/form-data" class="profile-upload">
-        <input type="file" name="avatar" id="avatarInput" accept="image/*" onchange="this.form.submit()">
-        <label for="avatarInput">📷 Загрузить аватар</label>
-    </form>
-    
-    <a href="/logout" class="profile-logout">Выйти из аккаунта</a>
+    <div class="profile-info">
+        <div class="profile-name">{{ user.username }}</div>
+        <div class="profile-email">{{ user.email }}</div>
+        <div class="profile-actions">
+            <form method="POST" action="/profile/upload_avatar" enctype="multipart/form-data" class="profile-upload" style="display:inline;">
+                <input type="file" name="avatar" id="avatarInput" accept="image/*" onchange="this.form.submit()">
+                <label for="avatarInput">📷 Сменить аватар</label>
+            </form>
+        </div>
+    </div>
 </div>
+
+<div class="stats-row">
+    <div class="stat-mini">
+        <div class="num">{{ streak }}</div>
+        <div class="label">🔥 Стрик</div>
+    </div>
+    <div class="stat-mini">
+        <div class="num">{{ total_words }}</div>
+        <div class="label">📚 Слов</div>
+    </div>
+    <div class="stat-mini">
+        <div class="num">{{ total_phrases }}</div>
+        <div class="label">💬 Фраз</div>
+    </div>
+    <div class="stat-mini">
+        <div class="num">{{ achievements_unlocked }} / {{ achievements_total }}</div>
+        <div class="label">🏆 Ачивок</div>
+    </div>
+</div>
+
+<div class="section-block">
+    <div class="section-block-header">
+        <h2>🏆 Последние достижения</h2>
+        <a href="/achievements">Все →</a>
+    </div>
+    {% if recent_achievements %}
+    <div class="ach-mini-grid">
+        {% for a in recent_achievements %}
+        <div class="ach-mini {{ a.tier }}">
+            <div class="ach-mini-emoji">{{ a.emoji }}</div>
+            <div class="ach-mini-title">{{ a.title }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty">Пока нет открытых достижений. Начни тренироваться!</div>
+    {% endif %}
+</div>
+
+<div class="section-block">
+    <div class="section-block-header">
+        <h2>🎯 Активные цели</h2>
+        <a href="/goals">Все →</a>
+    </div>
+    {% if goals %}
+    <div class="goal-mini-list">
+        {% for g in goals %}
+        <div class="goal-mini">
+            <div class="goal-mini-title">
+                {% if g.goal_type == "words" %}📚 Выучить {{ g.target }} слов
+                {% elif g.goal_type == "streak" %}🔥 Стрик {{ g.target }} дней{% endif %}
+            </div>
+            <div class="goal-mini-bar">
+                <div class="goal-mini-fill" style="width: {{ g.percent }}%"></div>
+            </div>
+            <div class="goal-mini-text">{{ g.current }} / {{ g.target }} ({{ g.percent }}%)</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty">Нет активных целей. <a href="/goals" style="color:#2196f3;">Создать →</a></div>
+    {% endif %}
+</div>
+
+<a href="/logout" class="logout-link">Выйти из аккаунта</a>
 {% endblock %}
