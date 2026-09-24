@@ -6,39 +6,39 @@
 <style>
     .exam-progress {
         text-align: center;
-        color: #888;
+        color: var(--text-sub);
         font-size: 15px;
         margin-bottom: 20px;
     }
     .exam-progress-bar {
         height: 8px;
-        background: #e0e0e0;
+        background: var(--border);
         border-radius: 4px;
         overflow: hidden;
         margin-bottom: 30px;
     }
     .exam-progress-fill {
         height: 100%;
-        background: linear-gradient(90deg, #2196f3, #42a5f5);
+        background: linear-gradient(90deg, var(--accent), var(--accent-dark));
         border-radius: 4px;
         transition: width 0.3s ease;
         width: 0%;
     }
     .exam-word {
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        border-left: 4px solid #2196f3;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
         padding: 50px 40px;
         border-radius: 14px;
         text-align: center;
         font-size: 36px;
         font-weight: 700;
         margin-bottom: 25px;
-        color: #333;
+        color: var(--text);
     }
     .exam-label {
         text-align: center;
-        color: #888;
+        color: var(--text-sub);
         font-size: 14px;
         margin-bottom: 20px;
     }
@@ -50,15 +50,15 @@
     .exam-form input {
         flex: 1;
         padding: 18px 22px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
         border-radius: 10px;
-        color: #333;
+        color: var(--text);
         font-size: 18px;
         font-family: 'Rubik', sans-serif;
         outline: none;
     }
-    .exam-form input:focus { border-color: #2196f3; }
+    .exam-form input:focus { border-color: var(--accent); }
     .exam-feedback {
         padding: 16px 20px;
         border-radius: 10px;
@@ -81,14 +81,14 @@
     .exam-result {
         display: none;
         text-align: center;
-        background: #fff;
-        border: 2px solid #e0e0e0;
+        background: var(--bg-card);
+        border: 2px solid var(--border);
         border-radius: 14px;
         padding: 40px;
     }
     .exam-result.passed {
         border-color: #4caf50;
-        background: linear-gradient(135deg, #ffffff, #f1f8e9);
+        background: linear-gradient(135deg, var(--bg-card), #f1f8e9);
     }
     .exam-result .emoji {
         font-size: 64px;
@@ -97,11 +97,12 @@
     .exam-result h2 {
         font-size: 28px;
         margin-bottom: 15px;
+        color: var(--text);
     }
     .exam-result .score {
         font-size: 48px;
         font-weight: 900;
-        color: #2196f3;
+        color: var(--accent);
         margin-bottom: 15px;
     }
     .exam-result.passed .score { color: #4caf50; }
@@ -109,19 +110,19 @@
         text-align: left;
         margin-top: 25px;
         padding: 20px;
-        background: #f5f7fa;
+        background: var(--bg-subtle);
         border-radius: 12px;
     }
     .exam-errors h3 {
         font-size: 16px;
-        color: #333;
+        color: var(--text);
         margin-bottom: 15px;
     }
     .error-item {
         padding: 10px 0;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px solid var(--border);
         font-size: 14px;
-        color: #555;
+        color: var(--text-sub);
     }
     .error-item:last-child { border-bottom: none; }
     .error-item strong { color: #f44336; }
@@ -141,16 +142,16 @@
         font-size: 15px;
     }
     .exam-nav a.primary {
-        background: #2196f3;
+        background: var(--accent);
         color: #fff;
     }
-    .exam-nav a.primary:hover { background: #1976d2; }
+    .exam-nav a.primary:hover { background: var(--accent-dark); }
     .exam-nav a.secondary {
-        background: #fff;
-        color: #2196f3;
-        border: 2px solid #2196f3;
+        background: var(--bg-card);
+        color: var(--accent);
+        border: 2px solid var(--accent);
     }
-    .exam-nav a.secondary:hover { background: #2196f3; color: #fff; }
+    .exam-nav a.secondary:hover { background: var(--accent); color: #fff; }
 </style>
 {% endblock %}
 
