@@ -13,7 +13,7 @@ from config import Config
 from models import db, User, EmailCode, LearnedWord, WordProgress, SectionExam, Achievement, Goal
 from data import (
     SECTIONS, QUOTES, IRREGULAR_VERBS, PHRASAL_VERBS, IDIOMS, FIXED_TOPICS,
-    FALSE_FRIENDS, SLANG, DIALOGUES, get_section,
+    FALSE_FRIENDS, SLANG, DIALOGUES, EMOJI_WORDS, get_section,
 )
 from utils import (
     send_verification_code, COMMON_WORDS,
@@ -90,7 +90,6 @@ def pop_new_achievements():
 
 
 def similarity_ratio(a, b):
-    """Нечёткое сравнение строк — для режима произношения."""
     if not a or not b:
         return 0.0
     a = a.lower().strip()
@@ -637,7 +636,7 @@ def dialogue_page(did):
 
 
 # ═══════════════════════════════════════════════
-# ТРЕНИРОВКА СЛОВ (normal / listening / speak)
+# ТРЕНИРОВКА СЛОВ
 # ═══════════════════════════════════════════════
 
 @app.route("/train")
@@ -1606,6 +1605,335 @@ def speed_result():
     if score == total and total >= 10:
         unlock(current_user.id, "game_speed_10")
     return jsonify({"score": score, "total": total})
+
+
+# ─── ЭМОДЗИ-КВИЗ ───
+
+@app.route("/games/emoji")
+@login_required
+def emoji_page():
+    # Берём 10 случайных эмодзи
+    selected = random.sample(EMOJI_WORDS, min(10, len(EMOJI_WORDS)))
+    session["emoji_words"] = selected
+    session["emoji_index"] = 0
+    session["emoji_score"] = 0
+    session["emoji_errors"] = []
+    return render_template("games_emoji.html", empty=False)
+
+
+@app.route("/games/emoji/next")
+@login_required
+def emoji_next():
+    words = session.get("emoji_words", [])
+    index = session.get("emoji_index", 0)
+    if index >= len(words):
+        return jsonify({"status": "end"})
+    word = words[index]
+    return jsonify({
+        "status": "ok",
+        "emoji": word["emoji"],
+        "rus": word["rus"],
+        "question_num": index + 1,
+        "total": len(words),
+    })
+
+
+@app.route("/games/emoji/check", methods=["POST"])
+@login_required
+def emoji_check():
+    data = request.json
+    answer = data.get("answer", "").strip().lower()
+    words = session.get("emoji_words", [])
+    index = session.get("emoji_index", 0)
+    if index >= len(words):
+        return jsonify({"status": "error"})
+    word = words[index]
+    correct = word["answer"].lower()
+    is_correct = (answer == correct)
+
+    if is_correct:
+        session["emoji_score"] = session.get("emoji_score", 0) + 1
+    else:
+        errors = session.get("emoji_errors", [])
+        errors.append({"emoji": word["emoji"], "correct": word["answer"], "user": answer})
+        session["emoji_errors"] = errors
+
+    session["emoji_index"] = index + 1
+    return jsonify({
+        "status": "ok",
+        "correct": is_correct,
+        "correct_answer": word["answer"],
+        "score": session.get("emoji_score", 0),
+        "index": index + 1,
+        "total": len(words),
+    })
+
+
+@app.route("/games/emoji/result")
+@login_required
+def emoji_result():
+    score = session.get("emoji_score", 0)
+    total = len(session.get("emoji_words", []))
+    if score == total and total >= 10:
+        unlock(current_user.id, "game_emoji_10")
+    return jsonify({
+        "score": score,
+        "total": total,
+        "errors": session.get("emoji_errors", []),
+    })
+
+
+# ─── ЧТО ЛИШНЕЕ ───
+
+@app.route("/games/odd_one")
+@login_required
+def odd_one_page():
+    uid = current_user.id
+    all_w = get_all_words(uid)
+    # Группируем слова по секциям
+    by_section = {}
+    for word, data in all_w.items():
+        sec = data.get("section", "general")
+        if " " in word or len(word) < 2 or len(word) > 20:
+            continue
+        by_section.setdefault(sec, []).append({"word": word, "rus": data["rus"]})
+    # Оставляем только секции с >= 3 словами
+    valid_sections = [s for s, words in by_section.items() if len(words) >= 3]
+    if len(valid_sections) < 2:
+        return render_template("games_odd_one.html", empty=True)
+
+    session["odd_one_score"] = 0
+    session["odd_one_index"] = 0
+    session["odd_one_total"] = 10
+    session["odd_one_errors"] = []
+    return render_template("games_odd_one.html", empty=False)
+
+
+@app.route("/games/odd_one/next")
+@login_required
+def odd_one_next():
+    index = session.get("odd_one_index", 0)
+    total = session.get("odd_one_total", 10)
+    if index >= total:
+        return jsonify({"status": "end"})
+
+    uid = current_user.id
+    all_w = get_all_words(uid)
+    by_section = {}
+    for word, data in all_w.items():
+        sec = data.get("section", "general")
+        if " " in word or len(word) < 2 or len(word) > 20:
+            continue
+        by_section.setdefault(sec, []).append({"word": word, "rus": data["rus"]})
+    valid_sections = [s for s, words in by_section.items() if len(words) >= 3]
+
+    if len(valid_sections) < 2:
+        return jsonify({"status": "end"})
+
+    # Выбираем 2 разные категории
+    main_sec, other_sec = random.sample(valid_sections, 2)
+    # 3 слова из main
+    main_words = random.sample(by_section[main_sec], 3)
+    # 1 слово из other
+    other_word = random.choice(by_section[other_sec])
+
+    options = main_words + [other_word]
+    random.shuffle(options)
+
+    # Запоминаем правильный ответ
+    session["odd_one_current"] = other_word["word"]
+    session["odd_one_index"] = index + 1
+
+    return jsonify({
+        "status": "ok",
+        "options": [{"word": o["word"], "rus": o["rus"]} for o in options],
+        "question_num": index + 1,
+        "total": total,
+    })
+
+
+@app.route("/games/odd_one/check", methods=["POST"])
+@login_required
+def odd_one_check():
+    data = request.json
+    answer = data.get("answer", "").strip().lower()
+    correct = session.get("odd_one_current", "").lower()
+    is_correct = (answer == correct)
+
+    if is_correct:
+        session["odd_one_score"] = session.get("odd_one_score", 0) + 1
+    else:
+        errors = session.get("odd_one_errors", [])
+        errors.append({"correct": correct, "user": answer})
+        session["odd_one_errors"] = errors
+
+    return jsonify({
+        "status": "ok",
+        "correct": is_correct,
+        "correct_answer": correct,
+        "score": session.get("odd_one_score", 0),
+    })
+
+
+@app.route("/games/odd_one/result")
+@login_required
+def odd_one_result():
+    score = session.get("odd_one_score", 0)
+    total = session.get("odd_one_total", 10)
+    if score == total and total >= 10:
+        unlock(current_user.id, "game_odd_one_10")
+    return jsonify({
+        "score": score,
+        "total": total,
+        "errors": session.get("odd_one_errors", []),
+    })
+
+
+# ─── КТО ХОЧЕТ СТАТЬ МИЛЛИОНЕРОМ ───
+
+@app.route("/games/millionaire")
+@login_required
+def millionaire_page():
+    uid = current_user.id
+    all_w = get_all_words(uid)
+    available = [w for w in all_w.keys() if 2 <= len(w) <= 20 and " " not in w]
+    if len(available) < 20:
+        return render_template("games_millionaire.html", empty=True)
+
+    # 15 случайных слов
+    selected = random.sample(available, 15)
+    session["millionaire_words"] = selected
+    session["millionaire_index"] = 0
+    session["millionaire_score"] = 0
+    session["millionaire_hints"] = {
+        "fifty": False,   # 50/50
+        "call": False,    # звонок другу (=показать перевод)
+        "audience": False # помощь зала (=убрать 2 неверных)
+    }
+    return render_template("games_millionaire.html", empty=False)
+
+
+@app.route("/games/millionaire/question")
+@login_required
+def millionaire_question():
+    words = session.get("millionaire_words", [])
+    index = session.get("millionaire_index", 0)
+    if index >= len(words):
+        return jsonify({"status": "end"})
+
+    uid = current_user.id
+    all_w = get_all_words(uid)
+    word = words[index]
+    if word not in all_w:
+        return jsonify({"status": "end"})
+
+    correct = all_w[word]["rus"]
+    others = [w for w in all_w.keys() if w != word and all_w[w]["rus"] != correct and " " not in w]
+    wrong_options = random.sample(others, min(3, len(others)))
+    wrong_answers = [all_w[w]["rus"] for w in wrong_options]
+    options = [correct] + wrong_answers
+    random.shuffle(options)
+
+    session["millionaire_current"] = word
+    session["millionaire_correct"] = correct
+    session["millionaire_wrong"] = wrong_answers
+
+    return jsonify({
+        "status": "ok",
+        "word": word,
+        "options": options,
+        "correct": correct,
+        "question_num": index + 1,
+        "total": len(words),
+    })
+
+
+@app.route("/games/millionaire/answer", methods=["POST"])
+@login_required
+def millionaire_answer():
+    data = request.json
+    answer = data.get("answer", "").strip()
+    correct = session.get("millionaire_correct", "")
+    is_correct = (answer == correct)
+
+    if is_correct:
+        session["millionaire_score"] = session.get("millionaire_score", 0) + 1
+        # Следующий вопрос
+        session["millionaire_index"] = session.get("millionaire_index", 0) + 1
+        return jsonify({
+            "status": "ok",
+            "correct": True,
+            "correct_answer": correct,
+            "score": session.get("millionaire_score", 0),
+            "continue": True,
+        })
+    else:
+        # Проиграл — конец игры
+        return jsonify({
+            "status": "ok",
+            "correct": False,
+            "correct_answer": correct,
+            "score": session.get("millionaire_score", 0),
+            "continue": False,
+        })
+
+
+@app.route("/games/millionaire/hint", methods=["POST"])
+@login_required
+def millionaire_hint():
+    data = request.json
+    hint_type = data.get("type", "")
+    hints = session.get("millionaire_hints", {})
+
+    if hint_type not in hints or hints.get(hint_type):
+        return jsonify({"status": "error", "message": "Подсказка уже использована"})
+
+    hints[hint_type] = True
+    session["millionaire_hints"] = hints
+
+    if hint_type == "fifty":
+        # Оставляем 2 варианта (правильный + 1 неверный)
+        correct = session.get("millionaire_correct", "")
+        wrong = session.get("millionaire_wrong", [])
+        keep_wrong = random.choice(wrong) if wrong else ""
+        return jsonify({
+            "status": "ok",
+            "hint": "fifty",
+            "keep": [correct, keep_wrong],
+        })
+    elif hint_type == "call":
+        # Звонок другу = показать перевод слова
+        word = session.get("millionaire_current", "")
+        uid = current_user.id
+        all_w = get_all_words(uid)
+        rus = all_w.get(word, {}).get("rus", "")
+        return jsonify({
+            "status": "ok",
+            "hint": "call",
+            "word": word,
+            "translation": rus,
+        })
+    elif hint_type == "audience":
+        # Помощь зала = убрать 2 неверных
+        correct = session.get("millionaire_correct", "")
+        wrong = session.get("millionaire_wrong", [])
+        keep_wrong = random.sample(wrong, 1) if len(wrong) >= 1 else wrong
+        return jsonify({
+            "status": "ok",
+            "hint": "audience",
+            "keep": [correct] + keep_wrong,
+        })
+
+    return jsonify({"status": "error"})
+
+
+@app.route("/games/millionaire/result")
+@login_required
+def millionaire_result():
+    score = session.get("millionaire_score", 0)
+    if score >= 10:
+        unlock(current_user.id, "game_millionaire_10")
+    return jsonify({"score": score, "total": 15})
 
 
 # ═══════════════════════════════════════════════
