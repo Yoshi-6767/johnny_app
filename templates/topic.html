@@ -40,6 +40,49 @@
         font-weight: 500;
     }
     .chip:hover { background: var(--bg-hover); }
+
+    .example-toggle {
+        background: var(--bg-subtle);
+        border: 1px solid var(--border);
+        padding: 14px 20px;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        color: var(--accent);
+        font-size: 15px;
+        transition: background 0.2s;
+    }
+    .example-toggle:hover {
+        background: var(--bg-hover);
+    }
+    .example-toggle .arrow {
+        transition: transform 0.3s;
+        font-size: 14px;
+    }
+    .example-toggle.open .arrow {
+        transform: rotate(180deg);
+    }
+    .example-box {
+        display: none;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
+        padding: 20px 25px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        color: var(--text);
+        font-size: 15px;
+        line-height: 1.7;
+        font-style: italic;
+    }
+    .example-box.show {
+        display: block;
+    }
+
     .topic-textarea {
         width: 100%;
         min-height: 300px;
@@ -62,8 +105,15 @@
         margin: 10px 0 20px;
     }
     .word-counter.ok { color: #4caf50; }
+    .action-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+    }
     .save-btn {
-        width: 100%;
+        flex: 1;
+        min-width: 200px;
         padding: 18px;
         background: var(--accent);
         color: #fff;
@@ -80,6 +130,23 @@
         background: var(--border);
         color: var(--text-muted);
         cursor: not-allowed;
+    }
+    .speak-text-btn {
+        padding: 18px 28px;
+        background: var(--bg-card);
+        color: var(--accent);
+        border: 2px solid var(--accent);
+        border-radius: 12px;
+        font-size: 16px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        white-space: nowrap;
+    }
+    .speak-text-btn:hover {
+        background: var(--accent);
+        color: #fff;
     }
     .status {
         text-align: center;
@@ -110,10 +177,21 @@
 </div>
 {% endif %}
 
+{% if topic.example %}
+<div class="example-toggle" onclick="toggleExample(this)">
+    <span>📖 Показать пример</span>
+    <span class="arrow">▼</span>
+</div>
+<div class="example-box" id="exampleBox">{{ topic.example }}</div>
+{% endif %}
+
 <textarea id="text" class="topic-textarea" placeholder="Напиши свой текст на английском..." oninput="updateCounter()">{{ text }}</textarea>
 <div class="word-counter" id="counter">0 / 50 слов</div>
 
-<button class="save-btn" id="saveBtn" onclick="saveTopic()" disabled>Сохранить</button>
+<div class="action-row">
+    <button class="save-btn" id="saveBtn" onclick="saveTopic()" disabled>Сохранить</button>
+    <button class="speak-text-btn" onclick="speakText()">🔊 Послушать мой текст</button>
+</div>
 <div class="status" id="status">✅ Сохранено!</div>
 {% endblock %}
 
@@ -147,6 +225,22 @@
         textarea.focus();
         textarea.selectionStart = textarea.selectionEnd = pos + word.length + 1;
         updateCounter();
+    }
+
+    function toggleExample(el) {
+        el.classList.toggle("open");
+        document.getElementById("exampleBox").classList.toggle("show");
+    }
+
+    function speakText() {
+        const text = textarea.value.trim();
+        if (!text) {
+            alert("Сначала напиши текст");
+            return;
+        }
+        if (window.speak) {
+            window.speak(text);
+        }
     }
 
     function saveTopic() {
