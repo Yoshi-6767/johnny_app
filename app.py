@@ -551,44 +551,6 @@ def check():
         })
 
 
-@app.route("/check", methods=["POST"])
-@login_required
-def check():
-    data = request.json
-    uid = current_user.id
-    all_w = get_all_words(uid)
-    user_answer = data["answer"].strip().lower()
-    eng = session.get("current_word")
-    reverse = session.get("train_reverse", False)
-
-    if not eng or eng not in all_w:
-        return jsonify({"status": "error"})
-
-    correct_answer = eng.lower() if reverse else all_w[eng]["rus"].strip().lower()
-
-    if user_answer == correct_answer:
-        session["train_correct"] = session.get("train_correct", 0) + 1
-        record_training(True, eng)
-        new_ach = check_user_achievements(uid)
-        if new_ach:
-            session["new_achievements"] = new_ach
-        return jsonify({
-            "status": "correct",
-            "correct_answer": eng if reverse else all_w[eng]["rus"],
-            "correct_count": session["train_correct"],
-            "wrong_count": session.get("train_wrong", 0),
-        })
-    else:
-        session["train_wrong"] = session.get("train_wrong", 0) + 1
-        record_training(False, eng)
-        return jsonify({
-            "status": "wrong",
-            "correct_answer": eng if reverse else all_w[eng]["rus"],
-            "correct_count": session.get("train_correct", 0),
-            "wrong_count": session["train_wrong"],
-        })
-
-
 # ═══════════════════════════════════════════════
 # ФРАЗЫ
 # ═══════════════════════════════════════════════
