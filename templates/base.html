@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
     <script>
-        // Применяем тему ДО отрисовки — чтобы не мигало
         (function() {
             const theme = localStorage.getItem('theme') || 'light';
             if (theme !== 'light') {
@@ -89,8 +88,8 @@
     </div>
     {% endif %}
 
+    <script src="/static/audio.js"></script>
     <script>
-        // ═══ ТЕМА ═══
         (function() {
             const theme = localStorage.getItem('theme') || 'light';
             if (theme !== 'light') {
@@ -106,13 +105,11 @@
             } else {
                 document.body.setAttribute('data-theme', theme);
             }
-            // Обновляем активную карточку в профиле, если она есть на странице
             document.querySelectorAll('.theme-card').forEach(card => {
                 card.classList.toggle('active', card.dataset.theme === theme);
             });
         }
 
-        // ═══ ПРОГРЕСС-БАР СКРОЛЛА ═══
         window.addEventListener('scroll', function() {
             const scrollTop = window.scrollY;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -121,7 +118,6 @@
             if (el) el.style.width = percent + '%';
         });
 
-        // ═══ ЮЗЕР-МЕНЮ ═══
         function toggleUserMenu(e) {
             e.stopPropagation();
             const dropdown = document.getElementById('userDropdown');
