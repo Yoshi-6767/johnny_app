@@ -369,4 +369,162 @@ FIXED_TOPICS = [
         "helper": ["career", "family", "travel", "success", "dream", "plan", "goal", "achieve"],
         "example": "In the future I want to achieve many goals. I plan to build a good career and start a family. I also want to travel and see different countries. My biggest goal is to open my own business. I know it will not be easy, but I believe in myself and work hard every day."
     },
+        "example": "In the future I want to achieve many goals. ..."
+    },
+]
+
+
+# ─── ДИАЛОГИ ───
+# Каждый диалог: id, title, emoji, level, characters (имена ролей), lines (массив реплик)
+# line = {"who": "a" или "b", "text": "...", "rus": "..."}
+
+DIALOGUES = [
+    {
+        "id": "cafe", "title": "In a Café", "emoji": "☕", "level": "A1-A2",
+        "characters": {"a": "Barista", "b": "Customer"},
+        "lines": [
+            {"who": "a", "text": "Hi! What can I get for you?", "rus": "Привет! Что вам принести?"},
+            {"who": "b", "text": "Hi! Can I have a cappuccino, please?", "rus": "Привет! Можно капучино, пожалуйста?"},
+            {"who": "a", "text": "Sure. Small or large?", "rus": "Конечно. Маленький или большой?"},
+            {"who": "b", "text": "Large, please.", "rus": "Большой, пожалуйста."},
+            {"who": "a", "text": "Anything else? Maybe a croissant?", "rus": "Что-нибудь ещё? Может, круассан?"},
+            {"who": "b", "text": "No, thanks. Just the coffee.", "rus": "Нет, спасибо. Только кофе."},
+            {"who": "a", "text": "That will be five dollars.", "rus": "С вас пять долларов."},
+            {"who": "b", "text": "Here you go. Keep the change.", "rus": "Вот, возьмите. Сдачу оставьте себе."},
+            {"who": "a", "text": "Thank you! Your coffee will be ready in a minute.", "rus": "Спасибо! Ваш кофе будет готов через минуту."},
+        ],
+    },
+    {
+        "id": "airport", "title": "At the Airport", "emoji": "✈️", "level": "A1-A2",
+        "characters": {"a": "Agent", "b": "Passenger"},
+        "lines": [
+            {"who": "a", "text": "Good morning. Your passport, please.", "rus": "Доброе утро. Ваш паспорт, пожалуйста."},
+            {"who": "b", "text": "Here it is.", "rus": "Вот, пожалуйста."},
+            {"who": "a", "text": "Where are you flying today?", "rus": "Куда вы летите сегодня?"},
+            {"who": "b", "text": "To London.", "rus": "В Лондон."},
+            {"who": "a", "text": "How long will you stay?", "rus": "Как долго вы пробудете?"},
+            {"who": "b", "text": "About two weeks.", "rus": "Около двух недель."},
+            {"who": "a", "text": "Any liquids or sharp objects?", "rus": "Есть жидкости или острые предметы?"},
+            {"who": "b", "text": "No, nothing.", "rus": "Нет, ничего."},
+            {"who": "a", "text": "Alright. Have a nice flight!", "rus": "Хорошо. Хорошего полёта!"},
+        ],
+    },
+    {
+        "id": "hotel", "title": "At the Hotel", "emoji": "🏨", "level": "A1-A2",
+        "characters": {"a": "Receptionist", "b": "Guest"},
+        "lines": [
+            {"who": "a", "text": "Good evening! How can I help you?", "rus": "Добрый вечер! Чем могу помочь?"},
+            {"who": "b", "text": "Hi, I have a reservation for tonight.", "rus": "Здравствуйте, у меня бронь на сегодня."},
+            {"who": "a", "text": "What's your name, please?", "rus": "Ваше имя, пожалуйста?"},
+            {"who": "b", "text": "John Smith.", "rus": "Джон Смит."},
+            {"who": "a", "text": "Yes, I see it. Room 305. Here's your key.", "rus": "Да, вижу. Номер 305. Вот ваш ключ."},
+            {"who": "b", "text": "Great. What time is breakfast?", "rus": "Отлично. Во сколько завтрак?"},
+            {"who": "a", "text": "From seven to ten in the morning.", "rus": "С семи до десяти утра."},
+            {"who": "b", "text": "Perfect, thank you.", "rus": "Отлично, спасибо."},
+        ],
+    },
+    {
+        "id": "shop", "title": "In a Shop", "emoji": "🛍️", "level": "A1-A2",
+        "characters": {"a": "Shop Assistant", "b": "Customer"},
+        "lines": [
+            {"who": "a", "text": "Hello! Can I help you?", "rus": "Здравствуйте! Могу я помочь?"},
+            {"who": "b", "text": "Yes, I'm looking for a blue shirt.", "rus": "Да, я ищу синюю рубашку."},
+            {"who": "a", "text": "What size do you need?", "rus": "Какой размер вам нужен?"},
+            {"who": "b", "text": "Medium, please.", "rus": "Средний, пожалуйста."},
+            {"who": "a", "text": "Here you are. The fitting room is over there.", "rus": "Вот, пожалуйста. Примерочная вон там."},
+            {"who": "b", "text": "Thanks. How much is it?", "rus": "Спасибо. Сколько стоит?"},
+            {"who": "a", "text": "It's thirty dollars.", "rus": "Тридцать долларов."},
+            {"who": "b", "text": "I'll take it. Can I pay by card?", "rus": "Беру. Можно оплатить картой?"},
+            {"who": "a", "text": "Of course.", "rus": "Конечно."},
+        ],
+    },
+    {
+        "id": "meeting", "title": "Meeting Someone New", "emoji": "👋", "level": "A1-A2",
+        "characters": {"a": "Alex", "b": "Sam"},
+        "lines": [
+            {"who": "a", "text": "Hi! I'm Alex. Nice to meet you.", "rus": "Привет! Я Алекс. Приятно познакомиться."},
+            {"who": "b", "text": "Hi Alex, I'm Sam. Nice to meet you too.", "rus": "Привет, Алекс, я Сэм. Мне тоже приятно."},
+            {"who": "a", "text": "Where are you from, Sam?", "rus": "Откуда ты, Сэм?"},
+            {"who": "b", "text": "I'm from Canada. And you?", "rus": "Я из Канады. А ты?"},
+            {"who": "a", "text": "I'm from Russia.", "rus": "Я из России."},
+            {"who": "b", "text": "Cool! What do you do?", "rus": "Круто! Чем занимаешься?"},
+            {"who": "a", "text": "I'm a software developer. And you?", "rus": "Я разработчик. А ты?"},
+            {"who": "b", "text": "I'm a student. I study design.", "rus": "Я студент. Учусь на дизайнера."},
+            {"who": "a", "text": "That's interesting! Let's keep in touch.", "rus": "Интересно! Давай останемся на связи."},
+        ],
+    },
+    {
+        "id": "doctor", "title": "At the Doctor", "emoji": "🩺", "level": "A1-A2",
+        "characters": {"a": "Doctor", "b": "Patient"},
+        "lines": [
+            {"who": "a", "text": "Good morning. What seems to be the problem?", "rus": "Доброе утро. Что вас беспокоит?"},
+            {"who": "b", "text": "I have a headache and a sore throat.", "rus": "У меня болит голова и горло."},
+            {"who": "a", "text": "How long have you had these symptoms?", "rus": "Как давно у вас эти симптомы?"},
+            {"who": "b", "text": "Since yesterday.", "rus": "Со вчерашнего дня."},
+            {"who": "a", "text": "Do you have a fever?", "rus": "У вас есть температура?"},
+            {"who": "b", "text": "Yes, thirty-eight degrees.", "rus": "Да, тридцать восемь."},
+            {"who": "a", "text": "You have a cold. I'll prescribe you some medicine.", "rus": "У вас простуда. Я выпишу вам лекарство."},
+            {"who": "b", "text": "Thank you, doctor.", "rus": "Спасибо, доктор."},
+            {"who": "a", "text": "Drink plenty of water and rest. Get well soon!", "rus": "Пейте много воды и отдыхайте. Выздоравливайте!"},
+        ],
+    },
+    {
+        "id": "job", "title": "Job Interview", "emoji": "💼", "level": "B1",
+        "characters": {"a": "Interviewer", "b": "Candidate"},
+        "lines": [
+            {"who": "a", "text": "Good afternoon. Please, have a seat.", "rus": "Добрый день. Присаживайтесь."},
+            {"who": "b", "text": "Thank you.", "rus": "Спасибо."},
+            {"who": "a", "text": "Tell me about yourself.", "rus": "Расскажите о себе."},
+            {"who": "b", "text": "I have five years of experience in marketing.", "rus": "У меня пять лет опыта в маркетинге."},
+            {"who": "a", "text": "Why do you want to work with us?", "rus": "Почему вы хотите работать у нас?"},
+            {"who": "b", "text": "I admire your company's innovative approach.", "rus": "Я восхищаюсь инновационным подходом вашей компании."},
+            {"who": "a", "text": "What are your strengths?", "rus": "Каковы ваши сильные стороны?"},
+            {"who": "b", "text": "I'm hardworking and I learn quickly.", "rus": "Я трудолюбив и быстро учусь."},
+            {"who": "a", "text": "Great. We'll call you next week.", "rus": "Отлично. Мы позвоним вам на следующей неделе."},
+        ],
+    },
+    {
+        "id": "smalltalk", "title": "Small Talk about Weather", "emoji": "☀️", "level": "A1-A2",
+        "characters": {"a": "Colleague 1", "b": "Colleague 2"},
+        "lines": [
+            {"who": "a", "text": "Nice weather today, isn't it?", "rus": "Хорошая погода сегодня, не так ли?"},
+            {"who": "b", "text": "Yes, it's beautiful. Much better than yesterday.", "rus": "Да, прекрасная. Гораздо лучше, чем вчера."},
+            {"who": "a", "text": "I heard it's going to rain tomorrow.", "rus": "Я слышал, завтра будет дождь."},
+            {"who": "b", "text": "Really? That's a shame.", "rus": "Правда? Как жаль."},
+            {"who": "a", "text": "Do you have any plans for the weekend?", "rus": "У тебя есть планы на выходные?"},
+            {"who": "b", "text": "Yes, I'm going to the countryside.", "rus": "Да, я поеду за город."},
+            {"who": "a", "text": "Sounds nice! Enjoy your weekend.", "rus": "Звучит здорово! Хороших выходных."},
+            {"who": "b", "text": "Thanks, you too!", "rus": "Спасибо, тебе тоже!"},
+        ],
+    },
+    {
+        "id": "taxi", "title": "Taking a Taxi", "emoji": "🚕", "level": "A1-A2",
+        "characters": {"a": "Driver", "b": "Passenger"},
+        "lines": [
+            {"who": "a", "text": "Hello! Where to?", "rus": "Здравствуйте! Куда едем?"},
+            {"who": "b", "text": "To the train station, please.", "rus": "На вокзал, пожалуйста."},
+            {"who": "a", "text": "Sure. Are you in a hurry?", "rus": "Конечно. Вы спешите?"},
+            {"who": "b", "text": "Yes, my train leaves in an hour.", "rus": "Да, мой поезд через час."},
+            {"who": "a", "text": "Don't worry, we'll make it.", "rus": "Не волнуйтесь, успеем."},
+            {"who": "b", "text": "How much will it cost?", "rus": "Сколько будет стоить?"},
+            {"who": "a", "text": "About fifteen dollars.", "rus": "Около пятнадцати долларов."},
+            {"who": "b", "text": "Okay, that's fine.", "rus": "Хорошо, отлично."},
+            {"who": "a", "text": "Here we are. That's twenty dollars.", "rus": "Приехали. С вас двадцать долларов."},
+        ],
+    },
+    {
+        "id": "date", "title": "Asking Someone Out", "emoji": "💕", "level": "B1",
+        "characters": {"a": "Tom", "b": "Kate"},
+        "lines": [
+            {"who": "a", "text": "Hey Kate, how are you doing?", "rus": "Привет, Кейт, как дела?"},
+            {"who": "b", "text": "Hi Tom! I'm good, thanks. And you?", "rus": "Привет, Том! Хорошо, спасибо. А ты?"},
+            {"who": "a", "text": "Great! Listen, I was wondering...", "rus": "Отлично! Слушай, я хотел спросить..."},
+            {"who": "b", "text": "Yes?", "rus": "Да?"},
+            {"who": "a", "text": "Would you like to grab a coffee with me sometime?", "rus": "Не хочешь как-нибудь выпить со мной кофе?"},
+            {"who": "b", "text": "That sounds nice! When?", "rus": "Звучит здорово! Когда?"},
+            {"who": "a", "text": "How about Saturday afternoon?", "rus": "Как насчёт субботы днём?"},
+            {"who": "b", "text": "Saturday works for me. Let's meet at three.", "rus": "Суббота подходит. Давай в три."},
+            {"who": "a", "text": "Perfect! See you then.", "rus": "Отлично! До встречи."},
+        ],
+    },
 ]
