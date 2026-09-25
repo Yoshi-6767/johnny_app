@@ -492,7 +492,6 @@ def train():
     session["train_section"] = section_id
     session["train_mode"] = mode
 
-    # В режиме listening — показываем только "???", слово озвучивается
     if mode == "listening":
         display = "🎧"
     elif reverse:
@@ -520,7 +519,6 @@ def check():
     if not eng or eng not in all_w:
         return jsonify({"status": "error"})
 
-    # В режиме listening — правильный ответ всегда английское слово
     if mode == "listening":
         correct_answer = eng.lower()
     elif reverse:
@@ -1097,6 +1095,9 @@ def irregular_check():
 def games_page():
     return render_template("games.html")
 
+
+# ─── АУДИО-КВИЗ ───
+
 @app.route("/games/listening")
 @login_required
 def listening_page():
@@ -1135,7 +1136,7 @@ def listening_question():
     session["listening_question"] = question_num
     return jsonify({
         "status": "ok",
-        "word": word,  # отдаём фронту для озвучки
+        "word": word,
         "options": options,
         "correct": correct,
         "question_num": question_num,
@@ -1180,6 +1181,9 @@ def listening_result():
         "total": total,
         "errors": session.get("listening_errors", []),
     })
+
+
+# ─── ВИСЕЛИЦА ───
 
 @app.route("/games/hangman")
 @login_required
@@ -1237,6 +1241,8 @@ def hangman_guess():
                         "guessed": guessed, "message": "💀 Ты проиграл. Слово было: " + word})
     return jsonify({"status": "ok", "display": display, "errors": errors, "guessed": guessed})
 
+
+# ─── КВИЗ ───
 
 @app.route("/games/quiz")
 @login_required
@@ -1311,6 +1317,8 @@ def quiz_result():
         "errors": session.get("quiz_errors", []),
     })
 
+
+# ─── СКОРОСТНОЙ ───
 
 @app.route("/games/speed")
 @login_required
