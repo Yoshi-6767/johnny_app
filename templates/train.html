@@ -8,9 +8,11 @@
         display: flex;
         gap: 8px;
         margin-bottom: 20px;
+        flex-wrap: wrap;
     }
     .mode-switch a {
         flex: 1;
+        min-width: 140px;
         text-align: center;
         padding: 12px;
         border-radius: 10px;
@@ -48,6 +50,10 @@
         color: var(--text-sub);
         margin-top: 4px;
     }
+    .word-wrap {
+        position: relative;
+        margin-bottom: 25px;
+    }
     .word {
         background: var(--bg-card);
         border: 1px solid var(--border);
@@ -57,8 +63,56 @@
         text-align: center;
         font-size: 32px;
         font-weight: 700;
-        margin-bottom: 25px;
         color: var(--text);
+    }
+    .word.speakable {
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .word.speakable:hover {
+        background: var(--bg-hover);
+        transform: scale(1.01);
+    }
+    .word-hint {
+        font-size: 13px;
+        color: var(--text-sub);
+        text-align: center;
+        margin-top: 6px;
+    }
+    .listening-box {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
+        padding: 50px 40px;
+        border-radius: 14px;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    .listening-icon {
+        font-size: 72px;
+        margin-bottom: 15px;
+        display: block;
+    }
+    .listening-hint {
+        color: var(--text-sub);
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .listening-replay {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 15px;
+        font-family: 'Rubik', sans-serif;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .listening-replay:hover {
+        background: var(--accent-dark);
+        transform: scale(1.05);
     }
     .train-form {
         display: flex;
@@ -141,8 +195,12 @@
     <h1>🔥 Тренировка слов</h1>
 
     <div class="mode-switch">
-        <a href="/train?reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}" class="{% if not reverse %}active{% endif %}">🇬🇧 EN → 🇷🇺 RU</a>
-        <a href="/train?reverse=1&reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}" class="{% if reverse %}active{% endif %}">🇷🇺 RU → 🇬🇧 EN</a>
+        <a href="/train?reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}"
+           class="{% if not reverse and mode != 'listening' %}active{% endif %}">🇬🇧 EN → 🇷🇺 RU</a>
+        <a href="/train?reverse=1&reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}"
+           class="{% if reverse and mode != 'listening' %}active{% endif %}">🇷🇺 RU → 🇬🇧 EN</a>
+        <a href="/train?mode=listening&reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}"
+           class="{% if mode == 'listening' %}active{% endif %}">🎧 Слушай и пиши</a>
     </div>
 
     <div class="stats">
@@ -156,17 +214,32 @@
         </div>
     </div>
 
-    <div class="word">{{ word }}</div>
+    {% if mode == "listening" %}
+        <div class="listening-box">
+            <span class="listening-icon">🎧</span>
+            <div class="listening-hint">Послушай слово и напиши его по-английски</div>
+            <button class="listening-replay" onclick="replayWord()">🔊 Повторить</button>
+        </div>
+    {% else %}
+        <div class="word-wrap">
+            <div class="word speakable" onclick="speakCurrentWord()" title="Нажми, чтобы послушать">
+                {{ word }}
+            </div>
+            <div class="word-hint">🔊 нажми на слово, чтобы услышать</div>
+        </div>
+    {% endif %}
 
     <div class="result" id="result"></div>
 
     <div class="train-form">
-        <input id="answer" placeholder="Введи перевод..." autofocus autocomplete="off">
+        <input id="answer"
+               placeholder="{% if mode == 'listening' %}Напиши, что услышал...{% else %}Введи перевод...{% endif %}"
+               autofocus autocomplete="off" autocapitalize="off" spellcheck="false">
         <button class="btn" onclick="checkAnswer()">Проверить</button>
     </div>
 
     <div class="train-nav">
-        <a href="/train?reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}">🔄 Следующее</a>
+        <a href="/train?{% if mode == 'listening' %}mode=listening&{% endif %}reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}">🔄 Следующее</a>
         {% if weak_mode %}
         <a href="/">⬅️ На главную</a>
         {% else %}
@@ -180,6 +253,30 @@
 {% block scripts %}
 {% if not empty %}
 <script>
+    const CURRENT_WORD = "{{ word if mode != 'listening' else '' }}";
+    const LISTENING_MODE = {{ 'true' if mode == 'listening' else 'false' }};
+    // Для listening-режима слово хранится на сервере в session, но для озвучки надо его передать
+    const SESSION_WORD = "{{ session.get('current_word', '') }}";
+
+    // Автоозвучка в listening при загрузке
+    window.addEventListener('DOMContentLoaded', function() {
+        if (LISTENING_MODE && SESSION_WORD && window.speak) {
+            setTimeout(() => window.speak(SESSION_WORD), 300);
+        }
+    });
+
+    function speakCurrentWord() {
+        if (CURRENT_WORD && window.speak) {
+            window.speak(CURRENT_WORD);
+        }
+    }
+
+    function replayWord() {
+        if (SESSION_WORD && window.speak) {
+            window.speak(SESSION_WORD);
+        }
+    }
+
     document.getElementById("answer").addEventListener("keypress", function(e) {
         if (e.key === "Enter") checkAnswer();
     });
@@ -202,7 +299,7 @@
                 document.getElementById("correct-count").textContent = data.correct_count;
                 document.getElementById("wrong-count").textContent = data.wrong_count;
                 setTimeout(() => {
-                    location.href = "/train?reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}";
+                    location.href = "/train?{% if mode == 'listening' %}mode=listening&{% endif %}reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}";
                 }, 1200);
             } else {
                 result.className = "result wrong";
