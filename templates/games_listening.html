@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+
+{% block title %}Аудио-квиз — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .listening-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    .listening-big-icon {
+        font-size: 80px;
+        margin-bottom: 15px;
+        display: block;
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.08); }
+    }
+    .listening-replay {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        padding: 16px 36px;
+        border-radius: 30px;
+        font-weight: 700;
+        font-size: 16px;
+        font-family: 'Rubik', sans-serif;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-top: 10px;
+    }
+    .listening-replay:hover {
+        background: var(--accent-dark);
+        transform: scale(1.05);
+    }
+    .listening-replay:active {
+        transform: scale(0.97);
+    }
+    .quiz-progress {
+        text-align: center;
+        color: var(--text-sub);
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .quiz-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+    .quiz-option {
+        padding: 22px 20px;
+        background: var(--bg-card);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        font-size: 16px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 500;
+        color: var(--text);
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+    }
+    .quiz-option:hover:not(:disabled) {
+        border-color: var(--accent);
+        color: var(--accent);
+        transform: translateY(-2px);
+    }
+    .quiz-option:disabled { cursor: default; }
+    .quiz-option.correct {
+        background: #e8f5e9;
+        border-color: #4caf50;
+        color: #2e7d32;
+        font-weight: 700;
+    }
+    .quiz-option.wrong {
+        background: #ffebee;
+        border-color: #f44336;
+        color: #c62828;
+        font-weight: 700;
+    }
+    .quiz-result {
+        text-align: center;
+        padding: 40px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        display: none;
+    }
+    .quiz-result .score {
+        font-size: 48px;
+        font-weight: 900;
+        color: var(--accent);
+        margin-bottom: 10px;
+    }
+    .quiz-result .label {
+        color: var(--text-sub);
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+    .quiz-errors {
+        text-align: left;
+        margin: 20px 0;
+        padding: 20px;
+        background: var(--bg-subtle);
+        border-radius: 12px;
+    }
+    .quiz-errors h3 {
+        color: var(--text);
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    .quiz-errors .error-item {
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 14px;
+        color: var(--text-sub);
+    }
+    .quiz-errors .error-item:last-child { border-bottom: none; }
+    .quiz-errors .error-item strong { color: #f44336; }
+    .quiz-nav {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .quiz-nav a {
+        color: var(--text-sub);
+        text-decoration: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 500;
+        border: 1px solid var(--border);
+    }
+    .quiz-nav a:hover { color: var(--accent); border-color: var(--accent); }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if empty %}
+    <div class="empty">
+        <h1>🎧 Пока мало слов</h1>
+        <p>Нужно минимум <strong>4 слова</strong>.</p>
+        <p>Добавь в <a href="/sections" style="color: var(--accent);">категориях</a>.</p>
+    </div>
+{% else %}
+    <div id="listening-play">
+        <h1 style="text-align: center;">🎧 Аудио-квиз</h1>
+        <div class="subtitle" style="text-align: center;">Послушай слово и выбери правильный перевод</div>
+        <div class="quiz-progress" id="progress">Вопрос 1 из 10</div>
+
+        <div class="listening-header">
+            <span class="listening-big-icon" id="icon">🎧</span>
+            <button class="listening-replay" onclick="replayWord()">🔊 Повторить</button>
+        </div>
+
+        <div class="quiz-options" id="options"></div>
+    </div>
+
+    <div class="quiz-result" id="result">
+        <div class="score" id="result-score">0</div>
+        <div class="label">из 10</div>
+
+        <div class="quiz-errors" id="errors-box" style="display: none;">
+            <h3>❌ Твои ошибки:</h3>
+            <div id="errors-list"></div>
+        </div>
+
+        <div class="quiz-nav">
+            <a href="/games/listening">🔄 Ещё раз</a>
+            <a href="/games">⬅️ К играм</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if not empty %}
+<script>
+    let currentWord = "";
+    let currentCorrect = "";
+    let answered = false;
+
+    function loadQuestion() {
+        fetch("/games/listening/question")
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "end") {
+                showResult();
+                return;
+            }
+            currentWord = data.word;
+            currentCorrect = data.correct;
+            answered = false;
+            document.getElementById("progress").textContent = "Вопрос " + data.question_num + " из " + data.total;
+
+            // Автоозвучка
+            setTimeout(() => {
+                if (window.speak) window.speak(data.word);
+            }, 200);
+
+            const optionsDiv = document.getElementById("options");
+            optionsDiv.innerHTML = "";
+            data.options.forEach(opt => {
+                const btn = document.createElement("button");
+                btn.className = "quiz-option";
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer(opt, btn);
+                optionsDiv.appendChild(btn);
+            });
+        });
+    }
+
+    function replayWord() {
+        if (currentWord && window.speak) {
+            window.speak(currentWord);
+        }
+    }
+
+    function checkAnswer(answer, btn) {
+        if (answered) return;
+        answered = true;
+
+        fetch("/games/listening/answer", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({answer: answer})
+        })
+        .then(r => r.json())
+        .then(data => {
+            const buttons = document.querySelectorAll(".quiz-option");
+            buttons.forEach(b => {
+                b.disabled = true;
+                if (b.textContent === data.correct_answer) {
+                    b.classList.add("correct");
+                }
+            });
+            if (!data.correct) {
+                btn.classList.add("wrong");
+            }
+            // Повторяем слово ещё раз для запоминания
+            setTimeout(() => {
+                if (window.speak) window.speak(currentWord);
+            }, 800);
+
+            setTimeout(() => {
+                loadNext();
+            }, 1800);
+        });
+    }
+
+    function loadNext() {
+        const progress = document.getElementById("progress").textContent;
+        const match = progress.match(/Вопрос (\d+) из (\d+)/);
+        if (match && parseInt(match[1]) >= parseInt(match[2])) {
+            showResult();
+        } else {
+            loadQuestion();
+        }
+    }
+
+    function showResult() {
+        fetch("/games/listening/result")
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById("listening-play").style.display = "none";
+            document.getElementById("result").style.display = "block";
+            document.getElementById("result-score").textContent = data.score + " / " + data.total;
+
+            if (data.errors && data.errors.length > 0) {
+                document.getElementById("errors-box").style.display = "block";
+                const list = document.getElementById("errors-list");
+                list.innerHTML = "";
+                data.errors.forEach(err => {
+                    const div = document.createElement("div");
+                    div.className = "error-item";
+                    div.innerHTML = "<strong>" + err.word + "</strong> → " + err.correct + " (ты выбрал: " + err.chosen + ")";
+                    list.appendChild(div);
+                });
+            }
+        });
+    }
+
+    loadQuestion();
+</script>
+{% endif %}
+{% endblock %}
