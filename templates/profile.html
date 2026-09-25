@@ -306,7 +306,7 @@
     {% else %}
         <div class="profile-avatar-letter">{{ user.username[0]|upper }}</div>
     {% endif %}
-    <div class="profile-info">
+        <div class="profile-info">
         <div class="profile-name">{{ user.username }}</div>
         <div class="profile-email">{{ user.email }}</div>
         <div class="profile-actions">
@@ -314,7 +314,27 @@
                 <input type="file" name="avatar" id="avatarInput" accept="image/*" onchange="this.form.submit()">
                 <label for="avatarInput">📷 Сменить аватар</label>
             </form>
+            <button type="button" class="btn-outline" onclick="document.getElementById('nameForm').style.display='block'; this.style.display='none';">✏️ Сменить имя</button>
         </div>
+        <form method="POST" action="/profile/change_username" id="nameForm" style="display: none; margin-top: 15px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                <input name="username" placeholder="Новое имя" required minlength="2" maxlength="30"
+                       style="flex: 1; min-width: 150px; padding: 12px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 15px; font-family: 'Rubik', sans-serif; outline: none;">
+                <button type="submit" class="btn" style="padding: 12px 22px;">Сохранить</button>
+                <button type="button" class="btn-outline" style="padding: 12px 22px;" onclick="document.getElementById('nameForm').style.display='none'; document.querySelector('.profile-actions button').style.display='inline-block';">Отмена</button>
+            </div>
+        </form>
+
+        {% if request.args.get('error') == 'name' %}
+        <div style="background: #ffebee; color: #c62828; padding: 12px 16px; border-radius: 10px; margin-top: 12px; font-size: 14px;">
+            ⚠️ Некорректное имя. Только буквы, цифры, пробел, дефис, подчёркивание. 2-30 символов.
+        </div>
+        {% endif %}
+        {% if request.args.get('success') == 'name' %}
+        <div style="background: #e8f5e9; color: #2e7d32; padding: 12px 16px; border-radius: 10px; margin-top: 12px; font-size: 14px;">
+            ✅ Имя изменено!
+        </div>
+        {% endif %}
     </div>
 </div>
 
