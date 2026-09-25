@@ -45,6 +45,21 @@
     .idiom-text { font-weight: 700; color: var(--accent); }
     .idiom-rus { color: var(--text); }
     .idiom-literal { color: var(--text-sub); font-style: italic; font-size: 14px; }
+    .btn-speak-inline {
+        background: var(--bg-subtle);
+        color: var(--accent);
+        border: none;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-left: 6px;
+        transition: all 0.2s;
+    }
+    .btn-speak-inline:hover {
+        background: var(--accent);
+        color: #fff;
+    }
 </style>
 {% endblock %}
 
@@ -67,7 +82,10 @@
     <tbody id="idioms-body">
         {% for i in idioms %}
         <tr data-word="{{ i.idiom }} {{ i.rus }}">
-            <td class="idiom-text">{{ i.idiom }}</td>
+            <td class="idiom-text">
+                {{ i.idiom }}
+                <button class="btn-speak-inline" onclick="speak('{{ i.idiom }}')" title="Послушать">🔊</button>
+            </td>
             <td class="idiom-rus">{{ i.rus }}</td>
             <td class="idiom-literal">{{ i.literal }}</td>
         </tr>
