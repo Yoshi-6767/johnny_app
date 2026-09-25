@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block title %}Что лишнее — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .odd-intro {
+        text-align: center;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
+        padding: 20px 25px;
+        border-radius: 14px;
+        margin-bottom: 25px;
+        color: var(--text);
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    .odd-intro strong { color: var(--accent); }
+    .quiz-progress {
+        text-align: center;
+        color: var(--text-sub);
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .odd-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    .odd-option {
+        background: var(--bg-card);
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        padding: 30px 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+        font-family: 'Rubik', sans-serif;
+    }
+    .odd-option:hover:not(:disabled) {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px var(--accent-shadow);
+    }
+    .odd-option:disabled { cursor: default; }
+    .odd-option .eng {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 6px;
+    }
+    .odd-option .rus {
+        font-size: 14px;
+        color: var(--text-sub);
+    }
+    .odd-option.correct {
+        border-color: #4caf50;
+        background: #e8f5e9;
+    }
+    .odd-option.correct .eng { color: #2e7d32; }
+    .odd-option.wrong {
+        border-color: #f44336;
+        background: #ffebee;
+    }
+    .odd-option.wrong .eng { color: #c62828; }
+    .odd-feedback {
+        text-align: center;
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        min-height: 24px;
+    }
+    .odd-feedback.correct { color: #4caf50; }
+    .odd-feedback.wrong { color: #f44336; }
+    .odd-result {
+        display: none;
+        text-align: center;
+        padding: 40px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+    }
+    .odd-result .score {
+        font-size: 56px;
+        font-weight: 900;
+        color: var(--accent);
+        margin-bottom: 10px;
+    }
+    .odd-result .label {
+        color: var(--text-sub);
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+    .odd-nav {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .odd-nav a {
+        color: var(--text-sub);
+        text-decoration: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 500;
+        border: 1px solid var(--border);
+    }
+    .odd-nav a:hover { color: var(--accent); border-color: var(--accent); }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if empty %}
+    <div class="empty">
+        <h1>🎯 Что лишнее</h1>
+        <p>Нужно минимум 2 категории с 3+ словами. Добавь слова.</p>
+    </div>
+{% else %}
+    <h1 style="text-align: center;">🎯 Что лишнее</h1>
+    <div class="subtitle" style="text-align: center;">Три слова из одной категории, одно — из другой</div>
+
+    <div id="odd-play">
+        <div class="odd-intro">
+            Смотри внимательно: <strong>3 слова из одной темы, 1 — лишнее</strong>. Найди чужака!
+        </div>
+
+        <div class="quiz-progress" id="progress">Вопрос 1 из 10</div>
+
+        <div class="odd-feedback" id="feedback"></div>
+
+        <div class="odd-options" id="options"></div>
+    </div>
+
+    <div class="odd-result" id="result">
+        <div class="score" id="result-score">0</div>
+        <div class="label">из 10</div>
+        <div class="odd-nav">
+            <a href="/games/odd_one">🔄 Ещё раз</a>
+            <a href="/games">⬅️ К играм</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if not empty %}
+<script>
+    let answered = false;
+
+    function loadNext() {
+        fetch("/games/odd_one/next")
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "end") {
+                showResult();
+                return;
+            }
+            document.getElementById("progress").textContent = "Вопрос " + data.question_num + " из " + data.total;
+            document.getElementById("feedback").textContent = "";
+            answered = false;
+
+            const optionsDiv = document.getElementById("options");
+            optionsDiv.innerHTML = "";
+            data.options.forEach(opt => {
+                const btn = document.createElement("button");
+                btn.className = "odd-option";
+                btn.innerHTML = "<div class='eng'>" + opt.word + "</div><div class='rus'>" + opt.rus + "</div>";
+                btn.onclick = () => checkAnswer(opt.word, btn);
+                optionsDiv.appendChild(btn);
+            });
+        });
+    }
+
+    function checkAnswer(word, btn) {
+        if (answered) return;
+        answered = true;
+
+        fetch("/games/odd_one/check", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({answer: word})
+        })
+        .then(r => r.json())
+        .then(data => {
+            const buttons = document.querySelectorAll(".odd-option");
+            buttons.forEach(b => {
+                b.disabled = true;
+                const bWord = b.querySelector(".eng").textContent.toLowerCase();
+                if (bWord === data.correct_answer.toLowerCase()) {
+                    b.classList.add("correct");
+                }
+            });
+            if (!data.correct) {
+                btn.classList.add("wrong");
+            }
+            const fb = document.getElementById("feedback");
+            if (data.correct) {
+                fb.className = "odd-feedback correct";
+                fb.textContent = "✅ Верно! Лишнее — " + data.correct_answer;
+            } else {
+                fb.className = "odd-feedback wrong";
+                fb.textContent = "❌ Лишнее — " + data.correct_answer;
+            }
+            setTimeout(() => loadNext(), 1800);
+        });
+    }
+
+    function showResult() {
+        fetch("/games/odd_one/result")
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById("odd-play").style.display = "none";
+            document.getElementById("result").style.display = "block";
+            document.getElementById("result-score").textContent = data.score + " / " + data.total;
+        });
+    }
+
+    loadNext();
+</script>
+{% endif %}
+{% endblock %}
