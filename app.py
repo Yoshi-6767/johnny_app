@@ -10,7 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from config import Config
 from models import db, User, EmailCode, LearnedWord, WordProgress, SectionExam, Achievement, Goal
-from data import SECTIONS, QUOTES, IRREGULAR_VERBS, PHRASAL_VERBS, IDIOMS, FIXED_TOPICS, get_section
+from data import SECTIONS, QUOTES, IRREGULAR_VERBS, PHRASAL_VERBS, IDIOMS, FIXED_TOPICS, FALSE_FRIENDS, SLANG, get_section
 from utils import (
     send_verification_code, COMMON_WORDS,
     get_user_general_words, add_user_word, delete_user_word, edit_user_word,
@@ -1015,6 +1015,16 @@ def phrasal_page():
 def idioms_page():
     return render_template("idioms.html", idioms=IDIOMS)
 
+@app.route("/study/false_friends")
+@login_required
+def false_friends_page():
+    return render_template("false_friends.html", friends=FALSE_FRIENDS)
+
+
+@app.route("/study/slang")
+@login_required
+def slang_page():
+    return render_template("slang.html", slang=SLANG)
 
 @app.route("/study/irregular/train")
 @login_required
