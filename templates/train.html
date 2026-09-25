@@ -12,13 +12,13 @@
     }
     .mode-switch a {
         flex: 1;
-        min-width: 140px;
+        min-width: 110px;
         text-align: center;
         padding: 12px;
         border-radius: 10px;
         text-decoration: none;
         font-weight: 600;
-        font-size: 14px;
+        font-size: 13px;
         background: var(--bg-card);
         border: 1px solid var(--border);
         color: var(--text-sub);
@@ -114,6 +114,83 @@
         background: var(--accent-dark);
         transform: scale(1.05);
     }
+
+    /* SPEAK MODE */
+    .speak-box {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
+        padding: 40px 30px;
+        border-radius: 14px;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    .speak-word {
+        font-size: 40px;
+        font-weight: 900;
+        color: var(--text);
+        margin-bottom: 10px;
+    }
+    .speak-label {
+        color: var(--text-sub);
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+    .mic-btn {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        font-size: 44px;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 8px 30px var(--accent-shadow);
+        margin-bottom: 15px;
+    }
+    .mic-btn:hover {
+        background: var(--accent-dark);
+        transform: scale(1.05);
+    }
+    .mic-btn:active {
+        transform: scale(0.95);
+    }
+    .mic-btn.recording {
+        background: #f44336;
+        animation: pulse-red 1s infinite;
+    }
+    @keyframes pulse-red {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.7); }
+        50% { box-shadow: 0 0 0 20px rgba(244, 67, 54, 0); }
+    }
+    .speak-result {
+        font-size: 15px;
+        color: var(--text-sub);
+        min-height: 24px;
+        margin-top: 15px;
+    }
+    .speak-result strong {
+        color: var(--accent);
+    }
+    .speak-listen {
+        background: transparent;
+        color: var(--accent);
+        border: 2px solid var(--accent);
+        padding: 10px 22px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 14px;
+        font-family: 'Rubik', sans-serif;
+        cursor: pointer;
+        margin-top: 15px;
+        transition: all 0.2s;
+    }
+    .speak-listen:hover {
+        background: var(--accent);
+        color: #fff;
+    }
+
     .train-form {
         display: flex;
         gap: 10px;
@@ -142,6 +219,11 @@
         background: #e8f5e9;
         border-left: 4px solid #4caf50;
         color: #2e7d32;
+    }
+    .result.close {
+        background: #fff8e1;
+        border-left: 4px solid #ffc107;
+        color: #f57c00;
     }
     .result.wrong {
         background: #ffebee;
@@ -196,11 +278,13 @@
 
     <div class="mode-switch">
         <a href="/train?reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}"
-           class="{% if not reverse and mode != 'listening' %}active{% endif %}">🇬🇧 EN → 🇷🇺 RU</a>
+           class="{% if not reverse and mode == 'normal' %}active{% endif %}">🇬🇧 EN → 🇷🇺 RU</a>
         <a href="/train?reverse=1&reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}"
-           class="{% if reverse and mode != 'listening' %}active{% endif %}">🇷🇺 RU → 🇬🇧 EN</a>
+           class="{% if reverse and mode == 'normal' %}active{% endif %}">🇷🇺 RU → 🇬🇧 EN</a>
         <a href="/train?mode=listening&reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}"
-           class="{% if mode == 'listening' %}active{% endif %}">🎧 Слушай и пиши</a>
+           class="{% if mode == 'listening' %}active{% endif %}">🎧 Слушай</a>
+        <a href="/train?mode=speak&reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}"
+           class="{% if mode == 'speak' %}active{% endif %}">🎤 Говори</a>
     </div>
 
     <div class="stats">
@@ -214,11 +298,27 @@
         </div>
     </div>
 
-    {% if mode == "listening" %}
+    {% if mode == "speak" %}
+        <div class="speak-box">
+            <div class="speak-word">{{ word }}</div>
+            <div class="speak-label">🎤 Скажи это по-английски</div>
+            <button class="mic-btn" id="micBtn" onclick="startRecognition()">🎤</button>
+            <div class="speak-result" id="speakResult">Нажми на микрофон и проговори слово</div>
+            <div>
+                <button class="speak-listen" onclick="listenTarget()">🔊 Послушать эталон</button>
+            </div>
+        </div>
+        <div class="result" id="result"></div>
+    {% elif mode == "listening" %}
         <div class="listening-box">
             <span class="listening-icon">🎧</span>
             <div class="listening-hint">Послушай слово и напиши его по-английски</div>
             <button class="listening-replay" onclick="replayWord()">🔊 Повторить</button>
+        </div>
+        <div class="result" id="result"></div>
+        <div class="train-form">
+            <input id="answer" placeholder="Напиши, что услышал..." autofocus autocomplete="off">
+            <button class="btn" onclick="checkAnswer()">Проверить</button>
         </div>
     {% else %}
         <div class="word-wrap">
@@ -227,19 +327,15 @@
             </div>
             <div class="word-hint">🔊 нажми на слово, чтобы услышать</div>
         </div>
+        <div class="result" id="result"></div>
+        <div class="train-form">
+            <input id="answer" placeholder="Введи перевод..." autofocus autocomplete="off">
+            <button class="btn" onclick="checkAnswer()">Проверить</button>
+        </div>
     {% endif %}
 
-    <div class="result" id="result"></div>
-
-    <div class="train-form">
-        <input id="answer"
-               placeholder="{% if mode == 'listening' %}Напиши, что услышал...{% else %}Введи перевод...{% endif %}"
-               autofocus autocomplete="off" autocapitalize="off" spellcheck="false">
-        <button class="btn" onclick="checkAnswer()">Проверить</button>
-    </div>
-
     <div class="train-nav">
-        <a href="/train?{% if mode == 'listening' %}mode=listening&{% endif %}reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}">🔄 Следующее</a>
+        <a href="/train?{% if mode != 'normal' %}mode={{ mode }}&{% endif %}reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}">🔄 Следующее</a>
         {% if weak_mode %}
         <a href="/">⬅️ На главную</a>
         {% else %}
@@ -255,8 +351,9 @@
 <script>
     const CURRENT_WORD = "{{ word if mode != 'listening' else '' }}";
     const LISTENING_MODE = {{ 'true' if mode == 'listening' else 'false' }};
-    // Для listening-режима слово хранится на сервере в session, но для озвучки надо его передать
+    const SPEAK_MODE = {{ 'true' if mode == 'speak' else 'false' }};
     const SESSION_WORD = "{{ session.get('current_word', '') }}";
+    const TARGET_ENG = "{{ session.get('current_word', '') }}";
 
     // Автоозвучка в listening при загрузке
     window.addEventListener('DOMContentLoaded', function() {
@@ -277,9 +374,83 @@
         }
     }
 
-    document.getElementById("answer").addEventListener("keypress", function(e) {
-        if (e.key === "Enter") checkAnswer();
-    });
+    function listenTarget() {
+        if (TARGET_ENG && window.speak) {
+            window.speak(TARGET_ENG);
+        }
+    }
+
+    // ═══ SPEAK MODE ═══
+    function startRecognition() {
+        if (!window.FW_RECOGNITION_SUPPORTED) {
+            document.getElementById("speakResult").innerHTML = "❌ Браузер не поддерживает микрофон. Попробуй Chrome.";
+            return;
+        }
+
+        const micBtn = document.getElementById("micBtn");
+        const result = document.getElementById("speakResult");
+        micBtn.classList.add("recording");
+        result.textContent = "🎧 Слушаю...";
+
+        window.recognizeSpeech(
+            function(recognized, alternatives) {
+                micBtn.classList.remove("recording");
+                result.innerHTML = "Ты сказал: <strong>" + (recognized || "—") + "</strong>";
+                // Отправляем на сервер для проверки
+                checkSpeak(recognized);
+            },
+            function(error) {
+                micBtn.classList.remove("recording");
+                if (error === "not-allowed" || error === "service-not-allowed") {
+                    result.textContent = "❌ Доступ к микрофону запрещён. Разреши в браузере.";
+                } else if (error === "no-speech") {
+                    result.textContent = "🔇 Не расслышал. Попробуй ещё раз.";
+                } else {
+                    result.textContent = "❌ Ошибка: " + error;
+                }
+            }
+        );
+    }
+
+    function checkSpeak(recognized) {
+        fetch("/check", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({answer: recognized})
+        })
+        .then(r => r.json())
+        .then(data => {
+            const resultDiv = document.getElementById("result");
+            resultDiv.style.display = "block";
+
+            if (data.status === "correct") {
+                if (data.match === "perfect") {
+                    resultDiv.className = "result correct";
+                    resultDiv.textContent = "✅ Идеально! " + data.correct_answer;
+                } else {
+                    resultDiv.className = "result close";
+                    resultDiv.textContent = "🟡 Почти! Правильно: " + data.correct_answer;
+                }
+                document.getElementById("correct-count").textContent = data.correct_count;
+                document.getElementById("wrong-count").textContent = data.wrong_count;
+                setTimeout(() => {
+                    location.href = "/train?mode=speak{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}";
+                }, 1500);
+            } else {
+                resultDiv.className = "result wrong";
+                resultDiv.textContent = "❌ Не то. Правильно: " + data.correct_answer;
+                document.getElementById("correct-count").textContent = data.correct_count;
+                document.getElementById("wrong-count").textContent = data.wrong_count;
+            }
+        });
+    }
+
+    // ═══ NORMAL / LISTENING ═══
+    if (!SPEAK_MODE) {
+        document.getElementById("answer").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") checkAnswer();
+        });
+    }
 
     function checkAnswer() {
         const answer = document.getElementById("answer").value.trim();
@@ -299,7 +470,7 @@
                 document.getElementById("correct-count").textContent = data.correct_count;
                 document.getElementById("wrong-count").textContent = data.wrong_count;
                 setTimeout(() => {
-                    location.href = "/train?{% if mode == 'listening' %}mode=listening&{% endif %}reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}";
+                    location.href = "/train?{% if mode != 'normal' %}mode={{ mode }}&{% endif %}reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}";
                 }, 1200);
             } else {
                 result.className = "result wrong";
