@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block title %}Эмодзи-квиз — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .emoji-display {
+        text-align: center;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
+        padding: 60px 40px;
+        border-radius: 16px;
+        margin-bottom: 25px;
+    }
+    .emoji-big {
+        font-size: 120px;
+        line-height: 1;
+        margin-bottom: 15px;
+        animation: pop 0.5s ease;
+    }
+    @keyframes pop {
+        0% { transform: scale(0); }
+        70% { transform: scale(1.15); }
+        100% { transform: scale(1); }
+    }
+    .emoji-hint {
+        color: var(--text-sub);
+        font-size: 15px;
+    }
+    .quiz-progress {
+        text-align: center;
+        color: var(--text-sub);
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .emoji-input-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .emoji-input-row input {
+        flex: 1;
+        padding: 18px 22px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        color: var(--text);
+        font-size: 20px;
+        font-family: 'Rubik', sans-serif;
+        outline: none;
+        text-align: center;
+        text-transform: lowercase;
+    }
+    .emoji-input-row input:focus { border-color: var(--accent); }
+    .emoji-feedback {
+        text-align: center;
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        min-height: 24px;
+    }
+    .emoji-feedback.correct { color: #4caf50; }
+    .emoji-feedback.wrong { color: #f44336; }
+    .emoji-result {
+        display: none;
+        text-align: center;
+        padding: 40px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+    }
+    .emoji-result .score {
+        font-size: 56px;
+        font-weight: 900;
+        color: var(--accent);
+        margin-bottom: 10px;
+    }
+    .emoji-result .label {
+        color: var(--text-sub);
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+    .emoji-errors {
+        text-align: left;
+        margin: 20px 0;
+        padding: 20px;
+        background: var(--bg-subtle);
+        border-radius: 12px;
+    }
+    .emoji-errors h3 {
+        color: var(--text);
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    .emoji-error-item {
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 14px;
+        color: var(--text-sub);
+    }
+    .emoji-error-item:last-child { border-bottom: none; }
+    .emoji-error-item .emoji { font-size: 24px; margin-right: 8px; }
+    .emoji-error-item strong { color: #4caf50; }
+    .emoji-nav {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .emoji-nav a {
+        color: var(--text-sub);
+        text-decoration: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 500;
+        border: 1px solid var(--border);
+    }
+    .emoji-nav a:hover { color: var(--accent); border-color: var(--accent); }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if empty %}
+    <div class="empty">
+        <h1>🍎 Эмодзи-квиз</h1>
+        <p>Что-то пошло не так. Попробуй позже.</p>
+    </div>
+{% else %}
+    <h1 style="text-align: center;">🍎 Эмодзи-квиз</h1>
+    <div class="subtitle" style="text-align: center;">Угадай английское слово по эмодзи</div>
+
+    <div id="emoji-play">
+        <div class="quiz-progress" id="progress">Вопрос 1 из 10</div>
+
+        <div class="emoji-display">
+            <div class="emoji-big" id="emoji">🍎</div>
+            <div class="emoji-hint" id="rusHint">подсказка: яблоко</div>
+        </div>
+
+        <div class="emoji-feedback" id="feedback"></div>
+
+        <div class="emoji-input-row">
+            <input id="answer" placeholder="Напиши по-английски..." autofocus autocomplete="off" autocapitalize="off" spellcheck="false">
+            <button class="btn" onclick="checkAnswer()">Ответить</button>
+        </div>
+    </div>
+
+    <div class="emoji-result" id="result">
+        <div class="score" id="result-score">0</div>
+        <div class="label">из 10</div>
+
+        <div class="emoji-errors" id="errors-box" style="display: none;">
+            <h3>❌ Твои ошибки:</h3>
+            <div id="errors-list"></div>
+        </div>
+
+        <div class="emoji-nav">
+            <a href="/games/emoji">🔄 Ещё раз</a>
+            <a href="/games">⬅️ К играм</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if not empty %}
+<script>
+    let answered = false;
+
+    function loadNext() {
+        fetch("/games/emoji/next")
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "end") {
+                showResult();
+                return;
+            }
+            document.getElementById("progress").textContent = "Вопрос " + data.question_num + " из " + data.total;
+            document.getElementById("emoji").textContent = data.emoji;
+            document.getElementById("rusHint").textContent = "подсказка: " + data.rus;
+            document.getElementById("answer").value = "";
+            document.getElementById("answer").focus();
+            document.getElementById("feedback").textContent = "";
+            answered = false;
+
+            // Анимация появления
+            const el = document.getElementById("emoji");
+            el.style.animation = "none";
+            setTimeout(() => el.style.animation = "pop 0.5s ease", 10);
+        });
+    }
+
+    function checkAnswer() {
+        if (answered) return;
+        const answer = document.getElementById("answer").value.trim();
+        if (!answer) return;
+        answered = true;
+
+        fetch("/games/emoji/check", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({answer: answer})
+        })
+        .then(r => r.json())
+        .then(data => {
+            const fb = document.getElementById("feedback");
+            if (data.correct) {
+                fb.className = "emoji-feedback correct";
+                fb.textContent = "✅ Верно! " + data.correct_answer;
+            } else {
+                fb.className = "emoji-feedback wrong";
+                fb.textContent = "❌ Правильно: " + data.correct_answer;
+            }
+            setTimeout(() => loadNext(), 1200);
+        });
+    }
+
+    function showResult() {
+        fetch("/games/emoji/result")
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById("emoji-play").style.display = "none";
+            document.getElementById("result").style.display = "block";
+            document.getElementById("result-score").textContent = data.score + " / " + data.total;
+
+            if (data.errors && data.errors.length > 0) {
+                document.getElementById("errors-box").style.display = "block";
+                const list = document.getElementById("errors-list");
+                list.innerHTML = "";
+                data.errors.forEach(err => {
+                    const div = document.createElement("div");
+                    div.className = "emoji-error-item";
+                    div.innerHTML = "<span class='emoji'>" + err.emoji + "</span>" + err.user + " → <strong>" + err.correct + "</strong>";
+                    list.appendChild(div);
+                });
+            }
+        });
+    }
+
+    document.getElementById("answer").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") checkAnswer();
+    });
+
+    loadNext();
+</script>
+{% endif %}
+{% endblock %}
