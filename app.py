@@ -89,6 +89,20 @@ def pop_new_achievements():
     return [get_achievement(c) for c in codes if get_achievement(c)]
 
 
+def similarity_ratio(a, b):
+    """Нечёткое сравнение строк — для режима произношения."""
+    if not a or not b:
+        return 0.0
+    a = a.lower().strip()
+    b = b.lower().strip()
+    max_len = max(len(a), len(b))
+    if max_len == 0:
+        return 1.0
+    diff = sum(1 for i in range(min(len(a), len(b))) if a[i] != b[i])
+    diff += abs(len(a) - len(b))
+    return 1 - (diff / max_len)
+
+
 # ═══════════════════════════════════════════════
 # ГЛАВНАЯ
 # ═══════════════════════════════════════════════
@@ -604,7 +618,7 @@ def exam_all_finish():
 
 
 # ═══════════════════════════════════════════════
-# ТРЕНИРОВКА СЛОВ
+# ТРЕНИРОВКА СЛОВ (normal / listening / speak)
 # ═══════════════════════════════════════════════
 
 @app.route("/train")
@@ -615,7 +629,7 @@ def train():
     reverse = request.args.get("reverse", "0") == "1"
     reset = request.args.get("reset", "0") == "1"
     weak_mode = request.args.get("weak", "0") == "1"
-    mode = request.args.get("mode", "normal")  # normal / listening
+    mode = request.args.get("mode", "normal")  # normal / listening / speak
 
     if reset or "train_correct" not in session:
         session["train_correct"] = 0
@@ -655,6 +669,8 @@ def train():
 
     if mode == "listening":
         display = "🎧"
+    elif mode == "speak":
+        display = filtered[eng]["rus"]
     elif reverse:
         display = filtered[eng]["rus"]
     else:
@@ -680,14 +696,29 @@ def check():
     if not eng or eng not in all_w:
         return jsonify({"status": "error"})
 
-    if mode == "listening":
+    # Определяем правильный ответ
+    if mode in ("listening", "speak"):
         correct_answer = eng.lower()
     elif reverse:
         correct_answer = eng.lower()
     else:
         correct_answer = all_w[eng]["rus"].strip().lower()
 
-    if user_answer == correct_answer:
+    # Для speak — нечёткое сравнение
+    if mode == "speak":
+        sim = similarity_ratio(user_answer, correct_answer)
+        if sim >= 0.8:
+            is_match = "perfect"
+        elif sim >= 0.5:
+            is_match = "close"
+        else:
+            is_match = "wrong"
+    else:
+        is_match = "perfect" if user_answer == correct_answer else "wrong"
+
+    display_correct = eng if (reverse or mode in ("listening", "speak")) else all_w[eng]["rus"]
+
+    if is_match in ("perfect", "close"):
         session["train_correct"] = session.get("train_correct", 0) + 1
         record_training(True, eng)
         new_ach = check_user_achievements(uid)
@@ -695,7 +726,8 @@ def check():
             session["new_achievements"] = new_ach
         return jsonify({
             "status": "correct",
-            "correct_answer": eng if (reverse or mode == "listening") else all_w[eng]["rus"],
+            "match": is_match,
+            "correct_answer": display_correct,
             "correct_count": session["train_correct"],
             "wrong_count": session.get("train_wrong", 0),
         })
@@ -704,7 +736,8 @@ def check():
         record_training(False, eng)
         return jsonify({
             "status": "wrong",
-            "correct_answer": eng if (reverse or mode == "listening") else all_w[eng]["rus"],
+            "match": "wrong",
+            "correct_answer": display_correct,
             "correct_count": session.get("train_correct", 0),
             "wrong_count": session["train_wrong"],
         })
