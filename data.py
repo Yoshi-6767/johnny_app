@@ -213,17 +213,160 @@ IDIOMS = [
 ]
 
 
+# ─── ЛОЖНЫЕ ДРУЗЬЯ ПЕРЕВОДЧИКА ───
+# Слова, которые похожи на русские, но значат другое
+
+FALSE_FRIENDS = [
+    {"word": "magazine", "false_ru": "магазин", "real_ru": "журнал", "example": "I read a magazine."},
+    {"word": "accurate", "false_ru": "аккуратный", "real_ru": "точный", "example": "Accurate data is important."},
+    {"word": "actually", "false_ru": "актуально", "real_ru": "на самом деле", "example": "Actually, I disagree."},
+    {"word": "artist", "false_ru": "артист", "real_ru": "художник", "example": "She is a famous artist."},
+    {"word": "cabinet", "false_ru": "кабинет", "real_ru": "шкаф", "example": "Put it in the cabinet."},
+    {"word": "data", "false_ru": "дата", "real_ru": "данные", "example": "The data is ready."},
+    {"word": "fabric", "false_ru": "фабрика", "real_ru": "ткань", "example": "Soft fabric feels nice."},
+    {"word": "intelligent", "false_ru": "интеллигентный", "real_ru": "умный", "example": "He is intelligent."},
+    {"word": "killer", "false_ru": "киллер", "real_ru": "убийца", "example": "The killer was caught."},
+    {"word": "lunatic", "false_ru": "лунатик", "real_ru": "сумасшедший", "example": "He drives like a lunatic."},
+    {"word": "patron", "false_ru": "патрон", "real_ru": "покровитель, клиент", "example": "He is a regular patron."},
+    {"word": "prospect", "false_ru": "проспект", "real_ru": "перспектива", "example": "Good job prospects."},
+    {"word": "replica", "false_ru": "реплика", "real_ru": "копия", "example": "It's a replica of the painting."},
+    {"word": "spectacles", "false_ru": "спектакль", "real_ru": "очки", "example": "He wears spectacles."},
+    {"word": "sympathy", "false_ru": "симпатия", "real_ru": "сочувствие", "example": "I have sympathy for her."},
+    {"word": "toxic", "false_ru": "токсичный", "real_ru": "ядовитый", "example": "Toxic waste is dangerous."},
+    {"word": "velvet", "false_ru": "вельвет", "real_ru": "бархат", "example": "A velvet dress."},
+    {"word": "warehouse", "false_ru": "варенье", "real_ru": "склад", "example": "The warehouse is full."},
+    {"word": "argument", "false_ru": "аргумент", "real_ru": "спор, ссора", "example": "We had an argument."},
+    {"word": "biscuit", "false_ru": "бисквит", "real_ru": "печенье", "example": "Have a biscuit."},
+    {"word": "brilliant", "false_ru": "бриллиант", "real_ru": "блестящий, гениальный", "example": "A brilliant idea!"},
+    {"word": "clay", "false_ru": "клей", "real_ru": "глина", "example": "Clay is used for pottery."},
+    {"word": "comfort", "false_ru": "комфорт", "real_ru": "утешение, покой", "example": "Words of comfort."},
+    {"word": "complexion", "false_ru": "комплекция", "real_ru": "цвет лица", "example": "A pale complexion."},
+    {"word": "decade", "false_ru": "декада", "real_ru": "десятилетие", "example": "A decade passed."},
+    {"word": "deposition", "false_ru": "депозит", "real_ru": "показания (в суде)", "example": "He gave a deposition."},
+    {"word": "direction", "false_ru": "дирекция", "real_ru": "направление", "example": "Which direction?"},
+    {"word": "diversion", "false_ru": "диверсия", "real_ru": "отвлечение, объезд", "example": "A traffic diversion."},
+    {"word": "exam", "false_ru": "экзамен (так и есть)", "real_ru": "экзамен", "example": "I passed the exam."},
+    {"word": "familiar", "false_ru": "фамильярный", "real_ru": "знакомый", "example": "A familiar face."},
+    {"word": "gallon", "false_ru": "галон", "real_ru": "галлон (мера)", "example": "A gallon of milk."},
+    {"word": "genial", "false_ru": "гениальный", "real_ru": "добродушный", "example": "A genial host."},
+    {"word": "humor", "false_ru": "юмор", "real_ru": "юмор, настроение", "example": "Good sense of humor."},
+    {"word": "insurance", "false_ru": "инсценировка", "real_ru": "страховка", "example": "Car insurance."},
+    {"word": "list", "false_ru": "лист", "real_ru": "список", "example": "Make a list."},
+    {"word": "liquor", "false_ru": "ликёр", "real_ru": "крепкий алкоголь", "example": "He sells liquor."},
+    {"word": "marmalade", "false_ru": "мармелад", "real_ru": "апельсиновое варенье", "example": "Orange marmalade."},
+    {"word": "obligation", "false_ru": "облигация", "real_ru": "обязательство", "example": "A moral obligation."},
+    {"word": "officer", "false_ru": "офицер (так и есть)", "real_ru": "офицер, чиновник", "example": "A police officer."},
+    {"word": "paragraph", "false_ru": "параграф", "real_ru": "абзац", "example": "Read the first paragraph."},
+    {"word": "particular", "false_ru": "партикулярный", "real_ru": "конкретный, особый", "example": "In this particular case."},
+    {"word": "photograph", "false_ru": "фотограф", "real_ru": "фотография", "example": "Take a photograph."},
+    {"word": "principal", "false_ru": "принципал", "real_ru": "главный, директор школы", "example": "The school principal."},
+    {"word": "reception", "false_ru": "рецепция (так и есть)", "real_ru": "приём, стойка", "example": "At the reception."},
+    {"word": "reproduction", "false_ru": "репродукция", "real_ru": "воспроизведение", "example": "Sound reproduction."},
+    {"word": "satin", "false_ru": "сатин", "real_ru": "атлас", "example": "A satin dress."},
+    {"word": "serviette", "false_ru": "серветка", "real_ru": "салфетка", "example": "A paper serviette."},
+    {"word": "speculation", "false_ru": "спекуляция", "real_ru": "предположение", "example": "Pure speculation."},
+    {"word": "tribune", "false_ru": "трибуна", "real_ru": "народный защитник", "example": "A people's tribune."},
+    {"word": "utilize", "false_ru": "утилизировать", "real_ru": "использовать", "example": "Utilize resources."},
+]
+
+
+# ─── СЛЕНГ И РАЗГОВОРНЫЕ ВЫРАЖЕНИЯ ───
+
+SLANG = [
+    {"word": "gonna", "rus": "собираюсь (going to)", "example": "I'm gonna call you."},
+    {"word": "wanna", "rus": "хочу (want to)", "example": "I wanna go home."},
+    {"word": "gotta", "rus": "должен (got to)", "example": "I gotta run."},
+    {"word": "ain't", "rus": "не есть (am/is/are not)", "example": "I ain't ready."},
+    {"word": "dunno", "rus": "не знаю (don't know)", "example": "I dunno, man."},
+    {"word": "kinda", "rus": "вроде (kind of)", "example": "It's kinda cool."},
+    {"word": "sorta", "rus": "типа (sort of)", "example": "I sorta like it."},
+    {"word": "y'all", "rus": "вы все (you all)", "example": "How y'all doing?"},
+    {"word": "cool", "rus": "крутой, классный", "example": "That's cool!"},
+    {"word": "awesome", "rus": "офигенный", "example": "Awesome job!"},
+    {"word": "lit", "rus": "отпад, огонь", "example": "That party was lit."},
+    {"word": "epic", "rus": "эпичный", "example": "An epic fail."},
+    {"word": "chill", "rus": "расслабься, спокойно", "example": "Just chill, man."},
+    {"word": "hang out", "rus": "тусоваться", "example": "Let's hang out."},
+    {"word": "chick", "rus": "девчонка (разг.)", "example": "She's a cool chick."},
+    {"word": "dude", "rus": "чувак", "example": "Hey dude!"},
+    {"word": "bro", "rus": "братан", "example": "What's up, bro?"},
+    {"word": "mate", "rus": "приятель (брит.)", "example": "Alright, mate?"},
+    {"word": "buddy", "rus": "дружок", "example": "Hey buddy!"},
+    {"word": "pal", "rus": "товарищ", "example": "He's my pal."},
+    {"word": "stuff", "rus": "штуки, вещи (разг.)", "example": "Where's my stuff?"},
+    {"word": "thing", "rus": "штука, дело (разг.)", "example": "That thing is cool."},
+    {"word": "guy", "rus": "парень", "example": "That guy is funny."},
+    {"word": "kid", "rus": "ребёнок, парень (разг.)", "example": "That kid is smart."},
+    {"word": "no way", "rus": "да ладно, не может быть", "example": "No way! Really?"},
+    {"word": "shut up", "rus": "заткнись (разг.)", "example": "Shut up, seriously?"},
+    {"word": "my bad", "rus": "моя вина", "example": "My bad, sorry."},
+    {"word": "no worries", "rus": "без проблем", "example": "No worries, mate."},
+    {"word": "you bet", "rus": "конечно", "example": "You bet I will!"},
+    {"word": "what's up", "rus": "чё как, что нового", "example": "What's up, dude?"},
+    {"word": "catch you later", "rus": "до связи", "example": "Catch you later!"},
+    {"word": "hit me up", "rus": "набери меня, пиши", "example": "Hit me up later."},
+    {"word": "bail", "rus": "свалить, отмазаться", "example": "He bailed on us."},
+    {"word": "freak out", "rus": "паниковать, сходить с ума", "example": "Don't freak out!"},
+    {"word": "screw up", "rus": "налажать", "example": "I screwed up."},
+    {"word": "chill out", "rus": "успокойся", "example": "Chill out, bro."},
+    {"word": "knock it off", "rus": "прекрати", "example": "Knock it off!"},
+    {"word": "give a hand", "rus": "помочь", "example": "Give me a hand."},
+    {"word": "not my cup of tea", "rus": "не моё", "example": "Horror is not my cup of tea."},
+    {"word": "piece of cake", "rus": "проще простого", "example": "Easy, piece of cake."},
+]
+
+
 # ─── ФИКСИРОВАННЫЕ ТОПИКИ ───
 
 FIXED_TOPICS = [
-    {"id": "my_day", "title": "My Day", "emoji": "☀️", "helper": ["wake up", "breakfast", "work", "evening", "sleep", "morning", "lunch", "dinner"]},
-    {"id": "my_family", "title": "My Family", "emoji": "👨‍👩‍👧", "helper": ["mother", "father", "brother", "sister", "love", "home", "parents", "children"]},
-    {"id": "my_hobbies", "title": "My Hobbies", "emoji": "🎮", "helper": ["play", "read", "music", "sport", "game", "draw", "sing", "dance"]},
-    {"id": "my_city", "title": "My City", "emoji": "🏙️", "helper": ["street", "park", "shop", "museum", "beautiful", "big", "small", "center"]},
-    {"id": "my_dreams", "title": "My Dreams", "emoji": "💭", "helper": ["want", "future", "travel", "family", "success", "dream", "hope", "believe"]},
-    {"id": "my_job", "title": "My Job", "emoji": "💼", "helper": ["office", "boss", "meeting", "colleague", "task", "project", "career", "salary"]},
-    {"id": "my_travels", "title": "My Travels", "emoji": "✈️", "helper": ["airport", "ticket", "hotel", "luggage", "passport", "flight", "beach", "tourist"]},
-    {"id": "my_food", "title": "My Food", "emoji": "🍕", "helper": ["breakfast", "lunch", "dinner", "tasty", "cook", "restaurant", "hungry", "delicious"]},
-    {"id": "my_health", "title": "My Health", "emoji": "💪", "helper": ["sport", "gym", "doctor", "healthy", "sleep", "water", "vitamins", "energy"]},
-    {"id": "my_future", "title": "My Future", "emoji": "🚀", "helper": ["career", "family", "travel", "success", "dream", "plan", "goal", "achieve"]},
+    {
+        "id": "my_day", "title": "My Day", "emoji": "☀️",
+        "helper": ["wake up", "breakfast", "work", "evening", "sleep", "morning", "lunch", "dinner"],
+        "example": "I wake up at 7 in the morning. I have breakfast and go to work. In the afternoon I have lunch with my colleagues. In the evening I come home, have dinner and watch TV. I go to bed at 11 pm. My day is busy but I like it."
+    },
+    {
+        "id": "my_family", "title": "My Family", "emoji": "👨‍👩‍👧",
+        "helper": ["mother", "father", "brother", "sister", "love", "home", "parents", "children"],
+        "example": "My family is not very big. I have a mother, a father and a younger sister. We live together in a flat. My mother is a doctor and my father is an engineer. We love each other and spend a lot of time together. On weekends we go for a walk or watch films."
+    },
+    {
+        "id": "my_hobbies", "title": "My Hobbies", "emoji": "🎮",
+        "helper": ["play", "read", "music", "sport", "game", "draw", "sing", "dance"],
+        "example": "I have several hobbies. I like to read books and play computer games. In summer I ride a bike and swim in the lake. I also listen to music every day. Music helps me relax after a long day. My favourite hobby is reading, because it opens new worlds."
+    },
+    {
+        "id": "my_city", "title": "My City", "emoji": "🏙️",
+        "helper": ["street", "park", "shop", "museum", "beautiful", "big", "small", "center"],
+        "example": "I live in a big city. There are many streets, parks and shops. In the city centre you can find museums and theatres. My favourite place is the central park. I like to walk there with my friends. The city is beautiful, especially at night with all the lights."
+    },
+    {
+        "id": "my_dreams", "title": "My Dreams", "emoji": "💭",
+        "helper": ["want", "future", "travel", "family", "success", "dream", "hope", "believe"],
+        "example": "I have many dreams. I want to travel around the world and see new places. In the future I hope to have a big family and a good job. I believe that if you work hard, your dreams come true. My biggest dream is to visit Japan. I hope one day it will happen."
+    },
+    {
+        "id": "my_job", "title": "My Job", "emoji": "💼",
+        "helper": ["office", "boss", "meeting", "colleague", "task", "project", "career", "salary"],
+        "example": "I work in an office. My job starts at 9 and ends at 6. I have meetings with my colleagues and work on different projects. My boss is strict but fair. I like my career because I learn new things every day. The salary is good and I can save money for my dreams."
+    },
+    {
+        "id": "my_travels", "title": "My Travels", "emoji": "✈️",
+        "helper": ["airport", "ticket", "hotel", "luggage", "passport", "flight", "beach", "tourist"],
+        "example": "I love to travel. Last summer I went to the sea. I bought a ticket, packed my luggage and went to the airport. The flight was long but exciting. I stayed in a nice hotel near the beach. I met other tourists and tried local food. It was an amazing trip."
+    },
+    {
+        "id": "my_food", "title": "My Food", "emoji": "🍕",
+        "helper": ["breakfast", "lunch", "dinner", "tasty", "cook", "restaurant", "hungry", "delicious"],
+        "example": "I like tasty food. For breakfast I usually have eggs and coffee. For lunch I eat soup or salad. In the evening I cook dinner with my family. My favourite dish is pizza, but I also like healthy food like vegetables and fruit. Sometimes we go to a restaurant on weekends."
+    },
+    {
+        "id": "my_health", "title": "My Health", "emoji": "💪",
+        "helper": ["sport", "gym", "doctor", "healthy", "sleep", "water", "vitamins", "energy"],
+        "example": "I try to stay healthy. I go to the gym three times a week. I eat vegetables and drink a lot of water. I sleep eight hours every night. When I feel sick, I go to the doctor. I also take vitamins in winter. Sport gives me energy and good mood."
+    },
+    {
+        "id": "my_future", "title": "My Future", "emoji": "🚀",
+        "helper": ["career", "family", "travel", "success", "dream", "plan", "goal", "achieve"],
+        "example": "In the future I want to achieve many goals. I plan to build a good career and start a family. I also want to travel and see different countries. My biggest goal is to open my own business. I know it will not be easy, but I believe in myself and work hard every day."
+    },
 ]
