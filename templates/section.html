@@ -93,6 +93,20 @@
         background: #ff9800;
         color: #fff;
     }
+    .actions button.btn-speak {
+        background: var(--bg-subtle);
+        color: var(--accent);
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+    .actions button.btn-speak:hover {
+        background: var(--accent);
+        color: #fff;
+        transform: scale(1.1);
+    }
 </style>
 {% endblock %}
 
@@ -131,6 +145,7 @@
         <li class="{% if w.learned %}learned{% endif %}" data-word="{{ w.eng }}">
             <span class="word-text">{{ w.eng }} → {{ w.rus }}</span>
             <div class="actions">
+                <button class="btn-speak" onclick="speak('{{ w.eng }}')" title="Послушать">🔊</button>
                 {% if w.learned %}
                     <button class="btn-unlearn" onclick="unlearnWord('{{ w.eng }}')">⬜ Снять</button>
                 {% else %}
