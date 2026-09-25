@@ -214,7 +214,6 @@ IDIOMS = [
 
 
 # ─── ЛОЖНЫЕ ДРУЗЬЯ ПЕРЕВОДЧИКА ───
-# Слова, которые похожи на русские, но значат другое
 
 FALSE_FRIENDS = [
     {"word": "magazine", "false_ru": "магазин", "real_ru": "журнал", "example": "I read a magazine."},
@@ -369,14 +368,10 @@ FIXED_TOPICS = [
         "helper": ["career", "family", "travel", "success", "dream", "plan", "goal", "achieve"],
         "example": "In the future I want to achieve many goals. I plan to build a good career and start a family. I also want to travel and see different countries. My biggest goal is to open my own business. I know it will not be easy, but I believe in myself and work hard every day."
     },
-        "example": "In the future I want to achieve many goals. ..."
-    },
 ]
 
 
 # ─── ДИАЛОГИ ───
-# Каждый диалог: id, title, emoji, level, characters (имена ролей), lines (массив реплик)
-# line = {"who": "a" или "b", "text": "...", "rus": "..."}
 
 DIALOGUES = [
     {
