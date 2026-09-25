@@ -1,0 +1,414 @@
+{% extends "base.html" %}
+
+{% block title %}{{ dialogue.title }} — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .dialogue-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+    }
+    .dialogue-header .emoji { font-size: 56px; }
+    .dialogue-header h1 { margin: 0; }
+    .dialogue-header .level {
+        background: var(--bg-subtle);
+        color: var(--accent);
+        padding: 4px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    /* ВЫБОР РОЛИ */
+    .role-picker {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 22px 25px;
+        margin-bottom: 25px;
+    }
+    .role-picker-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 15px;
+    }
+    .role-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .role-btn {
+        flex: 1;
+        min-width: 150px;
+        padding: 16px 20px;
+        background: var(--bg-card);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        color: var(--text);
+        font-family: 'Rubik', sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+    }
+    .role-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+    .role-btn.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+    }
+    .role-btn .role-label {
+        display: block;
+        font-size: 12px;
+        opacity: 0.7;
+        margin-bottom: 4px;
+        font-weight: 400;
+    }
+
+    /* ДИАЛОГ */
+    .dialogue-body {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 25px;
+        margin-bottom: 25px;
+    }
+    .line {
+        display: flex;
+        gap: 15px;
+        padding: 15px 18px;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        transition: all 0.3s;
+        border: 2px solid transparent;
+    }
+    .line:last-child { margin-bottom: 0; }
+    .line.role-a { background: rgba(33, 150, 243, 0.05); }
+    .line.role-b { background: rgba(156, 39, 176, 0.05); }
+    .line.active-role {
+        border-color: var(--accent);
+        background: var(--bg-subtle);
+        transform: scale(1.01);
+    }
+    .line.dimmed {
+        opacity: 0.45;
+    }
+    .line-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 16px;
+        color: #fff;
+        flex-shrink: 0;
+    }
+    .role-a .line-avatar { background: #2196f3; }
+    .role-b .line-avatar { background: #9c27b0; }
+    .line-content {
+        flex: 1;
+        min-width: 0;
+    }
+    .line-name {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-sub);
+        margin-bottom: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+    .line-name .speak-line {
+        background: var(--bg-subtle);
+        color: var(--accent);
+        border: none;
+        padding: 3px 9px;
+        border-radius: 6px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .line-name .speak-line:hover {
+        background: var(--accent);
+        color: #fff;
+    }
+    .line-text {
+        font-size: 16px;
+        color: var(--text);
+        line-height: 1.5;
+        margin-bottom: 4px;
+        font-weight: 500;
+    }
+    .line-rus {
+        font-size: 13px;
+        color: var(--text-sub);
+        font-style: italic;
+    }
+
+    /* КНОПКИ ДЕЙСТВИЙ */
+    .dialogue-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+    }
+    .dialogue-actions button, .dialogue-actions a {
+        flex: 1;
+        min-width: 180px;
+        padding: 16px 22px;
+        border-radius: 12px;
+        font-family: 'Rubik', sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+    }
+    .btn-play-all {
+        background: var(--accent);
+        color: #fff;
+    }
+    .btn-play-all:hover { background: var(--accent-dark); }
+    .btn-play-all:disabled {
+        background: var(--border);
+        color: var(--text-muted);
+        cursor: not-allowed;
+    }
+    .btn-stop {
+        background: #f44336;
+        color: #fff;
+    }
+    .btn-stop:hover { background: #d32f2f; }
+    .btn-back {
+        background: var(--bg-card);
+        color: var(--accent);
+        border: 2px solid var(--accent);
+    }
+    .btn-back:hover { background: var(--accent); color: #fff; }
+
+    /* СЛОВА-ПОМОЩНИКИ */
+    .vocab-box {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 22px 25px;
+    }
+    .vocab-box h3 {
+        font-size: 16px;
+        color: var(--text);
+        margin-bottom: 15px;
+    }
+    .vocab-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .vocab-chip {
+        background: var(--bg-subtle);
+        color: var(--accent);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s;
+        border: 1px solid transparent;
+    }
+    .vocab-chip:hover {
+        background: var(--accent);
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    .speaking-now {
+        text-align: center;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 15px;
+        margin: 15px 0;
+        min-height: 22px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dialogue-header">
+    <div class="emoji">{{ dialogue.emoji }}</div>
+    <h1>{{ dialogue.title }}</h1>
+    <span class="level">{{ dialogue.level }}</span>
+</div>
+
+<div class="role-picker">
+    <div class="role-picker-title">🎭 Выбери свою роль:</div>
+    <div class="role-buttons">
+        <button class="role-btn" data-role="a" onclick="setRole('a')">
+            <span class="role-label">Role A</span>
+            {{ dialogue.characters.a }}
+        </button>
+        <button class="role-btn" data-role="b" onclick="setRole('b')">
+            <span class="role-label">Role B</span>
+            {{ dialogue.characters.b }}
+        </button>
+    </div>
+</div>
+
+<div class="speaking-now" id="speakingNow"></div>
+
+<div class="dialogue-body" id="dialogueBody">
+    {% for line in dialogue.lines %}
+    <div class="line role-{{ line.who }}" data-who="{{ line.who }}" data-text="{{ line.text }}">
+        <div class="line-avatar">
+            {% if line.who == 'a' %}{{ dialogue.characters.a[0]|upper }}{% else %}{{ dialogue.characters.b[0]|upper }}{% endif %}
+        </div>
+        <div class="line-content">
+            <div class="line-name">
+                <span>{% if line.who == 'a' %}{{ dialogue.characters.a }}{% else %}{{ dialogue.characters.b }}{% endif %}</span>
+                <button class="speak-line" onclick="speakLine('{{ line.text|replace("'", "\\'") }}')">🔊</button>
+            </div>
+            <div class="line-text">{{ line.text }}</div>
+            <div class="line-rus">{{ line.rus }}</div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="dialogue-actions">
+    <button class="btn-play-all" id="btnPlayAll" onclick="playAll()">🔊 Прослушать весь диалог</button>
+    <button class="btn-stop" id="btnStop" onclick="stopAll()" style="display: none;">⏹️ Остановить</button>
+    <a href="/dialogues" class="btn-back">⬅️ К диалогам</a>
+</div>
+
+<div class="vocab-box">
+    <h3>💡 Слова и фразы из диалога (клик → послушать)</h3>
+    <div class="vocab-chips" id="vocabChips"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const dialogueLines = [
+        {% for line in dialogue.lines %}
+        { who: "{{ line.who }}", text: "{{ line.text|replace('"', '\\"') }}" },
+        {% endfor %}
+    ];
+
+    let currentRole = null;
+    let playQueue = [];
+    let isPlaying = false;
+
+    // ═══ ВЫБОР РОЛИ ═══
+    function setRole(role) {
+        currentRole = role;
+        document.querySelectorAll(".role-btn").forEach(btn => {
+            btn.classList.toggle("active", btn.dataset.role === role);
+        });
+        // Подсвечиваем свои реплики
+        document.querySelectorAll(".line").forEach(line => {
+            const who = line.dataset.who;
+            line.classList.remove("active-role", "dimmed");
+            if (who === role) {
+                line.classList.add("active-role");
+            } else {
+                line.classList.add("dimmed");
+            }
+        });
+        const roleName = role === "a" ? "{{ dialogue.characters.a }}" : "{{ dialogue.characters.b }}";
+        document.getElementById("speakingNow").textContent = "🎭 Ты играешь роль: " + roleName;
+    }
+
+    // ═══ ОЗВУЧКА ОДНОЙ РЕПЛИКИ ═══
+    function speakLine(text) {
+        if (window.speak) window.speak(text);
+    }
+
+    // ═══ ОЗВУЧКА ВСЕГО ДИАЛОГА ═══
+    function playAll() {
+        if (!window.speak || !window.FW_SPEECH_SUPPORTED) {
+            alert("Озвучка не поддерживается в этом браузере. Попробуй Chrome.");
+            return;
+        }
+        if (isPlaying) return;
+        isPlaying = true;
+        document.getElementById("btnPlayAll").style.display = "none";
+        document.getElementById("btnStop").style.display = "inline-block";
+
+        let i = 0;
+        const speakNext = () => {
+            if (!isPlaying || i >= dialogueLines.length) {
+                stopAll();
+                return;
+            }
+            const line = dialogueLines[i];
+            const name = line.who === "a" ? "{{ dialogue.characters.a }}" : "{{ dialogue.characters.b }}";
+            document.getElementById("speakingNow").textContent = "🔊 Говорит: " + name;
+
+            // Подсвечиваем текущую реплику
+            document.querySelectorAll(".line").forEach(l => l.style.transform = "");
+            const currentLine = document.querySelector('.line[data-text="' + line.text.replace(/"/g, '\\"') + '"]');
+            if (currentLine) currentLine.style.transform = "scale(1.03)";
+
+            if (!window.FW_SPEECH_SUPPORTED) {
+                stopAll();
+                return;
+            }
+
+            const utter = new SpeechSynthesisUtterance(line.text);
+            const settings = window.getAudioSettings ? window.getAudioSettings() : { accent: 'us', rate: 0.9 };
+            utter.lang = settings.accent === 'uk' ? 'en-GB' : 'en-US';
+            utter.rate = settings.rate;
+
+            utter.onend = () => {
+                i++;
+                setTimeout(speakNext, 600);  // пауза между репликами
+            };
+            utter.onerror = () => {
+                stopAll();
+            };
+
+            window.speechSynthesis.speak(utter);
+        };
+        speakNext();
+    }
+
+    function stopAll() {
+        isPlaying = false;
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+        document.getElementById("btnPlayAll").style.display = "inline-block";
+        document.getElementById("btnStop").style.display = "none";
+        document.getElementById("speakingNow").textContent = currentRole ? "🎭 Ты играешь роль: " + (currentRole === "a" ? "{{ dialogue.characters.a }}" : "{{ dialogue.characters.b }}") : "";
+        document.querySelectorAll(".line").forEach(l => l.style.transform = "");
+    }
+
+    // ═══ СЛОВА-ПОМОЩНИКИ (уникальные слова из диалога) ═══
+    (function buildVocab() {
+        const allText = dialogueLines.map(l => l.text).join(" ");
+        const words = allText
+            .toLowerCase()
+            .replace(/[.,!?;:]/g, "")
+            .split(/\s+/)
+            .filter(w => w.length >= 3);
+        const unique = [...new Set(words)].slice(0, 20);
+        const container = document.getElementById("vocabChips");
+        unique.forEach(w => {
+            const chip = document.createElement("span");
+            chip.className = "vocab-chip";
+            chip.textContent = w;
+            chip.onclick = () => { if (window.speak) window.speak(w); };
+            container.appendChild(chip);
+        });
+    })();
+</script>
+{% endblock %}
