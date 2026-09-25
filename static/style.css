@@ -729,6 +729,22 @@ li:hover {
     padding: 12px 15px;
     border-radius: 10px;
 }
+
+    .btn-speak-inline {
+        background: var(--bg-subtle);
+        color: var(--accent);
+        border: none;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-left: 6px;
+        transition: all 0.2s;
+    }
+    .btn-speak-inline:hover {
+        background: var(--accent);
+        color: #fff;
+    }
 .ach-modal-item-emoji { font-size: 28px; }
 .ach-modal-item-title { font-weight: 700; color: var(--text); font-size: 15px; }
 .ach-modal-item-desc { font-size: 13px; color: var(--text-sub); margin-top: 2px; }
