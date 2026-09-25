@@ -1,153 +1,134 @@
-{% extends "base.html" %}
+from datetime import date, timedelta
+from models import db, Achievement, LearnedWord, SectionExam
 
-{% block title %}Достижения — Flow & Word{% endblock %}
+# ─── СПИСОК АЧИВОК ───
+# category: streak / words / learned / exams / games / study / topics / phrases / special
+# tier: bronze / silver / gold
 
-{% block styles %}
-<style>
-    .ach-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-bottom: 25px;
-    }
-    .ach-progress {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 20px 25px;
-        margin-bottom: 30px;
-    }
-    .ach-progress-text {
-        display: flex;
-        justify-content: space-between;
-        font-size: 14px;
-        color: var(--text-sub);
-        margin-bottom: 10px;
-        font-weight: 600;
-    }
-    .ach-progress-bar {
-        height: 12px;
-        background: var(--border);
-        border-radius: 6px;
-        overflow: hidden;
-    }
-    .ach-progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, var(--accent), var(--accent-dark));
-        border-radius: 6px;
-        transition: width 0.5s ease;
-    }
-    .ach-category {
-        margin-bottom: 35px;
-    }
-    .ach-category-title {
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--text);
-        margin-bottom: 15px;
-    }
-    .ach-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 15px;
-    }
-    .ach-card {
-        background: var(--bg-card);
-        border: 2px solid var(--border);
-        border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        transition: all 0.2s;
-        position: relative;
-    }
-    .ach-card.unlocked {
-        border-color: #4caf50;
-        background: linear-gradient(135deg, var(--bg-card), #f1f8e9);
-    }
-    .ach-card.unlocked.bronze { border-color: #cd7f32; background: linear-gradient(135deg, var(--bg-card), #fdf3e8); }
-    .ach-card.unlocked.silver { border-color: #b0bec5; background: linear-gradient(135deg, var(--bg-card), #f0f4f7); }
-    .ach-card.unlocked.gold { border-color: #ffc107; background: linear-gradient(135deg, var(--bg-card), #fff8e1); }
-    .ach-card.locked {
-        opacity: 0.55;
-    }
-    .ach-card-emoji {
-        font-size: 42px;
-        margin-bottom: 10px;
-        filter: grayscale(1);
-    }
-    .ach-card.unlocked .ach-card-emoji {
-        filter: none;
-    }
-    .ach-card-title {
-        font-size: 15px;
-        font-weight: 700;
-        color: var(--text);
-        margin-bottom: 6px;
-    }
-    .ach-card-desc {
-        font-size: 13px;
-        color: var(--text-sub);
-        line-height: 1.4;
-    }
-    .ach-card-lock {
-        position: absolute;
-        top: 10px;
-        right: 12px;
-        font-size: 16px;
-        color: var(--text-muted);
-    }
-    .ach-card.unlocked .ach-card-lock {
-        display: none;
-    }
-</style>
-{% endblock %}
+ACHIEVEMENTS = [
+    # 🔥 СТРИК
+    {"code": "streak_1",   "title": "Первый шаг",        "desc": "Заходил 1 день", "emoji": "🌱", "category": "streak", "tier": "bronze"},
+    {"code": "streak_3",   "title": "Разогрев",          "desc": "3 дня подряд",  "emoji": "🔥", "category": "streak", "tier": "bronze"},
+    {"code": "streak_7",   "title": "Неделя огня",       "desc": "7 дней подряд",  "emoji": "⚡", "category": "streak", "tier": "silver"},
+    {"code": "streak_14",  "title": "Две недели",        "desc": "14 дней подряд", "emoji": "💪", "category": "streak", "tier": "silver"},
+    {"code": "streak_30",  "title": "Месяц дисциплины",  "desc": "30 дней подряд", "emoji": "👑", "category": "streak", "tier": "gold"},
 
-{% block content %}
-<div class="ach-header">
-    <div>
-        <h1>🏆 Достижения</h1>
-        <div class="subtitle">Открыто: {{ unlocked_count }} из {{ total }}</div>
-    </div>
-    <a href="/goals" class="btn-outline">🎯 Мои цели</a>
-</div>
+    # 📚 СВОИ СЛОВА
+    {"code": "words_1",    "title": "Первое слово",      "desc": "Добавил 1 своё слово", "emoji": "✍️", "category": "words", "tier": "bronze"},
+    {"code": "words_10",   "title": "Десятка",           "desc": "Добавил 10 своих слов", "emoji": "📖", "category": "words", "tier": "bronze"},
+    {"code": "words_50",   "title": "Полтинник",         "desc": "Добавил 50 своих слов", "emoji": "📚", "category": "words", "tier": "silver"},
+    {"code": "words_100",  "title": "Сотка",             "desc": "Добавил 100 своих слов", "emoji": "🎯", "category": "words", "tier": "gold"},
 
-<div class="ach-progress">
-    <div class="ach-progress-text">
-        <span>Прогресс</span>
-        <span>{{ unlocked_count }} / {{ total }}</span>
-    </div>
-    <div class="ach-progress-bar">
-        <div class="ach-progress-fill" style="width: {{ (unlocked_count / total * 100) if total > 0 else 0 }}%"></div>
-    </div>
-</div>
+    # 🧠 ВЫУЧЕНО (learned)
+    {"code": "learned_10",  "title": "Первые 10",        "desc": "Выучил 10 слов", "emoji": "💯", "category": "learned", "tier": "bronze"},
+    {"code": "learned_50",  "title": "Пятьдесят",        "desc": "Выучил 50 слов", "emoji": "🧠", "category": "learned", "tier": "silver"},
+    {"code": "learned_100", "title": "Сто выучено",      "desc": "Выучил 100 слов", "emoji": "🎓", "category": "learned", "tier": "gold"},
 
-{% set category_names = {
-    "streak": "🔥 Стрик",
-    "words": "📚 Свои слова",
-    "learned": "🧠 Выучено",
-    "exams": "🎓 Экзамены",
-    "games": "🎮 Игры",
-    "study": "📖 Учёба",
-    "topics": "📝 Топики",
-    "phrases": "💬 Фразы",
-    "special": "🌟 Особые"
-} %}
+    # 🎓 ЭКЗАМЕНЫ ПО КАТЕГОРИЯМ
+    {"code": "exam_1",   "title": "Первый экзамен",      "desc": "Сдал 1 категорию", "emoji": "🎓", "category": "exams", "tier": "bronze"},
+    {"code": "exam_5",   "title": "Пятёрка",             "desc": "Сдал 5 категорий", "emoji": "🏅", "category": "exams", "tier": "silver"},
+    {"code": "exam_10",  "title": "Десятка экзаменов",   "desc": "Сдал 10 категорий", "emoji": "👑", "category": "exams", "tier": "gold"},
 
-{% for cat_key, cat_list in categories.items() %}
-<div class="ach-category">
-    <div class="ach-category-title">{{ category_names.get(cat_key, cat_key) }}</div>
-    <div class="ach-grid">
-        {% for a in cat_list %}
-        <div class="ach-card {% if a.unlocked %}unlocked {{ a.tier }}{% else %}locked{% endif %}">
-            {% if not a.unlocked %}<div class="ach-card-lock">🔒</div>{% endif %}
-            <div class="ach-card-emoji">{{ a.emoji }}</div>
-            <div class="ach-card-title">{{ a.title }}</div>
-            <div class="ach-card-desc">{{ a.desc }}</div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-{% endfor %}
-{% endblock %}
+    # 🎮 ИГРЫ
+    {"code": "game_hangman_win",   "title": "Палач",        "desc": "Выиграл в Виселицу", "emoji": "🪢", "category": "games", "tier": "bronze"},
+    {"code": "game_quiz_10",       "title": "Знаток",       "desc": "10/10 в Квизе", "emoji": "❓", "category": "games", "tier": "silver"},
+    {"code": "game_speed_10",      "title": "Скоростной",   "desc": "10/10 в Скоростном", "emoji": "⚡", "category": "games", "tier": "silver"},
+    {"code": "game_listening_10",  "title": "Слухач",       "desc": "10/10 в Аудио-квизе", "emoji": "🎧", "category": "games", "tier": "silver"},
+
+    # 📖 УЧЁБА
+    {"code": "study_irregular",  "title": "Знаток глаголов", "desc": "20+ правильных в глаголах", "emoji": "🔤", "category": "study", "tier": "silver"},
+    {"code": "study_all",        "title": "Книжный червь",   "desc": "Открыл все 3 раздела учёбы", "emoji": "📚", "category": "study", "tier": "bronze"},
+
+    # 📝 ТОПИКИ
+    {"code": "topic_1",   "title": "Первый топик",       "desc": "Написал 1 топик", "emoji": "✏️", "category": "topics", "tier": "bronze"},
+    {"code": "topic_5",   "title": "Пять топиков",       "desc": "Написал 5 топиков", "emoji": "📝", "category": "topics", "tier": "silver"},
+    {"code": "topic_10",  "title": "Десять топиков",     "desc": "Написал 10 топиков", "emoji": "✍️", "category": "topics", "tier": "gold"},
+    {"code": "exam_text_1","title": "Письменный экзамен","desc": "Сдал первый экзамен-текст", "emoji": "🎓", "category": "topics", "tier": "bronze"},
+
+    # 💬 ФРАЗЫ
+    {"code": "phrase_1",   "title": "Первая фраза",      "desc": "Добавил 1 фразу", "emoji": "💬", "category": "phrases", "tier": "bronze"},
+    {"code": "phrase_10",  "title": "Десятка фраз",      "desc": "Добавил 10 фраз", "emoji": "🗣️", "category": "phrases", "tier": "silver"},
+
+    # 🌟 ОСОБЫЕ
+    {"code": "special_sniper",  "title": "Снайпер",       "desc": "20 правильных подряд без ошибок", "emoji": "🎯", "category": "special", "tier": "gold"},
+    {"code": "special_early",   "title": "Ранняя пташка", "desc": "Зашёл до 7 утра", "emoji": "⏰", "category": "special", "tier": "bronze"},
+]
+
+
+def get_achievement(code):
+    return next((a for a in ACHIEVEMENTS if a["code"] == code), None)
+
+
+def get_unlocked_codes(user_id):
+    rows = Achievement.query.filter_by(user_id=user_id).all()
+    return {r.code for r in rows}
+
+
+def unlock(user_id, code):
+    """Открывает ачивку, если ещё не открыта. Возвращает True, если только что открыли."""
+    exists = Achievement.query.filter_by(user_id=user_id, code=code).first()
+    if exists:
+        return False
+    db.session.add(Achievement(user_id=user_id, code=code))
+    return True
+
+
+# ─── ПРОВЕРКИ ───
+
+def check_all(user_id, progress, general_words_count, phrases_count, topics_done,
+              exams_count, learned_count, games_stats, study_stats):
+    """Проверяет все ачивки и возвращает список новых (которые открылись сейчас).
+       Вызывается после ключевых действий."""
+    newly = []
+
+    # СТРИК
+    streak = progress.get("streak", 0)
+    if streak >= 1 and unlock(user_id, "streak_1"):   newly.append("streak_1")
+    if streak >= 3 and unlock(user_id, "streak_3"):   newly.append("streak_3")
+    if streak >= 7 and unlock(user_id, "streak_7"):   newly.append("streak_7")
+    if streak >= 14 and unlock(user_id, "streak_14"): newly.append("streak_14")
+    if streak >= 30 and unlock(user_id, "streak_30"): newly.append("streak_30")
+
+    # СВОИ СЛОВА
+    if general_words_count >= 1 and unlock(user_id, "words_1"):     newly.append("words_1")
+    if general_words_count >= 10 and unlock(user_id, "words_10"):   newly.append("words_10")
+    if general_words_count >= 50 and unlock(user_id, "words_50"):   newly.append("words_50")
+    if general_words_count >= 100 and unlock(user_id, "words_100"): newly.append("words_100")
+
+    # LEARNED
+    if learned_count >= 10 and unlock(user_id, "learned_10"):   newly.append("learned_10")
+    if learned_count >= 50 and unlock(user_id, "learned_50"):   newly.append("learned_50")
+    if learned_count >= 100 and unlock(user_id, "learned_100"): newly.append("learned_100")
+
+    # ЭКЗАМЕНЫ
+    if exams_count >= 1 and unlock(user_id, "exam_1"):   newly.append("exam_1")
+    if exams_count >= 5 and unlock(user_id, "exam_5"):   newly.append("exam_5")
+    if exams_count >= 10 and unlock(user_id, "exam_10"): newly.append("exam_10")
+
+    # ИГРЫ
+    if games_stats.get("hangman_win") and unlock(user_id, "game_hangman_win"): newly.append("game_hangman_win")
+    if games_stats.get("quiz_10") and unlock(user_id, "game_quiz_10"):         newly.append("game_quiz_10")
+    if games_stats.get("speed_10") and unlock(user_id, "game_speed_10"):       newly.append("game_speed_10")
+    if games_stats.get("listening_10") and unlock(user_id, "game_listening_10"): newly.append("game_listening_10")
+
+    # УЧЁБА
+    if study_stats.get("irregular_score", 0) >= 20 and unlock(user_id, "study_irregular"): newly.append("study_irregular")
+    if study_stats.get("all_sections_visited") and unlock(user_id, "study_all"):          newly.append("study_all")
+
+    # ТОПИКИ
+    if topics_done >= 1 and unlock(user_id, "topic_1"):   newly.append("topic_1")
+    if topics_done >= 5 and unlock(user_id, "topic_5"):   newly.append("topic_5")
+    if topics_done >= 10 and unlock(user_id, "topic_10"): newly.append("topic_10")
+
+    # ФРАЗЫ
+    if phrases_count >= 1 and unlock(user_id, "phrase_1"):   newly.append("phrase_1")
+    if phrases_count >= 10 and unlock(user_id, "phrase_10"): newly.append("phrase_10")
+
+    # ОСОБЫЕ
+    if progress.get("correct_streak_global", 0) >= 20 and unlock(user_id, "special_sniper"): newly.append("special_sniper")
+    # Ранняя пташка — проверяется отдельно, при логине/заходе
+    from datetime import datetime
+    if datetime.now().hour < 7 and unlock(user_id, "special_early"): newly.append("special_early")
+
+    db.session.commit()
+    return newly
