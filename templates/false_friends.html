@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block title %}Ложные друзья — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .info-banner {
+        background: var(--bg-subtle);
+        border-left: 4px solid var(--accent);
+        padding: 18px 22px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        color: var(--text);
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    .info-banner strong { color: var(--accent); }
+
+    .ff-search {
+        margin-bottom: 25px;
+    }
+    .ff-search input {
+        width: 100%;
+        padding: 14px 18px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: var(--text);
+        font-size: 15px;
+        font-family: 'Rubik', sans-serif;
+        outline: none;
+    }
+    .ff-search input:focus { border-color: var(--accent); }
+
+    .ff-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--bg-card);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        margin-bottom: 30px;
+    }
+    .ff-table th {
+        background: var(--accent);
+        color: #fff;
+        padding: 15px;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .ff-table td {
+        padding: 15px;
+        border-bottom: 1px solid var(--border-soft);
+        font-size: 15px;
+        color: var(--text);
+    }
+    .ff-table tr:last-child td { border-bottom: none; }
+    .ff-table tr:hover td { background: var(--bg-hover); }
+    .ff-word { font-weight: 700; color: var(--accent); }
+    .ff-wrong { color: #f44336; }
+    .ff-right { color: #4caf50; font-weight: 600; }
+    .ff-example { color: var(--text-sub); font-style: italic; font-size: 14px; }
+
+    .cards-section-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 15px;
+        margin-top: 30px;
+    }
+
+    .ff-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 15px;
+    }
+    .ff-card {
+        background: var(--bg-card);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        transition: all 0.2s;
+    }
+    .ff-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+    }
+    .ff-card-word {
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--accent);
+        margin-bottom: 12px;
+    }
+    .ff-card-row {
+        font-size: 14px;
+        margin-bottom: 8px;
+        color: var(--text);
+    }
+    .ff-card-row .label {
+        color: var(--text-sub);
+        font-size: 13px;
+        margin-right: 5px;
+    }
+    .ff-card-row.wrong .value { color: #f44336; text-decoration: line-through; }
+    .ff-card-row.right .value { color: #4caf50; font-weight: 700; }
+    .ff-card-example {
+        font-size: 13px;
+        color: var(--text-sub);
+        font-style: italic;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border-soft);
+    }
+
+    .view-switch {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    .view-switch button {
+        padding: 10px 22px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        color: var(--text-sub);
+        font-size: 14px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .view-switch button.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+    }
+    .view-switch button:hover:not(.active) {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>🎭 Ложные друзья переводчика</h1>
+<div class="subtitle">Всего: {{ friends|length }} слов-ловушек</div>
+
+<div class="info-banner">
+    <strong>Что это?</strong> Это слова, которые <strong>похожи на русские</strong>, но значат <strong>совсем другое</strong>.
+    Например, <code>magazine</code> — не «магазин», а «журнал». Такие слова часто путают — наша задача их запомнить.
+</div>
+
+<div class="view-switch">
+    <button id="btn-table" class="active" onclick="switchView('table')">📋 Таблица</button>
+    <button id="btn-cards" onclick="switchView('cards')">🗂️ Карточки</button>
+</div>
+
+<div class="ff-search">
+    <input id="search" placeholder="🔍 Поиск по слову..." oninput="filterItems()">
+</div>
+
+<div id="view-table">
+    <table class="ff-table">
+        <thead>
+            <tr>
+                <th>Слово</th>
+                <th>Как думают 🇷🇺</th>
+                <th>Реально значит ✅</th>
+                <th>Пример</th>
+            </tr>
+        </thead>
+        <tbody id="ff-body">
+            {% for f in friends %}
+            <tr data-word="{{ f.word }} {{ f.false_ru }} {{ f.real_ru }}">
+                <td class="ff-word">{{ f.word }}</td>
+                <td class="ff-wrong">{{ f.false_ru }}</td>
+                <td class="ff-right">{{ f.real_ru }}</td>
+                <td class="ff-example">{{ f.example }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div id="view-cards" style="display: none;">
+    <div class="ff-cards" id="ff-cards">
+        {% for f in friends %}
+        <div class="ff-card" data-word="{{ f.word }} {{ f.false_ru }} {{ f.real_ru }}">
+            <div class="ff-card-word">{{ f.word }}</div>
+            <div class="ff-card-row wrong">
+                <span class="label">Как думают:</span>
+                <span class="value">{{ f.false_ru }}</span>
+            </div>
+            <div class="ff-card-row right">
+                <span class="label">Реально:</span>
+                <span class="value">{{ f.real_ru }}</span>
+            </div>
+            <div class="ff-card-example">«{{ f.example }}»</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function switchView(mode) {
+        document.getElementById("view-table").style.display = (mode === "table") ? "block" : "none";
+        document.getElementById("view-cards").style.display = (mode === "cards") ? "block" : "none";
+        document.getElementById("btn-table").classList.toggle("active", mode === "table");
+        document.getElementById("btn-cards").classList.toggle("active", mode === "cards");
+        filterItems();
+    }
+
+    function filterItems() {
+        const query = document.getElementById("search").value.toLowerCase();
+        document.querySelectorAll("#ff-body tr").forEach(row => {
+            const text = row.dataset.word.toLowerCase();
+            row.style.display = text.includes(query) ? "table-row" : "none";
+        });
+        document.querySelectorAll("#ff-cards .ff-card").forEach(card => {
+            const text = card.dataset.word.toLowerCase();
+            card.style.display = text.includes(query) ? "block" : "none";
+        });
+    }
+</script>
+{% endblock %}
