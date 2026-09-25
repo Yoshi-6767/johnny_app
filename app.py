@@ -454,6 +454,7 @@ def train():
     reverse = request.args.get("reverse", "0") == "1"
     reset = request.args.get("reset", "0") == "1"
     weak_mode = request.args.get("weak", "0") == "1"
+    mode = request.args.get("mode", "normal")  # normal / listening
 
     if reset or "train_correct" not in session:
         session["train_correct"] = 0
@@ -482,20 +483,72 @@ def train():
         return render_template("train.html", word=None, empty=True, reverse=reverse, section=section_id,
                                correct_count=session.get("train_correct", 0),
                                wrong_count=session.get("train_wrong", 0),
-                               weak_mode=weak_mode)
+                               weak_mode=weak_mode, mode=mode)
 
     eng = random.choice(list(filtered.keys()))
     session["current_word"] = eng
     session["last_train_word"] = eng
     session["train_reverse"] = reverse
     session["train_section"] = section_id
+    session["train_mode"] = mode
 
-    display = filtered[eng]["rus"] if reverse else eng
+    # В режиме listening — показываем только "???", слово озвучивается
+    if mode == "listening":
+        display = "🎧"
+    elif reverse:
+        display = filtered[eng]["rus"]
+    else:
+        display = eng
 
     return render_template("train.html", word=display, empty=False, reverse=reverse, section=section_id,
                            correct_count=session.get("train_correct", 0),
                            wrong_count=session.get("train_wrong", 0),
-                           weak_mode=weak_mode)
+                           weak_mode=weak_mode, mode=mode)
+
+
+@app.route("/check", methods=["POST"])
+@login_required
+def check():
+    data = request.json
+    uid = current_user.id
+    all_w = get_all_words(uid)
+    user_answer = data["answer"].strip().lower()
+    eng = session.get("current_word")
+    reverse = session.get("train_reverse", False)
+    mode = session.get("train_mode", "normal")
+
+    if not eng or eng not in all_w:
+        return jsonify({"status": "error"})
+
+    # В режиме listening — правильный ответ всегда английское слово
+    if mode == "listening":
+        correct_answer = eng.lower()
+    elif reverse:
+        correct_answer = eng.lower()
+    else:
+        correct_answer = all_w[eng]["rus"].strip().lower()
+
+    if user_answer == correct_answer:
+        session["train_correct"] = session.get("train_correct", 0) + 1
+        record_training(True, eng)
+        new_ach = check_user_achievements(uid)
+        if new_ach:
+            session["new_achievements"] = new_ach
+        return jsonify({
+            "status": "correct",
+            "correct_answer": eng if (reverse or mode == "listening") else all_w[eng]["rus"],
+            "correct_count": session["train_correct"],
+            "wrong_count": session.get("train_wrong", 0),
+        })
+    else:
+        session["train_wrong"] = session.get("train_wrong", 0) + 1
+        record_training(False, eng)
+        return jsonify({
+            "status": "wrong",
+            "correct_answer": eng if (reverse or mode == "listening") else all_w[eng]["rus"],
+            "correct_count": session.get("train_correct", 0),
+            "wrong_count": session["train_wrong"],
+        })
 
 
 @app.route("/check", methods=["POST"])
