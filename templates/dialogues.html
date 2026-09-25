@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Диалоги — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .dialogue-card {
+        background: var(--bg-card);
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        padding: 25px;
+        text-decoration: none;
+        color: var(--text);
+        transition: all 0.2s;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 160px;
+    }
+    .dialogue-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 24px var(--accent-shadow);
+    }
+    .dialogue-emoji {
+        font-size: 42px;
+    }
+    .dialogue-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--text);
+    }
+    .dialogue-level {
+        display: inline-block;
+        background: var(--bg-subtle);
+        color: var(--accent);
+        padding: 3px 10px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        width: fit-content;
+    }
+    .dialogue-chars {
+        font-size: 13px;
+        color: var(--text-sub);
+        margin-top: auto;
+    }
+    .info-banner {
+        background: var(--bg-subtle);
+        border-left: 4px solid var(--accent);
+        padding: 18px 22px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        color: var(--text);
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    .info-banner strong { color: var(--accent); }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>💬 Диалоги</h1>
+<div class="subtitle">Всего: {{ dialogues|length }} ситуаций</div>
+
+<div class="info-banner">
+    <strong>Что это?</strong> Реальные диалоги на английском. Выбираешь роль (например, <strong>Customer</strong>),
+    читаешь свои реплики и слушаешь партнёра. Можно <strong>прослушать весь диалог</strong> целиком.
+    Тренирует разговорную речь в типичных ситуациях: кафе, аэропорт, отель, врач и т.д.
+</div>
+
+<div class="cards">
+    {% for d in dialogues %}
+    <a href="/dialogues/{{ d.id }}" class="dialogue-card">
+        <div class="dialogue-emoji">{{ d.emoji }}</div>
+        <div class="dialogue-title">{{ d.title }}</div>
+        <div class="dialogue-level">{{ d.level }}</div>
+        <div class="dialogue-chars">
+            {{ d.characters.a }} · {{ d.characters.b }}
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
