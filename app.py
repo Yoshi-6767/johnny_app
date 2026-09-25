@@ -1135,6 +1135,89 @@ def irregular_check():
 def games_page():
     return render_template("games.html")
 
+@app.route("/games/listening")
+@login_required
+def listening_page():
+    all_w = get_all_words(current_user.id)
+    available = [w for w in all_w.keys() if 2 <= len(w) <= 20 and " " not in w]
+    if len(available) < 4:
+        return render_template("games_listening.html", empty=True)
+    total = min(10, len(available))
+    session["listening_score"] = 0
+    session["listening_question"] = 0
+    session["listening_total"] = total
+    session["listening_used"] = []
+    session["listening_errors"] = []
+    return render_template("games_listening.html", empty=False)
+
+
+@app.route("/games/listening/question")
+@login_required
+def listening_question():
+    all_w = get_all_words(current_user.id)
+    available = [w for w in all_w.keys() if 2 <= len(w) <= 20 and " " not in w and w not in session.get("listening_used", [])]
+    if not available or session.get("listening_question", 0) >= session.get("listening_total", 10):
+        return jsonify({"status": "end"})
+
+    word = random.choice(available)
+    session["listening_used"] = session.get("listening_used", []) + [word]
+    session["listening_current"] = word
+    correct = all_w[word]["rus"]
+    others = [w for w in all_w.keys() if w != word and all_w[w]["rus"] != correct]
+    wrong_options = random.sample(others, min(3, len(others)))
+    wrong_answers = [all_w[w]["rus"] for w in wrong_options]
+    options = [correct] + wrong_answers
+    random.shuffle(options)
+
+    question_num = session.get("listening_question", 0) + 1
+    session["listening_question"] = question_num
+    return jsonify({
+        "status": "ok",
+        "word": word,  # отдаём фронту для озвучки
+        "options": options,
+        "correct": correct,
+        "question_num": question_num,
+        "total": session.get("listening_total", 10),
+    })
+
+
+@app.route("/games/listening/answer", methods=["POST"])
+@login_required
+def listening_answer():
+    all_w = get_all_words(current_user.id)
+    data = request.json
+    answer = data.get("answer", "").strip()
+    word = session.get("listening_current", "")
+    if not word or word not in all_w:
+        return jsonify({"status": "error"})
+    correct = all_w[word]["rus"]
+    is_correct = (answer == correct)
+    if is_correct:
+        session["listening_score"] = session.get("listening_score", 0) + 1
+    else:
+        errors = session.get("listening_errors", [])
+        errors.append({"word": word, "correct": correct, "chosen": answer})
+        session["listening_errors"] = errors
+    return jsonify({
+        "status": "ok",
+        "correct": is_correct,
+        "correct_answer": correct,
+        "score": session.get("listening_score", 0),
+    })
+
+
+@app.route("/games/listening/result")
+@login_required
+def listening_result():
+    score = session.get("listening_score", 0)
+    total = session.get("listening_total", 10)
+    if score == total and total >= 10:
+        unlock(current_user.id, "game_listening_10")
+    return jsonify({
+        "score": score,
+        "total": total,
+        "errors": session.get("listening_errors", []),
+    })
 
 @app.route("/games/hangman")
 @login_required
