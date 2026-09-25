@@ -45,6 +45,21 @@
     .verb-phrase { font-weight: 700; color: var(--accent); }
     .verb-rus { color: var(--text); }
     .verb-example { color: var(--text-sub); font-style: italic; font-size: 14px; }
+    .btn-speak-inline {
+        background: var(--bg-subtle);
+        color: var(--accent);
+        border: none;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-left: 6px;
+        transition: all 0.2s;
+    }
+    .btn-speak-inline:hover {
+        background: var(--accent);
+        color: #fff;
+    }
 </style>
 {% endblock %}
 
@@ -67,7 +82,10 @@
     <tbody id="verbs-body">
         {% for v in verbs %}
         <tr data-word="{{ v.phrase }} {{ v.rus }}">
-            <td class="verb-phrase">{{ v.phrase }}</td>
+            <td class="verb-phrase">
+                {{ v.phrase }}
+                <button class="btn-speak-inline" onclick="speak('{{ v.phrase }}')" title="Послушать">🔊</button>
+            </td>
             <td class="verb-rus">{{ v.rus }}</td>
             <td class="verb-example">{{ v.example }}</td>
         </tr>
