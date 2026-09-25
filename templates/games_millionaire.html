@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+
+{% block title %}Миллионер — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .mil-money-ladder {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 15px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .mil-money-ladder .score {
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--accent);
+    }
+    .mil-money-ladder .label {
+        color: var(--text-sub);
+        font-size: 13px;
+    }
+    .mil-word {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
+        padding: 40px;
+        border-radius: 14px;
+        text-align: center;
+        font-size: 34px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: var(--text);
+    }
+    .mil-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+    .mil-option {
+        padding: 18px 20px;
+        background: var(--bg-card);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        font-size: 16px;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 500;
+        color: var(--text);
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+    }
+    .mil-option:hover:not(:disabled) {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+    .mil-option:disabled { cursor: default; }
+    .mil-option.correct {
+        background: #e8f5e9;
+        border-color: #4caf50;
+        color: #2e7d32;
+        font-weight: 700;
+    }
+    .mil-option.wrong {
+        background: #ffebee;
+        border-color: #f44336;
+        color: #c62828;
+        font-weight: 700;
+    }
+    .mil-option.hidden-option {
+        opacity: 0.2;
+        text-decoration: line-through;
+        pointer-events: none;
+    }
+    .mil-hints {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    .mil-hint {
+        background: var(--bg-card);
+        border: 2px solid var(--accent);
+        color: var(--accent);
+        padding: 12px 20px;
+        border-radius: 30px;
+        font-family: 'Rubik', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .mil-hint:hover:not(:disabled) {
+        background: var(--accent);
+        color: #fff;
+    }
+    .mil-hint:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+        text-decoration: line-through;
+    }
+    .mil-feedback {
+        text-align: center;
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        min-height: 24px;
+    }
+    .mil-feedback.correct { color: #4caf50; }
+    .mil-feedback.wrong { color: #f44336; }
+    .mil-result {
+        display: none;
+        text-align: center;
+        padding: 40px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+    }
+    .mil-result .score {
+        font-size: 56px;
+        font-weight: 900;
+        color: var(--accent);
+        margin-bottom: 10px;
+    }
+    .mil-result .label {
+        color: var(--text-sub);
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+    .mil-nav {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .mil-nav a {
+        color: var(--text-sub);
+        text-decoration: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 500;
+        border: 1px solid var(--border);
+    }
+    .mil-nav a:hover { color: var(--accent); border-color: var(--accent); }
+    .mil-call-info {
+        background: var(--bg-subtle);
+        border: 1px dashed var(--accent);
+        border-radius: 12px;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        text-align: center;
+        color: var(--text);
+        font-size: 15px;
+        display: none;
+    }
+    .mil-call-info.show { display: block; }
+    .mil-call-info strong { color: var(--accent); }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if empty %}
+    <div class="empty">
+        <h1>💰 Кто хочет стать миллионером</h1>
+        <p>Нужно минимум 20 слов в базе. Добавь в <a href="/sections" style="color: var(--accent);">категориях</a>.</p>
+    </div>
+{% else %}
+    <h1 style="text-align: center;">💰 Кто хочет стать миллионером</h1>
+    <div class="subtitle" style="text-align: center;">15 вопросов + 3 подсказки. Ошибёшься — вылетаешь.</div>
+
+    <div id="mil-play">
+        <div class="mil-money-ladder">
+            <div>
+                <div class="score" id="mil-score">0 / 15</div>
+                <div class="label">Вопрос <span id="mil-qnum">1</span></div>
+            </div>
+            <div class="score">💎 x <span id="mil-streak">0</span></div>
+        </div>
+
+        <div class="mil-word" id="mil-word">...</div>
+
+        <div class="mil-call-info" id="callInfo"></div>
+        <div class="mil-feedback" id="mil-feedback"></div>
+
+        <div class="mil-options" id="mil-options"></div>
+
+        <div class="mil-hints">
+            <button class="mil-hint" id="hintFifty" onclick="useHint('fifty')">✂️ 50/50</button>
+            <button class="mil-hint" id="hintCall" onclick="useHint('call')">📞 Звонок другу</button>
+            <button class="mil-hint" id="hintAudience" onclick="useHint('audience')">👥 Помощь зала</button>
+        </div>
+    </div>
+
+    <div class="mil-result" id="mil-result">
+        <div class="score" id="mil-result-score">0</div>
+        <div class="label">из 15</div>
+        <div class="mil-nav">
+            <a href="/games/millionaire">🔄 Ещё раз</a>
+            <a href="/games">⬅️ К играм</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if not empty %}
+<script>
+    let answered = false;
+    let currentCorrect = "";
+    let gameOver = false;
+
+    function loadQuestion() {
+        fetch("/games/millionaire/question")
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "end") {
+                showResult();
+                return;
+            }
+            document.getElementById("mil-qnum").textContent = data.question_num;
+            document.getElementById("mil-word").textContent = data.word;
+            document.getElementById("mil-feedback").textContent = "";
+            document.getElementById("callInfo").classList.remove("show");
+            currentCorrect = data.correct;
+            answered = false;
+
+            // Кнопки подсказок — сбрасываем disabled на новом вопросе
+            document.getElementById("hintFifty").disabled = false;
+            document.getElementById("hintCall").disabled = false;
+            document.getElementById("hintAudience").disabled = false;
+
+            const optionsDiv = document.getElementById("mil-options");
+            optionsDiv.innerHTML = "";
+            data.options.forEach((opt, i) => {
+                const btn = document.createElement("button");
+                btn.className = "mil-option";
+                btn.textContent = opt;
+                btn.dataset.value = opt;
+                btn.onclick = () => checkAnswer(opt, btn);
+                optionsDiv.appendChild(btn);
+            });
+        });
+    }
+
+    function checkAnswer(answer, btn) {
+        if (answered || gameOver) return;
+        answered = true;
+
+        fetch("/games/millionaire/answer", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({answer: answer})
+        })
+        .then(r => r.json())
+        .then(data => {
+            const buttons = document.querySelectorAll(".mil-option");
+            buttons.forEach(b => {
+                b.disabled = true;
+                if (b.dataset.value === data.correct_answer) {
+                    b.classList.add("correct");
+                }
+            });
+
+            const fb = document.getElementById("mil-feedback");
+            if (data.correct) {
+                fb.className = "mil-feedback correct";
+                fb.textContent = "✅ Верно!";
+                document.getElementById("mil-score").textContent = data.score + " / 15";
+                document.getElementById("mil-streak").textContent = data.score;
+                setTimeout(() => {
+                    if (data.continue) {
+                        loadQuestion();
+                    } else {
+                        showResult();
+                    }
+                }, 1200);
+            } else {
+                btn.classList.add("wrong");
+                fb.className = "mil-feedback wrong";
+                fb.textContent = "❌ Неверно! Правильно: " + data.correct_answer;
+                gameOver = true;
+                setTimeout(() => showResult(), 2200);
+            }
+        });
+    }
+
+    function useHint(type) {
+        if (gameOver || answered) return;
+        fetch("/games/millionaire/hint", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({type: type})
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.status !== "ok") return;
+
+            document.getElementById("hint" + type.charAt(0).toUpperCase() + type.slice(1)).disabled = true;
+
+            if (type === "fifty" || type === "audience") {
+                const keep = data.keep;
+                document.querySelectorAll(".mil-option").forEach(b => {
+                    if (!keep.includes(b.dataset.value)) {
+                        b.classList.add("hidden-option");
+                    }
+                });
+                const fb = document.getElementById("mil-feedback");
+                fb.className = "mil-feedback";
+                fb.textContent = "💡 Осталось меньше вариантов";
+            } else if (type === "call") {
+                const info = document.getElementById("callInfo");
+                info.innerHTML = "📞 Друг говорит: <strong>" + data.word + "</strong> — это <strong>" + data.translation + "</strong>";
+                info.classList.add("show");
+            }
+        });
+    }
+
+    function showResult() {
+        fetch("/games/millionaire/result")
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById("mil-play").style.display = "none";
+            document.getElementById("mil-result").style.display = "block";
+            document.getElementById("mil-result-score").textContent = data.score + " / " + data.total;
+        });
+    }
+
+    loadQuestion();
+</script>
+{% endif %}
+{% endblock %}
