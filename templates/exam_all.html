@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+
+{% block title %}Экзамен по всему — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .exam-progress {
+        text-align: center;
+        color: var(--text-sub);
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+    .exam-progress-bar {
+        height: 8px;
+        background: var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+    .exam-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+        border-radius: 4px;
+        transition: width 0.3s ease;
+        width: 0%;
+    }
+    .exam-word {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--accent);
+        padding: 50px 40px;
+        border-radius: 14px;
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: var(--text);
+    }
+    .exam-label {
+        text-align: center;
+        color: var(--text-sub);
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .exam-form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .exam-form input {
+        flex: 1;
+        padding: 18px 22px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: var(--text);
+        font-size: 18px;
+        font-family: 'Rubik', sans-serif;
+        outline: none;
+    }
+    .exam-form input:focus { border-color: var(--accent); }
+    .exam-feedback {
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        display: none;
+    }
+    .exam-feedback.correct {
+        background: #e8f5e9;
+        border-left: 4px solid #4caf50;
+        color: #2e7d32;
+        display: block;
+    }
+    .exam-feedback.wrong {
+        background: #ffebee;
+        border-left: 4px solid #f44336;
+        color: #c62828;
+        display: block;
+    }
+    .exam-result {
+        display: none;
+        text-align: center;
+        background: var(--bg-card);
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        padding: 40px;
+    }
+    .exam-result.passed {
+        border-color: #4caf50;
+        background: linear-gradient(135deg, var(--bg-card), #f1f8e9);
+    }
+    .exam-result .emoji {
+        font-size: 64px;
+        margin-bottom: 15px;
+    }
+    .exam-result h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+        color: var(--text);
+    }
+    .exam-result .score {
+        font-size: 48px;
+        font-weight: 900;
+        color: var(--accent);
+        margin-bottom: 15px;
+    }
+    .exam-result.passed .score { color: #4caf50; }
+    .exam-errors {
+        text-align: left;
+        margin-top: 25px;
+        padding: 20px;
+        background: var(--bg-subtle);
+        border-radius: 12px;
+    }
+    .exam-errors h3 {
+        font-size: 16px;
+        color: var(--text);
+        margin-bottom: 15px;
+    }
+    .error-item {
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 14px;
+        color: var(--text-sub);
+    }
+    .error-item:last-child { border-bottom: none; }
+    .error-item strong { color: #f44336; }
+    .error-item .correct { color: #4caf50; font-weight: 700; }
+    .exam-nav {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 25px;
+        flex-wrap: wrap;
+    }
+    .exam-nav a {
+        text-decoration: none;
+        padding: 14px 28px;
+        border-radius: 30px;
+        font-weight: 700;
+        font-size: 15px;
+    }
+    .exam-nav a.primary {
+        background: var(--accent);
+        color: #fff;
+    }
+    .exam-nav a.primary:hover { background: var(--accent-dark); }
+    .exam-nav a.secondary {
+        background: var(--bg-card);
+        color: var(--accent);
+        border: 2px solid var(--accent);
+    }
+    .exam-nav a.secondary:hover { background: var(--accent); color: #fff; }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if empty %}
+    <div class="empty">
+        <h1>📚 Пока мало слов</h1>
+        <p>Нужно минимум <strong>5 слов</strong> в базе. Добавь в <a href="/sections" style="color: var(--accent);">категориях</a>.</p>
+    </div>
+{% else %}
+    <h1>🎓 Экзамен по всему</h1>
+    <div class="subtitle">20 случайных слов из всех категорий. Микс RU→EN и EN→RU.</div>
+
+    <div id="exam-play">
+        <div class="exam-progress" id="progress">Вопрос 1 из 20</div>
+        <div class="exam-progress-bar">
+            <div class="exam-progress-fill" id="progress-fill"></div>
+        </div>
+
+        <div class="exam-label" id="answer-label">Напиши перевод:</div>
+        <div class="exam-word" id="word">...</div>
+
+        <div class="exam-feedback" id="feedback"></div>
+
+        <div class="exam-form">
+            <input id="answer" placeholder="Введи ответ..." autofocus autocomplete="off">
+            <button class="btn" onclick="checkAnswer()">Ответить</button>
+        </div>
+    </div>
+
+    <div class="exam-result" id="result">
+        <div class="emoji" id="result-emoji">🎉</div>
+        <h2 id="result-title">Результат</h2>
+        <div class="score" id="result-score">0 / 20</div>
+        <div id="errors-box" class="exam-errors" style="display: none;">
+            <h3>❌ Твои ошибки:</h3>
+            <div id="errors-list"></div>
+        </div>
+        <div class="exam-nav">
+            <a href="/sections" class="primary">← К категориям</a>
+            <a href="/exam/all" class="secondary">🔄 Пройти заново</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if not empty %}
+<script>
+    let answered = false;
+    let currentTotal = {{ total }};
+
+    function loadNext() {
+        fetch("/exam/all/next")
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "end") {
+                finishExam();
+                return;
+            }
+            document.getElementById("progress").textContent = "Вопрос " + data.question_num + " из " + data.total;
+            document.getElementById("progress-fill").style.width = ((data.question_num - 1) / data.total * 100) + "%";
+            document.getElementById("word").textContent = data.question;
+            document.getElementById("answer-label").textContent = data.answer_label;
+            document.getElementById("answer").value = "";
+            document.getElementById("answer").focus();
+            document.getElementById("feedback").style.display = "none";
+            document.getElementById("feedback").className = "exam-feedback";
+            answered = false;
+        });
+    }
+
+    function checkAnswer() {
+        if (answered) return;
+        const answer = document.getElementById("answer").value.trim();
+        if (!answer) return;
+        answered = true;
+
+        fetch("/exam/all/check", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({answer: answer})
+        })
+        .then(r => r.json())
+        .then(data => {
+            const fb = document.getElementById("feedback");
+            if (data.correct) {
+                fb.className = "exam-feedback correct";
+                fb.textContent = "✅ Верно!";
+            } else {
+                fb.className = "exam-feedback wrong";
+                fb.textContent = "❌ Правильно: " + data.correct_answer;
+            }
+            setTimeout(() => loadNext(), 1200);
+        });
+    }
+
+    function finishExam() {
+        fetch("/exam/all/finish", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"}
+        })
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById("exam-play").style.display = "none";
+            const result = document.getElementById("result");
+            result.style.display = "block";
+
+            document.getElementById("result-score").textContent = data.correct + " / " + data.total;
+
+            if (data.is_passed) {
+                result.classList.add("passed");
+                document.getElementById("result-emoji").textContent = "🏆";
+                document.getElementById("result-title").textContent = "Идеально!";
+            } else {
+                document.getElementById("result-emoji").textContent = "💪";
+                document.getElementById("result-title").textContent = "Неплохо";
+            }
+
+            if (data.errors && data.errors.length > 0) {
+                document.getElementById("errors-box").style.display = "block";
+                const list = document.getElementById("errors-list");
+                list.innerHTML = "";
+                data.errors.forEach(err => {
+                    const div = document.createElement("div");
+                    div.className = "error-item";
+                    div.innerHTML = "<strong>" + (err.user || "—") + "</strong> → правильно: <span class='correct'>" + err.correct + "</span> (вопрос: " + err.question + ")";
+                    list.appendChild(div);
+                });
+            }
+        });
+    }
+
+    document.getElementById("answer").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") checkAnswer();
+    });
+
+    loadNext();
+</script>
+{% endif %}
+{% endblock %}
