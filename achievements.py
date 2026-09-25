@@ -33,10 +33,13 @@ ACHIEVEMENTS = [
     {"code": "exam_10",  "title": "Десятка экзаменов",   "desc": "Сдал 10 категорий", "emoji": "👑", "category": "exams", "tier": "gold"},
 
     # 🎮 ИГРЫ
-    {"code": "game_hangman_win",   "title": "Палач",       "desc": "Выиграл в Виселицу", "emoji": "🪢", "category": "games", "tier": "bronze"},
-    {"code": "game_quiz_10",       "title": "Знаток",      "desc": "10/10 в Квизе", "emoji": "❓", "category": "games", "tier": "silver"},
-    {"code": "game_speed_10",      "title": "Скоростной",  "desc": "10/10 в Скоростном", "emoji": "⚡", "category": "games", "tier": "silver"},
-    {"code": "game_listening_10",  "title": "Слухач",      "desc": "10/10 в Аудио-квизе", "emoji": "🎧", "category": "games", "tier": "silver"},
+    {"code": "game_hangman_win",     "title": "Палач",         "desc": "Выиграл в Виселицу", "emoji": "🪢", "category": "games", "tier": "bronze"},
+    {"code": "game_quiz_10",         "title": "Знаток",        "desc": "10/10 в Квизе", "emoji": "❓", "category": "games", "tier": "silver"},
+    {"code": "game_speed_10",        "title": "Скоростной",    "desc": "10/10 в Скоростном", "emoji": "⚡", "category": "games", "tier": "silver"},
+    {"code": "game_listening_10",    "title": "Слухач",        "desc": "10/10 в Аудио-квизе", "emoji": "🎧", "category": "games", "tier": "silver"},
+    {"code": "game_emoji_10",        "title": "Эмодзи-мастер", "desc": "10/10 в Эмодзи-квизе", "emoji": "🍎", "category": "games", "tier": "silver"},
+    {"code": "game_odd_one_10",      "title": "Детектив",      "desc": "10/10 в «Что лишнее»", "emoji": "🎯", "category": "games", "tier": "silver"},
+    {"code": "game_millionaire_10",  "title": "Миллионер",     "desc": "10+ в Миллионере", "emoji": "💰", "category": "games", "tier": "gold"},
 
     # 📖 УЧЁБА
     {"code": "study_irregular",  "title": "Знаток глаголов", "desc": "20+ правильных в глаголах", "emoji": "🔤", "category": "study", "tier": "silver"},
@@ -115,10 +118,13 @@ def check_all(user_id, progress, general_words_count, phrases_count, topics_done
     if exams_count >= 10 and unlock(user_id, "exam_10"): newly.append("exam_10")
 
     # ИГРЫ
-    if games_stats.get("hangman_win") and unlock(user_id, "game_hangman_win"):       newly.append("game_hangman_win")
-    if games_stats.get("quiz_10") and unlock(user_id, "game_quiz_10"):               newly.append("game_quiz_10")
-    if games_stats.get("speed_10") and unlock(user_id, "game_speed_10"):             newly.append("game_speed_10")
-    if games_stats.get("listening_10") and unlock(user_id, "game_listening_10"):     newly.append("game_listening_10")
+    if games_stats.get("hangman_win") and unlock(user_id, "game_hangman_win"):           newly.append("game_hangman_win")
+    if games_stats.get("quiz_10") and unlock(user_id, "game_quiz_10"):                   newly.append("game_quiz_10")
+    if games_stats.get("speed_10") and unlock(user_id, "game_speed_10"):                 newly.append("game_speed_10")
+    if games_stats.get("listening_10") and unlock(user_id, "game_listening_10"):         newly.append("game_listening_10")
+    if games_stats.get("emoji_10") and unlock(user_id, "game_emoji_10"):                 newly.append("game_emoji_10")
+    if games_stats.get("odd_one_10") and unlock(user_id, "game_odd_one_10"):             newly.append("game_odd_one_10")
+    if games_stats.get("millionaire_10") and unlock(user_id, "game_millionaire_10"):     newly.append("game_millionaire_10")
 
     # УЧЁБА
     if study_stats.get("irregular_score", 0) >= 20 and unlock(user_id, "study_irregular"): newly.append("study_irregular")
