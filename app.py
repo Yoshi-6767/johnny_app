@@ -226,6 +226,20 @@ def upload_avatar():
     db.session.commit()
     return redirect("/profile")
 
+@app.route("/profile/change_username", methods=["POST"])
+@login_required
+def change_username():
+    new_name = request.form.get("username", "").strip()
+    if not new_name or len(new_name) < 2 or len(new_name) > 30:
+        return redirect("/profile?error=name")
+    # Проверка на допустимые символы (буквы, цифры, пробел, дефис, подчёркивание)
+    import re
+    if not re.match(r'^[A-Za-zА-Яа-яЁё0-9 _-]+$', new_name):
+        return redirect("/profile?error=name")
+    current_user.username = new_name
+    db.session.commit()
+    return redirect("/profile?success=name")
+
 
 # ═══════════════════════════════════════════════
 # СЛОВА (general)
