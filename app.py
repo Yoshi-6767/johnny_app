@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, session, redirect, u
 import json
 import random
 import os
+import re
 import time
 from datetime import date, timedelta, datetime
 from deep_translator import MyMemoryTranslator
@@ -10,7 +11,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from config import Config
 from models import db, User, EmailCode, LearnedWord, WordProgress, SectionExam, Achievement, Goal
-from data import SECTIONS, QUOTES, IRREGULAR_VERBS, PHRASAL_VERBS, IDIOMS, FIXED_TOPICS, FALSE_FRIENDS, SLANG, get_section
+from data import (
+    SECTIONS, QUOTES, IRREGULAR_VERBS, PHRASAL_VERBS, IDIOMS, FIXED_TOPICS,
+    FALSE_FRIENDS, SLANG, get_section,
+)
 from utils import (
     send_verification_code, COMMON_WORDS,
     get_user_general_words, add_user_word, delete_user_word, edit_user_word,
@@ -226,14 +230,13 @@ def upload_avatar():
     db.session.commit()
     return redirect("/profile")
 
+
 @app.route("/profile/change_username", methods=["POST"])
 @login_required
 def change_username():
     new_name = request.form.get("username", "").strip()
     if not new_name or len(new_name) < 2 or len(new_name) > 30:
         return redirect("/profile?error=name")
-    # Проверка на допустимые символы (буквы, цифры, пробел, дефис, подчёркивание)
-    import re
     if not re.match(r'^[A-Za-zА-Яа-яЁё0-9 _-]+$', new_name):
         return redirect("/profile?error=name")
     current_user.username = new_name
@@ -448,6 +451,150 @@ def exam_section_finish(sid):
     session.pop("exam_section_id", None)
     session.pop("exam_section_index", None)
     session.pop("exam_section_errors", None)
+
+    return jsonify({
+        "status": "ok", "is_passed": is_passed, "total": total,
+        "correct": correct_count, "errors": errors,
+        "new_achievements": [get_achievement(c) for c in new_ach if get_achievement(c)],
+    })
+
+
+# ═══════════════════════════════════════════════
+# ЭКЗАМЕН ПО ВСЕМУ
+# ═══════════════════════════════════════════════
+
+@app.route("/exam/all")
+@login_required
+def exam_all():
+    uid = current_user.id
+    all_w = get_all_words(uid)
+    if len(all_w) < 5:
+        return render_template("exam_all.html", empty=True)
+
+    words = list(all_w.keys())
+    random.shuffle(words)
+    selected = words[:20]
+
+    session["exam_all_words"] = selected
+    session["exam_all_index"] = 0
+    session["exam_all_errors"] = []
+    session["exam_all_directions"] = {}
+
+    return render_template("exam_all.html", empty=False, total=len(selected))
+
+
+@app.route("/exam/all/next")
+@login_required
+def exam_all_next():
+    words = session.get("exam_all_words", [])
+    index = session.get("exam_all_index", 0)
+    if index >= len(words):
+        return jsonify({"status": "end"})
+
+    uid = current_user.id
+    all_w = get_all_words(uid)
+    word = words[index]
+    if word not in all_w:
+        return jsonify({"status": "end"})
+
+    direction = random.choice(["ru_en", "en_ru"])
+    directions = session.get("exam_all_directions", {})
+    directions[str(index)] = direction
+    session["exam_all_directions"] = directions
+
+    if direction == "ru_en":
+        question = all_w[word]["rus"]
+        answer_label = "Напиши по-английски"
+    else:
+        question = word
+        answer_label = "Напиши по-русски"
+
+    return jsonify({
+        "status": "ok",
+        "question_num": index + 1,
+        "total": len(words),
+        "question": question,
+        "answer_label": answer_label,
+        "direction": direction,
+    })
+
+
+@app.route("/exam/all/check", methods=["POST"])
+@login_required
+def exam_all_check():
+    uid = current_user.id
+    data = request.json
+    answer = data.get("answer", "").strip().lower()
+    words = session.get("exam_all_words", [])
+    index = session.get("exam_all_index", 0)
+    if index >= len(words):
+        return jsonify({"status": "end"})
+
+    all_w = get_all_words(uid)
+    word = words[index]
+    if word not in all_w:
+        return jsonify({"status": "end"})
+
+    directions = session.get("exam_all_directions", {})
+    direction = directions.get(str(index), "ru_en")
+
+    if direction == "ru_en":
+        correct = word.lower()
+        correct_display = word
+        question_rus = all_w[word]["rus"]
+    else:
+        correct = all_w[word]["rus"].strip().lower()
+        correct_display = all_w[word]["rus"]
+        question_rus = word
+
+    is_correct = (answer == correct)
+
+    if not is_correct:
+        errors = session.get("exam_all_errors", [])
+        errors.append({
+            "question": question_rus,
+            "correct": correct_display,
+            "user": answer,
+            "direction": direction,
+        })
+        session["exam_all_errors"] = errors
+
+    session["exam_all_index"] = index + 1
+    return jsonify({
+        "status": "ok",
+        "correct": is_correct,
+        "correct_answer": correct_display,
+        "question_num": index + 1,
+        "total": len(words),
+    })
+
+
+@app.route("/exam/all/finish", methods=["POST"])
+@login_required
+def exam_all_finish():
+    uid = current_user.id
+    errors = session.get("exam_all_errors", [])
+    words = session.get("exam_all_words", [])
+    total = len(words)
+    correct_count = total - len(errors)
+    is_passed = (len(errors) == 0)
+
+    exam = SectionExam(
+        user_id=uid, section_id="all", is_passed=is_passed,
+        total_questions=total, correct_answers=correct_count,
+        errors_json=json.dumps(errors, ensure_ascii=False),
+    )
+    db.session.add(exam)
+    db.session.commit()
+
+    new_ach = check_user_achievements(uid)
+    if new_ach:
+        session["new_achievements"] = new_ach
+
+    session.pop("exam_all_words", None)
+    session.pop("exam_all_index", None)
+    session.pop("exam_all_errors", None)
+    session.pop("exam_all_directions", None)
 
     return jsonify({
         "status": "ok", "is_passed": is_passed, "total": total,
@@ -872,7 +1019,7 @@ def topic_page(tid):
     topic_info = next((t for t in FIXED_TOPICS if t["id"] == tid), None)
     if not topic_info:
         if tid in user_topics:
-            topic_info = {"id": tid, "title": user_topics[tid].get("title", "Своя тема"), "emoji": "📝", "helper": []}
+            topic_info = {"id": tid, "title": user_topics[tid].get("title", "Своя тема"), "emoji": "📝", "helper": [], "example": ""}
         else:
             return "Тема не найдена", 404
     data = user_topics.get(tid, {"text": "", "done": False})
@@ -1029,6 +1176,7 @@ def phrasal_page():
 def idioms_page():
     return render_template("idioms.html", idioms=IDIOMS)
 
+
 @app.route("/study/false_friends")
 @login_required
 def false_friends_page():
@@ -1039,6 +1187,7 @@ def false_friends_page():
 @login_required
 def slang_page():
     return render_template("slang.html", slang=SLANG)
+
 
 @app.route("/study/irregular/train")
 @login_required
