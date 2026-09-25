@@ -13,7 +13,7 @@ from config import Config
 from models import db, User, EmailCode, LearnedWord, WordProgress, SectionExam, Achievement, Goal
 from data import (
     SECTIONS, QUOTES, IRREGULAR_VERBS, PHRASAL_VERBS, IDIOMS, FIXED_TOPICS,
-    FALSE_FRIENDS, SLANG, get_section,
+    FALSE_FRIENDS, SLANG, DIALOGUES, get_section,
 )
 from utils import (
     send_verification_code, COMMON_WORDS,
@@ -618,6 +618,25 @@ def exam_all_finish():
 
 
 # ═══════════════════════════════════════════════
+# ДИАЛОГИ
+# ═══════════════════════════════════════════════
+
+@app.route("/dialogues")
+@login_required
+def dialogues_page():
+    return render_template("dialogues.html", dialogues=DIALOGUES)
+
+
+@app.route("/dialogues/<did>")
+@login_required
+def dialogue_page(did):
+    dialogue = next((d for d in DIALOGUES if d["id"] == did), None)
+    if not dialogue:
+        return "Диалог не найден", 404
+    return render_template("dialogue.html", dialogue=dialogue)
+
+
+# ═══════════════════════════════════════════════
 # ТРЕНИРОВКА СЛОВ (normal / listening / speak)
 # ═══════════════════════════════════════════════
 
@@ -629,7 +648,7 @@ def train():
     reverse = request.args.get("reverse", "0") == "1"
     reset = request.args.get("reset", "0") == "1"
     weak_mode = request.args.get("weak", "0") == "1"
-    mode = request.args.get("mode", "normal")  # normal / listening / speak
+    mode = request.args.get("mode", "normal")
 
     if reset or "train_correct" not in session:
         session["train_correct"] = 0
@@ -696,7 +715,6 @@ def check():
     if not eng or eng not in all_w:
         return jsonify({"status": "error"})
 
-    # Определяем правильный ответ
     if mode in ("listening", "speak"):
         correct_answer = eng.lower()
     elif reverse:
@@ -704,7 +722,6 @@ def check():
     else:
         correct_answer = all_w[eng]["rus"].strip().lower()
 
-    # Для speak — нечёткое сравнение
     if mode == "speak":
         sim = similarity_ratio(user_answer, correct_answer)
         if sim >= 0.8:
