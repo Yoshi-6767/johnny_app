@@ -507,7 +507,7 @@
         </div>
         <div class="text-q-options">
             {% for opt in q.options %}
-            <button class="text-q-option" onclick="selectTextOption(this, {{ loop.index0 }}, {{ loop.parent.loop.index0 }})" data-value="{{ opt }}">{{ opt }}</button>
+            <button class="text-q-option" onclick="selectTextOption(this, {{ loop.index0 }})" data-value="{{ opt }}">{{ opt }}</button>
             {% endfor %}
         </div>
     </div>
@@ -536,7 +536,7 @@
             {% if q.type in ("choice", "error") %}
                 <div class="test-options">
                     {% for opt in q.options %}
-                    <button class="test-option" onclick="selectTestOption(this, {{ loop.index0 }}, {{ loop.parent.loop.index0 }})" data-value="{{ opt }}">{{ opt }}</button>
+                    <button class="test-option" onclick="selectTestOption(this, {{ loop.index0 }})" data-value="{{ opt }}">{{ opt }}</button>
                     {% endfor %}
                 </div>
             {% else %}
@@ -566,7 +566,7 @@
     const TOTAL_TEST_Q = {{ lesson.test|length }};
 
     // ═══ ВОПРОСЫ К ТЕКСТУ ═══
-    function selectTextOption(btn, optIndex, qIndex) {
+        function selectTextOption(btn, optIndex) {
         const parent = btn.parentElement;
         parent.querySelectorAll(".text-q-option").forEach(b => b.classList.remove("selected"));
         btn.classList.add("selected");
@@ -589,7 +589,7 @@
     }
 
     // ═══ ТЕСТ ═══
-    function selectTestOption(btn, optIndex, qIndex) {
+        function selectTestOption(btn, optIndex) {
         const parent = btn.parentElement;
         parent.querySelectorAll(".test-option").forEach(b => b.classList.remove("selected"));
         btn.classList.add("selected");
