@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Грамматика — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .grammar-card {
+        background: var(--bg-card);
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        padding: 25px;
+        text-decoration: none;
+        color: var(--text);
+        transition: all 0.2s;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 170px;
+        position: relative;
+    }
+    .grammar-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 24px var(--accent-shadow);
+    }
+    .grammar-card.done {
+        border-color: #4caf50;
+        background: linear-gradient(135deg, var(--bg-card), #f1f8e9);
+    }
+    .grammar-emoji { font-size: 42px; }
+    .grammar-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--text);
+    }
+    .grammar-intro {
+        font-size: 13px;
+        color: var(--text-sub);
+        line-height: 1.4;
+    }
+    .grammar-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+    }
+    .grammar-level {
+        background: var(--bg-subtle);
+        color: var(--accent);
+        padding: 3px 10px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    .grammar-check {
+        color: #4caf50;
+        font-weight: 700;
+        font-size: 14px;
+    }
+    .grammar-score {
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 14px;
+    }
+    .info-banner {
+        background: var(--bg-subtle);
+        border-left: 4px solid var(--accent);
+        padding: 18px 22px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        color: var(--text);
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    .info-banner strong { color: var(--accent); }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>📖 Грамматика</h1>
+<div class="subtitle">Всего: {{ lessons|length }} уроков</div>
+
+<div class="info-banner">
+    <strong>Как это работает:</strong> в каждом уроке — <strong>теория</strong>, <strong>примеры</strong> и <strong>короткий тест</strong>.
+    Пройди тест на 60% и выше, чтобы урок считался завершённым.
+</div>
+
+<div class="cards">
+    {% for l in lessons %}
+    <a href="/study/grammar/{{ l.id }}" class="grammar-card {% if l.done %}done{% endif %}">
+        <div class="grammar-emoji">{{ l.emoji }}</div>
+        <div class="grammar-title">{{ l.title }}</div>
+        <div class="grammar-intro">{{ l.intro }}</div>
+        <div class="grammar-meta">
+            <span class="grammar-level">{{ l.level }}</span>
+            {% if l.done %}
+                <span class="grammar-check">✅ {{ l.score }}/{{ l.total }}</span>
+            {% else %}
+                <span style="color: var(--text-sub); font-size: 13px;">Не пройден</span>
+            {% endif %}
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
