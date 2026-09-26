@@ -748,3 +748,39 @@ li:hover {
 .ach-modal-item-emoji { font-size: 28px; }
 .ach-modal-item-title { font-weight: 700; color: var(--text); font-size: 15px; }
 .ach-modal-item-desc { font-size: 13px; color: var(--text-sub); margin-top: 2px; }
+
+    .radar-block {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 25px;
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #radarCanvas {
+        max-width: 100%;
+        height: auto;
+    }
+    .radar-legend {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .radar-legend-item {
+        font-size: 14px;
+        color: var(--text-sub);
+    }
+    .radar-legend-item strong {
+        color: var(--accent);
+    }
+    .dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 4px;
+    }
