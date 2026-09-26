@@ -18,8 +18,9 @@ from models import (
 )
 from data import (
     SECTIONS, QUOTES, IRREGULAR_VERBS, PHRASAL_VERBS, IDIOMS, FIXED_TOPICS,
-    FALSE_FRIENDS, SLANG, DIALOGUES, EMOJI_WORDS, GRAMMAR_LESSONS, get_section,
+    FALSE_FRIENDS, SLANG, DIALOGUES, EMOJI_WORDS, get_section,
 )
+from grammar_data import GRAMMAR_LESSONS
 from utils import (
     send_verification_code, COMMON_WORDS,
     get_user_general_words, add_user_word, delete_user_word, edit_user_word,
