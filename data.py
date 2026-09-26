@@ -591,4 +591,109 @@ EMOJI_WORDS = [
     {"emoji": "🐘", "answer": "elephant", "rus": "слон"},
     {"emoji": "🐻", "answer": "bear", "rus": "медведь"},
     {"emoji": "🦊", "answer": "fox", "rus": "лиса"},
+
+
+
+# ═══════════════════════════════════════════════
+# ГРАММАТИКА — УРОКИ
+# ═══════════════════════════════════════════════
+# Структура урока:
+#   id, title, emoji, level, intro (короткое вступление)
+#   theory: список блоков [{h: "заголовок", text: "текст"}]
+#   examples: список примеров [{eng: "...", rus: "..."}]
+#   test: список вопросов
+#     type="choice" — 4 варианта, 1 правильный
+#     type="fill" — вставить пропущенное слово (вводишь текст)
+
+GRAMMAR_LESSONS = [
+    # ─── УРОК 1 ───
+    {
+        "id": "present_simple",
+        "title": "Present Simple",
+        "emoji": "🕐",
+        "level": "A1-A2",
+        "intro": "Простое настоящее время. Используем для фактов, привычек, повторяющихся действий.",
+        "theory": [
+            {"h": "Когда использовать", "text": "Когда говорим о фактах (I live in Russia), привычках (I wake up at 7), расписаниях (The train leaves at 9)."},
+            {"h": "Как образуется", "text": "Для I / you / we / they — глагол в базовой форме: I work, you play. Для he / she / it — добавляем -s или -es: he works, she plays, it goes."},
+            {"h": "Отрицание", "text": "do not (don't) для I/you/we/they, does not (doesn't) для he/she/it + глагол в базовой форме: I don't work, he doesn't work."},
+            {"h": "Вопрос", "text": "Do / Does + подлежащее + глагол: Do you work? Does he work?"},
+            {"h": "Маркеры", "text": "always, usually, often, sometimes, never, every day, on Mondays."}
+        ],
+        "examples": [
+            {"eng": "I work in an office.", "rus": "Я работаю в офисе."},
+            {"eng": "She likes coffee.", "rus": "Она любит кофе."},
+            {"eng": "They don't speak English.", "rus": "Они не говорят по-английски."},
+            {"eng": "Do you play football?", "rus": "Ты играешь в футбол?"},
+            {"eng": "He always gets up at 7.", "rus": "Он всегда встаёт в 7."}
+        ],
+        "test": [
+            {"type": "choice", "q": "She ___ to school every day.", "options": ["go", "goes", "going", "went"], "correct": "goes"},
+            {"type": "choice", "q": "They ___ like coffee.", "options": ["doesn't", "don't", "isn't", "aren't"], "correct": "don't"},
+            {"type": "choice", "q": "___ he work here?", "options": ["Do", "Does", "Is", "Are"], "correct": "Does"},
+            {"type": "fill", "q": "I ___ (work) in a bank.", "answer": "work"},
+            {"type": "fill", "q": "He ___ (play) guitar.", "answer": "plays"}
+        ]
+    },
+
+    # ─── УРОК 2 ───
+    {
+        "id": "past_simple",
+        "title": "Past Simple",
+        "emoji": "⏪",
+        "level": "A1-A2",
+        "intro": "Простое прошедшее время. Используем для законченных действий в прошлом.",
+        "theory": [
+            {"h": "Когда использовать", "text": "Когда действие произошло в прошлом и закончилось (вчера, в прошлом году, 2 часа назад). Есть конкретное время или подразумевается."},
+            {"h": "Правильные глаголы", "text": "Добавляем -ed: work → worked, play → played, watch → watched."},
+            {"h": "Неправильные глаголы", "text": "Формы надо запомнить: go → went, see → saw, have → had, do → did. Учи их в разделе «Неправильные глаголы»."},
+            {"h": "Отрицание", "text": "did not (didn't) + глагол в базовой форме: I didn't work, he didn't go."},
+            {"h": "Вопрос", "text": "Did + подлежащее + глагол: Did you work? Did he go?"},
+            {"h": "Маркеры", "text": "yesterday, last week, 2 days ago, in 2020, when I was a child."}
+        ],
+        "examples": [
+            {"eng": "I worked yesterday.", "rus": "Я работал вчера."},
+            {"eng": "She went to London last year.", "rus": "Она ездила в Лондон в прошлом году."},
+            {"eng": "We didn't see the film.", "rus": "Мы не смотрели фильм."},
+            {"eng": "Did you call me?", "rus": "Ты мне звонил?"},
+            {"eng": "He was at home.", "rus": "Он был дома."}
+        ],
+        "test": [
+            {"type": "choice", "q": "I ___ to school yesterday.", "options": ["go", "goes", "went", "gone"], "correct": "went"},
+            {"type": "choice", "q": "She ___ the film last week.", "options": ["see", "saw", "seen", "sees"], "correct": "saw"},
+            {"type": "choice", "q": "We ___ go to the party.", "options": ["doesn't", "don't", "didn't", "aren't"], "correct": "didn't"},
+            {"type": "fill", "q": "He ___ (play) football yesterday.", "answer": "played"},
+            {"type": "fill", "q": "Did you ___ (see) him?", "answer": "see"}
+        ]
+    },
+
+    # ─── УРОК 3 ───
+    {
+        "id": "present_continuous",
+        "title": "Present Continuous",
+        "emoji": "🎬",
+        "level": "A1-A2",
+        "intro": "Настоящее длительное. Используем для действий прямо сейчас или в этот период.",
+        "theory": [
+            {"h": "Когда использовать", "text": "Действие происходит прямо сейчас (I am reading) или в текущий период (I am learning English this year). Также для запланированного будущего (I am meeting him tomorrow)."},
+            {"h": "Как образуется", "text": "am / is / are + глагол с -ing. I am working. She is reading. They are playing."},
+            {"h": "Отрицание", "text": "am not / isn't / aren't + глагол-ing: I am not working, he isn't reading."},
+            {"h": "Вопрос", "text": "Am / Is / Are + подлежащее + глагол-ing: Are you working? Is she reading?"},
+            {"h": "Маркеры", "text": "now, right now, at the moment, today, this week, look!, listen!"}
+        ],
+        "examples": [
+            {"eng": "I am reading a book.", "rus": "Я читаю книгу (сейчас)."},
+            {"eng": "She is cooking dinner.", "rus": "Она готовит ужин."},
+            {"eng": "They are not watching TV.", "rus": "Они не смотрят телевизор."},
+            {"eng": "Are you listening to me?", "rus": "Ты меня слушаешь?"},
+            {"eng": "Look! It is raining.", "rus": "Смотри! Идёт дождь."}
+        ],
+        "test": [
+            {"type": "choice", "q": "I ___ reading a book now.", "options": ["am", "is", "are", "be"], "correct": "am"},
+            {"type": "choice", "q": "She ___ cooking dinner.", "options": ["am", "is", "are", "be"], "correct": "is"},
+            {"type": "choice", "q": "They ___ playing football.", "options": ["am not", "isn't", "aren't", "don't"], "correct": "aren't"},
+            {"type": "fill", "q": "Look! He ___ (run).", "answer": "is running"},
+            {"type": "fill", "q": "We ___ (study) English now.", "answer": "are studying"}
+        ]
+    },
 ]
