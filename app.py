@@ -1853,7 +1853,8 @@ def grammar_finish(lesson_id):
 def irregular_train():
     mode = request.args.get("mode", "past")
     session["irr_mode"] = mode
-    session["irr_correct"] = 0    session["irr_wrong"] = 0
+    session["irr_correct"] = 0
+    session["irr_wrong"] = 0
     session["irr_used"] = []
     return render_template("irregular_train.html", empty=False, mode=mode)
 
