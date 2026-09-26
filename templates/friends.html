@@ -1,0 +1,411 @@
+{% extends "base.html" %}
+
+{% block title %}Друзья — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .friends-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+    .search-box {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 20px 25px;
+        margin-bottom: 25px;
+    }
+    .search-box-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 12px;
+    }
+    .search-input-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .search-input-row input {
+        flex: 1;
+        padding: 14px 18px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: var(--text);
+        font-size: 15px;
+        font-family: 'Rubik', sans-serif;
+        outline: none;
+    }
+    .search-input-row input:focus { border-color: var(--accent); }
+    .search-results {
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .search-result {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 12px 16px;
+        background: var(--bg-subtle);
+        border-radius: 10px;
+    }
+    .avatar-circle {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+        flex-shrink: 0;
+        position: relative;
+    }
+    .avatar-circle img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .online-dot {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 12px;
+        height: 12px;
+        background: #4caf50;
+        border: 2px solid var(--bg-card);
+        border-radius: 50%;
+    }
+    .user-info {
+        flex: 1;
+        min-width: 0;
+    }
+    .user-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 2px;
+    }
+    .user-nick {
+        font-size: 13px;
+        color: var(--text-sub);
+    }
+    .btn-sm {
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-family: 'Rubik', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s;
+        white-space: nowrap;
+    }
+    .btn-primary {
+        background: var(--accent);
+        color: #fff;
+    }
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-success {
+        background: #4caf50;
+        color: #fff;
+    }
+    .btn-success:hover { background: #388e3c; }
+    .btn-danger {
+        background: transparent;
+        color: #f44336;
+        border: 2px solid #f44336;
+    }
+    .btn-danger:hover { background: #f44336; color: #fff; }
+    .btn-ghost {
+        background: var(--bg-hover);
+        color: var(--text-sub);
+    }
+    .btn-ghost:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    .section-block-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
+        margin: 30px 0 15px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .section-block-title .badge {
+        background: var(--accent);
+        color: #fff;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 13px;
+    }
+    .friends-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .friend-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 20px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--text);
+        transition: all 0.2s;
+    }
+    .friend-item:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+    }
+    .friend-item .user-info {
+        flex: 1;
+    }
+    .unread-badge {
+        background: #f44336;
+        color: #fff;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 700;
+        min-width: 24px;
+        text-align: center;
+    }
+    .request-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 20px;
+        background: var(--bg-subtle);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        flex-wrap: wrap;
+    }
+    .request-actions {
+        display: flex;
+        gap: 8px;
+    }
+    .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-sub);
+        font-size: 15px;
+    }
+    .empty-state a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="friends-header">
+    <div>
+        <h1>👥 Друзья</h1>
+        <div class="subtitle">Всего: {{ friends|length }}</div>
+    </div>
+</div>
+
+<!-- ПОИСК -->
+<div class="search-box">
+    <div class="search-box-title">🔍 Найти пользователя по @нику</div>
+    <div class="search-input-row">
+        <input id="searchInput" placeholder="@ник (например, yoshi)" oninput="searchUsers()">
+    </div>
+    <div class="search-results" id="searchResults"></div>
+</div>
+
+<!-- ВХОДЯЩИЕ ЗАЯВКИ -->
+{% if incoming %}
+<div class="section-block-title">
+    📩 Заявки в друзья
+    <span class="badge">{{ incoming|length }}</span>
+</div>
+<div class="friends-list">
+    {% for r in incoming %}
+    <div class="request-item">
+        <div class="avatar-circle">
+            {% if r.user.avatar %}
+                <img src="/avatars/{{ r.user.avatar }}" alt="">
+            {% else %}
+                {{ r.user.username[0]|upper }}
+            {% endif %}
+        </div>
+        <div class="user-info">
+            <div class="user-name">{{ r.user.username }}</div>
+            <div class="user-nick">@{{ r.user.nickname }}</div>
+        </div>
+        <div class="request-actions">
+            <button class="btn-sm btn-success" onclick="acceptRequest({{ r.friendship_id }})">✓ Принять</button>
+            <button class="btn-sm btn-danger" onclick="declineRequest({{ r.friendship_id }})">✕ Отклонить</button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- ИСХОДЯЩИЕ ЗАЯВКИ -->
+{% if outgoing %}
+<div class="section-block-title">📤 Отправленные заявки</div>
+<div class="friends-list">
+    {% for r in outgoing %}
+    <div class="request-item">
+        <div class="avatar-circle">
+            {% if r.user.avatar %}
+                <img src="/avatars/{{ r.user.avatar }}" alt="">
+            {% else %}
+                {{ r.user.username[0]|upper }}
+            {% endif %}
+        </div>
+        <div class="user-info">
+            <div class="user-name">{{ r.user.username }}</div>
+            <div class="user-nick">@{{ r.user.nickname }}</div>
+        </div>
+        <span style="color: var(--text-sub); font-size: 13px;">Ожидает подтверждения</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- ДРУЗЬЯ -->
+<div class="section-block-title">
+    👥 Мои друзья
+    {% if friends %}<span class="badge">{{ friends|length }}</span>{% endif %}
+</div>
+
+{% if friends %}
+<div class="friends-list">
+    {% for f in friends %}
+    <a href="/chat/{{ f.user.id }}" class="friend-item">
+        <div class="avatar-circle">
+            {% if f.user.avatar %}
+                <img src="/avatars/{{ f.user.avatar }}" alt="">
+            {% else %}
+                {{ f.user.username[0]|upper }}
+            {% endif %}
+            {% if f.online %}<span class="online-dot"></span>{% endif %}
+        </div>
+        <div class="user-info">
+            <div class="user-name">{{ f.user.username }}</div>
+            <div class="user-nick">
+                @{{ f.user.nickname }}
+                {% if f.online %} • <span style="color: #4caf50;">онлайн</span>{% endif %}
+            </div>
+        </div>
+        {% if f.unread > 0 %}
+        <span class="unread-badge">{{ f.unread }}</span>
+        {% endif %}
+        <span style="color: var(--text-sub);">💬</span>
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    У тебя пока нет друзей.<br>
+    Найди кого-нибудь через поиск выше или поделись сайтом с друзьями!
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let searchTimeout = null;
+
+    function searchUsers() {
+        clearTimeout(searchTimeout);
+        const q = document.getElementById("searchInput").value.trim();
+        const results = document.getElementById("searchResults");
+
+        if (q.length < 2) {
+            results.innerHTML = "";
+            return;
+        }
+
+        searchTimeout = setTimeout(() => {
+            fetch("/friends/search?q=" + encodeURIComponent(q))
+                .then(r => r.json())
+                .then(data => {
+                    results.innerHTML = "";
+                    if (!data.users || data.users.length === 0) {
+                        results.innerHTML = "<div style='color: var(--text-sub); font-size: 14px; padding: 8px 0;'>Никого не найдено</div>";
+                        return;
+                    }
+                    data.users.forEach(u => {
+                        const div = document.createElement("div");
+                        div.className = "search-result";
+                        let actionHTML = "";
+                        if (u.status === "friends") {
+                            actionHTML = "<span style='color: #4caf50; font-weight: 700;'>✓ Друзья</span>";
+                        } else if (u.status === "pending") {
+                            actionHTML = "<span style='color: var(--text-sub); font-size: 13px;'>Заявка отправлена</span>";
+                        } else {
+                            actionHTML = "<button class='btn-sm btn-primary' onclick='sendRequest(" + u.id + ", this)'>+ Добавить</button>";
+                        }
+
+                        const avatarHTML = u.avatar
+                            ? "<img src='/avatars/" + u.avatar + "' alt=''>"
+                            : u.username[0].toUpperCase();
+
+                        div.innerHTML = `
+                            <div class="avatar-circle">${avatarHTML}${u.online ? '<span class="online-dot"></span>' : ''}</div>
+                            <div class="user-info">
+                                <div class="user-name">${u.username}</div>
+                                <div class="user-nick">@${u.nickname}</div>
+                            </div>
+                            ${actionHTML}
+                        `;
+                        results.appendChild(div);
+                    });
+                });
+        }, 300);
+    }
+
+    function sendRequest(userId, btn) {
+        btn.disabled = true;
+        btn.textContent = "...";
+        fetch("/friends/request/" + userId, {method: "POST"})
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === "ok") {
+                    btn.textContent = "✓ Отправлено";
+                    btn.className = "btn-sm btn-ghost";
+                } else {
+                    alert(data.message || "Ошибка");
+                    btn.disabled = false;
+                    btn.textContent = "+ Добавить";
+                }
+            });
+    }
+
+    function acceptRequest(fid) {
+        fetch("/friends/accept/" + fid, {method: "POST"})
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === "ok") location.reload();
+            });
+    }
+
+    function declineRequest(fid) {
+        fetch("/friends/decline/" + fid, {method: "POST"})
+            .then(r => r.json())
+            .then(data => {
+                if (data.status === "ok") location.reload();
+            });
+    }
+</script>
+{% endblock %}
