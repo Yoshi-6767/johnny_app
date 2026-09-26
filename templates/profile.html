@@ -235,17 +235,29 @@
 
     /* РАДАР */
     .profile-radar-block {
-        background: var(--bg-card);
+        background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-subtle) 100%);
         border: 1px solid var(--border);
         border-radius: 14px;
         padding: 25px;
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .profile-radar-block::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, var(--accent-shadow) 0%, transparent 70%);
+        opacity: 0.4;
+        pointer-events: none;
     }
     #profileRadarCanvas {
         max-width: 100%;
         height: auto;
+        position: relative;
+        z-index: 1;
     }
 
     /* КАЛЕНДАРЬ СТРИКА */
@@ -257,25 +269,34 @@
     }
     .streak-grid {
         display: grid;
-        grid-template-columns: repeat(14, 1fr);
+        grid-template-columns: repeat(7, 1fr);
         gap: 6px;
     }
     .streak-cell {
         aspect-ratio: 1;
         background: var(--bg-hover);
-        border-radius: 4px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-muted);
         transition: transform 0.15s;
         cursor: pointer;
     }
     .streak-cell.trained {
         background: var(--accent);
+        color: #fff;
     }
     .streak-cell.today {
         border: 2px solid var(--accent);
         box-shadow: 0 0 8px var(--accent-shadow);
+        color: var(--accent);
+        font-weight: 700;
     }
     .streak-cell:hover {
-        transform: scale(1.2);
+        transform: scale(1.15);
     }
 
     /* АЧИВКИ */
@@ -383,6 +404,7 @@
     </div>
 </div>
 
+<!-- СТАТИСТИКА -->
 <div class="stats-row">
     <div class="stat-mini">
         <div class="num">{{ streak }}</div>
@@ -402,33 +424,7 @@
     </div>
 </div>
 
-<!-- РАДАР + КАЛЕНДАРЬ -->
-<div class="section-block">
-    <div class="section-block-header">
-        <h2>🕸️ Радар скиллов</h2>
-    </div>
-    <div class="profile-radar-block">
-        <canvas id="profileRadarCanvas" width="400" height="400"></canvas>
-    </div>
-</div>
-
-<div class="section-block">
-    <div class="section-block-header">
-        <h2>📅 Календарь стрика</h2>
-        <span style="color: var(--text-sub); font-size: 13px;">Последние 28 дней</span>
-    </div>
-    <div class="streak-calendar">
-       <div class="streak-grid">
-    {% for d in streak_calendar %}
-    <div class="streak-cell {% if d.trained %}trained{% endif %} {% if d.is_today %}today{% endif %}"
-         title="{{ d.date }}{% if d.trained %} — тренировался{% endif %}">
-        <span class="streak-day">{{ d.date[8:10] }}</span>
-    </div>
-    {% endfor %}
-</div>
-    </div>
-</div>
-
+<!-- ТЕМЫ (сразу после статистики) -->
 <div class="section-block">
     <div class="section-block-header">
         <h2>🎨 Тема оформления</h2>
@@ -462,6 +458,35 @@
     </div>
 </div>
 
+<!-- РАДАР -->
+<div class="section-block">
+    <div class="section-block-header">
+        <h2>🕸️ Радар скиллов</h2>
+    </div>
+    <div class="profile-radar-block">
+        <canvas id="profileRadarCanvas" width="400" height="400"></canvas>
+    </div>
+</div>
+
+<!-- КАЛЕНДАРЬ СТРИКА -->
+<div class="section-block">
+    <div class="section-block-header">
+        <h2>📅 Календарь стрика</h2>
+        <span style="color: var(--text-sub); font-size: 13px;">Последние 28 дней</span>
+    </div>
+    <div class="streak-calendar">
+        <div class="streak-grid">
+            {% for d in streak_calendar %}
+            <div class="streak-cell {% if d.trained %}trained{% endif %} {% if d.is_today %}today{% endif %}"
+                 title="{{ d.date }}{% if d.trained %} — тренировался{% endif %}">
+                {{ d.date[8:10] }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- АУДИРОВАНИЕ -->
 <div class="section-block">
     <div class="section-block-header">
         <h2>🎧 Аудирование</h2>
@@ -488,6 +513,7 @@
     </div>
 </div>
 
+<!-- АЧИВКИ -->
 <div class="section-block">
     <div class="section-block-header">
         <h2>🏆 Последние достижения</h2>
@@ -507,6 +533,7 @@
     {% endif %}
 </div>
 
+<!-- ЦЕЛИ -->
 <div class="section-block">
     <div class="section-block-header">
         <h2>🎯 Активные цели</h2>
@@ -593,7 +620,7 @@
         const ctx = canvas.getContext("2d");
         const cx = canvas.width / 2;
         const cy = canvas.height / 2;
-        const radius = 140;
+        const radius = 130;
 
         const labels = ["📚", "📖", "🎧", "🗣️", "✍️"];
         const values = [
@@ -608,9 +635,10 @@
 
         const accent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || "#2196f3";
         const textColor = getComputedStyle(document.body).getPropertyValue('--text').trim() || "#333";
-        const borderColor = getComputedStyle(document.body).getPropertyValue('--border').trim() || "#e0e0e0";
 
-        ctx.strokeStyle = borderColor;
+        // Сетка (5 уровней)
+        ctx.strokeStyle = accent;
+        ctx.globalAlpha = 0.25;
         ctx.lineWidth = 1;
         for (let level = 1; level <= 5; level++) {
             ctx.beginPath();
@@ -622,9 +650,13 @@
                 if (i === 0) ctx.moveTo(x, y);
                 else ctx.lineTo(x, y);
             }
+            ctx.closePath();
             ctx.stroke();
         }
 
+        // Оси
+        ctx.strokeStyle = accent;
+        ctx.globalAlpha = 0.4;
         for (let i = 0; i < n; i++) {
             const angle = -Math.PI / 2 + i * angleStep;
             const x = cx + Math.cos(angle) * radius;
@@ -634,7 +666,16 @@
             ctx.lineTo(x, y);
             ctx.stroke();
         }
+        ctx.globalAlpha = 1;
 
+        // Заливка с градиентом и тенью
+        const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+        gradient.addColorStop(0, accent + "99");
+        gradient.addColorStop(1, accent + "33");
+
+        ctx.save();
+        ctx.shadowColor = accent;
+        ctx.shadowBlur = 20;
         ctx.beginPath();
         for (let i = 0; i <= n; i++) {
             const idx = i % n;
@@ -646,31 +687,64 @@
             else ctx.lineTo(x, y);
         }
         ctx.closePath();
-        ctx.fillStyle = accent + "55";
+        ctx.fillStyle = gradient;
         ctx.fill();
+        ctx.restore();
+
+        // Обводка
+        ctx.beginPath();
+        for (let i = 0; i <= n; i++) {
+            const idx = i % n;
+            const angle = -Math.PI / 2 + idx * angleStep;
+            const r = radius * values[idx];
+            const x = cx + Math.cos(angle) * r;
+            const y = cy + Math.sin(angle) * r;
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
         ctx.strokeStyle = accent;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.stroke();
 
+        // Точки
         for (let i = 0; i < n; i++) {
             const angle = -Math.PI / 2 + i * angleStep;
             const r = radius * values[i];
             const x = cx + Math.cos(angle) * r;
             const y = cy + Math.sin(angle) * r;
+
             ctx.beginPath();
-            ctx.arc(x, y, 4, 0, Math.PI * 2);
+            ctx.arc(x, y, 9, 0, Math.PI * 2);
+            ctx.fillStyle = accent + "33";
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
             ctx.fillStyle = accent;
             ctx.fill();
+            ctx.strokeStyle = "#fff";
+            ctx.lineWidth = 2;
+            ctx.stroke();
         }
 
+        // Подписи в кружках
         ctx.fillStyle = textColor;
-        ctx.font = "bold 20px Rubik, sans-serif";
+        ctx.font = "bold 22px Rubik, sans-serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         for (let i = 0; i < n; i++) {
             const angle = -Math.PI / 2 + i * angleStep;
-            const x = cx + Math.cos(angle) * (radius + 25);
-            const y = cy + Math.sin(angle) * (radius + 25);
+            const x = cx + Math.cos(angle) * (radius + 30);
+            const y = cy + Math.sin(angle) * (radius + 30);
+
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, Math.PI * 2);
+            ctx.fillStyle = "#fff";
+            ctx.globalAlpha = 0.15;
+            ctx.fill();
+            ctx.globalAlpha = 1;
+
             ctx.fillText(labels[i], x, y);
         }
     })();
