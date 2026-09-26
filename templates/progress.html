@@ -243,6 +243,115 @@
 </div>
 {% endif %}
 
+<h2 style="margin-bottom: 15px; font-size: 22px;">🕸️ Радар скиллов</h2>
+<div class="radar-block">
+    <canvas id="radarCanvas" width="500" height="500"></canvas>
+    <div class="radar-legend">
+        <div class="radar-legend-item"><span class="dot dot-words"></span> 📚 Слова — <strong>{{ radar.words }}%</strong></div>
+        <div class="radar-legend-item"><span class="dot dot-reading"></span> 📖 Чтение — <strong>{{ radar.reading }}%</strong></div>
+        <div class="radar-legend-item"><span class="dot dot-listening"></span> 🎧 Слушание — <strong>{{ radar.listening }}%</strong></div>
+        <div class="radar-legend-item"><span class="dot dot-speaking"></span> 🗣️ Речь — <strong>{{ radar.speaking }}%</strong></div>
+        <div class="radar-legend-item"><span class="dot dot-writing"></span> ✍️ Письмо — <strong>{{ radar.writing }}%</strong></div>
+    </div>
+</div>
+
+<script>
+(function() {
+    const canvas = document.getElementById("radarCanvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    const radius = 180;
+
+    const labels = ["📚 Слова", "📖 Чтение", "🎧 Слушание", "🗣️ Речь", "✍️ Письмо"];
+    const values = [
+        {{ radar.words }} / 100,
+        {{ radar.reading }} / 100,
+        {{ radar.listening }} / 100,
+        {{ radar.speaking }} / 100,
+        {{ radar.writing }} / 100
+    ];
+    const n = labels.length;
+    const angleStep = (Math.PI * 2) / n;
+
+    // Получаем цвет акцента из CSS
+    const accent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || "#2196f3";
+    const textColor = getComputedStyle(document.body).getPropertyValue('--text').trim() || "#333";
+    const borderColor = getComputedStyle(document.body).getPropertyValue('--border').trim() || "#e0e0e0";
+
+    // Фон — сетка
+    ctx.strokeStyle = borderColor;
+    ctx.lineWidth = 1;
+    for (let level = 1; level <= 5; level++) {
+        ctx.beginPath();
+        for (let i = 0; i <= n; i++) {
+            const angle = -Math.PI / 2 + i * angleStep;
+            const r = (radius / 5) * level;
+            const x = cx + Math.cos(angle) * r;
+            const y = cy + Math.sin(angle) * r;
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+    }
+
+    // Оси
+    ctx.strokeStyle = borderColor;
+    for (let i = 0; i < n; i++) {
+        const angle = -Math.PI / 2 + i * angleStep;
+        const x = cx + Math.cos(angle) * radius;
+        const y = cy + Math.sin(angle) * radius;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    }
+
+    // Данные (закрашенный многоугольник)
+    ctx.beginPath();
+    for (let i = 0; i <= n; i++) {
+        const idx = i % n;
+        const angle = -Math.PI / 2 + idx * angleStep;
+        const r = radius * values[idx];
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = accent + "55";  // 33% прозрачности
+    ctx.fill();
+    ctx.strokeStyle = accent;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Точки на вершинах
+    for (let i = 0; i < n; i++) {
+        const angle = -Math.PI / 2 + i * angleStep;
+        const r = radius * values[i];
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = accent;
+        ctx.fill();
+    }
+
+    // Подписи
+    ctx.fillStyle = textColor;
+    ctx.font = "bold 14px Rubik, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    for (let i = 0; i < n; i++) {
+        const angle = -Math.PI / 2 + i * angleStep;
+        const x = cx + Math.cos(angle) * (radius + 30);
+        const y = cy + Math.sin(angle) * (radius + 30);
+        ctx.fillText(labels[i], x, y);
+    }
+})();
+</script>
+
 <h2 style="margin-bottom: 15px; font-size: 22px;">📈 Активность за неделю</h2>
 <div class="chart">
     {% if last_7 %}
