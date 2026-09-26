@@ -213,7 +213,7 @@ IDIOMS = [
 ]
 
 
-# ─── ЛОЖНЫЕ ДРУЗЬЯ ПЕРЕВОДЧИКА ───
+# ─── ЛОЖНЫЕ ДРУЗЬЯ ───
 
 FALSE_FRIENDS = [
     {"word": "magazine", "false_ru": "магазин", "real_ru": "журнал", "example": "I read a magazine."},
@@ -269,7 +269,7 @@ FALSE_FRIENDS = [
 ]
 
 
-# ─── СЛЕНГ И РАЗГОВОРНЫЕ ВЫРАЖЕНИЯ ───
+# ─── СЛЕНГ ───
 
 SLANG = [
     {"word": "gonna", "rus": "собираюсь (going to)", "example": "I'm gonna call you."},
@@ -315,7 +315,7 @@ SLANG = [
 ]
 
 
-# ─── ФИКСИРОВАННЫЕ ТОПИКИ ───
+# ─── ТОПИКИ ───
 
 FIXED_TOPICS = [
     {
@@ -526,7 +526,6 @@ DIALOGUES = [
 
 
 # ─── ЭМОДЗИ-КВИЗ ───
-# Формат: emoji показывает, юзер вводит английское слово
 
 EMOJI_WORDS = [
     {"emoji": "🍎", "answer": "apple", "rus": "яблоко"},
@@ -591,22 +590,12 @@ EMOJI_WORDS = [
     {"emoji": "🐘", "answer": "elephant", "rus": "слон"},
     {"emoji": "🐻", "answer": "bear", "rus": "медведь"},
     {"emoji": "🦊", "answer": "fox", "rus": "лиса"},
+]
 
 
-
-# ═══════════════════════════════════════════════
-# ГРАММАТИКА — УРОКИ
-# ═══════════════════════════════════════════════
-# Структура урока:
-#   id, title, emoji, level, intro (короткое вступление)
-#   theory: список блоков [{h: "заголовок", text: "текст"}]
-#   examples: список примеров [{eng: "...", rus: "..."}]
-#   test: список вопросов
-#     type="choice" — 4 варианта, 1 правильный
-#     type="fill" — вставить пропущенное слово (вводишь текст)
+# ─── ГРАММАТИКА ───
 
 GRAMMAR_LESSONS = [
-    # ─── УРОК 1 ───
     {
         "id": "present_simple",
         "title": "Present Simple",
@@ -635,8 +624,6 @@ GRAMMAR_LESSONS = [
             {"type": "fill", "q": "He ___ (play) guitar.", "answer": "plays"}
         ]
     },
-
-    # ─── УРОК 2 ───
     {
         "id": "past_simple",
         "title": "Past Simple",
@@ -666,8 +653,6 @@ GRAMMAR_LESSONS = [
             {"type": "fill", "q": "Did you ___ (see) him?", "answer": "see"}
         ]
     },
-
-    # ─── УРОК 3 ───
     {
         "id": "present_continuous",
         "title": "Present Continuous",
