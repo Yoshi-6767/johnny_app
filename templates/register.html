@@ -67,12 +67,16 @@
     <div class="auth-error">{{ error }}</div>
     {% endif %}
 
-    <form method="POST">
-        <input name="username" placeholder="Имя" required autofocus>
+        <form method="POST">
+        <input name="username" placeholder="Имя (отображаемое)" required autofocus maxlength="50">
+        <input name="nickname" placeholder="@ник (уникальный, латиница)" required pattern="[a-zA-Z0-9_]{2,30}" maxlength="30">
         <input name="email" type="email" placeholder="Email" required>
         <input name="password" type="password" placeholder="Пароль" required>
         <button type="submit">Зарегистрироваться</button>
     </form>
+    <div style="font-size: 12px; color: var(--text-sub); margin-top: 10px; text-align: center;">
+        @ник — как в Telegram. 2-30 символов: латиница, цифры, _
+    </div>
 
     <div class="auth-link">
         Уже есть аккаунт? <a href="/login">Войти</a>
