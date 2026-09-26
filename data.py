@@ -678,7 +678,215 @@ GRAMMAR_LESSONS = [
             {"type": "choice", "q": "She ___ cooking dinner.", "options": ["am", "is", "are", "be"], "correct": "is"},
             {"type": "choice", "q": "They ___ playing football.", "options": ["am not", "isn't", "aren't", "don't"], "correct": "aren't"},
             {"type": "fill", "q": "Look! He ___ (run).", "answer": "is running"},
-            {"type": "fill", "q": "We ___ (study) English now.", "answer": "are studying"}
+                        {"type": "fill", "q": "We ___ (study) English now.", "answer": "are studying"}
+        ]
+    },
+
+    # ─── УРОК 4 ───
+    {
+        "id": "future_simple",
+        "title": "Future Simple",
+        "emoji": "🔮",
+        "level": "A1-A2",
+        "intro": "Простое будущее. Используем для решений, предсказаний, обещаний.",
+        "theory": [
+            {"h": "Когда использовать", "text": "Спонтанные решения (I'll help you), предсказания (It will rain), обещания (I will call you)."},
+            {"h": "Как образуется", "text": "will + глагол в базовой форме для всех лиц: I will work, you will work, he will work."},
+            {"h": "Отрицание", "text": "will not (won't) + глагол: I won't work, he won't come."},
+            {"h": "Вопрос", "text": "Will + подлежащее + глагол: Will you help me? Will it rain?"},
+            {"h": "Маркеры", "text": "tomorrow, next week, next year, in 2030, soon, I think, probably."}
+        ],
+        "examples": [
+            {"eng": "I will call you tomorrow.", "rus": "Я позвоню тебе завтра."},
+            {"eng": "It will rain soon.", "rus": "Скоро пойдёт дождь."},
+            {"eng": "They won't come.", "rus": "Они не придут."},
+            {"eng": "Will you help me?", "rus": "Ты мне поможешь?"},
+            {"eng": "She will be a doctor.", "rus": "Она будет врачом."}
+        ],
+        "test": [
+            {"type": "choice", "q": "I ___ call you tomorrow.", "options": ["will", "am", "do", "did"], "correct": "will"},
+            {"type": "choice", "q": "She ___ come to the party.", "options": ["will not", "doesn't", "isn't", "didn't"], "correct": "will not"},
+            {"type": "choice", "q": "___ you help me?", "options": ["Will", "Do", "Are", "Did"], "correct": "Will"},
+            {"type": "fill", "q": "It ___ (rain) tomorrow.", "answer": "will rain"},
+            {"type": "fill", "q": "We ___ (go) to the cinema next week.", "answer": "will go"}
+        ]
+    },
+
+    # ─── УРОК 5 ───
+    {
+        "id": "articles",
+        "title": "Артикли (a/an/the)",
+        "emoji": "🔤",
+        "level": "A1-A2",
+        "intro": "Артикли — одна из самых сложных тем в английском. Разберём когда a, когда an, когда the.",
+        "theory": [
+            {"h": "a / an — неопределённый", "text": "Используем с исчисляемыми в единственном числе, когда говорим о предмете впервые. a + согласная (a book), an + гласная (an apple)."},
+            {"h": "the — определённый", "text": "Когда предмет уже известен, упоминался, или единственный в своём роде: the sun, the moon, the book I told you about."},
+            {"h": "Когда артикль НЕ нужен", "text": "С множественным числом в общем смысле (I like apples), с именами, городами, странами (кроме the USA, the UK), с неисчисляемыми в общем (Water is good)."},
+            {"h": "Устойчивые фразы", "text": "go to school (без артикля) — учиться; go to the school — идти в конкретную школу. at home, at work, in bed — без артикля."}
+        ],
+        "examples": [
+            {"eng": "I have a cat.", "rus": "У меня есть кошка. (впервые)"},
+            {"eng": "The cat is black.", "rus": "Эта кошка чёрная. (уже знаем, о какой)"},
+            {"eng": "She is an engineer.", "rus": "Она инженер. (an перед гласной)"},
+            {"eng": "The sun is bright today.", "rus": "Солнце сегодня яркое. (единственное в своём роде)"},
+            {"eng": "I like music.", "rus": "Я люблю музыку. (неисчисляемое в общем)"}
+        ],
+        "test": [
+            {"type": "choice", "q": "I saw ___ elephant at the zoo.", "options": ["a", "an", "the", "—"], "correct": "an"},
+            {"type": "choice", "q": "___ sun rises in the east.", "options": ["A", "An", "The", "—"], "correct": "The"},
+            {"type": "choice", "q": "I like ___ apples.", "options": ["a", "an", "the", "—"], "correct": "—"},
+            {"type": "fill", "q": "She has ___ dog. (введи только артикль)", "answer": "a"},
+            {"type": "fill", "q": "___ moon is beautiful tonight. (введи только артикль)", "answer": "the"}
+        ]
+    },
+
+    # ─── УРОК 6 ───
+    {
+        "id": "prepositions",
+        "title": "Предлоги (in/on/at)",
+        "emoji": "📍",
+        "level": "A1-A2",
+        "intro": "Предлоги времени и места. in — внутри, on — на поверхности, at — в точке.",
+        "theory": [
+            {"h": "in — время", "text": "Большие периоды: in 2020, in May, in winter, in the morning, in 2 hours."},
+            {"h": "on — время", "text": "Дни и даты: on Monday, on 5th May, on my birthday, on Christmas Day."},
+            {"h": "at — время", "text": "Точное время и моменты: at 5 o'clock, at noon, at night, at the weekend (брит.), at Christmas."},
+            {"h": "in / on / at — место", "text": "in — внутри (in the box, in the room, in London). on — на поверхности (on the table, on the wall). at — в точке (at the bus stop, at home, at work)."},
+            {"h": "Запомни", "text": "in the morning, in the afternoon, in the evening — но at night. on Monday morning, on Sunday evening."}
+        ],
+        "examples": [
+            {"eng": "I was born in 2005.", "rus": "Я родился в 2005 году."},
+            {"eng": "See you on Monday.", "rus": "Увидимся в понедельник."},
+            {"eng": "The meeting is at 3 pm.", "rus": "Встреча в 3 часа дня."},
+            {"eng": "The book is on the table.", "rus": "Книга на столе."},
+            {"eng": "I live in London.", "rus": "Я живу в Лондоне."}
+        ],
+        "test": [
+            {"type": "choice", "q": "I was born ___ 2005.", "options": ["in", "on", "at", "to"], "correct": "in"},
+            {"type": "choice", "q": "See you ___ Monday.", "options": ["in", "on", "at", "by"], "correct": "on"},
+            {"type": "choice", "q": "The meeting is ___ 3 pm.", "options": ["in", "on", "at", "to"], "correct": "at"},
+            {"type": "fill", "q": "I live ___ Moscow.", "answer": "in"},
+            {"type": "fill", "q": "The book is ___ the table.", "answer": "on"}
+        ]
+    },
+
+    # ─── УРОК 7 ───
+    {
+        "id": "there_is_are",
+        "title": "There is / There are",
+        "emoji": "🏠",
+        "level": "A1-A2",
+        "intro": "Конструкция «есть / находится». Используем когда говорим о наличии чего-то.",
+        "theory": [
+            {"h": "There is — для одного", "text": "There is a book on the table. (На столе есть книга.)"},
+            {"h": "There are — для многих", "text": "There are 3 books on the table. (На столе 3 книги.)"},
+            {"h": "Отрицание", "text": "There isn't / There aren't: There isn't any milk. There aren't any chairs."},
+            {"h": "Вопрос", "text": "Is there...? Are there...?: Is there a bank near here? Are there any shops?"},
+            {"h": "Было / будет", "text": "There was / There were — в прошлом. There will be — в будущем."}
+        ],
+        "examples": [
+            {"eng": "There is a cat in the room.", "rus": "В комнате есть кошка."},
+            {"eng": "There are many people here.", "rus": "Здесь много людей."},
+            {"eng": "There isn't any water.", "rus": "Воды нет."},
+            {"eng": "Is there a bank near here?", "rus": "Здесь есть банк поблизости?"},
+            {"eng": "There were 5 apples yesterday.", "rus": "Вчера было 5 яблок."}
+        ],
+        "test": [
+            {"type": "choice", "q": "___ a book on the table.", "options": ["There is", "There are", "It is", "They are"], "correct": "There is"},
+            {"type": "choice", "q": "___ many students in the class.", "options": ["There is", "There are", "It is", "They are"], "correct": "There are"},
+            {"type": "choice", "q": "___ any milk in the fridge?", "options": ["Is there", "Are there", "It is", "There is"], "correct": "Is there"},
+            {"type": "fill", "q": "___ a cat in the garden. (введи There is или There are)", "answer": "There is"},
+            {"type": "fill", "q": "___ 3 cars on the street. (введи There is или There are)", "answer": "There are"}
+        ]
+    },
+
+    # ─── УРОК 8 ───
+    {
+        "id": "modal_verbs",
+        "title": "Модальные глаголы (can/must/should)",
+        "emoji": "💪",
+        "level": "A1-A2",
+        "intro": "Модальные глаголы выражают возможность, необходимость, совет.",
+        "theory": [
+            {"h": "can — уметь / мочь", "text": "I can swim. (Я умею плавать.) Can you help me? (Можешь помочь?)"},
+            {"h": "must — должен (сильная необходимость)", "text": "I must go. (Я должен идти.) You must not smoke. (Нельзя курить.)"},
+            {"h": "should — совет (стоит/не стоит)", "text": "You should sleep more. (Тебе стоит больше спать.) You shouldn't eat so much. (Не стоит так много есть.)"},
+            {"h": "Особенность", "text": "После модальных — глагол БЕЗ to и БЕЗ -s: He can swim (не swims), She must go (не goes)."},
+            {"h": "Отрицание", "text": "can't / cannot, mustn't (запрет), shouldn't (не советую)."}
+        ],
+        "examples": [
+            {"eng": "I can speak English.", "rus": "Я умею говорить по-английски."},
+            {"eng": "You must wear a seatbelt.", "rus": "Ты должен пристегнуться."},
+            {"eng": "You should see a doctor.", "rus": "Тебе стоит сходить к врачу."},
+            {"eng": "She can't come today.", "rus": "Она не может прийти сегодня."},
+            {"eng": "You mustn't smoke here.", "rus": "Здесь нельзя курить."}
+        ],
+        "test": [
+            {"type": "choice", "q": "I ___ swim very well.", "options": ["can", "cans", "can to", "am can"], "correct": "can"},
+            {"type": "choice", "q": "You ___ wear a seatbelt. (закон)", "options": ["must", "should", "can", "may"], "correct": "must"},
+            {"type": "choice", "q": "You ___ see a doctor. (совет)", "options": ["must", "should", "can", "will"], "correct": "should"},
+            {"type": "fill", "q": "She ___ (can) speak French.", "answer": "can"},
+            {"type": "fill", "q": "They ___ (must) go now.", "answer": "must"}
+        ]
+    },
+
+    # ─── УРОК 9 ───
+    {
+        "id": "comparatives",
+        "title": "Степени сравнения",
+        "emoji": "📊",
+        "level": "A1-A2",
+        "intro": "Сравнение: больше, меньше, самый большой. -er / more и -est / the most.",
+        "theory": [
+            {"h": "Короткие слова (1 слог)", "text": "big → bigger → the biggest. Добавляем -er / -est. Если слово кончается на согласную+гласную+согласную (big), согласная удваивается: bigger, biggest."},
+            {"h": "Длинные слова (3+ слога)", "text": "beautiful → more beautiful → the most beautiful. Используем more / the most."},
+            {"h": "Слова на -y", "text": "happy → happier → the happiest. y → i + er/est."},
+            {"h": "Исключения", "text": "good → better → the best. bad → worse → the worst. far → farther/further → the farthest/furthest."},
+            {"h": "Сравнение", "text": "than: He is taller than me. (Он выше меня.)"}
+        ],
+        "examples": [
+            {"eng": "He is taller than me.", "rus": "Он выше меня."},
+            {"eng": "She is the smartest in the class.", "rus": "Она самая умная в классе."},
+            {"eng": "This book is more interesting.", "rus": "Эта книга интереснее."},
+            {"eng": "My car is better than yours.", "rus": "Моя машина лучше твоей."},
+            {"eng": "It's the worst film ever.", "rus": "Это худший фильм вообще."}
+        ],
+        "test": [
+            {"type": "choice", "q": "He is ___ than me.", "options": ["tall", "taller", "tallest", "more tall"], "correct": "taller"},
+            {"type": "choice", "q": "She is the ___ in the class.", "options": ["smart", "smarter", "smartest", "most smart"], "correct": "smartest"},
+            {"type": "choice", "q": "This film is ___ than that one.", "options": ["interesting", "interesting", "more interesting", "most interesting"], "correct": "more interesting"},
+            {"type": "fill", "q": "good → better → ___ (введи третью форму с the)", "answer": "the best"},
+            {"type": "fill", "q": "big → ___ → the biggest (введи вторую форму)", "answer": "bigger"}
+        ]
+    },
+
+    # ─── УРОК 10 ───
+    {
+        "id": "gerund_infinitive",
+        "title": "Герундий vs Инфинитив",
+        "emoji": "🎭",
+        "level": "B1",
+        "intro": "I like reading (герундий) или I want to read (инфинитив)? Разберём после каких глаголов что.",
+        "theory": [
+            {"h": "Герундий (-ing)", "text": "После like, love, hate, enjoy, finish, stop, mind, suggest: I enjoy reading. She finished working."},
+            {"h": "Инфинитив (to + глагол)", "text": "После want, need, plan, hope, decide, promise, agree, would like: I want to read. She decided to leave."},
+            {"h": "И то, и то (значение меняется)", "text": "like + -ing — нравится процесс. like + to — нравится результат. stop + -ing — прекратил делать. stop + to — остановился, чтобы сделать."},
+            {"h": "Запомни", "text": "После предлогов ВСЕГДА -ing: I'm good at cooking. Thank you for helping."}
+        ],
+        "examples": [
+            {"eng": "I like reading books.", "rus": "Мне нравится читать книги (процесс)."},
+            {"eng": "I want to read this book.", "rus": "Я хочу прочитать эту книгу."},
+            {"eng": "She enjoys dancing.", "rus": "Она любит танцевать."},
+            {"eng": "We decided to go home.", "rus": "Мы решили пойти домой."},
+            {"eng": "Thank you for helping me.", "rus": "Спасибо за помощь. (после предлога -ing)"}
+        ],
+        "test": [
+            {"type": "choice", "q": "I want ___ a new car.", "options": ["buy", "buying", "to buy", "bought"], "correct": "to buy"},
+            {"type": "choice", "q": "She enjoys ___.", "options": ["dance", "dancing", "to dance", "danced"], "correct": "dancing"},
+            {"type": "choice", "q": "We decided ___ home.", "options": ["go", "going", "to go", "went"], "correct": "to go"},
+            {"type": "fill", "q": "I like ___ (read) books. (введи форму -ing)", "answer": "reading"},
+            {"type": "fill", "q": "She promised ___ (help) me. (введи с to)", "answer": "to help"}
         ]
     },
 ]
