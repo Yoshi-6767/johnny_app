@@ -23,19 +23,21 @@
     }
     .lesson-intro {
         color: var(--text-sub);
-        font-size: 16px;
-        margin-bottom: 30px;
+        font-size: 17px;
+        margin-bottom: 25px;
         line-height: 1.6;
     }
-    .lesson-block {
+
+    /* СЕКЦИИ */
+    .section {
         background: var(--bg-card);
         border: 1px solid var(--border);
         border-radius: 14px;
-        padding: 25px;
+        padding: 25px 30px;
         margin-bottom: 20px;
     }
-    .lesson-block h2 {
-        font-size: 20px;
+    .section h2 {
+        font-size: 22px;
         font-weight: 700;
         color: var(--accent);
         margin-bottom: 18px;
@@ -43,70 +45,197 @@
         align-items: center;
         gap: 10px;
     }
-    .theory-item {
-        margin-bottom: 18px;
-    }
-    .theory-item:last-child { margin-bottom: 0; }
-    .theory-item h3 {
+    .why-text {
         font-size: 16px;
+        color: var(--text);
+        line-height: 1.7;
+    }
+
+    /* ПРАВИЛА */
+    .rule-item {
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border-soft);
+    }
+    .rule-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .rule-item:first-child { padding-top: 0; }
+    .rule-item h3 {
+        font-size: 17px;
         font-weight: 700;
         color: var(--text);
         margin-bottom: 8px;
     }
-    .theory-item p {
+    .rule-item p {
         font-size: 15px;
         color: var(--text-sub);
-        line-height: 1.6;
+        line-height: 1.7;
     }
-    .example-item {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        padding: 12px 0;
-        border-bottom: 1px solid var(--border-soft);
-        align-items: center;
+
+    /* ТАБЛИЦЫ */
+    .table-block {
+        margin-bottom: 25px;
     }
-    .example-item:last-child { border-bottom: none; }
-    .example-item .eng {
+    .table-block:last-child { margin-bottom: 0; }
+    .table-title {
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 700;
         color: var(--text);
-        flex: 1;
+        margin-bottom: 12px;
     }
-    .example-item .rus {
+    .lesson-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--bg-card);
+        border-radius: 10px;
+        overflow: hidden;
         font-size: 14px;
-        color: var(--text-sub);
-        flex: 1;
-        text-align: right;
     }
-    .example-item .speak-btn {
-        background: var(--bg-subtle);
-        color: var(--accent);
-        border: none;
-        padding: 6px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: all 0.2s;
-        flex-shrink: 0;
-    }
-    .example-item .speak-btn:hover {
+    .lesson-table th {
         background: var(--accent);
         color: #fff;
+        padding: 12px;
+        text-align: left;
+        font-weight: 600;
+    }
+    .lesson-table td {
+        padding: 12px;
+        border-bottom: 1px solid var(--border-soft);
+        color: var(--text);
+    }
+    .lesson-table tr:last-child td { border-bottom: none; }
+    .lesson-table tr:hover td { background: var(--bg-hover); }
+
+    /* ОШИБКИ */
+    .mistake-item {
+        padding: 15px;
+        border-radius: 10px;
+        background: var(--bg-hover);
+        margin-bottom: 12px;
+    }
+    .mistake-item:last-child { margin-bottom: 0; }
+    .mistake-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 6px;
+    }
+    .mistake-row .icon { font-size: 18px; flex-shrink: 0; }
+    .mistake-row .text { font-size: 15px; color: var(--text); }
+    .mistake-row.wrong .text { color: #f44336; text-decoration: line-through; }
+    .mistake-row.right .text { color: #4caf50; font-weight: 700; }
+    .mistake-why {
+        font-size: 13px;
+        color: var(--text-sub);
+        margin-top: 8px;
+        padding-left: 28px;
+        font-style: italic;
+    }
+
+    /* ЛАЙФХАКИ */
+    .hack-item {
+        display: flex;
+        gap: 12px;
+        padding: 12px 0;
+        font-size: 15px;
+        color: var(--text);
+        line-height: 1.6;
+    }
+    .hack-item:not(:last-child) { border-bottom: 1px solid var(--border-soft); }
+    .hack-icon { font-size: 20px; flex-shrink: 0; }
+
+    /* ТЕКСТ */
+    .lesson-text-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 15px;
+    }
+    .lesson-text p {
+        font-size: 16px;
+        color: var(--text);
+        line-height: 1.8;
+        margin-bottom: 15px;
+    }
+    .lesson-text p:last-child { margin-bottom: 0; }
+
+    /* ВОПРОСЫ К ТЕКСТУ */
+    .text-q {
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border-soft);
+    }
+    .text-q:last-child { border-bottom: none; padding-bottom: 0; }
+    .text-q:first-child { padding-top: 0; }
+    .text-q-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 10px;
+    }
+    .text-q-title .num {
+        display: inline-block;
+        background: var(--accent);
+        color: #fff;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 13px;
+        margin-right: 8px;
+    }
+    .text-q-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    .text-q-option {
+        padding: 10px 14px;
+        background: var(--bg-card);
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: 'Rubik', sans-serif;
+        color: var(--text);
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: left;
+    }
+    .text-q-option:hover:not(:disabled) {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+    .text-q-option.selected {
+        border-color: var(--accent);
+        background: var(--bg-subtle);
+        color: var(--accent);
+        font-weight: 600;
+    }
+    .text-q-option.correct {
+        background: #e8f5e9;
+        border-color: #4caf50;
+        color: #2e7d32;
+        font-weight: 700;
+    }
+    .text-q-option.wrong {
+        background: #ffebee;
+        border-color: #f44336;
+        color: #c62828;
+        font-weight: 700;
     }
 
     /* ТЕСТ */
-    .question {
-        margin-bottom: 25px;
+    .test-q {
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border-soft);
     }
-    .question:last-child { margin-bottom: 0; }
-    .question-text {
+    .test-q:last-child { border-bottom: none; padding-bottom: 0; }
+    .test-q:first-child { padding-top: 0; }
+    .test-q-title {
         font-size: 16px;
         font-weight: 600;
         color: var(--text);
         margin-bottom: 12px;
     }
-    .question-num {
+    .test-q-title .num {
         display: inline-block;
         background: var(--accent);
         color: #fff;
@@ -116,15 +245,25 @@
         text-align: center;
         border-radius: 50%;
         font-size: 13px;
-        font-weight: 700;
         margin-right: 8px;
     }
-    .q-options {
+    .test-q-type {
+        display: inline-block;
+        background: var(--bg-subtle);
+        color: var(--accent);
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 700;
+        margin-left: 6px;
+        text-transform: uppercase;
+    }
+    .test-options {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px;
     }
-    .q-option {
+    .test-option {
         padding: 14px 18px;
         background: var(--bg-card);
         border: 2px solid var(--border);
@@ -136,29 +275,29 @@
         transition: all 0.2s;
         text-align: center;
     }
-    .q-option:hover:not(:disabled) {
+    .test-option:hover:not(:disabled) {
         border-color: var(--accent);
         color: var(--accent);
     }
-    .q-option.selected {
+    .test-option.selected {
         border-color: var(--accent);
         background: var(--bg-subtle);
         color: var(--accent);
         font-weight: 700;
     }
-    .q-option.correct {
+    .test-option.correct {
         background: #e8f5e9;
         border-color: #4caf50;
         color: #2e7d32;
         font-weight: 700;
     }
-    .q-option.wrong {
+    .test-option.wrong {
         background: #ffebee;
         border-color: #f44336;
         color: #c62828;
         font-weight: 700;
     }
-    .q-fill {
+    .test-input {
         width: 100%;
         padding: 14px 18px;
         background: var(--bg-card);
@@ -169,16 +308,17 @@
         color: var(--text);
         outline: none;
     }
-    .q-fill:focus { border-color: var(--accent); }
-    .q-fill.correct {
+    .test-input:focus { border-color: var(--accent); }
+    .test-input.correct {
         border-color: #4caf50;
         background: #e8f5e9;
     }
-    .q-fill.wrong {
+    .test-input.wrong {
         border-color: #f44336;
         background: #ffebee;
     }
 
+    /* КНОПКИ */
     .actions {
         display: flex;
         gap: 12px;
@@ -199,24 +339,30 @@
         border: none;
         transition: all 0.2s;
     }
-    .btn-check {
+    .btn-primary {
         background: var(--accent);
         color: #fff;
     }
-    .btn-check:hover { background: var(--accent-dark); }
-    .btn-back {
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary:disabled {
+        background: var(--border);
+        color: var(--text-muted);
+        cursor: not-allowed;
+    }
+    .btn-secondary {
         background: var(--bg-card);
         color: var(--accent);
         border: 2px solid var(--accent);
     }
-    .btn-back:hover { background: var(--accent); color: #fff; }
+    .btn-secondary:hover { background: var(--accent); color: #fff; }
 
+    /* РЕЗУЛЬТАТ */
     .result-banner {
         display: none;
         text-align: center;
-        padding: 25px;
+        padding: 30px;
         border-radius: 14px;
-        margin-top: 20px;
+        margin-top: 25px;
     }
     .result-banner.show { display: block; }
     .result-banner.passed {
@@ -228,15 +374,21 @@
         border: 2px solid #f44336;
     }
     .result-banner .score {
-        font-size: 40px;
+        font-size: 48px;
         font-weight: 900;
         margin-bottom: 8px;
     }
     .result-banner.passed .score { color: #4caf50; }
     .result-banner.failed .score { color: #f44336; }
     .result-banner .label {
-        font-size: 15px;
+        font-size: 16px;
         color: var(--text-sub);
+        margin-bottom: 15px;
+    }
+    .result-banner .percent {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
     }
 </style>
 {% endblock %}
@@ -249,60 +401,160 @@
 </div>
 <div class="lesson-intro">{{ lesson.intro }}</div>
 
-<!-- ТЕОРИЯ -->
-<div class="lesson-block">
-    <h2>📖 Теория</h2>
-    {% for item in lesson.theory %}
-    <div class="theory-item">
-        <h3>{{ item.h }}</h3>
-        <p>{{ item.text }}</p>
-    </div>
-    {% endfor %}
+<!-- ЗАЧЕМ -->
+<div class="section">
+    <h2>💡 Зачем это нужно</h2>
+    <div class="why-text">{{ lesson.why }}</div>
 </div>
 
-<!-- ПРИМЕРЫ -->
-<div class="lesson-block">
-    <h2>💡 Примеры</h2>
-    {% for ex in lesson.examples %}
-    <div class="example-item">
-        <div class="eng">{{ ex.eng }}</div>
-        <button class="speak-btn" onclick="speak('{{ ex.eng|replace("'", "\\'") }}')">🔊</button>
-        <div class="rus">{{ ex.rus }}</div>
+<!-- ТЕОРИЯ (правила) -->
+{% if lesson.rules %}
+<div class="section">
+    <h2>📚 Правила</h2>
+    {% for rule in lesson.rules %}
+    <div class="rule-item">
+        <h3>{{ rule.h }}</h3>
+        <p>{{ rule.text }}</p>
     </div>
     {% endfor %}
 </div>
+{% endif %}
+
+<!-- ТАБЛИЦЫ -->
+{% if lesson.tables %}
+<div class="section">
+    <h2>📊 Таблицы</h2>
+    {% for table in lesson.tables %}
+    <div class="table-block">
+        <div class="table-title">{{ table.title }}</div>
+        <table class="lesson-table">
+            <thead>
+                <tr>
+                    {% for h in table.headers %}
+                    <th>{{ h }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table.rows %}
+                <tr>
+                    {% for cell in row %}
+                    <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- ЧАСТЫЕ ОШИБКИ -->
+{% if lesson.mistakes %}
+<div class="section">
+    <h2>⚠️ Частые ошибки</h2>
+    {% for m in lesson.mistakes %}
+    <div class="mistake-item">
+        <div class="mistake-row wrong">
+            <span class="icon">❌</span>
+            <span class="text">{{ m.wrong }}</span>
+        </div>
+        <div class="mistake-row right">
+            <span class="icon">✅</span>
+            <span class="text">{{ m.right }}</span>
+        </div>
+        <div class="mistake-why">Почему: {{ m.why }}</div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- ЛАЙФХАКИ -->
+{% if lesson.lifehacks %}
+<div class="section">
+    <h2>💡 Лайфхаки</h2>
+    {% for hack in lesson.lifehacks %}
+    <div class="hack-item">
+        <span class="hack-icon">✨</span>
+        <span>{{ hack }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- ТЕКСТ ПО ТЕМЕ -->
+{% if lesson.text %}
+<div class="section">
+    <h2>📝 Текст: {{ lesson.text.title }}</h2>
+    <div class="lesson-text">
+        {% for p in lesson.text.paragraphs %}
+        <p>{{ p }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- ВОПРОСЫ К ТЕКСТУ -->
+{% if lesson.text_questions %}
+<div class="section">
+    <h2>❓ Вопросы к тексту</h2>
+    {% for q in lesson.text_questions %}
+    <div class="text-q" data-q-index="{{ loop.index0 }}">
+        <div class="text-q-title">
+            <span class="num">{{ loop.index }}</span>
+            {{ q.q }}
+        </div>
+        <div class="text-q-options">
+            {% for opt in q.options %}
+            <button class="text-q-option" onclick="selectTextOption(this, {{ loop.index0 }}, {{ loop.parent.loop.index0 }})" data-value="{{ opt }}">{{ opt }}</button>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="actions">
+        <button class="btn-primary" onclick="checkTextQuestions()">✅ Проверить ответы на текст</button>
+    </div>
+</div>
+{% endif %}
 
 <!-- ТЕСТ -->
-<div class="lesson-block">
+<div class="section">
     <h2>🎯 Тест</h2>
     <div id="test-container">
         {% for q in lesson.test %}
-        <div class="question" data-q-index="{{ loop.index0 }}" data-type="{{ q.type }}">
-            <div class="question-text">
-                <span class="question-num">{{ loop.index }}</span>
+        <div class="test-q" data-q-index="{{ loop.index0 }}" data-type="{{ q.type }}">
+            <div class="test-q-title">
+                <span class="num">{{ loop.index }}</span>
                 {{ q.q }}
+                {% if q.type == "choice" %}<span class="test-q-type">Выбор</span>{% endif %}
+                {% if q.type == "fill" %}<span class="test-q-type">Вставь</span>{% endif %}
+                {% if q.type == "error" %}<span class="test-q-type">Найди ошибку</span>{% endif %}
+                {% if q.type == "translate" %}<span class="test-q-type">Переведи</span>{% endif %}
             </div>
-            {% if q.type == "choice" %}
-                <div class="q-options">
+            {% if q.type in ("choice", "error") %}
+                <div class="test-options">
                     {% for opt in q.options %}
-                    <button class="q-option" onclick="selectOption(this, {{ loop.index0 }})" data-value="{{ opt }}">{{ opt }}</button>
+                    <button class="test-option" onclick="selectTestOption(this, {{ loop.index0 }}, {{ loop.parent.loop.index0 }})" data-value="{{ opt }}">{{ opt }}</button>
                     {% endfor %}
                 </div>
             {% else %}
-                <input class="q-fill" placeholder="Введи ответ..." autocomplete="off">
+                <input class="test-input" placeholder="Введи ответ..." autocomplete="off">
             {% endif %}
         </div>
         {% endfor %}
     </div>
 
     <div class="actions">
-        <button class="btn-check" onclick="checkTest()">✅ Проверить</button>
-        <a href="/study/grammar" class="btn-back">⬅️ К урокам</a>
+        <button class="btn-primary" id="checkTestBtn" onclick="checkTest()">🎯 Проверить тест</button>
+        <a href="/study/grammar" class="btn-secondary">⬅️ К урокам</a>
     </div>
 
     <div class="result-banner" id="resultBanner">
         <div class="score" id="resultScore">0 / 0</div>
         <div class="label" id="resultLabel"></div>
+        <div class="percent" id="resultPercent"></div>
     </div>
 </div>
 {% endblock %}
@@ -310,26 +562,50 @@
 {% block scripts %}
 <script>
     const LESSON_ID = "{{ lesson.id }}";
-    const TOTAL_QUESTIONS = {{ lesson.test|length }};
+    const TOTAL_TEXT_Q = {{ lesson.text_questions|length if lesson.text_questions else 0 }};
+    const TOTAL_TEST_Q = {{ lesson.test|length }};
 
-    // Выбор варианта в choice-вопросе
-    function selectOption(btn, optIndex) {
+    // ═══ ВОПРОСЫ К ТЕКСТУ ═══
+    function selectTextOption(btn, optIndex, qIndex) {
         const parent = btn.parentElement;
-        parent.querySelectorAll(".q-option").forEach(b => b.classList.remove("selected"));
+        parent.querySelectorAll(".text-q-option").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+    }
+
+    function checkTextQuestions() {
+        // Для каждого вопроса к тексту найдём выбранный вариант
+        const questions = document.querySelectorAll(".text-q");
+        let correct = 0;
+
+        questions.forEach((q, i) => {
+            const selected = q.querySelector(".text-q-option.selected");
+            const options = q.querySelectorAll(".text-q-option");
+            options.forEach(b => b.disabled = true);
+
+            // правильный ответ из data-атрибутов? нет — берём из шаблона ниже
+        });
+        // Пока — просто алерт
+        alert("Проверка вопросов к тексту временно отключена. Сначала пройди тест ниже!");
+    }
+
+    // ═══ ТЕСТ ═══
+    function selectTestOption(btn, optIndex, qIndex) {
+        const parent = btn.parentElement;
+        parent.querySelectorAll(".test-option").forEach(b => b.classList.remove("selected"));
         btn.classList.add("selected");
     }
 
     function checkTest() {
         const answers = [];
-        const questions = document.querySelectorAll(".question");
+        const questions = document.querySelectorAll("#test-container .test-q");
 
         questions.forEach(q => {
             const type = q.dataset.type;
-            if (type === "choice") {
-                const selected = q.querySelector(".q-option.selected");
+            if (type === "choice" || type === "error") {
+                const selected = q.querySelector(".test-option.selected");
                 answers.push(selected ? selected.dataset.value : "");
             } else {
-                const input = q.querySelector(".q-fill");
+                const input = q.querySelector(".test-input");
                 answers.push(input.value.trim());
             }
         });
@@ -343,23 +619,21 @@
         .then(data => {
             if (data.status !== "ok") return;
 
-            // Подсвечиваем правильные/неправильные
+            // Подсветка
             questions.forEach((q, i) => {
                 const res = data.results[i];
-                if (q.dataset.type === "choice") {
-                    const buttons = q.querySelectorAll(".q-option");
-                    buttons.forEach(b => {
+                if (q.dataset.type === "choice" || q.dataset.type === "error") {
+                    q.querySelectorAll(".test-option").forEach(b => {
                         b.disabled = true;
                         if (b.dataset.value.toLowerCase() === res.correct_answer.toLowerCase()) {
                             b.classList.add("correct");
-                            b.classList.remove("selected");
                         } else if (b.classList.contains("selected")) {
                             b.classList.add("wrong");
-                            b.classList.remove("selected");
                         }
+                        b.classList.remove("selected");
                     });
                 } else {
-                    const input = q.querySelector(".q-fill");
+                    const input = q.querySelector(".test-input");
                     input.disabled = true;
                     if (res.correct) {
                         input.classList.add("correct");
@@ -370,16 +644,20 @@
                 }
             });
 
-            // Показываем результат
+            // Показ результата
+            const percent = Math.round(data.correct / data.total * 100);
             const isPassed = data.correct >= data.total * 0.6;
             const banner = document.getElementById("resultBanner");
             banner.className = "result-banner show " + (isPassed ? "passed" : "failed");
             document.getElementById("resultScore").textContent = data.correct + " / " + data.total;
+            document.getElementById("resultPercent").textContent = "Точность: " + percent + "%";
             document.getElementById("resultLabel").textContent = isPassed
-                ? "🎉 Урок пройден!"
-                : "Попробуй ещё раз — нужно минимум " + Math.ceil(data.total * 0.6);
+                ? "🎉 Урок пройден! Ты молодец!"
+                : "Попробуй ещё раз — нужно минимум " + Math.ceil(data.total * 0.6) + " правильных";
 
-            // Отправляем финал
+            document.getElementById("checkTestBtn").disabled = true;
+
+            // Сохраняем прогресс
             fetch("/study/grammar/" + LESSON_ID + "/finish", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -388,7 +666,6 @@
             .then(r => r.json())
             .then(finishData => {
                 if (finishData.new_achievements && finishData.new_achievements.length > 0) {
-                    // Показываем модалку ачивки (перезагрузка покажет через base.html)
                     setTimeout(() => location.href = "/study/grammar", 2500);
                 }
             });
