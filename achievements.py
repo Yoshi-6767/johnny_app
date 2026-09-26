@@ -40,8 +40,10 @@ ACHIEVEMENTS = [
     {"code": "game_millionaire_10",  "title": "Миллионер",     "desc": "10+ в Миллионере", "emoji": "💰", "category": "games", "tier": "gold"},
 
     # 📖 УЧЁБА
-    {"code": "study_irregular",  "title": "Знаток глаголов", "desc": "20+ правильных в глаголах", "emoji": "🔤", "category": "study", "tier": "silver"},
+        {"code": "study_irregular",  "title": "Знаток глаголов", "desc": "20+ правильных в глаголах", "emoji": "🔤", "category": "study", "tier": "silver"},
     {"code": "study_all",        "title": "Книжный червь",   "desc": "Открыл все 3 раздела учёбы", "emoji": "📚", "category": "study", "tier": "bronze"},
+    {"code": "grammar_1",        "title": "Первая грамматика", "desc": "Пройден 1 урок грамматики", "emoji": "📖", "category": "study", "tier": "bronze"},
+    {"code": "grammar_all",      "title": "Грамматик",         "desc": "Пройдены все 10 уроков", "emoji": "🎓", "category": "study", "tier": "gold"},
 
     # 📝 ТОПИКИ
     {"code": "topic_1",    "title": "Первый топик",       "desc": "Написал 1 топик", "emoji": "✏️", "category": "topics", "tier": "bronze"},
