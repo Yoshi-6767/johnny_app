@@ -77,37 +77,139 @@
         padding: 40px 20px;
         font-size: 15px;
     }
-    .msg {
+    .msg-wrapper {
+        display: flex;
+        flex-direction: column;
         max-width: 70%;
-        padding: 10px 15px;
-        border-radius: 14px;
-        font-size: 15px;
-        line-height: 1.4;
-        word-wrap: break-word;
         animation: msgIn 0.2s ease;
+        position: relative;
     }
     @keyframes msgIn {
         from { opacity: 0; transform: translateY(5px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    .msg.mine {
+    .msg-wrapper.mine { align-self: flex-end; align-items: flex-end; }
+    .msg-wrapper.theirs { align-self: flex-start; align-items: flex-start; }
+
+    .msg {
+        padding: 10px 15px;
+        border-radius: 14px;
+        font-size: 15px;
+        line-height: 1.4;
+        word-wrap: break-word;
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.2s;
+        user-select: none;
+    }
+    .msg-wrapper.mine .msg {
         background: var(--accent);
         color: #fff;
-        align-self: flex-end;
         border-bottom-right-radius: 4px;
     }
-    .msg.theirs {
+    .msg-wrapper.theirs .msg {
         background: var(--bg-subtle);
         color: var(--text);
-        align-self: flex-start;
         border-bottom-left-radius: 4px;
+    }
+    .msg-wrapper.mine .msg:hover {
+        background: var(--accent-dark);
+    }
+    .msg-wrapper.theirs .msg:hover {
+        background: var(--bg-hover);
+    }
+
+    .msg-meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: var(--text-sub);
+        margin-top: 4px;
+        padding: 0 5px;
     }
     .msg-time {
         font-size: 11px;
         opacity: 0.7;
-        margin-top: 4px;
-        text-align: right;
     }
+    .msg-edited {
+        font-size: 10px;
+        opacity: 0.6;
+        font-style: italic;
+    }
+    .checkmarks {
+        font-size: 13px;
+        margin-left: 3px;
+        letter-spacing: -2px;
+        font-family: sans-serif;
+    }
+    .checkmarks.read { color: #4fc3f7; }
+    .checkmarks.delivered { color: rgba(255,255,255,0.7); }
+    .msg-wrapper.theirs .checkmarks { display: none; }
+
+    /* КОНТЕКСТНОЕ МЕНЮ */
+    .msg-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 6px 0;
+        min-width: 150px;
+        box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+        z-index: 100;
+        display: none;
+    }
+    .msg-menu.active { display: block; }
+    .msg-menu button {
+        display: block;
+        width: 100%;
+        padding: 10px 18px;
+        background: transparent;
+        border: none;
+        color: var(--text);
+        font-family: 'Rubik', sans-serif;
+        font-size: 14px;
+        text-align: left;
+        cursor: pointer;
+        transition: background 0.15s;
+    }
+    .msg-menu button:hover {
+        background: var(--bg-hover);
+    }
+    .msg-menu button.danger { color: #f44336; }
+    .msg-menu button.danger:hover { background: #ffebee; }
+
+    /* РЕДАКТИРОВАНИЕ */
+    .edit-box {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+        align-items: center;
+    }
+    .edit-box input {
+        flex: 1;
+        padding: 8px 12px;
+        background: var(--bg-card);
+        border: 2px solid var(--accent);
+        border-radius: 10px;
+        color: var(--text);
+        font-size: 14px;
+        font-family: 'Rubik', sans-serif;
+        outline: none;
+    }
+    .edit-box button {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 8px;
+        font-family: 'Rubik', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    .edit-box .save { background: #4caf50; color: #fff; }
+    .edit-box .cancel { background: var(--bg-hover); color: var(--text-sub); }
 
     .chat-form {
         display: flex;
@@ -181,6 +283,8 @@
     const MY_ID = {{ current_user.id }};
     let lastMessageId = 0;
     let isFirstLoad = true;
+    let activeMenu = null;
+    let editingMessageId = null;
 
     function loadMessages() {
         const url = "/api/chat/" + FRIEND_ID + "/messages" + (isFirstLoad ? "" : "?after=" + lastMessageId);
@@ -251,18 +355,197 @@
     }
 
     function appendOneMessage(container, m) {
-        const div = document.createElement("div");
-        div.className = "msg " + (m.from_me ? "mine" : "theirs");
-        div.innerHTML = escapeHtml(m.text) + '<div class="msg-time">' + m.time + '</div>';
-        container.appendChild(div);
+        // Если редактируется это сообщение — не перерисовываем
+        if (editingMessageId === m.id) return;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "msg-wrapper " + (m.from_me ? "mine" : "theirs");
+        wrapper.dataset.id = m.id;
+
+        const msg = document.createElement("div");
+        msg.className = "msg";
+        msg.textContent = m.text;
+        msg.onclick = (e) => toggleMenu(e, m.id, m.from_me);
+        wrapper.appendChild(msg);
+
+        const meta = document.createElement("div");
+        meta.className = "msg-meta";
+
+        const time = document.createElement("span");
+        time.className = "msg-time";
+        time.textContent = m.time;
+        meta.appendChild(time);
+
+        if (m.is_edited) {
+            const ed = document.createElement("span");
+            ed.className = "msg-edited";
+            ed.textContent = "изменено";
+            meta.appendChild(ed);
+        }
+
+        if (m.from_me) {
+            const checks = document.createElement("span");
+            checks.className = "checkmarks " + (m.is_read ? "read" : "delivered");
+            // Галочки: ✓ (одна) — если ещё не сохранено (редко),
+            // ✓✓ (две) — если сохранено, но не прочитано,
+            // ✓✓ (синие) — если прочитано
+            checks.textContent = m.is_read ? "✓✓" : "✓✓";
+            if (m.is_read) {
+                checks.style.color = "#4fc3f7";
+            } else {
+                checks.style.color = "rgba(255,255,255,0.7)";
+            }
+            meta.appendChild(checks);
+        }
+
+        wrapper.appendChild(meta);
+        container.appendChild(wrapper);
     }
 
+    // ═══ КОНТЕКСТНОЕ МЕНЮ ═══
+    function toggleMenu(e, messageId, isMine) {
+        e.stopPropagation();
+        closeMenu();
+
+        if (!isMine) return; // чужие не редактируем и не удаляем
+
+        const wrapper = document.querySelector('.msg-wrapper[data-id="' + messageId + '"]');
+        if (!wrapper) return;
+
+        // Создаём меню
+        const menu = document.createElement("div");
+        menu.className = "msg-menu active";
+        menu.innerHTML = `
+            <button onclick="startEdit(${messageId})">✏️ Изменить</button>
+            <button class="danger" onclick="deleteMessage(${messageId})">🗑️ Удалить</button>
+        `;
+        wrapper.appendChild(menu);
+        activeMenu = menu;
+
+        // Клик вне меню — закрыть
+        setTimeout(() => {
+            document.addEventListener("click", closeMenu, { once: true });
+        }, 50);
+    }
+
+    function closeMenu() {
+        if (activeMenu) {
+            activeMenu.remove();
+            activeMenu = null;
+        }
+    }
+
+    // ═══ РЕДАКТИРОВАНИЕ ═══
+    function startEdit(messageId) {
+        closeMenu();
+        const wrapper = document.querySelector('.msg-wrapper[data-id="' + messageId + '"]');
+        if (!wrapper) return;
+
+        const msg = wrapper.querySelector(".msg");
+        const oldText = msg.textContent;
+        const meta = wrapper.querySelector(".msg-meta");
+
+        editingMessageId = messageId;
+
+        // Скрываем старое содержимое
+        msg.style.display = "none";
+        meta.style.display = "none";
+
+        // Показываем поле редактирования
+        const editBox = document.createElement("div");
+        editBox.className = "edit-box";
+        editBox.id = "editBox";
+        editBox.innerHTML = `
+            <input type="text" id="editInput" value="${escapeAttr(oldText)}" maxlength="2000">
+            <button class="save" onclick="saveEdit(${messageId})">✓</button>
+            <button class="cancel" onclick="cancelEdit(${messageId})">✕</button>
+        `;
+        wrapper.appendChild(editBox);
+        setTimeout(() => {
+            const input = document.getElementById("editInput");
+            if (input) {
+                input.focus();
+                input.setSelectionRange(input.value.length, input.value.length);
+            }
+        }, 50);
+
+        // Enter — сохранить, Esc — отмена
+        document.getElementById("editInput").addEventListener("keydown", function(e) {
+            if (e.key === "Enter") { e.preventDefault(); saveEdit(messageId); }
+            if (e.key === "Escape") { e.preventDefault(); cancelEdit(messageId); }
+        });
+    }
+
+    function saveEdit(messageId) {
+        const input = document.getElementById("editInput");
+        if (!input) return;
+        const newText = input.value.trim();
+        if (!newText) {
+            alert("Сообщение не может быть пустым");
+            return;
+        }
+
+        fetch("/api/chat/" + messageId + "/edit", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({text: newText})
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "ok") {
+                editingMessageId = null;
+                // Просто перезагружаем чат
+                isFirstLoad = true;
+                lastMessageId = 0;
+                loadMessages();
+            } else {
+                alert(data.message || "Ошибка");
+            }
+        });
+    }
+
+    function cancelEdit(messageId) {
+        editingMessageId = null;
+        const wrapper = document.querySelector('.msg-wrapper[data-id="' + messageId + '"]');
+        if (!wrapper) return;
+        const msg = wrapper.querySelector(".msg");
+        const meta = wrapper.querySelector(".msg-meta");
+        const editBox = document.getElementById("editBox");
+        if (msg) msg.style.display = "";
+        if (meta) meta.style.display = "";
+        if (editBox) editBox.remove();
+    }
+
+    // ═══ УДАЛЕНИЕ ═══
+    function deleteMessage(messageId) {
+        closeMenu();
+        if (!confirm("Удалить сообщение?")) return;
+
+        fetch("/api/chat/" + messageId + "/delete", {method: "POST"})
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === "ok") {
+                // Убираем из DOM
+                const wrapper = document.querySelector('.msg-wrapper[data-id="' + messageId + '"]');
+                if (wrapper) wrapper.remove();
+            } else {
+                alert(data.message || "Ошибка");
+            }
+        });
+    }
+
+    // ═══ УТИЛИТЫ ═══
     function escapeHtml(text) {
         const div = document.createElement("div");
         div.textContent = text;
         return div.innerHTML;
     }
 
+    function escapeAttr(text) {
+        return text.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    // ═══ ОТПРАВКА ═══
     function sendMessage(e) {
         e.preventDefault();
         const input = document.getElementById("msgInput");
@@ -287,6 +570,8 @@
                     text: data.message.text,
                     time: data.message.time,
                     date: data.message.date,
+                    is_read: false,
+                    is_edited: false,
                 });
                 if (data.message.id > lastMessageId) lastMessageId = data.message.id;
                 container.scrollTop = container.scrollHeight;
@@ -294,6 +579,7 @@
         });
     }
 
+    // ═══ СТАРТ ═══
     loadMessages();
     setInterval(loadMessages, 2000);
 </script>
