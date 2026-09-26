@@ -28,6 +28,35 @@
         margin-top: 6px;
     }
 
+    .radar-block {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 25px;
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #radarCanvas {
+        max-width: 100%;
+        height: auto;
+    }
+    .radar-legend {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .radar-legend-item {
+        font-size: 14px;
+        color: var(--text-sub);
+    }
+    .radar-legend-item strong {
+        color: var(--accent);
+    }
+
     .calendar {
         background: var(--bg-card);
         border: 1px solid var(--border);
@@ -84,12 +113,6 @@
         border-radius: 12px;
         padding: 25px;
         margin-bottom: 30px;
-    }
-    .weak-words h2 {
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--text);
-        margin-bottom: 15px;
     }
     .weak-item {
         display: flex;
@@ -194,6 +217,18 @@
     </div>
 </div>
 
+<h2 style="margin-bottom: 15px; font-size: 22px;">🕸️ Радар скиллов</h2>
+<div class="radar-block">
+    <canvas id="radarCanvas" width="500" height="500"></canvas>
+    <div class="radar-legend">
+        <div class="radar-legend-item">📚 Слова — <strong>{{ radar.words }}%</strong></div>
+        <div class="radar-legend-item">📖 Чтение — <strong>{{ radar.reading }}%</strong></div>
+        <div class="radar-legend-item">🎧 Слушание — <strong>{{ radar.listening }}%</strong></div>
+        <div class="radar-legend-item">🗣️ Речь — <strong>{{ radar.speaking }}%</strong></div>
+        <div class="radar-legend-item">✍️ Письмо — <strong>{{ radar.writing }}%</strong></div>
+    </div>
+</div>
+
 {% if weak_words %}
 <div class="recommendation">
     <h2>💡 Рекомендация</h2>
@@ -243,16 +278,21 @@
 </div>
 {% endif %}
 
-<h2 style="margin-bottom: 15px; font-size: 22px;">🕸️ Радар скиллов</h2>
-<div class="radar-block">
-    <canvas id="radarCanvas" width="500" height="500"></canvas>
-    <div class="radar-legend">
-        <div class="radar-legend-item"><span class="dot dot-words"></span> 📚 Слова — <strong>{{ radar.words }}%</strong></div>
-        <div class="radar-legend-item"><span class="dot dot-reading"></span> 📖 Чтение — <strong>{{ radar.reading }}%</strong></div>
-        <div class="radar-legend-item"><span class="dot dot-listening"></span> 🎧 Слушание — <strong>{{ radar.listening }}%</strong></div>
-        <div class="radar-legend-item"><span class="dot dot-speaking"></span> 🗣️ Речь — <strong>{{ radar.speaking }}%</strong></div>
-        <div class="radar-legend-item"><span class="dot dot-writing"></span> ✍️ Письмо — <strong>{{ radar.writing }}%</strong></div>
-    </div>
+<h2 style="margin-bottom: 15px; font-size: 22px;">📈 Активность за неделю</h2>
+<div class="chart">
+    {% if last_7 %}
+        {% for day in last_7 %}
+        <div class="chart-row">
+            <div class="chart-label">{{ day.label }}</div>
+            <div class="chart-bar">
+                <div class="chart-fill" style="width: {{ (day.correct + day.wrong) / max_day * 100 }}%"></div>
+            </div>
+            <div class="chart-value">{{ day.correct + day.wrong }}</div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty">Пока нет данных. Начни тренироваться!</div>
+    {% endif %}
 </div>
 
 <script>
@@ -275,12 +315,10 @@
     const n = labels.length;
     const angleStep = (Math.PI * 2) / n;
 
-    // Получаем цвет акцента из CSS
     const accent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || "#2196f3";
     const textColor = getComputedStyle(document.body).getPropertyValue('--text').trim() || "#333";
     const borderColor = getComputedStyle(document.body).getPropertyValue('--border').trim() || "#e0e0e0";
 
-    // Фон — сетка
     ctx.strokeStyle = borderColor;
     ctx.lineWidth = 1;
     for (let level = 1; level <= 5; level++) {
@@ -296,8 +334,6 @@
         ctx.stroke();
     }
 
-    // Оси
-    ctx.strokeStyle = borderColor;
     for (let i = 0; i < n; i++) {
         const angle = -Math.PI / 2 + i * angleStep;
         const x = cx + Math.cos(angle) * radius;
@@ -308,7 +344,6 @@
         ctx.stroke();
     }
 
-    // Данные (закрашенный многоугольник)
     ctx.beginPath();
     for (let i = 0; i <= n; i++) {
         const idx = i % n;
@@ -320,13 +355,12 @@
         else ctx.lineTo(x, y);
     }
     ctx.closePath();
-    ctx.fillStyle = accent + "55";  // 33% прозрачности
+    ctx.fillStyle = accent + "55";
     ctx.fill();
     ctx.strokeStyle = accent;
     ctx.lineWidth = 2;
     ctx.stroke();
 
-    // Точки на вершинах
     for (let i = 0; i < n; i++) {
         const angle = -Math.PI / 2 + i * angleStep;
         const r = radius * values[i];
@@ -338,7 +372,6 @@
         ctx.fill();
     }
 
-    // Подписи
     ctx.fillStyle = textColor;
     ctx.font = "bold 14px Rubik, sans-serif";
     ctx.textAlign = "center";
@@ -351,21 +384,4 @@
     }
 })();
 </script>
-
-<h2 style="margin-bottom: 15px; font-size: 22px;">📈 Активность за неделю</h2>
-<div class="chart">
-    {% if last_7 %}
-        {% for day in last_7 %}
-        <div class="chart-row">
-            <div class="chart-label">{{ day.label }}</div>
-            <div class="chart-bar">
-                <div class="chart-fill" style="width: {{ (day.correct + day.wrong) / max_day * 100 }}%"></div>
-            </div>
-            <div class="chart-value">{{ day.correct + day.wrong }}</div>
-        </div>
-        {% endfor %}
-    {% else %}
-        <div class="empty">Пока нет данных. Начни тренироваться!</div>
-    {% endif %}
-</div>
 {% endblock %}
