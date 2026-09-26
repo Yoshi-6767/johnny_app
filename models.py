@@ -8,10 +8,13 @@ db = SQLAlchemy()
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    username = db.Column(db.String(50), nullable=False)
+    username = db.Column(db.String(50), nullable=False)          # отображаемое имя
+    nickname = db.Column(db.String(50), unique=True, nullable=True)  # @ник (уникальный)
     password = db.Column(db.String(200), nullable=False)
     is_verified = db.Column(db.Boolean, default=False)
     avatar = db.Column(db.String(200), default=None)
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    onboarding_done = db.Column(db.Boolean, default=False)
 
 
 class EmailCode(db.Model):
@@ -22,7 +25,6 @@ class EmailCode(db.Model):
 
 
 class LearnedWord(db.Model):
-    """Слово, которое юзер выучил (3 правильных подряд ИЛИ вручную)."""
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     word = db.Column(db.String(100), nullable=False)
@@ -34,7 +36,6 @@ class LearnedWord(db.Model):
 
 
 class WordProgress(db.Model):
-    """Счётчик правильных подряд по каждому слову."""
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     word = db.Column(db.String(100), nullable=False)
@@ -45,7 +46,6 @@ class WordProgress(db.Model):
 
 
 class SectionExam(db.Model):
-    """Попытка экзамена по категории."""
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     section_id = db.Column(db.String(50), nullable=False)
@@ -77,10 +77,7 @@ class Goal(db.Model):
     completed_at = db.Column(db.DateTime, nullable=True)
 
 
-# ═══ НОВЫЕ МОДЕЛИ ДЛЯ ПЕРЕНОСА В БД ═══
-
 class UserWord(db.Model):
-    """Свои слова юзера (категория general)."""
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     eng = db.Column(db.String(200), nullable=False)
@@ -93,7 +90,6 @@ class UserWord(db.Model):
 
 
 class UserPhrase(db.Model):
-    """Свои фразы юзера."""
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     eng = db.Column(db.String(300), nullable=False)
@@ -105,7 +101,6 @@ class UserPhrase(db.Model):
 
 
 class UserTopic(db.Model):
-    """Топики юзера: фикс (id типа 'my_day') и кастомные ('custom_...')."""
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     topic_id = db.Column(db.String(100), nullable=False)
@@ -119,7 +114,6 @@ class UserTopic(db.Model):
 
 
 class UserExam(db.Model):
-    """Экзамены-тексты юзера."""
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     exam_id = db.Column(db.String(50), nullable=False)
@@ -134,7 +128,6 @@ class UserExam(db.Model):
 
 
 class UserProgress(db.Model):
-    """Прогресс юзера. Одна запись на юзера. History и weak_words — JSON-строки."""
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, unique=True)
     streak = db.Column(db.Integer, default=0)
@@ -142,3 +135,30 @@ class UserProgress(db.Model):
     history_json = db.Column(db.Text, default='[]')
     weak_words_json = db.Column(db.Text, default='{}')
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+# ═══════════════════════════════════════════════
+# ДРУЗЬЯ И СООБЩЕНИЯ
+# ═══════════════════════════════════════════════
+
+class Friendship(db.Model):
+    """Заявка в друзья / дружба.
+       status: 'pending' — заявка отправлена, 'accepted' — друзья."""
+    id = db.Column(db.Integer, primary_key=True)
+    from_user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    to_user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    status = db.Column(db.String(20), default='pending')  # pending / accepted
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    __table_args__ = (
+        db.UniqueConstraint('from_user_id', 'to_user_id', name='_friendship_uc'),
+    )
+
+
+class Message(db.Model):
+    """Личное сообщение между юзерами."""
+    id = db.Column(db.Integer, primary_key=True)
+    from_user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    to_user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    text = db.Column(db.Text, nullable=False)
+    is_read = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
