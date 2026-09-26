@@ -339,11 +339,6 @@ GRAMMAR_LESSONS = [
             {"type": "translate", "q": "Переведи: Что ты делаешь сейчас?", "answer": "What are you doing now"}
         ]
     },
-          "test": [
-            ...
-            {"type": "translate", "q": "Переведи: Что ты делаешь сейчас?", "answer": "What are you doing now"}
-        ]
-    },
 
     # ═══════════════════════════════════════════
     # УРОК 4 — FUTURE SIMPLE
