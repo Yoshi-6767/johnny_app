@@ -58,13 +58,12 @@ def load_user(user_id):
 # ═══════════════════════════════════════════════
 
 def migrate_db():
-    """Автоматически добавляет новые колонки в таблицу user, если их нет."""
     with app.app_context():
-        db.create_all()  # создаёт все таблицы (включая новые Friendship/Message)
+        db.create_all()
 
-        # Проверяем и добавляем новые колонки в user
+        # Проверяем user
         inspector_cols = db.session.execute(text("PRAGMA table_info(user)")).fetchall()
-        existing = {row[1] for row in inspector_cols}  # row[1] = имя колонки
+        existing = {row[1] for row in inspector_cols}
 
         if "nickname" not in existing:
             try:
@@ -93,7 +92,29 @@ def migrate_db():
                 db.session.rollback()
                 print(f"[Migration] Ошибка onboarding_done: {e}")
 
-        # Заполняем nickname для старых юзеров (из username)
+        # Проверяем message
+        msg_cols = db.session.execute(text("PRAGMA table_info(message)")).fetchall()
+        msg_existing = {row[1] for row in msg_cols}
+
+        if "is_edited" not in msg_existing:
+            try:
+                db.session.execute(text("ALTER TABLE message ADD COLUMN is_edited BOOLEAN DEFAULT 0"))
+                db.session.commit()
+                print("[Migration] Добавлено поле 'is_edited' в message")
+            except Exception as e:
+                db.session.rollback()
+                print(f"[Migration] Ошибка is_edited: {e}")
+
+        if "edited_at" not in msg_existing:
+            try:
+                db.session.execute(text("ALTER TABLE message ADD COLUMN edited_at DATETIME"))
+                db.session.commit()
+                print("[Migration] Добавлено поле 'edited_at' в message")
+            except Exception as e:
+                db.session.rollback()
+                print(f"[Migration] Ошибка edited_at: {e}")
+
+        # Заполняем nickname для старых юзеров
         users_without_nick = User.query.filter(
             (User.nickname == None) | (User.nickname == '')
         ).all()
@@ -113,7 +134,6 @@ def migrate_db():
 with app.app_context():
     db.create_all()
 
-# После запуска — мигрируем
 migrate_db()
 
 
@@ -183,10 +203,7 @@ def similarity_ratio(a, b):
     return 1 - (diff / max_len)
 
 
-# ─── ДРУЗЬЯ ХЕЛПЕРЫ ───
-
 def get_friends(user_id):
-    """Возвращает список юзеров-друзей."""
     rows = Friendship.query.filter(
         ((Friendship.from_user_id == user_id) | (Friendship.to_user_id == user_id)),
         Friendship.status == 'accepted'
@@ -200,7 +217,6 @@ def get_friends(user_id):
 
 
 def get_pending_requests(user_id):
-    """Входящие заявки (кто хочет добавить ТЕБЯ)."""
     rows = Friendship.query.filter_by(to_user_id=user_id, status='pending').all()
     result = []
     for r in rows:
@@ -211,7 +227,6 @@ def get_pending_requests(user_id):
 
 
 def get_sent_requests(user_id):
-    """Исходящие заявки (кого ТЫ хочешь добавить)."""
     rows = Friendship.query.filter_by(from_user_id=user_id, status='pending').all()
     result = []
     for r in rows:
@@ -222,12 +237,10 @@ def get_sent_requests(user_id):
 
 
 def get_unread_count(user_id):
-    """Сколько непрочитанных сообщений."""
     return Message.query.filter_by(to_user_id=user_id, is_read=False).count()
 
 
 def get_unread_by_user(user_id):
-    """Сколько непрочитанных по каждому другу: {friend_id: count}."""
     rows = db.session.query(
         Message.from_user_id,
         db.func.count(Message.id)
@@ -236,20 +249,63 @@ def get_unread_by_user(user_id):
 
 
 def is_online(user):
-    """Юзер онлайн, если был <5 мин назад."""
     if not user.last_seen:
         return False
     return (datetime.utcnow() - user.last_seen).total_seconds() < 300
 
 
 def are_friends(user1_id, user2_id):
-    """Проверка: друзья ли."""
     row = Friendship.query.filter(
         ((Friendship.from_user_id == user1_id) & (Friendship.to_user_id == user2_id)) |
         ((Friendship.from_user_id == user2_id) & (Friendship.to_user_id == user1_id)),
         Friendship.status == 'accepted'
     ).first()
     return row is not None
+
+
+def get_radar_data(uid, all_w, progress):
+    """Считает 5 осей для радара скиллов."""
+    learned_count = LearnedWord.query.filter_by(user_id=uid).count()
+    total_words_all = len(all_w)
+    skills_words = min(100, round(learned_count / total_words_all * 100)) if total_words_all > 0 else 0
+
+    topics = get_user_topics(uid)
+    topics_done_count = sum(1 for t in topics.values() if t.get("done"))
+    total_topics = len(FIXED_TOPICS) + sum(1 for t in topics.keys() if t.startswith("custom_"))
+    skills_reading = min(100, round(topics_done_count / total_topics * 100)) if total_topics > 0 else 0
+
+    listen_games = SectionExam.query.filter_by(user_id=uid, section_id="listening").count()
+    skills_listening = min(100, listen_games * 20)
+
+    total_correct = sum(d["correct"] for d in progress["history"])
+    skills_speaking = min(100, round(total_correct / 5))
+
+    exams_text = len(get_user_exams(uid))
+    skills_writing = min(100, exams_text * 15 + topics_done_count * 5)
+
+    return {
+        "words": skills_words,
+        "reading": skills_reading,
+        "listening": skills_listening,
+        "speaking": skills_speaking,
+        "writing": skills_writing,
+    }
+
+
+def get_streak_calendar(uid, progress, days=28):
+    today = date.today()
+    result = []
+    for i in range(days - 1, -1, -1):
+        d = today - timedelta(days=i)
+        d_str = str(d)
+        trained = any(h["date"] == d_str and (h["correct"] + h["wrong"]) > 0 for h in progress["history"])
+        result.append({
+            "date": d_str,
+            "weekday": d.weekday(),
+            "trained": trained,
+            "is_today": (d == today),
+        })
+    return result
 
 
 # ═══════════════════════════════════════════════
@@ -364,46 +420,8 @@ def profile():
         percent = min(100, int(current / g.target * 100)) if g.target > 0 else 0
         goals_data.append({"id": g.id, "goal_type": g.goal_type, "target": g.target, "current": current, "percent": percent})
 
-    # ═══ РАДАР СКИЛЛОВ ═══
-    learned_count = LearnedWord.query.filter_by(user_id=uid).count()
-    total_words_all = len(all_w)
-    skills_words = min(100, round(learned_count / total_words_all * 100)) if total_words_all > 0 else 0
-
-    topics = get_user_topics(uid)
-    topics_done_count = sum(1 for t in topics.values() if t.get("done"))
-    total_topics = len(FIXED_TOPICS) + sum(1 for t in topics.keys() if t.startswith("custom_"))
-    skills_reading = min(100, round(topics_done_count / total_topics * 100)) if total_topics > 0 else 0
-
-    listen_games = SectionExam.query.filter_by(user_id=uid, section_id="listening").count()
-    skills_listening = min(100, listen_games * 20)
-
-    total_correct_all = sum(d["correct"] for d in progress["history"])
-    skills_speaking = min(100, round(total_correct_all / 5))
-
-    exams_text = len(get_user_exams(uid))
-    skills_writing = min(100, exams_text * 15 + topics_done_count * 5)
-
-    radar = {
-        "words": skills_words,
-        "reading": skills_reading,
-        "listening": skills_listening,
-        "speaking": skills_speaking,
-        "writing": skills_writing,
-    }
-
-    # ═══ КАЛЕНДАРЬ СТРИКА (28 дней) ═══
-    today_d = date.today()
-    streak_calendar = []
-    for i in range(27, -1, -1):
-        d = today_d - timedelta(days=i)
-        d_str = str(d)
-        trained = any(h["date"] == d_str and (h["correct"] + h["wrong"]) > 0 for h in progress["history"])
-        streak_calendar.append({
-            "date": d_str,
-            "weekday": d.weekday(),
-            "trained": trained,
-            "is_today": (d == today_d),
-        })
+    radar = get_radar_data(uid, all_w, progress)
+    streak_calendar = get_streak_calendar(uid, progress, days=28)
 
     return render_template(
         "profile.html",
@@ -421,8 +439,38 @@ def profile():
     )
 
 
+@app.route("/profile/upload_avatar", methods=["POST"])
+@login_required
+def upload_avatar():
+    file = request.files.get("avatar")
+    if not file:
+        return redirect("/profile")
+    ext = file.filename.rsplit(".", 1)[-1].lower()
+    if ext not in ["jpg", "jpeg", "png", "gif"]:
+        return redirect("/profile")
+    filename = f"user_{current_user.id}.{ext}"
+    filepath = os.path.join(app.config['AVATAR_FOLDER'], filename)
+    file.save(filepath)
+    current_user.avatar = filename
+    db.session.commit()
+    return redirect("/profile")
+
+
+@app.route("/profile/change_username", methods=["POST"])
+@login_required
+def change_username():
+    new_name = request.form.get("username", "").strip()
+    if not new_name or len(new_name) < 2 or len(new_name) > 30:
+        return redirect("/profile?error=name")
+    if not re.match(r'^[A-Za-zА-Яа-яЁё0-9 _-]+$', new_name):
+        return redirect("/profile?error=name")
+    current_user.username = new_name
+    db.session.commit()
+    return redirect("/profile?success=name")
+
+
 # ═══════════════════════════════════════════════
-# СЛОВА (general)
+# СЛОВА
 # ═══════════════════════════════════════════════
 
 @app.route("/add", methods=["POST"])
@@ -800,7 +848,7 @@ def dialogue_page(did):
 
 
 # ═══════════════════════════════════════════════
-# ТРЕНИРОВКА СЛОВ
+# ТРЕНИРОВКА
 # ═══════════════════════════════════════════════
 
 @app.route("/train")
@@ -1073,44 +1121,8 @@ def progress_page():
         if w in all_w:
             weak_list.append({"word": w, "rus": all_w[w]["rus"], "count": count})
 
-    # ═══ РАДАР СКИЛЛОВ ═══
-    learned_count = LearnedWord.query.filter_by(user_id=uid).count()
-    total_words_all = len(all_w)
-    skills_words = min(100, round(learned_count / total_words_all * 100)) if total_words_all > 0 else 0
-
-    topics = get_user_topics(uid)
-    topics_done_count = sum(1 for t in topics.values() if t.get("done"))
-    total_topics = len(FIXED_TOPICS) + sum(1 for t in topics.keys() if t.startswith("custom_"))
-    skills_reading = min(100, round(topics_done_count / total_topics * 100)) if total_topics > 0 else 0
-
-    listen_games = SectionExam.query.filter_by(user_id=uid, section_id="listening").count()
-    skills_listening = min(100, listen_games * 20)
-
-    skills_speaking = min(100, round(total_correct / 5))
-
-    exams_text = len(get_user_exams(uid))
-    skills_writing = min(100, exams_text * 15 + topics_done_count * 5)
-
-    radar = {
-        "words": skills_words,
-        "reading": skills_reading,
-        "listening": skills_listening,
-        "speaking": skills_speaking,
-        "writing": skills_writing,
-    }
-
-    # ═══ КАЛЕНДАРЬ СТРИКА (28 дней для профиля) ═══
-    streak_calendar = []
-    for i in range(27, -1, -1):
-        d = today - timedelta(days=i)
-        d_str = str(d)
-        trained = any(h["date"] == d_str and (h["correct"] + h["wrong"]) > 0 for h in progress["history"])
-        streak_calendar.append({
-            "date": d_str,
-            "weekday": d.weekday(),
-            "trained": trained,
-            "is_today": (d == today),
-        })
+    radar = get_radar_data(uid, all_w, progress)
+    streak_calendar = get_streak_calendar(uid, progress, days=28)
 
     return render_template(
         "progress.html",
@@ -1129,6 +1141,7 @@ def progress_page():
         radar=radar,
         streak_calendar=streak_calendar,
     )
+
 
 # ═══════════════════════════════════════════════
 # ДОСТИЖЕНИЯ
@@ -1268,7 +1281,6 @@ def friends_page():
 @app.route("/friends/search")
 @login_required
 def friends_search():
-    """Поиск юзера по нику (AJAX)."""
     q = request.args.get("q", "").strip().lower().replace("@", "")
     if not q or len(q) < 2:
         return jsonify({"status": "ok", "users": []})
@@ -1281,7 +1293,6 @@ def friends_search():
     uid = current_user.id
     result = []
     for u in users:
-        # Статус: друзья / заявка / никто
         if are_friends(uid, u.id):
             status = "friends"
         else:
@@ -1339,7 +1350,6 @@ def friends_accept(friendship_id):
         return jsonify({"status": "error", "message": "Заявка не найдена"})
     f.status = "accepted"
     db.session.commit()
-    # Ачивка за первого друга
     unlock(uid, "friend_1")
     unlock(f.from_user_id, "friend_1")
     return jsonify({"status": "ok"})
@@ -1389,7 +1399,6 @@ def chat_page(user_id):
     if not are_friends(uid, user_id):
         return "Вы не друзья", 403
 
-    # Помечаем все сообщения от друга как прочитанные
     Message.query.filter_by(from_user_id=user_id, to_user_id=uid, is_read=False).update({"is_read": True})
     db.session.commit()
 
@@ -1403,8 +1412,6 @@ def chat_page(user_id):
 @app.route("/api/chat/<int:user_id>/messages")
 @login_required
 def chat_messages(user_id):
-    """Получить сообщения с юзером.
-       Если передан ?after=<id> — только новые после этого ID."""
     uid = current_user.id
     if not are_friends(uid, user_id):
         return jsonify({"status": "error", "message": "Не друзья"})
@@ -1417,15 +1424,12 @@ def chat_messages(user_id):
     )
 
     if after_id:
-        # Только новые сообщения
         msgs = base_query.filter(Message.id > after_id).order_by(Message.created_at.asc()).all()
         partial = True
     else:
-        # Первая загрузка — все (последние 100)
         msgs = base_query.order_by(Message.created_at.asc()).limit(100).all()
         partial = False
 
-    # Помечаем входящие как прочитанные
     Message.query.filter_by(from_user_id=user_id, to_user_id=uid, is_read=False).update({"is_read": True})
     db.session.commit()
 
@@ -1437,6 +1441,8 @@ def chat_messages(user_id):
             "text": m.text,
             "time": m.created_at.strftime("%H:%M"),
             "date": m.created_at.strftime("%d.%m.%Y"),
+            "is_read": bool(m.is_read),
+            "is_edited": bool(m.is_edited),
         })
     return jsonify({"status": "ok", "messages": result, "partial": partial})
 
@@ -1465,8 +1471,57 @@ def chat_send(user_id):
             "text": m.text,
             "time": m.created_at.strftime("%H:%M"),
             "date": m.created_at.strftime("%d.%m.%Y"),
+            "is_read": False,
+            "is_edited": False,
         }
     })
+
+
+@app.route("/api/chat/<int:message_id>/edit", methods=["POST"])
+@login_required
+def chat_edit(message_id):
+    uid = current_user.id
+    data = request.json
+    new_text = data.get("text", "").strip()
+    if not new_text or len(new_text) > 2000:
+        return jsonify({"status": "error", "message": "Пустое или слишком длинное"})
+
+    msg = Message.query.get(message_id)
+    if not msg:
+        return jsonify({"status": "error", "message": "Сообщение не найдено"})
+    if msg.from_user_id != uid:
+        return jsonify({"status": "error", "message": "Не твоё сообщение"})
+
+    msg.text = new_text
+    msg.is_edited = True
+    msg.edited_at = datetime.utcnow()
+    db.session.commit()
+
+    return jsonify({"status": "ok", "text": new_text})
+
+
+@app.route("/api/chat/<int:message_id>/delete", methods=["POST"])
+@login_required
+def chat_delete(message_id):
+    uid = current_user.id
+    msg = Message.query.get(message_id)
+    if not msg:
+        return jsonify({"status": "error", "message": "Сообщение не найдено"})
+    if msg.from_user_id != uid:
+        return jsonify({"status": "error", "message": "Не твоё сообщение"})
+
+    db.session.delete(msg)
+    db.session.commit()
+    return jsonify({"status": "ok"})
+
+
+@app.route("/api/chat/<int:user_id>/mark_read", methods=["POST"])
+@login_required
+def chat_mark_read(user_id):
+    uid = current_user.id
+    Message.query.filter_by(from_user_id=user_id, to_user_id=uid, is_read=False).update({"is_read": True})
+    db.session.commit()
+    return jsonify({"status": "ok"})
 
 
 @app.route("/api/unread_count")
@@ -1680,6 +1735,7 @@ def false_friends_page():
 def slang_page():
     return render_template("slang.html", slang=SLANG)
 
+
 @app.route("/study/grammar")
 @login_required
 def grammar_page():
@@ -1762,7 +1818,7 @@ def grammar_finish(lesson_id):
     data = request.json
     score = data.get("score", 0)
     total = data.get("total", 0)
-    is_passed = (score >= total * 0.6)  # 60% для прохождения
+    is_passed = (score >= total * 0.6)
 
     uid = current_user.id
     progress = get_user_progress(uid)
@@ -1773,15 +1829,12 @@ def grammar_finish(lesson_id):
         "score": score,
         "total": total,
     }
-    # Сохраняем прогресс через утилиту
     from utils import _save_progress_dict
     _save_progress_dict(uid, progress)
 
-    # Ачивки
     new_ach = []
     if is_passed and unlock(uid, "grammar_1"):
         new_ach.append("grammar_1")
-    # Проверяем все уроки
     done_count = sum(1 for l in GRAMMAR_LESSONS if progress["grammar"].get(l["id"], {}).get("done"))
     if done_count >= 10 and unlock(uid, "grammar_all"):
         new_ach.append("grammar_all")
@@ -1800,8 +1853,7 @@ def grammar_finish(lesson_id):
 def irregular_train():
     mode = request.args.get("mode", "past")
     session["irr_mode"] = mode
-    session["irr_correct"] = 0
-    session["irr_wrong"] = 0
+    session["irr_correct"] = 0    session["irr_wrong"] = 0
     session["irr_used"] = []
     return render_template("irregular_train.html", empty=False, mode=mode)
 
@@ -1874,8 +1926,6 @@ def irregular_check():
 def games_page():
     return render_template("games.html")
 
-
-# ─── АУДИО-КВИЗ ───
 
 @app.route("/games/listening")
 @login_required
@@ -1962,8 +2012,6 @@ def listening_result():
     })
 
 
-# ─── ВИСЕЛИЦА ───
-
 @app.route("/games/hangman")
 @login_required
 def hangman_page():
@@ -2020,8 +2068,6 @@ def hangman_guess():
                         "guessed": guessed, "message": "💀 Ты проиграл. Слово было: " + word})
     return jsonify({"status": "ok", "display": display, "errors": errors, "guessed": guessed})
 
-
-# ─── КВИЗ ───
 
 @app.route("/games/quiz")
 @login_required
@@ -2097,8 +2143,6 @@ def quiz_result():
     })
 
 
-# ─── СКОРОСТНОЙ ───
-
 @app.route("/games/speed")
 @login_required
 def speed_page():
@@ -2163,8 +2207,6 @@ def speed_result():
         unlock(current_user.id, "game_speed_10")
     return jsonify({"score": score, "total": total})
 
-
-# ─── ЭМОДЗИ-КВИЗ ───
 
 @app.route("/games/emoji")
 @login_required
@@ -2238,8 +2280,6 @@ def emoji_result():
         "errors": session.get("emoji_errors", []),
     })
 
-
-# ─── ЧТО ЛИШНЕЕ ───
 
 @app.route("/games/odd_one")
 @login_required
@@ -2326,8 +2366,6 @@ def odd_one_result():
         "errors": session.get("odd_one_errors", []),
     })
 
-
-# ─── КТО ХОЧЕТ СТАТЬ МИЛЛИОНЕРОМ ───
 
 @app.route("/games/millionaire")
 @login_required
@@ -2603,6 +2641,11 @@ def logout():
 # ОНБОРДИНГ
 # ═══════════════════════════════════════════════
 
+@app.route("/api/onboarding/status")
+@login_required
+def onboarding_status():
+    return jsonify({"done": bool(current_user.onboarding_done)})
+
 
 @app.route("/api/onboarding/done", methods=["POST"])
 @login_required
@@ -2610,6 +2653,7 @@ def onboarding_done():
     current_user.onboarding_done = True
     db.session.commit()
     return jsonify({"status": "ok"})
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
