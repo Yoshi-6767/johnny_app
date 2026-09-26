@@ -2557,6 +2557,12 @@ def onboarding_done():
     db.session.commit()
     return jsonify({"status": "ok"})
 
+@app.route("/api/onboarding/done", methods=["POST"])
+@login_required
+def onboarding_done():
+    current_user.onboarding_done = True
+    db.session.commit()
+    return jsonify({"status": "ok"})
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
