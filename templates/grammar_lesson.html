@@ -1,0 +1,398 @@
+{% extends "base.html" %}
+
+{% block title %}{{ lesson.title }} — Грамматика — Flow & Word{% endblock %}
+
+{% block styles %}
+<style>
+    .lesson-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+    .lesson-header .emoji { font-size: 56px; }
+    .lesson-header h1 { margin: 0; }
+    .lesson-header .level {
+        background: var(--bg-subtle);
+        color: var(--accent);
+        padding: 4px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+    .lesson-intro {
+        color: var(--text-sub);
+        font-size: 16px;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+    .lesson-block {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    .lesson-block h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .theory-item {
+        margin-bottom: 18px;
+    }
+    .theory-item:last-child { margin-bottom: 0; }
+    .theory-item h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+    }
+    .theory-item p {
+        font-size: 15px;
+        color: var(--text-sub);
+        line-height: 1.6;
+    }
+    .example-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-soft);
+        align-items: center;
+    }
+    .example-item:last-child { border-bottom: none; }
+    .example-item .eng {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+        flex: 1;
+    }
+    .example-item .rus {
+        font-size: 14px;
+        color: var(--text-sub);
+        flex: 1;
+        text-align: right;
+    }
+    .example-item .speak-btn {
+        background: var(--bg-subtle);
+        color: var(--accent);
+        border: none;
+        padding: 6px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.2s;
+        flex-shrink: 0;
+    }
+    .example-item .speak-btn:hover {
+        background: var(--accent);
+        color: #fff;
+    }
+
+    /* ТЕСТ */
+    .question {
+        margin-bottom: 25px;
+    }
+    .question:last-child { margin-bottom: 0; }
+    .question-text {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 12px;
+    }
+    .question-num {
+        display: inline-block;
+        background: var(--accent);
+        color: #fff;
+        width: 26px;
+        height: 26px;
+        line-height: 26px;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 13px;
+        font-weight: 700;
+        margin-right: 8px;
+    }
+    .q-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    .q-option {
+        padding: 14px 18px;
+        background: var(--bg-card);
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        font-size: 15px;
+        font-family: 'Rubik', sans-serif;
+        color: var(--text);
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+    }
+    .q-option:hover:not(:disabled) {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+    .q-option.selected {
+        border-color: var(--accent);
+        background: var(--bg-subtle);
+        color: var(--accent);
+        font-weight: 700;
+    }
+    .q-option.correct {
+        background: #e8f5e9;
+        border-color: #4caf50;
+        color: #2e7d32;
+        font-weight: 700;
+    }
+    .q-option.wrong {
+        background: #ffebee;
+        border-color: #f44336;
+        color: #c62828;
+        font-weight: 700;
+    }
+    .q-fill {
+        width: 100%;
+        padding: 14px 18px;
+        background: var(--bg-card);
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        font-size: 16px;
+        font-family: 'Rubik', sans-serif;
+        color: var(--text);
+        outline: none;
+    }
+    .q-fill:focus { border-color: var(--accent); }
+    .q-fill.correct {
+        border-color: #4caf50;
+        background: #e8f5e9;
+    }
+    .q-fill.wrong {
+        border-color: #f44336;
+        background: #ffebee;
+    }
+
+    .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 25px;
+    }
+    .actions button, .actions a {
+        flex: 1;
+        min-width: 180px;
+        padding: 16px 22px;
+        border-radius: 12px;
+        font-family: 'Rubik', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s;
+    }
+    .btn-check {
+        background: var(--accent);
+        color: #fff;
+    }
+    .btn-check:hover { background: var(--accent-dark); }
+    .btn-back {
+        background: var(--bg-card);
+        color: var(--accent);
+        border: 2px solid var(--accent);
+    }
+    .btn-back:hover { background: var(--accent); color: #fff; }
+
+    .result-banner {
+        display: none;
+        text-align: center;
+        padding: 25px;
+        border-radius: 14px;
+        margin-top: 20px;
+    }
+    .result-banner.show { display: block; }
+    .result-banner.passed {
+        background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+        border: 2px solid #4caf50;
+    }
+    .result-banner.failed {
+        background: linear-gradient(135deg, #ffebee, #fce4ec);
+        border: 2px solid #f44336;
+    }
+    .result-banner .score {
+        font-size: 40px;
+        font-weight: 900;
+        margin-bottom: 8px;
+    }
+    .result-banner.passed .score { color: #4caf50; }
+    .result-banner.failed .score { color: #f44336; }
+    .result-banner .label {
+        font-size: 15px;
+        color: var(--text-sub);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="lesson-header">
+    <div class="emoji">{{ lesson.emoji }}</div>
+    <h1>{{ lesson.title }}</h1>
+    <span class="level">{{ lesson.level }}</span>
+</div>
+<div class="lesson-intro">{{ lesson.intro }}</div>
+
+<!-- ТЕОРИЯ -->
+<div class="lesson-block">
+    <h2>📖 Теория</h2>
+    {% for item in lesson.theory %}
+    <div class="theory-item">
+        <h3>{{ item.h }}</h3>
+        <p>{{ item.text }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- ПРИМЕРЫ -->
+<div class="lesson-block">
+    <h2>💡 Примеры</h2>
+    {% for ex in lesson.examples %}
+    <div class="example-item">
+        <div class="eng">{{ ex.eng }}</div>
+        <button class="speak-btn" onclick="speak('{{ ex.eng|replace("'", "\\'") }}')">🔊</button>
+        <div class="rus">{{ ex.rus }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- ТЕСТ -->
+<div class="lesson-block">
+    <h2>🎯 Тест</h2>
+    <div id="test-container">
+        {% for q in lesson.test %}
+        <div class="question" data-q-index="{{ loop.index0 }}" data-type="{{ q.type }}">
+            <div class="question-text">
+                <span class="question-num">{{ loop.index }}</span>
+                {{ q.q }}
+            </div>
+            {% if q.type == "choice" %}
+                <div class="q-options">
+                    {% for opt in q.options %}
+                    <button class="q-option" onclick="selectOption(this, {{ loop.index0 }})" data-value="{{ opt }}">{{ opt }}</button>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <input class="q-fill" placeholder="Введи ответ..." autocomplete="off">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="actions">
+        <button class="btn-check" onclick="checkTest()">✅ Проверить</button>
+        <a href="/study/grammar" class="btn-back">⬅️ К урокам</a>
+    </div>
+
+    <div class="result-banner" id="resultBanner">
+        <div class="score" id="resultScore">0 / 0</div>
+        <div class="label" id="resultLabel"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const LESSON_ID = "{{ lesson.id }}";
+    const TOTAL_QUESTIONS = {{ lesson.test|length }};
+
+    // Выбор варианта в choice-вопросе
+    function selectOption(btn, optIndex) {
+        const parent = btn.parentElement;
+        parent.querySelectorAll(".q-option").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+    }
+
+    function checkTest() {
+        const answers = [];
+        const questions = document.querySelectorAll(".question");
+
+        questions.forEach(q => {
+            const type = q.dataset.type;
+            if (type === "choice") {
+                const selected = q.querySelector(".q-option.selected");
+                answers.push(selected ? selected.dataset.value : "");
+            } else {
+                const input = q.querySelector(".q-fill");
+                answers.push(input.value.trim());
+            }
+        });
+
+        fetch("/study/grammar/" + LESSON_ID + "/check", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({answers: answers})
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.status !== "ok") return;
+
+            // Подсвечиваем правильные/неправильные
+            questions.forEach((q, i) => {
+                const res = data.results[i];
+                if (q.dataset.type === "choice") {
+                    const buttons = q.querySelectorAll(".q-option");
+                    buttons.forEach(b => {
+                        b.disabled = true;
+                        if (b.dataset.value.toLowerCase() === res.correct_answer.toLowerCase()) {
+                            b.classList.add("correct");
+                            b.classList.remove("selected");
+                        } else if (b.classList.contains("selected")) {
+                            b.classList.add("wrong");
+                            b.classList.remove("selected");
+                        }
+                    });
+                } else {
+                    const input = q.querySelector(".q-fill");
+                    input.disabled = true;
+                    if (res.correct) {
+                        input.classList.add("correct");
+                    } else {
+                        input.classList.add("wrong");
+                        input.value = res.user + " → " + res.correct_answer;
+                    }
+                }
+            });
+
+            // Показываем результат
+            const isPassed = data.correct >= data.total * 0.6;
+            const banner = document.getElementById("resultBanner");
+            banner.className = "result-banner show " + (isPassed ? "passed" : "failed");
+            document.getElementById("resultScore").textContent = data.correct + " / " + data.total;
+            document.getElementById("resultLabel").textContent = isPassed
+                ? "🎉 Урок пройден!"
+                : "Попробуй ещё раз — нужно минимум " + Math.ceil(data.total * 0.6);
+
+            // Отправляем финал
+            fetch("/study/grammar/" + LESSON_ID + "/finish", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({score: data.correct, total: data.total})
+            })
+            .then(r => r.json())
+            .then(finishData => {
+                if (finishData.new_achievements && finishData.new_achievements.length > 0) {
+                    // Показываем модалку ачивки (перезагрузка покажет через base.html)
+                    setTimeout(() => location.href = "/study/grammar", 2500);
+                }
+            });
+        });
+    }
+</script>
+{% endblock %}
