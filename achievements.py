@@ -5,8 +5,6 @@ from models import db, Achievement
 # ═══════════════════════════════════════════════
 # СПИСОК АЧИВОК
 # ═══════════════════════════════════════════════
-# category: streak / words / learned / exams / games / study / topics / phrases / special
-# tier: bronze / silver / gold
 
 ACHIEVEMENTS = [
     # 🔥 СТРИК
@@ -22,12 +20,12 @@ ACHIEVEMENTS = [
     {"code": "words_50",   "title": "Полтинник",         "desc": "Добавил 50 своих слов", "emoji": "📚", "category": "words", "tier": "silver"},
     {"code": "words_100",  "title": "Сотка",             "desc": "Добавил 100 своих слов", "emoji": "🎯", "category": "words", "tier": "gold"},
 
-    # 🧠 ВЫУЧЕНО (learned)
+    # 🧠 ВЫУЧЕНО
     {"code": "learned_10",  "title": "Первые 10",        "desc": "Выучил 10 слов", "emoji": "💯", "category": "learned", "tier": "bronze"},
     {"code": "learned_50",  "title": "Пятьдесят",        "desc": "Выучил 50 слов", "emoji": "🧠", "category": "learned", "tier": "silver"},
     {"code": "learned_100", "title": "Сто выучено",      "desc": "Выучил 100 слов", "emoji": "🎓", "category": "learned", "tier": "gold"},
 
-    # 🎓 ЭКЗАМЕНЫ ПО КАТЕГОРИЯМ
+    # 🎓 ЭКЗАМЕНЫ
     {"code": "exam_1",   "title": "Первый экзамен",      "desc": "Сдал 1 категорию", "emoji": "🎓", "category": "exams", "tier": "bronze"},
     {"code": "exam_5",   "title": "Пятёрка",             "desc": "Сдал 5 категорий", "emoji": "🏅", "category": "exams", "tier": "silver"},
     {"code": "exam_10",  "title": "Десятка экзаменов",   "desc": "Сдал 10 категорий", "emoji": "👑", "category": "exams", "tier": "gold"},
@@ -55,15 +53,15 @@ ACHIEVEMENTS = [
     {"code": "phrase_1",   "title": "Первая фраза",       "desc": "Добавил 1 фразу", "emoji": "💬", "category": "phrases", "tier": "bronze"},
     {"code": "phrase_10",  "title": "Десятка фраз",       "desc": "Добавил 10 фраз", "emoji": "🗣️", "category": "phrases", "tier": "silver"},
 
+    # 👥 ДРУЗЬЯ
+    {"code": "friend_1",   "title": "Первый друг",        "desc": "Добавил первого друга", "emoji": "👥", "category": "friends", "tier": "bronze"},
+    {"code": "friend_5",   "title": "Компания",           "desc": "5 друзей", "emoji": "🎉", "category": "friends", "tier": "silver"},
+
     # 🌟 ОСОБЫЕ
     {"code": "special_sniper",  "title": "Снайпер",       "desc": "20 правильных подряд без ошибок", "emoji": "🎯", "category": "special", "tier": "gold"},
     {"code": "special_early",   "title": "Ранняя пташка", "desc": "Зашёл до 7 утра", "emoji": "⏰", "category": "special", "tier": "bronze"},
 ]
 
-
-# ═══════════════════════════════════════════════
-# ХЕЛПЕРЫ
-# ═══════════════════════════════════════════════
 
 def get_achievement(code):
     return next((a for a in ACHIEVEMENTS if a["code"] == code), None)
@@ -75,8 +73,6 @@ def get_unlocked_codes(user_id):
 
 
 def unlock(user_id, code):
-    """Открывает ачивку, если ещё не открыта.
-       Возвращает True, если только что открыли."""
     exists = Achievement.query.filter_by(user_id=user_id, code=code).first()
     if exists:
         return False
@@ -84,13 +80,9 @@ def unlock(user_id, code):
     return True
 
 
-# ═══════════════════════════════════════════════
-# ПРОВЕРКИ
-# ═══════════════════════════════════════════════
-
 def check_all(user_id, progress, general_words_count, phrases_count, topics_done,
-              exams_count, learned_count, games_stats, study_stats):
-    """Проверяет все ачивки и возвращает список новых кодов."""
+              exams_count, learned_count, friends_count, games_stats, study_stats):
+    """Проверяет все ачивки. friends_count — обязательный параметр."""
     newly = []
 
     # СТРИК
@@ -138,6 +130,10 @@ def check_all(user_id, progress, general_words_count, phrases_count, topics_done
     # ФРАЗЫ
     if phrases_count >= 1 and unlock(user_id, "phrase_1"):   newly.append("phrase_1")
     if phrases_count >= 10 and unlock(user_id, "phrase_10"): newly.append("phrase_10")
+
+    # ДРУЗЬЯ
+    if friends_count >= 1 and unlock(user_id, "friend_1"):   newly.append("friend_1")
+    if friends_count >= 5 and unlock(user_id, "friend_5"):   newly.append("friend_5")
 
     # ОСОБЫЕ
     if progress.get("correct_streak_global", 0) >= 20 and unlock(user_id, "special_sniper"):
