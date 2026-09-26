@@ -306,9 +306,9 @@
     {% else %}
         <div class="profile-avatar-letter">{{ user.username[0]|upper }}</div>
     {% endif %}
-        <div class="profile-info">
+            <div class="profile-info">
         <div class="profile-name">{{ user.username }}</div>
-        <div class="profile-email">{{ user.email }}</div>
+        <div class="profile-email">@{{ user.nickname }} · {{ user.email }}</div>
         <div class="profile-actions">
             <form method="POST" action="/profile/upload_avatar" enctype="multipart/form-data" class="profile-upload" style="display:inline;">
                 <input type="file" name="avatar" id="avatarInput" accept="image/*" onchange="this.form.submit()">
