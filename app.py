@@ -364,6 +364,47 @@ def profile():
         percent = min(100, int(current / g.target * 100)) if g.target > 0 else 0
         goals_data.append({"id": g.id, "goal_type": g.goal_type, "target": g.target, "current": current, "percent": percent})
 
+    # ═══ РАДАР СКИЛЛОВ ═══
+    learned_count = LearnedWord.query.filter_by(user_id=uid).count()
+    total_words_all = len(all_w)
+    skills_words = min(100, round(learned_count / total_words_all * 100)) if total_words_all > 0 else 0
+
+    topics = get_user_topics(uid)
+    topics_done_count = sum(1 for t in topics.values() if t.get("done"))
+    total_topics = len(FIXED_TOPICS) + sum(1 for t in topics.keys() if t.startswith("custom_"))
+    skills_reading = min(100, round(topics_done_count / total_topics * 100)) if total_topics > 0 else 0
+
+    listen_games = SectionExam.query.filter_by(user_id=uid, section_id="listening").count()
+    skills_listening = min(100, listen_games * 20)
+
+    total_correct_all = sum(d["correct"] for d in progress["history"])
+    skills_speaking = min(100, round(total_correct_all / 5))
+
+    exams_text = len(get_user_exams(uid))
+    skills_writing = min(100, exams_text * 15 + topics_done_count * 5)
+
+    radar = {
+        "words": skills_words,
+        "reading": skills_reading,
+        "listening": skills_listening,
+        "speaking": skills_speaking,
+        "writing": skills_writing,
+    }
+
+    # ═══ КАЛЕНДАРЬ СТРИКА (28 дней) ═══
+    today_d = date.today()
+    streak_calendar = []
+    for i in range(27, -1, -1):
+        d = today_d - timedelta(days=i)
+        d_str = str(d)
+        trained = any(h["date"] == d_str and (h["correct"] + h["wrong"]) > 0 for h in progress["history"])
+        streak_calendar.append({
+            "date": d_str,
+            "weekday": d.weekday(),
+            "trained": trained,
+            "is_today": (d == today_d),
+        })
+
     return render_template(
         "profile.html",
         user=current_user,
@@ -375,37 +416,9 @@ def profile():
         recent_achievements=recent_ach,
         goals=goals_data,
         new_achievements=pop_new_achievements(),
+        radar=radar,
+        streak_calendar=streak_calendar,
     )
-
-
-@app.route("/profile/upload_avatar", methods=["POST"])
-@login_required
-def upload_avatar():
-    file = request.files.get("avatar")
-    if not file:
-        return redirect("/profile")
-    ext = file.filename.rsplit(".", 1)[-1].lower()
-    if ext not in ["jpg", "jpeg", "png", "gif"]:
-        return redirect("/profile")
-    filename = f"user_{current_user.id}.{ext}"
-    filepath = os.path.join(app.config['AVATAR_FOLDER'], filename)
-    file.save(filepath)
-    current_user.avatar = filename
-    db.session.commit()
-    return redirect("/profile")
-
-
-@app.route("/profile/change_username", methods=["POST"])
-@login_required
-def change_username():
-    new_name = request.form.get("username", "").strip()
-    if not new_name or len(new_name) < 2 or len(new_name) > 30:
-        return redirect("/profile?error=name")
-    if not re.match(r'^[A-Za-zА-Яа-яЁё0-9 _-]+$', new_name):
-        return redirect("/profile?error=name")
-    current_user.username = new_name
-    db.session.commit()
-    return redirect("/profile?success=name")
 
 
 # ═══════════════════════════════════════════════
@@ -1060,6 +1073,45 @@ def progress_page():
         if w in all_w:
             weak_list.append({"word": w, "rus": all_w[w]["rus"], "count": count})
 
+    # ═══ РАДАР СКИЛЛОВ ═══
+    learned_count = LearnedWord.query.filter_by(user_id=uid).count()
+    total_words_all = len(all_w)
+    skills_words = min(100, round(learned_count / total_words_all * 100)) if total_words_all > 0 else 0
+
+    topics = get_user_topics(uid)
+    topics_done_count = sum(1 for t in topics.values() if t.get("done"))
+    total_topics = len(FIXED_TOPICS) + sum(1 for t in topics.keys() if t.startswith("custom_"))
+    skills_reading = min(100, round(topics_done_count / total_topics * 100)) if total_topics > 0 else 0
+
+    listen_games = SectionExam.query.filter_by(user_id=uid, section_id="listening").count()
+    skills_listening = min(100, listen_games * 20)
+
+    skills_speaking = min(100, round(total_correct / 5))
+
+    exams_text = len(get_user_exams(uid))
+    skills_writing = min(100, exams_text * 15 + topics_done_count * 5)
+
+    radar = {
+        "words": skills_words,
+        "reading": skills_reading,
+        "listening": skills_listening,
+        "speaking": skills_speaking,
+        "writing": skills_writing,
+    }
+
+    # ═══ КАЛЕНДАРЬ СТРИКА (28 дней для профиля) ═══
+    streak_calendar = []
+    for i in range(27, -1, -1):
+        d = today - timedelta(days=i)
+        d_str = str(d)
+        trained = any(h["date"] == d_str and (h["correct"] + h["wrong"]) > 0 for h in progress["history"])
+        streak_calendar.append({
+            "date": d_str,
+            "weekday": d.weekday(),
+            "trained": trained,
+            "is_today": (d == today),
+        })
+
     return render_template(
         "progress.html",
         total_words=len(all_w),
@@ -1074,8 +1126,9 @@ def progress_page():
         weak_words=weak_list,
         month_name=today.strftime("%B %Y"),
         new_achievements=pop_new_achievements(),
+        radar=radar,
+        streak_calendar=streak_calendar,
     )
-
 
 # ═══════════════════════════════════════════════
 # ДОСТИЖЕНИЯ
