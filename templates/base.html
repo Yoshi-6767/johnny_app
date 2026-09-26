@@ -33,14 +33,14 @@
                             {% else %}
                                 <div class="avatar">{{ current_user.username[0]|upper }}</div>
                             {% endif %}
-                                                        <span class="username">{{ current_user.username }}</span>
-                                                                                    <div class="user-dropdown" id="userDropdown">
+                            <span class="username">{{ current_user.username }}</span>
+                            <div class="user-dropdown" id="userDropdown">
                                 <div style="padding: 10px 20px; border-bottom: 1px solid var(--border); margin-bottom: 5px;">
                                     <div style="font-size: 14px; font-weight: 700; color: var(--text);">{{ current_user.username }}</div>
                                     <div style="font-size: 12px; color: var(--accent); margin-top: 3px;">@{{ current_user.nickname }}</div>
                                 </div>
                                 <a href="/profile">Профиль</a>
-                                <a href="/friends">Друзья</a>
+                                <a href="/friends">Друзья{% if unread_count and unread_count > 0 %} <span style="color: #f44336;">●</span>{% endif %}</a>
                                 <a href="/achievements">Достижения</a>
                                 <a href="/goals">Цели</a>
                                 <a href="/logout">Выйти</a>
@@ -51,19 +51,19 @@
                     {% endif %}
                 </div>
             </div>
-                            <nav class="nav">
-                    <a href="/sections">Категории</a>
-                    <a href="/phrases">Фразы</a>
-                    <a href="/topics">Топики</a>
-                    <a href="/study">Учёба</a>
-                    <a href="/games">Игры</a>
-                    <a href="/achievements">Достижения</a>
-                    <a href="/goals">Цели</a>
-                    <a href="/progress">Прогресс</a>
-                    <a href="/friends">Друзья{% if unread_count and unread_count > 0 %} <span style="background: #f44336; color: #fff; padding: 1px 7px; border-radius: 10px; font-size: 11px;">{{ unread_count }}</span>{% endif %}</a>
-                    <a href="/utils">Утилиты</a>
-                    <a href="/faq">FAQ</a>
-                </nav>
+            <nav class="nav">
+                <a href="/sections" data-tour="sections">Категории</a>
+                <a href="/phrases">Фразы</a>
+                <a href="/topics">Топики</a>
+                <a href="/study" data-tour="study">Учёба</a>
+                <a href="/games">Игры</a>
+                <a href="/achievements">Достижения</a>
+                <a href="/goals">Цели</a>
+                <a href="/progress" data-tour="progress">Прогресс</a>
+                <a href="/friends" data-tour="friends">Друзья{% if unread_count and unread_count > 0 %} <span style="background: #f44336; color: #fff; padding: 1px 7px; border-radius: 10px; font-size: 11px;">{{ unread_count }}</span>{% endif %}</a>
+                <a href="/utils">Утилиты</a>
+                <a href="/faq">FAQ</a>
+            </nav>
         </div>
     </div>
 
@@ -94,8 +94,320 @@
     </div>
     {% endif %}
 
-    <script src="/static/audio.js"></script>
+    {% if current_user.is_authenticated %}
+    <!-- ОНБОРДИНГ: МОДАЛКА + ТУР -->
+    <div class="onb-overlay" id="onbWelcome" style="display: none;">
+        <div class="onb-welcome">
+            <div class="onb-welcome-emoji">👋</div>
+            <h2>Привет, {{ current_user.username }}!</h2>
+            <p>Добро пожаловать в <strong>Flow & Word</strong> — твой тренажёр английского.</p>
+            <p>Сейчас покажу, что тут есть. Это займёт минуту.</p>
+            <div class="onb-welcome-actions">
+                <button class="btn" onclick="startTour()">🚀 Показать тур</button>
+                <button class="btn-outline" onclick="skipTour()">Пропустить</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="onb-tour" id="onbTour" style="display: none;">
+        <div class="onb-backdrop" id="onbBackdrop"></div>
+        <div class="onb-tooltip" id="onbTooltip">
+            <div class="onb-step" id="onbStep">1 / 7</div>
+            <h3 class="onb-title" id="onbTitle">Заголовок</h3>
+            <p class="onb-text" id="onbText">Описание</p>
+            <div class="onb-actions">
+                <button class="onb-btn onb-btn-skip" onclick="skipTour()">Пропустить</button>
+                <div style="display: flex; gap: 8px;">
+                    <button class="onb-btn onb-btn-back" id="onbBack" onclick="prevStep()">←</button>
+                    <button class="onb-btn onb-btn-next" id="onbNext" onclick="nextStep()">Далее →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .onb-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        .onb-welcome {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            border-top: 4px solid var(--accent);
+            animation: scaleIn 0.4s ease;
+        }
+        .onb-welcome-emoji {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+        .onb-welcome h2 {
+            color: var(--text);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .onb-welcome p {
+            color: var(--text-sub);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .onb-welcome-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        .onb-welcome-actions button {
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .onb-tour {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+        }
+        .onb-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+        }
+        .onb-highlight {
+            position: absolute;
+            border: 3px solid #ffc107;
+            border-radius: 8px;
+            box-shadow: 0 0 0 9999px rgba(0,0,0,0.75), 0 0 30px #ffc107;
+            z-index: 10000;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .onb-tooltip {
+            position: absolute;
+            background: var(--bg-card);
+            color: var(--text);
+            padding: 20px 25px;
+            border-radius: 14px;
+            max-width: 340px;
+            width: 90%;
+            border: 2px solid var(--accent);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            z-index: 10001;
+            animation: fadeIn 0.3s ease;
+        }
+        .onb-step {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .onb-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+        .onb-text {
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+        .onb-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .onb-btn {
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .onb-btn-skip {
+            background: transparent;
+            color: var(--text-sub);
+        }
+        .onb-btn-skip:hover { color: #f44336; }
+        .onb-btn-back {
+            background: var(--bg-hover);
+            color: var(--text-sub);
+            padding: 10px 14px;
+        }
+        .onb-btn-back:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .onb-btn-next {
+            background: var(--accent);
+            color: #fff;
+        }
+        .onb-btn-next:hover { background: var(--accent-dark); }
+    </style>
+
     <script>
+        // ═══ ОНБОРДИНГ ═══
+        const TOUR_STEPS = [
+            {
+                target: null,
+                title: "Добро пожаловать! 👋",
+                text: "Давай покажу, что тут есть. Это займёт минуту.",
+                position: "center"
+            },
+            {
+                target: '[data-tour="sections"]',
+                title: "📚 Категории",
+                text: "Здесь слова по темам: family, food, work и другие. Отмечай выученные, сдавай экзамены по категориям.",
+                position: "bottom"
+            },
+            {
+                target: null,
+                title: "🔥 Тренировка",
+                text: "Главная механика. Заходи в категорию → жми «Тренировать» → учи слова в 4 режимах (EN→RU, RU→EN, слушай, говори).",
+                position: "center"
+            },
+            {
+                target: '[data-tour="study"]',
+                title: "📖 Учёба",
+                text: "Грамматика, неправильные глаголы, идиомы, диалоги, ложные друзья. Всё для глубокого изучения.",
+                position: "bottom"
+            },
+            {
+                target: '[data-tour="friends"]',
+                title: "👥 Друзья",
+                text: "Добавляй друзей по @нику, общайся в чате, смотри прогресс друг друга.",
+                position: "bottom"
+            },
+            {
+                target: '[data-tour="progress"]',
+                title: "📊 Прогресс",
+                text: "Тут статистика: стрик, точность, радар скиллов, календарь активности.",
+                position: "bottom"
+            },
+            {
+                target: null,
+                title: "👤 Профиль",
+                text: "Аватар, имя, тема оформления, цели и достижения. Настраивай под себя!",
+                position: "center"
+            }
+        ];
+
+        let currentStep = 0;
+        let isTourActive = false;
+
+        function checkOnboarding() {
+            fetch("/api/onboarding/status")
+                .then(r => r.json())
+                .then(data => {
+                    if (!data.done) {
+                        document.getElementById("onbWelcome").style.display = "flex";
+                    }
+                })
+                .catch(() => {});
+        }
+
+        function startTour() {
+            document.getElementById("onbWelcome").style.display = "none";
+            document.getElementById("onbTour").style.display = "block";
+            isTourActive = true;
+            currentStep = 0;
+            renderStep();
+        }
+
+        function skipTour() {
+            document.getElementById("onbWelcome").style.display = "none";
+            document.getElementById("onbTour").style.display = "none";
+            isTourActive = false;
+            // Отмечаем как пройденный
+            fetch("/api/onboarding/done", {method: "POST"});
+        }
+
+        function nextStep() {
+            if (currentStep < TOUR_STEPS.length - 1) {
+                currentStep++;
+                renderStep();
+            } else {
+                skipTour();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                renderStep();
+            }
+        }
+
+        function renderStep() {
+            const step = TOUR_STEPS[currentStep];
+            document.getElementById("onbStep").textContent = (currentStep + 1) + " / " + TOUR_STEPS.length;
+            document.getElementById("onbTitle").textContent = step.title;
+            document.getElementById("onbText").textContent = step.text;
+            document.getElementById("onbBack").disabled = (currentStep === 0);
+            document.getElementById("onbNext").textContent = (currentStep === TOUR_STEPS.length - 1) ? "Готово ✓" : "Далее →";
+
+            // Убираем старый highlight
+            const oldHighlight = document.querySelector(".onb-highlight");
+            if (oldHighlight) oldHighlight.remove();
+
+            const tooltip = document.getElementById("onbTooltip");
+
+            if (step.target) {
+                const el = document.querySelector(step.target);
+                if (el) {
+                    const rect = el.getBoundingClientRect();
+                    const highlight = document.createElement("div");
+                    highlight.className = "onb-highlight";
+                    highlight.style.top = (rect.top + window.scrollY - 4) + "px";
+                    highlight.style.left = (rect.left - 4) + "px";
+                    highlight.style.width = (rect.width + 8) + "px";
+                    highlight.style.height = (rect.height + 8) + "px";
+                    document.body.appendChild(highlight);
+
+                    // Позиционируем tooltip
+                    const tooltipTop = rect.bottom + window.scrollY + 15;
+                    const tooltipLeft = Math.min(
+                        Math.max(rect.left, 20),
+                        window.innerWidth - 360
+                    );
+                    tooltip.style.top = tooltipTop + "px";
+                    tooltip.style.left = tooltipLeft + "px";
+                    tooltip.style.transform = "none";
+                    return;
+                }
+            }
+
+            // По центру
+            tooltip.style.top = "50%";
+            tooltip.style.left = "50%";
+            tooltip.style.transform = "translate(-50%, -50%)";
+        }
+
+        // Запуск при загрузке
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", checkOnboarding);
+        } else {
+            checkOnboarding();
+        }
+
+        // ═══ ТЕМА ═══
         (function() {
             const theme = localStorage.getItem('theme') || 'light';
             if (theme !== 'light') {
@@ -138,5 +450,8 @@
             }
         });
     </script>
+    {% endif %}
+
+    <script src="/static/audio.js"></script>
 </body>
 </html>
