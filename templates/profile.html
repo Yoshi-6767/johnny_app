@@ -418,12 +418,14 @@
         <span style="color: var(--text-sub); font-size: 13px;">Последние 28 дней</span>
     </div>
     <div class="streak-calendar">
-        <div class="streak-grid">
-            {% for d in streak_calendar %}
-            <div class="streak-cell {% if d.trained %}trained{% endif %} {% if d.is_today %}today{% endif %}"
-                 title="{{ d.date }}{% if d.trained %} — тренировался{% endif %}"></div>
-            {% endfor %}
-        </div>
+       <div class="streak-grid">
+    {% for d in streak_calendar %}
+    <div class="streak-cell {% if d.trained %}trained{% endif %} {% if d.is_today %}today{% endif %}"
+         title="{{ d.date }}{% if d.trained %} — тренировался{% endif %}">
+        <span class="streak-day">{{ d.date[8:10] }}</span>
+    </div>
+    {% endfor %}
+</div>
     </div>
 </div>
 
