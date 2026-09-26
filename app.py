@@ -1350,15 +1350,27 @@ def chat_page(user_id):
 @app.route("/api/chat/<int:user_id>/messages")
 @login_required
 def chat_messages(user_id):
-    """Получить последние 50 сообщений с юзером."""
+    """Получить сообщения с юзером.
+       Если передан ?after=<id> — только новые после этого ID."""
     uid = current_user.id
     if not are_friends(uid, user_id):
         return jsonify({"status": "error", "message": "Не друзья"})
 
-    msgs = Message.query.filter(
+    after_id = request.args.get("after", type=int)
+
+    base_query = Message.query.filter(
         ((Message.from_user_id == uid) & (Message.to_user_id == user_id)) |
         ((Message.from_user_id == user_id) & (Message.to_user_id == uid))
-    ).order_by(Message.created_at.asc()).limit(100).all()
+    )
+
+    if after_id:
+        # Только новые сообщения
+        msgs = base_query.filter(Message.id > after_id).order_by(Message.created_at.asc()).all()
+        partial = True
+    else:
+        # Первая загрузка — все (последние 100)
+        msgs = base_query.order_by(Message.created_at.asc()).limit(100).all()
+        partial = False
 
     # Помечаем входящие как прочитанные
     Message.query.filter_by(from_user_id=user_id, to_user_id=uid, is_read=False).update({"is_read": True})
@@ -1373,7 +1385,7 @@ def chat_messages(user_id):
             "time": m.created_at.strftime("%H:%M"),
             "date": m.created_at.strftime("%d.%m.%Y"),
         })
-    return jsonify({"status": "ok", "messages": result})
+    return jsonify({"status": "ok", "messages": result, "partial": partial})
 
 
 @app.route("/api/chat/<int:user_id>/send", methods=["POST"])
