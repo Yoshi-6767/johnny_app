@@ -8,9 +8,14 @@ from datetime import date, timedelta, datetime
 from deep_translator import MyMemoryTranslator
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy import text
 
 from config import Config
-from models import db, User, EmailCode, LearnedWord, WordProgress, SectionExam, Achievement, Goal
+from models import (
+    db, User, EmailCode, LearnedWord, WordProgress, SectionExam, Achievement, Goal,
+    UserWord, UserPhrase, UserTopic, UserExam, UserProgress,
+    Friendship, Message,
+)
 from data import (
     SECTIONS, QUOTES, IRREGULAR_VERBS, PHRASAL_VERBS, IDIOMS, FIXED_TOPICS,
     FALSE_FRIENDS, SLANG, DIALOGUES, EMOJI_WORDS, get_section,
@@ -48,8 +53,82 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+# ═══════════════════════════════════════════════
+# АВТОМИГРАЦИЯ
+# ═══════════════════════════════════════════════
+
+def migrate_db():
+    """Автоматически добавляет новые колонки в таблицу user, если их нет."""
+    with app.app_context():
+        db.create_all()  # создаёт все таблицы (включая новые Friendship/Message)
+
+        # Проверяем и добавляем новые колонки в user
+        inspector_cols = db.session.execute(text("PRAGMA table_info(user)")).fetchall()
+        existing = {row[1] for row in inspector_cols}  # row[1] = имя колонки
+
+        if "nickname" not in existing:
+            try:
+                db.session.execute(text("ALTER TABLE user ADD COLUMN nickname VARCHAR(50)"))
+                db.session.commit()
+                print("[Migration] Добавлено поле 'nickname' в user")
+            except Exception as e:
+                db.session.rollback()
+                print(f"[Migration] Ошибка nickname: {e}")
+
+        if "last_seen" not in existing:
+            try:
+                db.session.execute(text("ALTER TABLE user ADD COLUMN last_seen DATETIME"))
+                db.session.commit()
+                print("[Migration] Добавлено поле 'last_seen' в user")
+            except Exception as e:
+                db.session.rollback()
+                print(f"[Migration] Ошибка last_seen: {e}")
+
+        if "onboarding_done" not in existing:
+            try:
+                db.session.execute(text("ALTER TABLE user ADD COLUMN onboarding_done BOOLEAN DEFAULT 0"))
+                db.session.commit()
+                print("[Migration] Добавлено поле 'onboarding_done' в user")
+            except Exception as e:
+                db.session.rollback()
+                print(f"[Migration] Ошибка onboarding_done: {e}")
+
+        # Заполняем nickname для старых юзеров (из username)
+        users_without_nick = User.query.filter(
+            (User.nickname == None) | (User.nickname == '')
+        ).all()
+        for u in users_without_nick:
+            base = re.sub(r'[^a-zA-Z0-9_]', '', u.username.lower()) or f"user{u.id}"
+            nick = base
+            suffix = 1
+            while User.query.filter_by(nickname=nick).first():
+                nick = f"{base}{suffix}"
+                suffix += 1
+            u.nickname = nick
+        if users_without_nick:
+            db.session.commit()
+            print(f"[Migration] Сгенерированы nickname для {len(users_without_nick)} юзеров")
+
+
 with app.app_context():
     db.create_all()
+
+# После запуска — мигрируем
+migrate_db()
+
+
+# ═══════════════════════════════════════════════
+# BEFORE REQUEST — last_seen
+# ═══════════════════════════════════════════════
+
+@app.before_request
+def update_last_seen():
+    if current_user.is_authenticated:
+        try:
+            current_user.last_seen = datetime.utcnow()
+            db.session.commit()
+        except Exception:
+            db.session.rollback()
 
 
 # ═══════════════════════════════════════════════
@@ -100,6 +179,75 @@ def similarity_ratio(a, b):
     diff = sum(1 for i in range(min(len(a), len(b))) if a[i] != b[i])
     diff += abs(len(a) - len(b))
     return 1 - (diff / max_len)
+
+
+# ─── ДРУЗЬЯ ХЕЛПЕРЫ ───
+
+def get_friends(user_id):
+    """Возвращает список юзеров-друзей."""
+    rows = Friendship.query.filter(
+        ((Friendship.from_user_id == user_id) | (Friendship.to_user_id == user_id)),
+        Friendship.status == 'accepted'
+    ).all()
+    friend_ids = []
+    for r in rows:
+        friend_ids.append(r.to_user_id if r.from_user_id == user_id else r.from_user_id)
+    if not friend_ids:
+        return []
+    return User.query.filter(User.id.in_(friend_ids)).all()
+
+
+def get_pending_requests(user_id):
+    """Входящие заявки (кто хочет добавить ТЕБЯ)."""
+    rows = Friendship.query.filter_by(to_user_id=user_id, status='pending').all()
+    result = []
+    for r in rows:
+        sender = User.query.get(r.from_user_id)
+        if sender:
+            result.append({"friendship_id": r.id, "user": sender, "created_at": r.created_at})
+    return result
+
+
+def get_sent_requests(user_id):
+    """Исходящие заявки (кого ТЫ хочешь добавить)."""
+    rows = Friendship.query.filter_by(from_user_id=user_id, status='pending').all()
+    result = []
+    for r in rows:
+        target = User.query.get(r.to_user_id)
+        if target:
+            result.append({"friendship_id": r.id, "user": target, "created_at": r.created_at})
+    return result
+
+
+def get_unread_count(user_id):
+    """Сколько непрочитанных сообщений."""
+    return Message.query.filter_by(to_user_id=user_id, is_read=False).count()
+
+
+def get_unread_by_user(user_id):
+    """Сколько непрочитанных по каждому другу: {friend_id: count}."""
+    rows = db.session.query(
+        Message.from_user_id,
+        db.func.count(Message.id)
+    ).filter_by(to_user_id=user_id, is_read=False).group_by(Message.from_user_id).all()
+    return {row[0]: row[1] for row in rows}
+
+
+def is_online(user):
+    """Юзер онлайн, если был <5 мин назад."""
+    if not user.last_seen:
+        return False
+    return (datetime.utcnow() - user.last_seen).total_seconds() < 300
+
+
+def are_friends(user1_id, user2_id):
+    """Проверка: друзья ли."""
+    row = Friendship.query.filter(
+        ((Friendship.from_user_id == user1_id) & (Friendship.to_user_id == user2_id)) |
+        ((Friendship.from_user_id == user2_id) & (Friendship.to_user_id == user1_id)),
+        Friendship.status == 'accepted'
+    ).first()
+    return row is not None
 
 
 # ═══════════════════════════════════════════════
@@ -176,6 +324,7 @@ def index():
         goals=goals_data,
         quote=get_daily_quote(),
         new_achievements=new_achievements,
+        unread_count=get_unread_count(current_user.id) if current_user.is_authenticated else 0,
     )
 
 
@@ -1033,6 +1182,233 @@ def goal_delete():
 
 
 # ═══════════════════════════════════════════════
+# ДРУЗЬЯ
+# ═══════════════════════════════════════════════
+
+@app.route("/friends")
+@login_required
+def friends_page():
+    uid = current_user.id
+    friends = get_friends(uid)
+    incoming = get_pending_requests(uid)
+    outgoing = get_sent_requests(uid)
+    unread = get_unread_by_user(uid)
+
+    friends_data = []
+    for f in friends:
+        friends_data.append({
+            "user": f,
+            "online": is_online(f),
+            "unread": unread.get(f.id, 0),
+        })
+
+    return render_template(
+        "friends.html",
+        friends=friends_data,
+        incoming=incoming,
+        outgoing=outgoing,
+    )
+
+
+@app.route("/friends/search")
+@login_required
+def friends_search():
+    """Поиск юзера по нику (AJAX)."""
+    q = request.args.get("q", "").strip().lower().replace("@", "")
+    if not q or len(q) < 2:
+        return jsonify({"status": "ok", "users": []})
+
+    users = User.query.filter(
+        User.nickname.ilike(f"%{q}%"),
+        User.id != current_user.id
+    ).limit(10).all()
+
+    uid = current_user.id
+    result = []
+    for u in users:
+        # Статус: друзья / заявка / никто
+        if are_friends(uid, u.id):
+            status = "friends"
+        else:
+            pending = Friendship.query.filter(
+                ((Friendship.from_user_id == uid) & (Friendship.to_user_id == u.id)) |
+                ((Friendship.from_user_id == u.id) & (Friendship.to_user_id == uid)),
+                Friendship.status == "pending"
+            ).first()
+            status = "pending" if pending else "none"
+
+        result.append({
+            "id": u.id,
+            "username": u.username,
+            "nickname": u.nickname,
+            "avatar": u.avatar,
+            "online": is_online(u),
+            "status": status,
+        })
+
+    return jsonify({"status": "ok", "users": result})
+
+
+@app.route("/friends/request/<int:user_id>", methods=["POST"])
+@login_required
+def friends_request(user_id):
+    uid = current_user.id
+    if uid == user_id:
+        return jsonify({"status": "error", "message": "Нельзя добавить себя"})
+    target = User.query.get(user_id)
+    if not target:
+        return jsonify({"status": "error", "message": "Юзер не найден"})
+    if are_friends(uid, user_id):
+        return jsonify({"status": "error", "message": "Уже друзья"})
+
+    existing = Friendship.query.filter(
+        ((Friendship.from_user_id == uid) & (Friendship.to_user_id == user_id)) |
+        ((Friendship.from_user_id == user_id) & (Friendship.to_user_id == uid))
+    ).first()
+
+    if existing:
+        return jsonify({"status": "error", "message": "Заявка уже есть"})
+
+    f = Friendship(from_user_id=uid, to_user_id=user_id, status="pending")
+    db.session.add(f)
+    db.session.commit()
+    return jsonify({"status": "ok"})
+
+
+@app.route("/friends/accept/<int:friendship_id>", methods=["POST"])
+@login_required
+def friends_accept(friendship_id):
+    uid = current_user.id
+    f = Friendship.query.filter_by(id=friendship_id, to_user_id=uid, status="pending").first()
+    if not f:
+        return jsonify({"status": "error", "message": "Заявка не найдена"})
+    f.status = "accepted"
+    db.session.commit()
+    # Ачивка за первого друга
+    unlock(uid, "friend_1")
+    unlock(f.from_user_id, "friend_1")
+    return jsonify({"status": "ok"})
+
+
+@app.route("/friends/decline/<int:friendship_id>", methods=["POST"])
+@login_required
+def friends_decline(friendship_id):
+    uid = current_user.id
+    f = Friendship.query.filter_by(id=friendship_id, to_user_id=uid, status="pending").first()
+    if not f:
+        return jsonify({"status": "error", "message": "Заявка не найдена"})
+    db.session.delete(f)
+    db.session.commit()
+    return jsonify({"status": "ok"})
+
+
+@app.route("/friends/remove/<int:user_id>", methods=["POST"])
+@login_required
+def friends_remove(user_id):
+    uid = current_user.id
+    f = Friendship.query.filter(
+        ((Friendship.from_user_id == uid) & (Friendship.to_user_id == user_id)) |
+        ((Friendship.from_user_id == user_id) & (Friendship.to_user_id == uid)),
+        Friendship.status == "accepted"
+    ).first()
+    if not f:
+        return jsonify({"status": "error", "message": "Не друзья"})
+    db.session.delete(f)
+    db.session.commit()
+    return jsonify({"status": "ok"})
+
+
+# ═══════════════════════════════════════════════
+# ЧАТ
+# ═══════════════════════════════════════════════
+
+@app.route("/chat/<int:user_id>")
+@login_required
+def chat_page(user_id):
+    uid = current_user.id
+    if uid == user_id:
+        return redirect("/friends")
+    friend = User.query.get(user_id)
+    if not friend:
+        return "Юзер не найден", 404
+    if not are_friends(uid, user_id):
+        return "Вы не друзья", 403
+
+    # Помечаем все сообщения от друга как прочитанные
+    Message.query.filter_by(from_user_id=user_id, to_user_id=uid, is_read=False).update({"is_read": True})
+    db.session.commit()
+
+    return render_template(
+        "chat.html",
+        friend=friend,
+        online=is_online(friend),
+    )
+
+
+@app.route("/api/chat/<int:user_id>/messages")
+@login_required
+def chat_messages(user_id):
+    """Получить последние 50 сообщений с юзером."""
+    uid = current_user.id
+    if not are_friends(uid, user_id):
+        return jsonify({"status": "error", "message": "Не друзья"})
+
+    msgs = Message.query.filter(
+        ((Message.from_user_id == uid) & (Message.to_user_id == user_id)) |
+        ((Message.from_user_id == user_id) & (Message.to_user_id == uid))
+    ).order_by(Message.created_at.asc()).limit(100).all()
+
+    # Помечаем входящие как прочитанные
+    Message.query.filter_by(from_user_id=user_id, to_user_id=uid, is_read=False).update({"is_read": True})
+    db.session.commit()
+
+    result = []
+    for m in msgs:
+        result.append({
+            "id": m.id,
+            "from_me": m.from_user_id == uid,
+            "text": m.text,
+            "time": m.created_at.strftime("%H:%M"),
+            "date": m.created_at.strftime("%d.%m.%Y"),
+        })
+    return jsonify({"status": "ok", "messages": result})
+
+
+@app.route("/api/chat/<int:user_id>/send", methods=["POST"])
+@login_required
+def chat_send(user_id):
+    uid = current_user.id
+    if not are_friends(uid, user_id):
+        return jsonify({"status": "error", "message": "Не друзья"})
+
+    data = request.json
+    text_msg = data.get("text", "").strip()
+    if not text_msg or len(text_msg) > 2000:
+        return jsonify({"status": "error", "message": "Пустое или слишком длинное"})
+
+    m = Message(from_user_id=uid, to_user_id=user_id, text=text_msg)
+    db.session.add(m)
+    db.session.commit()
+
+    return jsonify({
+        "status": "ok",
+        "message": {
+            "id": m.id,
+            "from_me": True,
+            "text": m.text,
+            "time": m.created_at.strftime("%H:%M"),
+            "date": m.created_at.strftime("%d.%m.%Y"),
+        }
+    })
+
+
+@app.route("/api/unread_count")
+@login_required
+def api_unread_count():
+    return jsonify({"count": get_unread_count(current_user.id)})
+
+
+# ═══════════════════════════════════════════════
 # ТОПИКИ
 # ═══════════════════════════════════════════════
 
@@ -1612,7 +1988,6 @@ def speed_result():
 @app.route("/games/emoji")
 @login_required
 def emoji_page():
-    # Берём 10 случайных эмодзи
     selected = random.sample(EMOJI_WORDS, min(10, len(EMOJI_WORDS)))
     session["emoji_words"] = selected
     session["emoji_index"] = 0
@@ -1688,20 +2063,6 @@ def emoji_result():
 @app.route("/games/odd_one")
 @login_required
 def odd_one_page():
-    uid = current_user.id
-    all_w = get_all_words(uid)
-    # Группируем слова по секциям
-    by_section = {}
-    for word, data in all_w.items():
-        sec = data.get("section", "general")
-        if " " in word or len(word) < 2 or len(word) > 20:
-            continue
-        by_section.setdefault(sec, []).append({"word": word, "rus": data["rus"]})
-    # Оставляем только секции с >= 3 словами
-    valid_sections = [s for s, words in by_section.items() if len(words) >= 3]
-    if len(valid_sections) < 2:
-        return render_template("games_odd_one.html", empty=True)
-
     session["odd_one_score"] = 0
     session["odd_one_index"] = 0
     session["odd_one_total"] = 10
@@ -1730,17 +2091,13 @@ def odd_one_next():
     if len(valid_sections) < 2:
         return jsonify({"status": "end"})
 
-    # Выбираем 2 разные категории
     main_sec, other_sec = random.sample(valid_sections, 2)
-    # 3 слова из main
     main_words = random.sample(by_section[main_sec], 3)
-    # 1 слово из other
     other_word = random.choice(by_section[other_sec])
 
     options = main_words + [other_word]
     random.shuffle(options)
 
-    # Запоминаем правильный ответ
     session["odd_one_current"] = other_word["word"]
     session["odd_one_index"] = index + 1
 
@@ -1800,16 +2157,11 @@ def millionaire_page():
     if len(available) < 20:
         return render_template("games_millionaire.html", empty=True)
 
-    # 15 случайных слов
     selected = random.sample(available, 15)
     session["millionaire_words"] = selected
     session["millionaire_index"] = 0
     session["millionaire_score"] = 0
-    session["millionaire_hints"] = {
-        "fifty": False,   # 50/50
-        "call": False,    # звонок другу (=показать перевод)
-        "audience": False # помощь зала (=убрать 2 неверных)
-    }
+    session["millionaire_hints"] = {"fifty": False, "call": False, "audience": False}
     return render_template("games_millionaire.html", empty=False)
 
 
@@ -1858,7 +2210,6 @@ def millionaire_answer():
 
     if is_correct:
         session["millionaire_score"] = session.get("millionaire_score", 0) + 1
-        # Следующий вопрос
         session["millionaire_index"] = session.get("millionaire_index", 0) + 1
         return jsonify({
             "status": "ok",
@@ -1868,7 +2219,6 @@ def millionaire_answer():
             "continue": True,
         })
     else:
-        # Проиграл — конец игры
         return jsonify({
             "status": "ok",
             "correct": False,
@@ -1892,37 +2242,21 @@ def millionaire_hint():
     session["millionaire_hints"] = hints
 
     if hint_type == "fifty":
-        # Оставляем 2 варианта (правильный + 1 неверный)
         correct = session.get("millionaire_correct", "")
         wrong = session.get("millionaire_wrong", [])
         keep_wrong = random.choice(wrong) if wrong else ""
-        return jsonify({
-            "status": "ok",
-            "hint": "fifty",
-            "keep": [correct, keep_wrong],
-        })
+        return jsonify({"status": "ok", "hint": "fifty", "keep": [correct, keep_wrong]})
     elif hint_type == "call":
-        # Звонок другу = показать перевод слова
         word = session.get("millionaire_current", "")
         uid = current_user.id
         all_w = get_all_words(uid)
         rus = all_w.get(word, {}).get("rus", "")
-        return jsonify({
-            "status": "ok",
-            "hint": "call",
-            "word": word,
-            "translation": rus,
-        })
+        return jsonify({"status": "ok", "hint": "call", "word": word, "translation": rus})
     elif hint_type == "audience":
-        # Помощь зала = убрать 2 неверных
         correct = session.get("millionaire_correct", "")
         wrong = session.get("millionaire_wrong", [])
         keep_wrong = random.sample(wrong, 1) if len(wrong) >= 1 else wrong
-        return jsonify({
-            "status": "ok",
-            "hint": "audience",
-            "keep": [correct] + keep_wrong,
-        })
+        return jsonify({"status": "ok", "hint": "audience", "keep": [correct] + keep_wrong})
 
     return jsonify({"status": "error"})
 
@@ -2002,11 +2336,17 @@ def register():
     if request.method == "POST":
         email = request.form.get("email", "").strip().lower()
         username = request.form.get("username", "").strip()
+        nickname = request.form.get("nickname", "").strip().lower().replace("@", "")
         password = request.form.get("password", "")
-        if not email or not username or not password:
+
+        if not email or not username or not password or not nickname:
             return render_template("register.html", error="Заполни все поля")
+        if not re.match(r'^[a-z0-9_]{2,30}$', nickname):
+            return render_template("register.html", error="Ник: 2-30 символов, только латиница, цифры, _")
         if User.query.filter_by(email=email).first():
             return render_template("register.html", error="Этот email уже занят")
+        if User.query.filter_by(nickname=nickname).first():
+            return render_template("register.html", error="Этот @ник уже занят")
 
         code = str(random.randint(100000, 999999))
         db.session.add(EmailCode(email=email, code=code))
@@ -2019,6 +2359,7 @@ def register():
 
         session["reg_email"] = email
         session["reg_username"] = username
+        session["reg_nickname"] = nickname
         session["reg_password"] = password
         return redirect("/verify")
     return render_template("register.html")
@@ -2036,12 +2377,20 @@ def verify():
             return render_template("verify.html", error="Неверный код")
         db.session.delete(record)
         hashed = generate_password_hash(session.get("reg_password"))
-        user = User(email=email, username=session.get("reg_username"), password=hashed, is_verified=True)
+        user = User(
+            email=email,
+            username=session.get("reg_username"),
+            nickname=session.get("reg_nickname"),
+            password=hashed,
+            is_verified=True,
+            last_seen=datetime.utcnow(),
+        )
         db.session.add(user)
         db.session.commit()
         login_user(user)
         session.pop("reg_email", None)
         session.pop("reg_username", None)
+        session.pop("reg_nickname", None)
         session.pop("reg_password", None)
         return redirect("/")
     return render_template("verify.html")
@@ -2056,6 +2405,8 @@ def login():
         if not user or not check_password_hash(user.password, password):
             return render_template("login.html", error="Неверный email или пароль")
         login_user(user)
+        user.last_seen = datetime.utcnow()
+        db.session.commit()
         return redirect("/")
     return render_template("login.html")
 
@@ -2065,6 +2416,18 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
+
+
+# ═══════════════════════════════════════════════
+# ОНБОРДИНГ
+# ═══════════════════════════════════════════════
+
+@app.route("/api/onboarding/done", methods=["POST"])
+@login_required
+def onboarding_done():
+    current_user.onboarding_done = True
+    db.session.commit()
+    return jsonify({"status": "ok"})
 
 
 if __name__ == "__main__":
