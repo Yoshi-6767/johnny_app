@@ -328,6 +328,16 @@
 
 {% block scripts %}
 <script>
+    function copyNick() {
+        const nick = "@{{ current_user.nickname }}";
+        navigator.clipboard.writeText(nick).then(() => {
+            const btn = event.target;
+            const old = btn.textContent;
+            btn.textContent = "✓ Скопировано!";
+            setTimeout(() => btn.textContent = old, 1500);
+        });
+    }
+
     let searchTimeout = null;
 
     function searchUsers() {
@@ -410,14 +420,6 @@
             .then(data => {
                 if (data.status === "ok") location.reload();
             });
-      function copyNick() {
-        const nick = "@{{ current_user.nickname }}";
-        navigator.clipboard.writeText(nick).then(() => {
-            const btn = event.target;
-            const old = btn.textContent;
-            btn.textContent = "✓ Скопировано!";
-            setTimeout(() => btn.textContent = old, 1500);
-        });
     }
 </script>
 {% endblock %}
