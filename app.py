@@ -18,7 +18,7 @@ from models import (
 )
 from data import (
     SECTIONS, QUOTES, IRREGULAR_VERBS, PHRASAL_VERBS, IDIOMS, FIXED_TOPICS,
-    FALSE_FRIENDS, SLANG, DIALOGUES, EMOJI_WORDS, get_section,
+    FALSE_FRIENDS, SLANG, DIALOGUES, EMOJI_WORDS, GRAMMAR_LESSONS, get_section,
 )
 from utils import (
     send_verification_code, COMMON_WORDS,
@@ -1614,6 +1614,120 @@ def false_friends_page():
 @login_required
 def slang_page():
     return render_template("slang.html", slang=SLANG)
+
+@app.route("/study/grammar")
+@login_required
+def grammar_page():
+    uid = current_user.id
+    progress = get_user_progress(uid)
+    grammar_progress = progress.get("grammar", {})
+
+    lessons_data = []
+    for lesson in GRAMMAR_LESSONS:
+        lid = lesson["id"]
+        done = grammar_progress.get(lid, {}).get("done", False)
+        score = grammar_progress.get(lid, {}).get("score", 0)
+        total = len(lesson["test"])
+        lessons_data.append({
+            "id": lid,
+            "title": lesson["title"],
+            "emoji": lesson["emoji"],
+            "level": lesson["level"],
+            "intro": lesson["intro"],
+            "done": done,
+            "score": score,
+            "total": total,
+        })
+
+    return render_template("grammar.html", lessons=lessons_data)
+
+
+@app.route("/study/grammar/<lesson_id>")
+@login_required
+def grammar_lesson_page(lesson_id):
+    lesson = next((l for l in GRAMMAR_LESSONS if l["id"] == lesson_id), None)
+    if not lesson:
+        return "Урок не найден", 404
+    return render_template("grammar_lesson.html", lesson=lesson)
+
+
+@app.route("/study/grammar/<lesson_id>/check", methods=["POST"])
+@login_required
+def grammar_check(lesson_id):
+    lesson = next((l for l in GRAMMAR_LESSONS if l["id"] == lesson_id), None)
+    if not lesson:
+        return jsonify({"status": "error"})
+
+    data = request.json
+    user_answers = data.get("answers", [])
+
+    correct_count = 0
+    results = []
+    for i, q in enumerate(lesson["test"]):
+        user_ans = (user_answers[i] if i < len(user_answers) else "").strip().lower()
+        if q["type"] == "choice":
+            correct = q["correct"].strip().lower()
+        else:
+            correct = q["answer"].strip().lower()
+
+        is_correct = (user_ans == correct)
+        if is_correct:
+            correct_count += 1
+        results.append({
+            "correct": is_correct,
+            "user": user_answers[i] if i < len(user_answers) else "",
+            "correct_answer": q["correct"] if q["type"] == "choice" else q["answer"],
+        })
+
+    return jsonify({
+        "status": "ok",
+        "correct": correct_count,
+        "total": len(lesson["test"]),
+        "results": results,
+    })
+
+
+@app.route("/study/grammar/<lesson_id>/finish", methods=["POST"])
+@login_required
+def grammar_finish(lesson_id):
+    lesson = next((l for l in GRAMMAR_LESSONS if l["id"] == lesson_id), None)
+    if not lesson:
+        return jsonify({"status": "error"})
+
+    data = request.json
+    score = data.get("score", 0)
+    total = data.get("total", 0)
+    is_passed = (score >= total * 0.6)  # 60% для прохождения
+
+    uid = current_user.id
+    progress = get_user_progress(uid)
+    if "grammar" not in progress:
+        progress["grammar"] = {}
+    progress["grammar"][lesson_id] = {
+        "done": is_passed,
+        "score": score,
+        "total": total,
+    }
+    # Сохраняем прогресс через утилиту
+    from utils import _save_progress_dict
+    _save_progress_dict(uid, progress)
+
+    # Ачивки
+    new_ach = []
+    if is_passed and unlock(uid, "grammar_1"):
+        new_ach.append("grammar_1")
+    # Проверяем все уроки
+    done_count = sum(1 for l in GRAMMAR_LESSONS if progress["grammar"].get(l["id"], {}).get("done"))
+    if done_count >= 10 and unlock(uid, "grammar_all"):
+        new_ach.append("grammar_all")
+
+    return jsonify({
+        "status": "ok",
+        "score": score,
+        "total": total,
+        "is_passed": is_passed,
+        "new_achievements": [get_achievement(c) for c in new_ach if get_achievement(c)],
+    })
 
 
 @app.route("/study/irregular/train")
