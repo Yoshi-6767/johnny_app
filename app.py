@@ -149,6 +149,7 @@ def check_user_achievements(uid):
     topics_done = sum(1 for t in topics.values() if t.get("done"))
     exams_count = SectionExam.query.filter_by(user_id=uid, is_passed=True).count()
     learned_count = LearnedWord.query.filter_by(user_id=uid).count()
+    friends_count = len(get_friends(uid))
 
     return check_all_achievements(
         user_id=uid,
@@ -158,6 +159,7 @@ def check_user_achievements(uid):
         topics_done=topics_done,
         exams_count=exams_count,
         learned_count=learned_count,
+        friends_count=friends_count,
         games_stats={},
         study_stats={},
     )
