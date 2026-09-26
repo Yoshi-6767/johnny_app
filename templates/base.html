@@ -33,10 +33,14 @@
                             {% else %}
                                 <div class="avatar">{{ current_user.username[0]|upper }}</div>
                             {% endif %}
-                            <span class="username">{{ current_user.username }}</span>
-                                                        <div class="user-dropdown" id="userDropdown">
+                                                        <span class="username">{{ current_user.username }}</span>
+                                                                                    <div class="user-dropdown" id="userDropdown">
+                                <div style="padding: 10px 20px; border-bottom: 1px solid var(--border); margin-bottom: 5px;">
+                                    <div style="font-size: 14px; font-weight: 700; color: var(--text);">{{ current_user.username }}</div>
+                                    <div style="font-size: 12px; color: var(--accent); margin-top: 3px;">@{{ current_user.nickname }}</div>
+                                </div>
                                 <a href="/profile">Профиль</a>
-                                <a href="/friends">Друзья{% if unread_count and unread_count > 0 %} <span style="color: #f44336;">●</span>{% endif %}</a>
+                                <a href="/friends">Друзья</a>
                                 <a href="/achievements">Достижения</a>
                                 <a href="/goals">Цели</a>
                                 <a href="/logout">Выйти</a>
