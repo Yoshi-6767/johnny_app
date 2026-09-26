@@ -217,7 +217,11 @@
 <div class="friends-header">
     <div>
         <h1>👥 Друзья</h1>
-        <div class="subtitle">Всего: {{ friends|length }}</div>
+        <div class="subtitle">
+            Всего: {{ friends|length }} ·
+            Твой ник: <strong style="color: var(--accent);">@{{ current_user.nickname }}</strong>
+            <button class="btn-sm btn-ghost" style="margin-left: 8px; padding: 4px 10px;" onclick="copyNick()">📋 Скопировать</button>
+        </div>
     </div>
 </div>
 
