@@ -59,6 +59,14 @@
         font-weight: 600;
         margin-left: 5px;
     }
+    /* Иконка категории */
+    .section-icon {
+        width: 42px;
+        height: 42px;
+        margin-bottom: 10px;
+        transition: transform 0.2s;
+    }
+    .card:hover .section-icon { transform: scale(1.1); }
 </style>
 {% endblock %}
 
@@ -79,10 +87,44 @@
     <a href="/exam/all" class="btn-outline">🎓 Экзамен по всему</a>
 </div>
 
+{# Иконки категорий #}
+{% set section_icons = {
+    'family': 'icon-users',
+    'home': 'icon-home',
+    'routine': 'icon-clock',
+    'food': 'icon-apple',
+    'clothes': 'icon-book',
+    'appearance': 'icon-eye',
+    'weather': 'icon-sparkles',
+    'transport': 'icon-rocket',
+    'work': 'icon-target',
+    'health': 'icon-heart',
+    'shopping': 'icon-dollar',
+    'holidays': 'icon-rocket',
+    'feelings': 'icon-heart',
+    'character': 'icon-sparkles',
+    'relationships': 'icon-heart',
+    'communication': 'icon-chat',
+    'money': 'icon-dollar',
+    'technology': 'icon-settings',
+    'education': 'icon-graduation',
+    'media': 'icon-note',
+    'city': 'icon-home',
+    'nature': 'icon-seedling',
+    'time': 'icon-clock',
+    'housework': 'icon-home',
+    'business': 'icon-dollar',
+    'politics': 'icon-book',
+    'environment': 'icon-seedling',
+    'art': 'icon-sparkles',
+    'science': 'icon-brain',
+    'general': 'icon-folder'
+} %}
+
 <div class="cards" id="sections-grid">
     <a href="/sections/general" class="card {% if sections|selectattr('id','equalto','general')|selectattr('is_passed')|list %}card-passed{% endif %}" data-level="general">
         <div>
-            <div class="card-emoji">📦</div>
+            <svg class="section-icon"><use href="/static/icons.svg#icon-folder"></use></svg>
             <div class="card-title">Общее</div>
             <div class="card-count">
                 {% for s in sections %}
@@ -99,7 +141,7 @@
         {% if s.id != "general" %}
         <a href="/sections/{{ s.id }}" class="card {% if s.is_passed %}card-passed{% endif %}" data-level="{{ s.level }}">
             <div>
-                <div class="card-emoji">{{ s.emoji }}</div>
+                <svg class="section-icon"><use href="/static/icons.svg#{{ section_icons.get(s.id, 'icon-folder') }}"></use></svg>
                 <div class="card-title">{{ s.title }}</div>
                 <div class="card-count">
                     {{ s.count }} слов • {{ s.level }}
