@@ -514,6 +514,24 @@
 </div>
 
 <!-- АЧИВКИ -->
+{% set icon_map = {
+    'streak_1': 'icon-seedling', 'streak_3': 'icon-fire', 'streak_7': 'icon-zap',
+    'streak_14': 'icon-zap', 'streak_30': 'icon-crown',
+    'words_1': 'icon-pencil', 'words_10': 'icon-book', 'words_50': 'icon-book', 'words_100': 'icon-target',
+    'learned_10': 'icon-eye', 'learned_50': 'icon-brain', 'learned_100': 'icon-graduation',
+    'exam_1': 'icon-graduation', 'exam_5': 'icon-medal', 'exam_10': 'icon-crown',
+    'game_hangman_win': 'icon-gamepad', 'game_quiz_10': 'icon-help', 'game_speed_10': 'icon-zap',
+    'game_listening_10': 'icon-headphones', 'game_emoji_10': 'icon-apple',
+    'game_odd_one_10': 'icon-target', 'game_millionaire_10': 'icon-dollar',
+    'study_irregular': 'icon-book', 'study_all': 'icon-book',
+    'grammar_1': 'icon-book', 'grammar_all': 'icon-graduation',
+    'topic_1': 'icon-pencil', 'topic_5': 'icon-note', 'topic_10': 'icon-note',
+    'exam_text_1': 'icon-graduation',
+    'phrase_1': 'icon-chat', 'phrase_10': 'icon-chat',
+    'friend_1': 'icon-users', 'friend_5': 'icon-users',
+    'special_sniper': 'icon-crosshair', 'special_early': 'icon-clock'
+} %}
+
 <div class="section-block">
     <div class="section-block-header">
         <h2>🏆 Последние достижения</h2>
@@ -523,7 +541,7 @@
     <div class="ach-mini-grid">
         {% for a in recent_achievements %}
         <div class="ach-mini {{ a.tier }}">
-            <div class="ach-mini-emoji">{{ a.emoji }}</div>
+            <svg class="icon icon-lg" style="color: var(--accent); margin-bottom: 6px;"><use href="/static/icons.svg#{{ icon_map.get(a.code, 'icon-sparkles') }}"></use></svg>
             <div class="ach-mini-title">{{ a.title }}</div>
         </div>
         {% endfor %}
