@@ -1,154 +1,342 @@
 {% extends "base.html" %}
 
-{% block title %}Достижения — Flow & Word{% endblock %}
+{% block title %}Flow & Word{% endblock %}
 
 {% block styles %}
 <style>
-    .ach-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-bottom: 25px;
-    }
-    .ach-progress {
-        background: var(--bg-card);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 20px 25px;
+    .today-block {
+        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        color: #fff;
+        padding: 30px;
+        border-radius: 16px;
         margin-bottom: 30px;
     }
-    .ach-progress-text {
+    .today-block h2 {
+        color: #fff;
+        margin-bottom: 22px;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .today-block h2 .icon { width: 26px; height: 26px; }
+    .today-stats {
+        display: flex;
+        gap: 35px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+    }
+    .today-stat .num { font-size: 32px; font-weight: 900; line-height: 1; }
+    .today-stat .label {
+        font-size: 13px;
+        opacity: 0.9;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .today-stat .label .icon { width: 14px; height: 14px; }
+    .today-btn-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .today-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--bg-card);
+        color: var(--accent-dark);
+        padding: 13px 26px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 15px;
+        transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .today-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+    .today-btn.weak-btn { background: #ff9800; color: #fff; }
+    .today-btn.weak-btn:hover { background: #f57c00; }
+    .today-btn.ghost { background: rgba(255,255,255,0.15); color: #fff; border: 1.5px solid rgba(255,255,255,0.5); }
+    .today-btn.ghost:hover { background: rgba(255,255,255,0.25); }
+    .today-btn .icon { width: 18px; height: 18px; }
+
+    .daily-goal {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 22px 25px;
+        margin-bottom: 25px;
+    }
+    .daily-goal-head {
         display: flex;
         justify-content: space-between;
-        font-size: 14px;
-        color: var(--text-sub);
-        margin-bottom: 10px;
-        font-weight: 600;
+        align-items: center;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+        gap: 8px;
     }
-    .ach-progress-bar {
-        height: 12px;
-        background: var(--border);
-        border-radius: 6px;
-        overflow: hidden;
+    .daily-goal-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
-    .ach-progress-fill {
+    .daily-goal-title .icon { width: 20px; height: 20px; }
+    .daily-goal-count { font-size: 14px; color: var(--accent); font-weight: 700; }
+    .daily-goal.done { border-color: #4caf50; background: linear-gradient(135deg, var(--bg-card), #f1f8e9); }
+    .daily-goal.done .daily-goal-title { color: #2e7d32; }
+    .daily-goal.done .daily-goal-count { color: #4caf50; }
+    .daily-goal-bar { height: 12px; background: var(--border); border-radius: 6px; overflow: hidden; }
+    .daily-goal-fill {
         height: 100%;
         background: linear-gradient(90deg, var(--accent), var(--accent-dark));
         border-radius: 6px;
         transition: width 0.5s ease;
     }
-    .ach-category { margin-bottom: 35px; }
-    .ach-category-title {
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--text);
-        margin-bottom: 15px;
+    .daily-goal.done .daily-goal-fill { background: linear-gradient(90deg, #4caf50, #66bb6a); }
+
+    .weak-block {
+        background: var(--bg-subtle);
+        border-left: 4px solid var(--accent);
+        padding: 20px 24px;
+        border-radius: 14px;
+        margin-bottom: 25px;
+    }
+    .weak-block-head {
         display: flex;
         align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
         gap: 10px;
     }
-    .ach-category-title .icon { width: 28px; height: 28px; }
-    .ach-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 15px;
-    }
-    .ach-card {
-        background: var(--bg-card);
-        border: 2px solid var(--border);
-        border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        transition: all 0.2s;
-        position: relative;
-    }
-    .ach-card.unlocked {
-        border-color: #4caf50;
-        background: linear-gradient(135deg, var(--bg-card), #f1f8e9);
-    }
-    .ach-card.unlocked.bronze { border-color: #cd7f32; background: linear-gradient(135deg, var(--bg-card), #fdf3e8); }
-    .ach-card.unlocked.silver { border-color: #b0bec5; background: linear-gradient(135deg, var(--bg-card), #f0f4f7); }
-    .ach-card.unlocked.gold { border-color: #ffc107; background: linear-gradient(135deg, var(--bg-card), #fff8e1); }
-    .ach-card.locked { opacity: 0.55; }
-    .ach-card-title {
-        font-size: 15px;
+    .weak-block-title {
         font-weight: 700;
-        color: var(--text);
-        margin-bottom: 6px;
-    }
-    .ach-card-desc {
-        font-size: 13px;
-        color: var(--text-sub);
-        line-height: 1.4;
-    }
-    .ach-card-lock {
-        position: absolute;
-        top: 10px;
-        right: 12px;
+        color: var(--accent);
         font-size: 16px;
-        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
-    .ach-card.unlocked .ach-card-lock { display: none; }
+    .weak-block-title .icon { width: 20px; height: 20px; }
+    .weak-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .weak-chip {
+        background: var(--bg-card);
+        border: 1px solid var(--accent-light);
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        color: var(--accent);
+        font-weight: 600;
+    }
+    .weak-chip .rus { color: var(--text-sub); font-weight: 400; margin-left: 6px; }
+
+    .goal-home {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 18px 22px;
+        margin-bottom: 15px;
+    }
+    .goal-home-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .goal-home-bar { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+    .goal-home-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+        border-radius: 5px;
+    }
+    .goal-home-text { font-size: 13px; color: var(--text-sub); margin-top: 6px; }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="ach-header">
-    <div>
-        <h1>🏆 Достижения</h1>
-        <div class="subtitle">Открыто: {{ unlocked_count }} из {{ total }}</div>
+{% if current_user.is_authenticated %}
+<div class="today-block">
+    <h2>
+        <svg class="icon"><use href="/static/icons.svg#icon-sparkles"></use></svg>
+        Привет, {{ current_user.username }}!
+    </h2>
+    <div class="today-stats">
+        <div class="today-stat">
+            <div class="num">{{ streak }}</div>
+            <div class="label">
+                <svg class="icon"><use href="/static/icons.svg#icon-fire"></use></svg>
+                Дней подряд
+            </div>
+        </div>
+        <div class="today-stat">
+            <div class="num">{{ today_correct }}</div>
+            <div class="label">
+                <svg class="icon"><use href="/static/icons.svg#icon-check"></use></svg>
+                Правильно сегодня
+            </div>
+        </div>
+        <div class="today-stat">
+            <div class="num">{{ weak_list|length }}</div>
+            <div class="label">
+                <svg class="icon"><use href="/static/icons.svg#icon-target"></use></svg>
+                Слабых слов
+            </div>
+        </div>
     </div>
-    <a href="/goals" class="btn-outline">🎯 Мои цели</a>
+    <div class="today-btn-row">
+        {% if weak_list %}
+        <a href="/train?weak=1&reset=1" class="today-btn weak-btn">
+            <svg class="icon"><use href="/static/icons.svg#icon-target"></use></svg>
+            Тренировать слабые
+        </a>
+        {% endif %}
+        <a href="/train?reset=1" class="today-btn {% if weak_list %}ghost{% endif %}">
+            <svg class="icon"><use href="/static/icons.svg#icon-fire"></use></svg>
+            Тренировать все
+        </a>
+    </div>
 </div>
 
-{% set icon_map = {
-    'streak_1': 'icon-seedling', 'streak_3': 'icon-fire', 'streak_7': 'icon-zap',
-    'streak_14': 'icon-zap', 'streak_30': 'icon-crown',
-    'words_1': 'icon-pencil', 'words_10': 'icon-book', 'words_50': 'icon-book', 'words_100': 'icon-target',
-    'learned_10': 'icon-eye', 'learned_50': 'icon-brain', 'learned_100': 'icon-graduation',
-    'exam_1': 'icon-graduation', 'exam_5': 'icon-medal', 'exam_10': 'icon-crown',
-    'game_hangman_win': 'icon-gamepad', 'game_quiz_10': 'icon-help', 'game_speed_10': 'icon-zap',
-    'game_listening_10': 'icon-headphones', 'game_emoji_10': 'icon-apple',
-    'game_odd_one_10': 'icon-target', 'game_millionaire_10': 'icon-dollar',
-    'study_irregular': 'icon-book', 'study_all': 'icon-book',
-    'grammar_1': 'icon-book', 'grammar_all': 'icon-graduation',
-    'topic_1': 'icon-pencil', 'topic_5': 'icon-note', 'topic_10': 'icon-note',
-    'exam_text_1': 'icon-graduation',
-    'phrase_1': 'icon-chat', 'phrase_10': 'icon-chat',
-    'friend_1': 'icon-users', 'friend_5': 'icon-users',
-    'special_sniper': 'icon-crosshair', 'special_early': 'icon-clock'
-} %}
-
-{% set category_icons = {
-    'streak': 'icon-fire', 'words': 'icon-pencil', 'learned': 'icon-brain',
-    'exams': 'icon-graduation', 'games': 'icon-gamepad', 'study': 'icon-book',
-    'topics': 'icon-note', 'phrases': 'icon-chat', 'friends': 'icon-users', 'special': 'icon-sparkles'
-} %}
-
-{% set category_names = {
-    "streak": "Стрик", "words": "Свои слова", "learned": "Выучено",
-    "exams": "Экзамены", "games": "Игры", "study": "Учёба",
-    "topics": "Топики", "phrases": "Фразы", "friends": "Друзья", "special": "Особые"
-} %}
-
-{% for cat_key, cat_list in categories.items() %}
-<div class="ach-category">
-    <div class="ach-category-title">
-        <svg class="icon"><use href="/static/icons.svg#{{ category_icons.get(cat_key, 'icon-sparkles') }}"></use></svg>
-        {{ category_names.get(cat_key, cat_key) }}
-    </div>
-    <div class="ach-grid">
-        {% for a in cat_list %}
-        <div class="ach-card {% if a.unlocked %}unlocked {{ a.tier }}{% else %}locked{% endif %}">
-            {% if not a.unlocked %}<div class="ach-card-lock">🔒</div>{% endif %}
-            <svg class="ach-card-icon"><use href="/static/icons.svg#{{ icon_map.get(a.code, 'icon-sparkles') }}"></use></svg>
-            <div class="ach-card-title">{{ a.title }}</div>
-            <div class="ach-card-desc">{{ a.desc }}</div>
+<div class="daily-goal {% if daily_done %}done{% endif %}">
+    <div class="daily-goal-head">
+        <div class="daily-goal-title">
+            {% if daily_done %}
+            <svg class="icon"><use href="/static/icons.svg#icon-check"></use></svg>
+            Цель дня выполнена!
+            {% else %}
+            <svg class="icon"><use href="/static/icons.svg#icon-target"></use></svg>
+            Цель дня: {{ daily_goal }} слов
+            {% endif %}
         </div>
+        <div class="daily-goal-count">{{ today_correct }} / {{ daily_goal }}</div>
+    </div>
+    <div class="daily-goal-bar">
+        <div class="daily-goal-fill" style="width: {{ daily_percent }}%"></div>
+    </div>
+</div>
+
+{% if weak_list %}
+<div class="weak-block">
+    <div class="weak-block-head">
+        <div class="weak-block-title">
+            <svg class="icon"><use href="/static/icons.svg#icon-target"></use></svg>
+            Слабые слова
+        </div>
+        <a href="/train?weak=1&reset=1" style="font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 700;">Тренировать →</a>
+    </div>
+    <div class="weak-chips">
+        {% for w in weak_list %}
+        <span class="weak-chip">{{ w.word }}<span class="rus">{{ w.rus }}</span></span>
         {% endfor %}
     </div>
 </div>
+{% endif %}
+
+{% if goals %}
+{% for g in goals %}
+<div class="goal-home">
+    <div class="goal-home-title">
+        {% if g.goal_type == "words" %}📚 Цель: {{ g.target }} слов
+        {% elif g.goal_type == "streak" %}🔥 Цель: стрик {{ g.target }} дней{% endif %}
+    </div>
+    <div class="goal-home-bar">
+        <div class="goal-home-fill" style="width: {{ g.percent }}%"></div>
+    </div>
+    <div class="goal-home-text">{{ g.current }} / {{ g.target }} ({{ g.percent }}%)</div>
+</div>
 {% endfor %}
+{% endif %}
+
+{% else %}
+<div class="hero">
+    <h1>Твой английский в потоке</h1>
+    <p>{{ total_words }} слов • учись бесплатно</p>
+</div>
+{% endif %}
+
+<div class="hero" style="margin-top: {% if current_user.is_authenticated %}30px{% else %}0{% endif %};">
+    <div class="quote">
+        <div class="quote-text">«{{ quote.text }}»</div>
+        <div class="quote-author">— {{ quote.author }}</div>
+    </div>
+</div>
+
+<div class="cards">
+    <a href="/sections" class="card">
+        <div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-folder"></use></svg>
+            <div class="card-title">Категории</div>
+            <div class="card-count">{{ total_words }} слов</div>
+        </div>
+    </a>
+
+    <a href="/phrases" class="card">
+        <div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-chat"></use></svg>
+            <div class="card-title">Фразы</div>
+            <div class="card-count">{{ total_phrases }} в базе</div>
+        </div>
+    </a>
+
+    <a href="/topics" class="card">
+        <div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-note"></use></svg>
+            <div class="card-title">Топики</div>
+            <div class="card-count">{{ total_topics_done }} / {{ total_topics }} написано</div>
+        </div>
+    </a>
+
+    <a href="/study" class="card">
+        <div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-book"></use></svg>
+            <div class="card-title">Учёба</div>
+            <div class="card-count">Грамматика, глаголы, диалоги</div>
+        </div>
+    </a>
+
+    <a href="/progress" class="card">
+        <div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-chart"></use></svg>
+            <div class="card-title">Прогресс</div>
+            <div class="card-count">Статистика</div>
+        </div>
+    </a>
+
+    <a href="/translator" class="card">
+        <div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-chat"></use></svg>
+            <div class="card-title">Переводчик</div>
+            <div class="card-count">RU ↔ EN</div>
+        </div>
+    </a>
+
+    <a href="/games" class="card">
+        <div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-gamepad"></use></svg>
+            <div class="card-title">Игры</div>
+            <div class="card-count">Виселица, квиз, скоростной</div>
+        </div>
+    </a>
+
+    <a href="/achievements" class="card">
+        <div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-trophy"></use></svg>
+            <div class="card-title">Достижения</div>
+            <div class="card-count">Награды за прогресс</div>
+        </div>
+    </a>
+
+    <a href="/goals" class="card">
+        <div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-target"></use></svg>
+            <div class="card-title">Цели</div>
+            <div class="card-count">Ставь и добивайся</div>
+        </div>
+    </a>
+</div>
+
+<div class="extra">
+    <a href="/exam">🎓 Экзамен-текст</a>
+    <a href="/phrases/train?reset=1">🎯 Тренировать фразы</a>
+</div>
 {% endblock %}
