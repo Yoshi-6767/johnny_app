@@ -37,11 +37,11 @@
                                     <div style="font-size: 14px; font-weight: 700; color: var(--text);">{{ current_user.username }}</div>
                                     <div style="font-size: 12px; color: var(--accent); margin-top: 3px;">@{{ current_user.nickname }}</div>
                                 </div>
-                                <a href="/profile">👤 Профиль</a>
-                                <a href="/friends">💬 Друзья{% if unread_count and unread_count > 0 %} <span style="color: #f44336;">●</span>{% endif %}</a>
-                                <a href="/achievements">🏆 Достижения</a>
-                                <a href="/goals">🎯 Цели</a>
-                                <a href="/logout">🚪 Выйти</a>
+                                <a href="/profile"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-users"></use></svg> Профиль</a>
+                                <a href="/friends"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-chat"></use></svg> Друзья{% if unread_count and unread_count > 0 %} <span style="color: #f44336;">●</span>{% endif %}</a>
+                                <a href="/achievements"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-trophy"></use></svg> Достижения</a>
+                                <a href="/goals"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-target"></use></svg> Цели</a>
+                                <a href="/logout"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-arrow-left"></use></svg> Выйти</a>
                             </div>
                         </div>
                     {% else %}
@@ -50,17 +50,17 @@
                 </div>
             </div>
             <nav class="nav">
-                <a href="/sections" data-tour="sections"><img src="/static/icons.svg#icon-folder" class="icon" alt="" style="display:none">📂 Категории</a>
-                <a href="/phrases">💬 Фразы</a>
-                <a href="/topics">📝 Топики</a>
-                <a href="/study" data-tour="study">📖 Учёба</a>
-                <a href="/games">🎮 Игры</a>
-                <a href="/achievements">🏆 Достижения</a>
-                <a href="/goals">🎯 Цели</a>
-                <a href="/progress" data-tour="progress">📊 Прогресс</a>
-                <a href="/friends" data-tour="friends">👥 Друзья{% if unread_count and unread_count > 0 %} <span style="background: #f44336; color: #fff; padding: 1px 7px; border-radius: 10px; font-size: 11px;">{{ unread_count }}</span>{% endif %}</a>
-                <a href="/utils">⚙️ Утилиты</a>
-                <a href="/faq">❓ FAQ</a>
+                <a href="/sections" data-tour="sections"><svg class="icon"><use href="/static/icons.svg#icon-folder"></use></svg> Категории</a>
+                <a href="/phrases"><svg class="icon"><use href="/static/icons.svg#icon-chat"></use></svg> Фразы</a>
+                <a href="/topics"><svg class="icon"><use href="/static/icons.svg#icon-note"></use></svg> Топики</a>
+                <a href="/study" data-tour="study"><svg class="icon"><use href="/static/icons.svg#icon-book"></use></svg> Учёба</a>
+                <a href="/games"><svg class="icon"><use href="/static/icons.svg#icon-gamepad"></use></svg> Игры</a>
+                <a href="/achievements"><svg class="icon"><use href="/static/icons.svg#icon-trophy"></use></svg> Достижения</a>
+                <a href="/goals"><svg class="icon"><use href="/static/icons.svg#icon-target"></use></svg> Цели</a>
+                <a href="/progress" data-tour="progress"><svg class="icon"><use href="/static/icons.svg#icon-chart"></use></svg> Прогресс</a>
+                <a href="/friends" data-tour="friends"><svg class="icon"><use href="/static/icons.svg#icon-users"></use></svg> Друзья{% if unread_count and unread_count > 0 %} <span style="background: #f44336; color: #fff; padding: 1px 7px; border-radius: 10px; font-size: 11px;">{{ unread_count }}</span>{% endif %}</a>
+                <a href="/utils"><svg class="icon"><use href="/static/icons.svg#icon-settings"></use></svg> Утилиты</a>
+                <a href="/faq"><svg class="icon"><use href="/static/icons.svg#icon-help"></use></svg> FAQ</a>
             </nav>
         </div>
     </div>
