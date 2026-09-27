@@ -726,30 +726,29 @@ h1 .icon, h2 .icon {
    GRADIENT ИКОНКИ
    ═══════════════════════════════════════════════ */
 
-/* Базовые размеры */
 .icon { width: 20px; height: 20px; vertical-align: -0.15em; flex-shrink: 0; }
 .icon-sm { width: 16px; height: 16px; }
 .icon-lg { width: 32px; height: 32px; }
 .icon-xl { width: 40px; height: 40px; }
 
-/* В меню */
-.nav a {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
+.nav a { display: inline-flex; align-items: center; gap: 6px; }
 .nav a .icon { width: 18px; height: 18px; }
 
-/* Карточка с иконкой */
+.user-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.user-dropdown a .icon { width: 16px; height: 16px; }
+
 .card-icon {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     margin-bottom: 12px;
     transition: transform 0.2s;
 }
 .card:hover .card-icon { transform: scale(1.1); }
 
-/* Заголовок с иконкой */
 h1 .icon, h2 .icon {
     width: 32px;
     height: 32px;
@@ -757,7 +756,6 @@ h1 .icon, h2 .icon {
     margin-right: 8px;
 }
 
-/* Ачивка */
 .ach-card-icon {
     width: 56px;
     height: 56px;
@@ -771,13 +769,12 @@ h1 .icon, h2 .icon {
 .ach-mini-icon { width: 40px; height: 40px; margin-bottom: 6px; }
 .ach-mini.locked .ach-mini-icon { opacity: 0.4; filter: grayscale(0.8); }
 
-/* Статы */
-.stat-mini .icon,
-.stat-card .icon {
+.stat-mini .icon, .stat-card .icon {
     width: 28px;
     height: 28px;
     margin-bottom: 6px;
 }
 
-/* Кнопки */
 .btn .icon, .btn-outline .icon { width: 18px; height: 18px; vertical-align: -0.2em; }
+
+.category-title-icon { width: 28px; height: 28px; vertical-align: -0.15em; margin-right: 10px; }
