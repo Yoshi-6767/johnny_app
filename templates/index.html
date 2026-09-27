@@ -15,6 +15,14 @@
         color: #fff;
         margin-bottom: 22px;
         font-size: 22px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .today-block h2 .icon {
+        width: 26px;
+        height: 26px;
+        color: #fff;
     }
     .today-stats {
         display: flex;
@@ -31,6 +39,14 @@
         font-size: 13px;
         opacity: 0.9;
         margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .today-stat .label .icon {
+        width: 14px;
+        height: 14px;
+        color: #fff;
     }
     .today-btn-row {
         display: flex;
@@ -70,7 +86,12 @@
     .today-btn.ghost:hover {
         background: rgba(255,255,255,0.25);
     }
+    .today-btn .icon {
+        width: 18px;
+        height: 18px;
+    }
 
+    /* ЦЕЛЬ ДНЯ */
     .daily-goal {
         background: var(--bg-card);
         border: 1px solid var(--border);
@@ -90,6 +111,14 @@
         font-size: 16px;
         font-weight: 700;
         color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .daily-goal-title .icon {
+        width: 20px;
+        height: 20px;
+        color: var(--accent);
     }
     .daily-goal-count {
         font-size: 14px;
@@ -102,6 +131,9 @@
     }
     .daily-goal.done .daily-goal-title {
         color: #2e7d32;
+    }
+    .daily-goal.done .daily-goal-title .icon {
+        color: #4caf50;
     }
     .daily-goal.done .daily-goal-count {
         color: #4caf50;
@@ -122,6 +154,7 @@
         background: linear-gradient(90deg, #4caf50, #66bb6a);
     }
 
+    /* СЛАБЫЕ СЛОВА */
     .weak-block {
         background: var(--bg-subtle);
         border-left: 4px solid var(--accent);
@@ -141,6 +174,14 @@
         font-weight: 700;
         color: var(--accent);
         font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .weak-block-title .icon {
+        width: 20px;
+        height: 20px;
+        color: var(--accent);
     }
     .weak-chips {
         display: flex;
@@ -162,6 +203,7 @@
         margin-left: 6px;
     }
 
+    /* ЦЕЛИ НА ГЛАВНОЙ */
     .goal-home {
         background: var(--bg-card);
         border: 1px solid var(--border);
@@ -191,39 +233,75 @@
         color: var(--text-sub);
         margin-top: 6px;
     }
+
+    /* КАРТОЧКА С ИКОНКОЙ */
+    .card-icon {
+        width: 40px;
+        height: 40px;
+        color: var(--accent);
+        margin-bottom: 12px;
+        transition: transform 0.2s;
+    }
+    .card:hover .card-icon {
+        transform: scale(1.1);
+    }
 </style>
 {% endblock %}
 
 {% block content %}
 {% if current_user.is_authenticated %}
 <div class="today-block">
-    <h2>👋 Привет, {{ current_user.username }}!</h2>
+    <h2>
+        <svg class="icon"><use href="/static/icons.svg#icon-sparkles"></use></svg>
+        Привет, {{ current_user.username }}!
+    </h2>
     <div class="today-stats">
         <div class="today-stat">
             <div class="num">{{ streak }}</div>
-            <div class="label">🔥 Дней подряд</div>
+            <div class="label">
+                <svg class="icon"><use href="/static/icons.svg#icon-fire"></use></svg>
+                Дней подряд
+            </div>
         </div>
         <div class="today-stat">
             <div class="num">{{ today_correct }}</div>
-            <div class="label">✅ Правильно сегодня</div>
+            <div class="label">
+                <svg class="icon"><use href="/static/icons.svg#icon-check"></use></svg>
+                Правильно сегодня
+            </div>
         </div>
         <div class="today-stat">
             <div class="num">{{ weak_list|length }}</div>
-            <div class="label">⚠️ Слабых слов</div>
+            <div class="label">
+                <svg class="icon"><use href="/static/icons.svg#icon-target"></use></svg>
+                Слабых слов
+            </div>
         </div>
     </div>
     <div class="today-btn-row">
         {% if weak_list %}
-        <a href="/train?weak=1&reset=1" class="today-btn weak-btn">🎯 Тренировать слабые</a>
+        <a href="/train?weak=1&reset=1" class="today-btn weak-btn">
+            <svg class="icon"><use href="/static/icons.svg#icon-target"></use></svg>
+            Тренировать слабые
+        </a>
         {% endif %}
-        <a href="/train?reset=1" class="today-btn {% if weak_list %}ghost{% endif %}">🔥 Тренировать все</a>
+        <a href="/train?reset=1" class="today-btn {% if weak_list %}ghost{% endif %}">
+            <svg class="icon"><use href="/static/icons.svg#icon-fire"></use></svg>
+            Тренировать все
+        </a>
     </div>
 </div>
 
 <div class="daily-goal {% if daily_done %}done{% endif %}">
     <div class="daily-goal-head">
         <div class="daily-goal-title">
-            {% if daily_done %}✅ Цель дня выполнена!{% else %}🎯 Цель дня: {{ daily_goal }} слов{% endif %}
+            {% if daily_done %}
+            <svg class="icon"><use href="/static/icons.svg#icon-check"></use></svg>
+            Цель дня выполнена!
+            {% else %}
+            <svg class="icon"><use href="/static/icons.svg#icon-target"></use></svg>
+            Цель дня: {{ daily_goal }} слов
+            {% endif %}
         </div>
         <div class="daily-goal-count">{{ today_correct }} / {{ daily_goal }}</div>
     </div>
@@ -235,7 +313,10 @@
 {% if weak_list %}
 <div class="weak-block">
     <div class="weak-block-head">
-        <div class="weak-block-title">⚠️ Слабые слова</div>
+        <div class="weak-block-title">
+            <svg class="icon"><use href="/static/icons.svg#icon-target"></use></svg>
+            Слабые слова
+        </div>
         <a href="/train?weak=1&reset=1" style="font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 700;">Тренировать →</a>
     </div>
     <div class="weak-chips">
@@ -278,7 +359,7 @@
 <div class="cards">
     <a href="/sections" class="card">
         <div>
-            <div class="card-emoji">📚</div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-folder"></use></svg>
             <div class="card-title">Категории</div>
             <div class="card-count">{{ total_words }} слов</div>
         </div>
@@ -286,7 +367,7 @@
 
     <a href="/phrases" class="card">
         <div>
-            <div class="card-emoji">💬</div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-chat"></use></svg>
             <div class="card-title">Фразы</div>
             <div class="card-count">{{ total_phrases }} в базе</div>
         </div>
@@ -294,15 +375,15 @@
 
     <a href="/topics" class="card">
         <div>
-            <div class="card-emoji">📝</div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-note"></use></svg>
             <div class="card-title">Топики</div>
             <div class="card-count">{{ total_topics_done }} / {{ total_topics }} написано</div>
         </div>
     </a>
 
-        <a href="/study" class="card">
+    <a href="/study" class="card">
         <div>
-            <div class="card-emoji">📖</div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-book"></use></svg>
             <div class="card-title">Учёба</div>
             <div class="card-count">Грамматика, глаголы, диалоги</div>
         </div>
@@ -310,7 +391,7 @@
 
     <a href="/progress" class="card">
         <div>
-            <div class="card-emoji">📊</div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-chart"></use></svg>
             <div class="card-title">Прогресс</div>
             <div class="card-count">Статистика</div>
         </div>
@@ -318,7 +399,7 @@
 
     <a href="/translator" class="card">
         <div>
-            <div class="card-emoji">🌐</div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-chat"></use></svg>
             <div class="card-title">Переводчик</div>
             <div class="card-count">RU ↔ EN</div>
         </div>
@@ -326,7 +407,7 @@
 
     <a href="/games" class="card">
         <div>
-            <div class="card-emoji">🎮</div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-gamepad"></use></svg>
             <div class="card-title">Игры</div>
             <div class="card-count">Виселица, квиз, скоростной</div>
         </div>
@@ -334,7 +415,7 @@
 
     <a href="/achievements" class="card">
         <div>
-            <div class="card-emoji">🏆</div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-trophy"></use></svg>
             <div class="card-title">Достижения</div>
             <div class="card-count">Награды за прогресс</div>
         </div>
@@ -342,7 +423,7 @@
 
     <a href="/goals" class="card">
         <div>
-            <div class="card-emoji">🎯</div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-target"></use></svg>
             <div class="card-title">Цели</div>
             <div class="card-count">Ставь и добивайся</div>
         </div>
