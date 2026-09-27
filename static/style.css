@@ -618,3 +618,106 @@ li:hover {
 .ach-modal-item-emoji { font-size: 28px; }
 .ach-modal-item-title { font-weight: 700; color: var(--text); font-size: 15px; }
 .ach-modal-item-desc { font-size: 13px; color: var(--text-sub); margin-top: 2px; }
+
+/* ═══════════════════════════════════════════════
+   SVG ИКОНКИ
+   ═══════════════════════════════════════════════ */
+
+.icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: -0.15em;
+    flex-shrink: 0;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.icon-sm {
+    width: 16px;
+    height: 16px;
+}
+
+.icon-lg {
+    width: 28px;
+    height: 28px;
+}
+
+.icon-xl {
+    width: 40px;
+    height: 40px;
+}
+
+/* Иконка в тексте (акцентный цвет) */
+.icon-accent { color: var(--accent); }
+
+/* Иконка в меню */
+.nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.nav a .icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.85;
+    transition: opacity 0.2s, color 0.2s;
+}
+.nav a:hover .icon {
+    opacity: 1;
+    color: var(--accent);
+}
+
+/* Иконка в заголовке h1, h2 */
+h1 .icon, h2 .icon {
+    width: 32px;
+    height: 32px;
+    color: var(--accent);
+    vertical-align: -0.15em;
+    margin-right: 8px;
+}
+
+/* Иконка на карточке */
+.card .icon,
+.card-emoji .icon {
+    width: 36px;
+    height: 36px;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+/* Иконка на ачивке */
+.ach-mini .icon,
+.ach-card .icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 6px;
+    color: var(--accent);
+}
+.ach-card.unlocked .icon,
+.ach-mini.unlocked .icon {
+    color: inherit;
+}
+
+/* Иконка на кнопке */
+.btn .icon,
+.btn-outline .icon {
+    width: 18px;
+    height: 18px;
+    vertical-align: -0.2em;
+}
+
+/* Иконки для стрика, слов и т.п. в статистике */
+.stat-card .icon,
+.stat-mini .icon {
+    width: 24px;
+    height: 24px;
+    color: var(--accent);
+    margin-bottom: 6px;
+}
+
+/* Иконка галочки в чате */
+.checkmarks .icon {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+}
