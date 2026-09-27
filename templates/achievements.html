@@ -47,6 +47,14 @@
         font-weight: 700;
         color: var(--text);
         margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .ach-category-title .icon {
+        width: 24px;
+        height: 24px;
+        color: var(--accent);
     }
     .ach-grid {
         display: grid;
@@ -72,14 +80,32 @@
     .ach-card.locked {
         opacity: 0.55;
     }
-    .ach-card-emoji {
-        font-size: 42px;
-        margin-bottom: 10px;
-        filter: grayscale(1);
+    .ach-icon-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 12px;
+        border-radius: 50%;
+        background: var(--bg-hover);
+        transition: all 0.3s;
     }
-    .ach-card.unlocked .ach-card-emoji {
-        filter: none;
+    .ach-card.unlocked .ach-icon-wrap {
+        background: var(--accent);
     }
+    .ach-icon-wrap .icon {
+        width: 32px;
+        height: 32px;
+        color: var(--text-muted);
+        transition: all 0.3s;
+    }
+    .ach-card.unlocked .ach-icon-wrap .icon {
+        color: #fff;
+    }
+    .ach-card.unlocked.bronze .ach-icon-wrap { background: #cd7f32; }
+    .ach-card.unlocked.silver .ach-icon-wrap { background: #b0bec5; }
+    .ach-card.unlocked.gold .ach-icon-wrap { background: #ffc107; }
     .ach-card-title {
         font-size: 15px;
         font-weight: 700;
@@ -123,6 +149,59 @@
     </div>
 </div>
 
+{# Маппинг code → icon id #}
+{% set icon_map = {
+    'streak_1': 'icon-seedling',
+    'streak_3': 'icon-fire',
+    'streak_7': 'icon-zap',
+    'streak_14': 'icon-zap',
+    'streak_30': 'icon-crown',
+    'words_1': 'icon-pencil',
+    'words_10': 'icon-book',
+    'words_50': 'icon-book',
+    'words_100': 'icon-target',
+    'learned_10': 'icon-eye',
+    'learned_50': 'icon-brain',
+    'learned_100': 'icon-graduation',
+    'exam_1': 'icon-graduation',
+    'exam_5': 'icon-medal',
+    'exam_10': 'icon-crown',
+    'game_hangman_win': 'icon-gamepad',
+    'game_quiz_10': 'icon-help',
+    'game_speed_10': 'icon-zap',
+    'game_listening_10': 'icon-headphones',
+    'game_emoji_10': 'icon-apple',
+    'game_odd_one_10': 'icon-target',
+    'game_millionaire_10': 'icon-dollar',
+    'study_irregular': 'icon-book',
+    'study_all': 'icon-book',
+    'grammar_1': 'icon-book',
+    'grammar_all': 'icon-graduation',
+    'topic_1': 'icon-pencil',
+    'topic_5': 'icon-note',
+    'topic_10': 'icon-note',
+    'exam_text_1': 'icon-graduation',
+    'phrase_1': 'icon-chat',
+    'phrase_10': 'icon-chat',
+    'friend_1': 'icon-users',
+    'friend_5': 'icon-users',
+    'special_sniper': 'icon-crosshair',
+    'special_early': 'icon-clock'
+} %}
+
+{% set category_icons = {
+    'streak': 'icon-fire',
+    'words': 'icon-pencil',
+    'learned': 'icon-brain',
+    'exams': 'icon-graduation',
+    'games': 'icon-gamepad',
+    'study': 'icon-book',
+    'topics': 'icon-note',
+    'phrases': 'icon-chat',
+    'friends': 'icon-users',
+    'special': 'icon-sparkles'
+} %}
+
 {% set category_names = {
     "streak": "🔥 Стрик",
     "words": "📚 Свои слова",
@@ -132,17 +211,23 @@
     "study": "📖 Учёба",
     "topics": "📝 Топики",
     "phrases": "💬 Фразы",
+    "friends": "👥 Друзья",
     "special": "🌟 Особые"
 } %}
 
 {% for cat_key, cat_list in categories.items() %}
 <div class="ach-category">
-    <div class="ach-category-title">{{ category_names.get(cat_key, cat_key) }}</div>
+    <div class="ach-category-title">
+        <svg class="icon"><use href="/static/icons.svg#{{ category_icons.get(cat_key, 'icon-sparkles') }}"></use></svg>
+        {{ category_names.get(cat_key, cat_key) }}
+    </div>
     <div class="ach-grid">
         {% for a in cat_list %}
         <div class="ach-card {% if a.unlocked %}unlocked {{ a.tier }}{% else %}locked{% endif %}">
             {% if not a.unlocked %}<div class="ach-card-lock">🔒</div>{% endif %}
-            <div class="ach-card-emoji">{{ a.emoji }}</div>
+            <div class="ach-icon-wrap">
+                <svg class="icon"><use href="/static/icons.svg#{{ icon_map.get(a.code, 'icon-sparkles') }}"></use></svg>
+            </div>
             <div class="ach-card-title">{{ a.title }}</div>
             <div class="ach-card-desc">{{ a.desc }}</div>
         </div>
