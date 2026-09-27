@@ -11,9 +11,7 @@
     <script>
         (function() {
             const theme = localStorage.getItem('theme') || 'light';
-            if (theme !== 'light') {
-                document.documentElement.setAttribute('data-theme-pending', theme);
-            }
+            if (theme !== 'light') document.documentElement.setAttribute('data-theme-pending', theme);
         })();
     </script>
     {% block styles %}{% endblock %}
@@ -39,11 +37,11 @@
                                     <div style="font-size: 14px; font-weight: 700; color: var(--text);">{{ current_user.username }}</div>
                                     <div style="font-size: 12px; color: var(--accent); margin-top: 3px;">@{{ current_user.nickname }}</div>
                                 </div>
-                                <a href="/profile"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-users"></use></svg> Профиль</a>
-                                <a href="/friends"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-chat"></use></svg> Друзья{% if unread_count and unread_count > 0 %} <span style="color: #f44336;">●</span>{% endif %}</a>
-                                <a href="/achievements"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-trophy"></use></svg> Достижения</a>
-                                <a href="/goals"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-target"></use></svg> Цели</a>
-                                <a href="/logout"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-arrow-left"></use></svg> Выйти</a>
+                                <a href="/profile">👤 Профиль</a>
+                                <a href="/friends">💬 Друзья{% if unread_count and unread_count > 0 %} <span style="color: #f44336;">●</span>{% endif %}</a>
+                                <a href="/achievements">🏆 Достижения</a>
+                                <a href="/goals">🎯 Цели</a>
+                                <a href="/logout">🚪 Выйти</a>
                             </div>
                         </div>
                     {% else %}
@@ -52,17 +50,17 @@
                 </div>
             </div>
             <nav class="nav">
-                <a href="/sections" data-tour="sections"><svg class="icon"><use href="/static/icons.svg#icon-folder"></use></svg> Категории</a>
-                <a href="/phrases"><svg class="icon"><use href="/static/icons.svg#icon-chat"></use></svg> Фразы</a>
-                <a href="/topics"><svg class="icon"><use href="/static/icons.svg#icon-note"></use></svg> Топики</a>
-                <a href="/study" data-tour="study"><svg class="icon"><use href="/static/icons.svg#icon-book"></use></svg> Учёба</a>
-                <a href="/games"><svg class="icon"><use href="/static/icons.svg#icon-gamepad"></use></svg> Игры</a>
-                <a href="/achievements"><svg class="icon"><use href="/static/icons.svg#icon-trophy"></use></svg> Достижения</a>
-                <a href="/goals"><svg class="icon"><use href="/static/icons.svg#icon-target"></use></svg> Цели</a>
-                <a href="/progress" data-tour="progress"><svg class="icon"><use href="/static/icons.svg#icon-chart"></use></svg> Прогресс</a>
-                <a href="/friends" data-tour="friends"><svg class="icon"><use href="/static/icons.svg#icon-users"></use></svg> Друзья{% if unread_count and unread_count > 0 %} <span style="background: #f44336; color: #fff; padding: 1px 7px; border-radius: 10px; font-size: 11px;">{{ unread_count }}</span>{% endif %}</a>
-                <a href="/utils"><svg class="icon"><use href="/static/icons.svg#icon-settings"></use></svg> Утилиты</a>
-                <a href="/faq"><svg class="icon"><use href="/static/icons.svg#icon-help"></use></svg> FAQ</a>
+                <a href="/sections" data-tour="sections"><img src="/static/icons.svg#icon-folder" class="icon" alt="" style="display:none">📂 Категории</a>
+                <a href="/phrases">💬 Фразы</a>
+                <a href="/topics">📝 Топики</a>
+                <a href="/study" data-tour="study">📖 Учёба</a>
+                <a href="/games">🎮 Игры</a>
+                <a href="/achievements">🏆 Достижения</a>
+                <a href="/goals">🎯 Цели</a>
+                <a href="/progress" data-tour="progress">📊 Прогресс</a>
+                <a href="/friends" data-tour="friends">👥 Друзья{% if unread_count and unread_count > 0 %} <span style="background: #f44336; color: #fff; padding: 1px 7px; border-radius: 10px; font-size: 11px;">{{ unread_count }}</span>{% endif %}</a>
+                <a href="/utils">⚙️ Утилиты</a>
+                <a href="/faq">❓ FAQ</a>
             </nav>
         </div>
     </div>
@@ -95,7 +93,6 @@
     {% endif %}
 
     {% if current_user.is_authenticated %}
-    <!-- ОНБОРДИНГ: МОДАЛКА + ТУР -->
     <div class="onb-overlay" id="onbWelcome" style="display: none;">
         <div class="onb-welcome">
             <div class="onb-welcome-emoji">👋</div>
@@ -126,71 +123,22 @@
     </div>
 
     <style>
-        .onb-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 9998;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            animation: fadeIn 0.3s ease;
-        }
-        .onb-welcome {
-            background: var(--bg-card);
-            padding: 40px;
-            border-radius: 16px;
-            max-width: 480px;
-            width: 100%;
-            text-align: center;
-            border-top: 4px solid var(--accent);
-            animation: scaleIn 0.4s ease;
-        }
+        .onb-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9998; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease; }
+        .onb-welcome { background: var(--bg-card); padding: 40px; border-radius: 16px; max-width: 480px; width: 100%; text-align: center; border-top: 4px solid var(--accent); animation: scaleIn 0.4s ease; }
         .onb-welcome-emoji { font-size: 64px; margin-bottom: 15px; }
         .onb-welcome h2 { color: var(--text); font-size: 24px; margin-bottom: 15px; }
         .onb-welcome p { color: var(--text-sub); font-size: 15px; line-height: 1.6; margin-bottom: 12px; }
         .onb-welcome-actions { display: flex; gap: 12px; margin-top: 25px; flex-wrap: wrap; }
         .onb-welcome-actions button { flex: 1; min-width: 140px; }
-
         .onb-tour { position: fixed; inset: 0; z-index: 9999; }
         .onb-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.75); }
-        .onb-highlight {
-            position: absolute;
-            border: 3px solid #ffc107;
-            border-radius: 8px;
-            box-shadow: 0 0 0 9999px rgba(0,0,0,0.75), 0 0 30px #ffc107;
-            z-index: 10000;
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-        .onb-tooltip {
-            position: absolute;
-            background: var(--bg-card);
-            color: var(--text);
-            padding: 20px 25px;
-            border-radius: 14px;
-            max-width: 340px;
-            width: 90%;
-            border: 2px solid var(--accent);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            z-index: 10001;
-            animation: fadeIn 0.3s ease;
-        }
+        .onb-highlight { position: absolute; border: 3px solid #ffc107; border-radius: 8px; box-shadow: 0 0 0 9999px rgba(0,0,0,0.75), 0 0 30px #ffc107; z-index: 10000; transition: all 0.3s ease; pointer-events: none; }
+        .onb-tooltip { position: absolute; background: var(--bg-card); color: var(--text); padding: 20px 25px; border-radius: 14px; max-width: 340px; width: 90%; border: 2px solid var(--accent); box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 10001; animation: fadeIn 0.3s ease; }
         .onb-step { font-size: 12px; color: var(--accent); font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; }
         .onb-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
         .onb-text { font-size: 14px; color: var(--text-sub); line-height: 1.6; margin-bottom: 18px; }
         .onb-actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .onb-btn {
-            padding: 10px 18px;
-            border-radius: 20px;
-            font-family: 'Rubik', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-        }
+        .onb-btn { padding: 10px 18px; border-radius: 20px; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s; }
         .onb-btn-skip { background: transparent; color: var(--text-sub); }
         .onb-btn-skip:hover { color: #f44336; }
         .onb-btn-back { background: var(--bg-hover); color: var(--text-sub); padding: 10px 14px; }
@@ -200,7 +148,6 @@
     </style>
 
     <script>
-        // ОНБОРДИНГ
         const TOUR_STEPS = [
             { target: null, title: "Добро пожаловать! 👋", text: "Давай покажу, что тут есть. Это займёт минуту.", position: "center" },
             { target: '[data-tour="sections"]', title: "📚 Категории", text: "Здесь слова по темам. Отмечай выученные, сдавай экзамены.", position: "bottom" },
@@ -217,11 +164,8 @@
         function checkOnboarding() {
             fetch("/api/onboarding/status")
                 .then(r => r.json())
-                .then(data => {
-                    if (!data.done) {
-                        document.getElementById("onbWelcome").style.display = "flex";
-                    }
-                }).catch(() => {});
+                .then(data => { if (!data.done) document.getElementById("onbWelcome").style.display = "flex"; })
+                .catch(() => {});
         }
 
         function startTour() {
@@ -244,9 +188,7 @@
             else { skipTour(); }
         }
 
-        function prevStep() {
-            if (currentStep > 0) { currentStep--; renderStep(); }
-        }
+        function prevStep() { if (currentStep > 0) { currentStep--; renderStep(); } }
 
         function renderStep() {
             const step = TOUR_STEPS[currentStep];
@@ -285,13 +227,9 @@
             tooltip.style.transform = "translate(-50%, -50%)";
         }
 
-        if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", checkOnboarding);
-        } else {
-            checkOnboarding();
-        }
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", checkOnboarding);
+        else checkOnboarding();
 
-        // ТЕМА
         (function() {
             const theme = localStorage.getItem('theme') || 'light';
             if (theme !== 'light') document.body.setAttribute('data-theme', theme);
