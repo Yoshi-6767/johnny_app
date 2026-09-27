@@ -103,16 +103,6 @@
     <a href="/goals" class="btn-outline">🎯 Мои цели</a>
 </div>
 
-<div class="ach-progress">
-    <div class="ach-progress-text">
-        <span>Прогресс</span>
-        <span>{{ unlocked_count }} / {{ total }}</span>
-    </div>
-    <div class="ach-progress-bar">
-        <div class="ach-progress-fill" style="width: {{ (unlocked_count / total * 100) if total > 0 else 0 }}%"></div>
-    </div>
-</div>
-
 {% set icon_map = {
     'streak_1': 'icon-seedling', 'streak_3': 'icon-fire', 'streak_7': 'icon-zap',
     'streak_14': 'icon-zap', 'streak_30': 'icon-crown',
