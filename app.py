@@ -1562,14 +1562,14 @@ def topics_page():
     for t in FIXED_TOPICS:
         data = user_topics.get(t["id"], {})
         all_topics.append({
-            "id": t["id"], "title": t["title"], "emoji": t["emoji"],
+            "id": t["id"], "title": t["title"], "icon": t["icon"],
             "text": data.get("text", ""), "done": data.get("done", False),
             "word_count": len(data.get("text", "").split()) if data.get("text") else 0,
         })
     for tid, data in user_topics.items():
         if tid.startswith("custom_"):
             all_topics.append({
-                "id": tid, "title": data.get("title", "Своя тема"), "emoji": "📝",
+                "id": tid, "title": data.get("title", "Своя тема"), "icon": "icon-note",
                 "text": data.get("text", ""), "done": data.get("done", False),
                 "word_count": len(data.get("text", "").split()) if data.get("text") else 0,
             })
@@ -1585,7 +1585,7 @@ def topic_page(tid):
     topic_info = next((t for t in FIXED_TOPICS if t["id"] == tid), None)
     if not topic_info:
         if tid in user_topics:
-            topic_info = {"id": tid, "title": user_topics[tid].get("title", "Своя тема"), "emoji": "📝", "helper": [], "example": ""}
+            topic_info = {"id": tid, "title": user_topics[tid].get("title", "Своя тема"), "icon": "icon-note", "helper": [], "example": ""}
         else:
             return "Тема не найдена", 404
     data = user_topics.get(tid, {"text": "", "done": False})
@@ -1644,7 +1644,7 @@ def exam_page():
     all_topics = list(FIXED_TOPICS)
     for tid, data in get_user_topics(uid).items():
         if tid.startswith("custom_"):
-            all_topics.append({"id": tid, "title": data.get("title", "Своя тема"), "emoji": "📝", "helper": []})
+            all_topics.append({"id": tid, "title": data.get("title", "Своя тема"), "icon": "icon-note", "helper": []})
     if not all_topics:
         return render_template("exam.html", topic=None, empty=True)
     topic = random.choice(all_topics)
