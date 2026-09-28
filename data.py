@@ -319,52 +319,52 @@ SLANG = [
 
 FIXED_TOPICS = [
     {
-        "id": "my_day", "title": "My Day", "emoji": "☀️",
+        "id": "my_day", "title": "My Day", "icon": "icon-sun",
         "helper": ["wake up", "breakfast", "work", "evening", "sleep", "morning", "lunch", "dinner"],
         "example": "I wake up at 7 in the morning. I have breakfast and go to work. In the afternoon I have lunch with my colleagues. In the evening I come home, have dinner and watch TV. I go to bed at 11 pm. My day is busy but I like it."
     },
     {
-        "id": "my_family", "title": "My Family", "emoji": "👨‍👩‍👧",
+        "id": "my_family", "title": "My Family", "icon": "icon-users",
         "helper": ["mother", "father", "brother", "sister", "love", "home", "parents", "children"],
         "example": "My family is not very big. I have a mother, a father and a younger sister. We live together in a flat. My mother is a doctor and my father is an engineer. We love each other and spend a lot of time together. On weekends we go for a walk or watch films."
     },
     {
-        "id": "my_hobbies", "title": "My Hobbies", "emoji": "🎮",
+        "id": "my_hobbies", "title": "My Hobbies", "icon": "icon-hobby",
         "helper": ["play", "read", "music", "sport", "game", "draw", "sing", "dance"],
         "example": "I have several hobbies. I like to read books and play computer games. In summer I ride a bike and swim in the lake. I also listen to music every day. Music helps me relax after a long day. My favourite hobby is reading, because it opens new worlds."
     },
     {
-        "id": "my_city", "title": "My City", "emoji": "🏙️",
+        "id": "my_city", "title": "My City", "icon": "icon-buildings",
         "helper": ["street", "park", "shop", "museum", "beautiful", "big", "small", "center"],
         "example": "I live in a big city. There are many streets, parks and shops. In the city centre you can find museums and theatres. My favourite place is the central park. I like to walk there with my friends. The city is beautiful, especially at night with all the lights."
     },
     {
-        "id": "my_dreams", "title": "My Dreams", "emoji": "💭",
+        "id": "my_dreams", "title": "My Dreams", "icon": "icon-dream",
         "helper": ["want", "future", "travel", "family", "success", "dream", "hope", "believe"],
         "example": "I have many dreams. I want to travel around the world and see new places. In the future I hope to have a big family and a good job. I believe that if you work hard, your dreams come true. My biggest dream is to visit Japan. I hope one day it will happen."
     },
     {
-        "id": "my_job", "title": "My Job", "emoji": "💼",
+        "id": "my_job", "title": "My Job", "icon": "icon-job",
         "helper": ["office", "boss", "meeting", "colleague", "task", "project", "career", "salary"],
         "example": "I work in an office. My job starts at 9 and ends at 6. I have meetings with my colleagues and work on different projects. My boss is strict but fair. I like my career because I learn new things every day. The salary is good and I can save money for my dreams."
     },
     {
-        "id": "my_travels", "title": "My Travels", "emoji": "✈️",
+        "id": "my_travels", "title": "My Travels", "icon": "icon-airplane",
         "helper": ["airport", "ticket", "hotel", "luggage", "passport", "flight", "beach", "tourist"],
         "example": "I love to travel. Last summer I went to the sea. I bought a ticket, packed my luggage and went to the airport. The flight was long but exciting. I stayed in a nice hotel near the beach. I met other tourists and tried local food. It was an amazing trip."
     },
     {
-        "id": "my_food", "title": "My Food", "emoji": "🍕",
+        "id": "my_food", "title": "My Food", "icon": "icon-food",
         "helper": ["breakfast", "lunch", "dinner", "tasty", "cook", "restaurant", "hungry", "delicious"],
         "example": "I like tasty food. For breakfast I usually have eggs and coffee. For lunch I eat soup or salad. In the evening I cook dinner with my family. My favourite dish is pizza, but I also like healthy food like vegetables and fruit. Sometimes we go to a restaurant on weekends."
     },
     {
-        "id": "my_health", "title": "My Health", "emoji": "💪",
+        "id": "my_health", "title": "My Health", "icon": "icon-muscle",
         "helper": ["sport", "gym", "doctor", "healthy", "sleep", "water", "vitamins", "energy"],
         "example": "I try to stay healthy. I go to the gym three times a week. I eat vegetables and drink a lot of water. I sleep eight hours every night. When I feel sick, I go to the doctor. I also take vitamins in winter. Sport gives me energy and good mood."
     },
     {
-        "id": "my_future", "title": "My Future", "emoji": "🚀",
+        "id": "my_future", "title": "My Future", "icon": "icon-rocket",
         "helper": ["career", "family", "travel", "success", "dream", "plan", "goal", "achieve"],
         "example": "In the future I want to achieve many goals. I plan to build a good career and start a family. I also want to travel and see different countries. My biggest goal is to open my own business. I know it will not be easy, but I believe in myself and work hard every day."
     },
