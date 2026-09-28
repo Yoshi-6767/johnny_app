@@ -262,30 +262,16 @@
 </div>
 
 <div class="cards">
+    <!-- 1. Учить слова -->
     <a href="/sections" class="card">
         <div>
             <svg class="card-icon"><use href="/static/icons.svg#icon-folder"></use></svg>
-            <div class="card-title">Категории</div>
+            <div class="card-title">Учить слова</div>
             <div class="card-count">{{ total_words }} слов</div>
         </div>
     </a>
 
-        <a href="/phrases" class="card">
-        <div>
-            <svg class="card-icon"><use href="/static/icons.svg#icon-book-open"></use></svg>
-            <div class="card-title">Фразы</div>
-            <div class="card-count">{{ total_phrases }} в базе</div>
-        </div>
-    </a>
-
-    <a href="/topics" class="card">
-        <div>
-            <svg class="card-icon"><use href="/static/icons.svg#icon-note"></use></svg>
-            <div class="card-title">Топики</div>
-            <div class="card-count">{{ total_topics_done }} / {{ total_topics }} написано</div>
-        </div>
-    </a>
-
+    <!-- 2. Учёба -->
     <a href="/study" class="card">
         <div>
             <svg class="card-icon"><use href="/static/icons.svg#icon-book"></use></svg>
@@ -294,22 +280,25 @@
         </div>
     </a>
 
-    <a href="/progress" class="card">
+    <!-- 3. Топики -->
+    <a href="/topics" class="card">
         <div>
-            <svg class="card-icon"><use href="/static/icons.svg#icon-chart"></use></svg>
-            <div class="card-title">Прогресс</div>
-            <div class="card-count">Статистика</div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-note"></use></svg>
+            <div class="card-title">Топики</div>
+            <div class="card-count">{{ total_topics_done }} / {{ total_topics }} написано</div>
         </div>
     </a>
 
-        <a href="/translator" class="card">
+    <!-- 4. Фразы -->
+    <a href="/phrases" class="card">
         <div>
-            <svg class="card-icon"><use href="/static/icons.svg#icon-globe"></use></svg>
-            <div class="card-title">Переводчик</div>
-            <div class="card-count">RU ↔ EN</div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-book-open"></use></svg>
+            <div class="card-title">Фразы</div>
+            <div class="card-count">{{ total_phrases }} в базе</div>
         </div>
     </a>
 
+    <!-- 5. Игры -->
     <a href="/games" class="card">
         <div>
             <svg class="card-icon"><use href="/static/icons.svg#icon-gamepad"></use></svg>
@@ -318,6 +307,25 @@
         </div>
     </a>
 
+    <!-- 6. Переводчик -->
+    <a href="/translator" class="card">
+        <div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-globe"></use></svg>
+            <div class="card-title">Переводчик</div>
+            <div class="card-count">RU ↔ EN</div>
+        </div>
+    </a>
+
+    <!-- 7. Прогресс -->
+    <a href="/progress" class="card">
+        <div>
+            <svg class="card-icon"><use href="/static/icons.svg#icon-chart"></use></svg>
+            <div class="card-title">Прогресс</div>
+            <div class="card-count">Статистика</div>
+        </div>
+    </a>
+
+    <!-- 8. Достижения -->
     <a href="/achievements" class="card">
         <div>
             <svg class="card-icon"><use href="/static/icons.svg#icon-trophy"></use></svg>
@@ -326,6 +334,7 @@
         </div>
     </a>
 
+    <!-- 9. Цели -->
     <a href="/goals" class="card">
         <div>
             <svg class="card-icon"><use href="/static/icons.svg#icon-target"></use></svg>
