@@ -13,7 +13,7 @@
     {% for topic in topics %}
     <a href="/topics/{{ topic.id }}" class="card">
         <div>
-            <div class="card-emoji">{{ topic.emoji }}</div>
+            <svg class="card-icon"><use href="/static/icons.svg#{{ topic.icon }}"></use></svg>
             <div class="card-title">{{ topic.title }}</div>
             <div class="card-count">
                 {% if topic.done %}
