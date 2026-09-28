@@ -315,12 +315,13 @@
     const n = labels.length;
     const angleStep = (Math.PI * 2) / n;
 
-    const accent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || "#2196f3";
-    const textColor = getComputedStyle(document.body).getPropertyValue('--text').trim() || "#333";
-    const borderColor = getComputedStyle(document.body).getPropertyValue('--border').trim() || "#e0e0e0";
+    const COLOR_LINE = "#90a4ae";
+    const COLOR_TEXT = "#37474f";
+    const COLOR_ACCENT = "#2196f3";
 
-    ctx.strokeStyle = borderColor;
-    ctx.lineWidth = 1;
+    // Сетка
+    ctx.strokeStyle = COLOR_LINE;
+    ctx.lineWidth = 1.2;
     for (let level = 1; level <= 5; level++) {
         ctx.beginPath();
         for (let i = 0; i <= n; i++) {
@@ -334,6 +335,7 @@
         ctx.stroke();
     }
 
+    // Лучи
     for (let i = 0; i < n; i++) {
         const angle = -Math.PI / 2 + i * angleStep;
         const x = cx + Math.cos(angle) * radius;
@@ -343,6 +345,11 @@
         ctx.lineTo(x, y);
         ctx.stroke();
     }
+
+    // Данные — заливка градиентом
+    const gradient = ctx.createRadialGradient(cx, cy, 5, cx, cy, radius);
+    gradient.addColorStop(0, "rgba(79, 195, 247, 0.6)");
+    gradient.addColorStop(1, "rgba(33, 150, 243, 0.15)");
 
     ctx.beginPath();
     for (let i = 0; i <= n; i++) {
@@ -355,31 +362,39 @@
         else ctx.lineTo(x, y);
     }
     ctx.closePath();
-    ctx.fillStyle = accent + "55";
+    ctx.fillStyle = gradient;
     ctx.fill();
-    ctx.strokeStyle = accent;
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = COLOR_ACCENT;
+    ctx.lineWidth = 2.5;
     ctx.stroke();
 
+    // Точки данных
     for (let i = 0; i < n; i++) {
         const angle = -Math.PI / 2 + i * angleStep;
         const r = radius * values[i];
         const x = cx + Math.cos(angle) * r;
         const y = cy + Math.sin(angle) * r;
         ctx.beginPath();
-        ctx.arc(x, y, 5, 0, Math.PI * 2);
-        ctx.fillStyle = accent;
+        ctx.arc(x, y, 6, 0, Math.PI * 2);
+        ctx.fillStyle = COLOR_ACCENT;
         ctx.fill();
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 2;
+        ctx.stroke();
     }
 
-    ctx.fillStyle = textColor;
+    // Подписи
     ctx.font = "bold 14px Rubik, sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     for (let i = 0; i < n; i++) {
         const angle = -Math.PI / 2 + i * angleStep;
-        const x = cx + Math.cos(angle) * (radius + 30);
-        const y = cy + Math.sin(angle) * (radius + 30);
+        const x = cx + Math.cos(angle) * (radius + 32);
+        const y = cy + Math.sin(angle) * (radius + 32);
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = "#ffffff";
+        ctx.strokeText(labels[i], x, y);
+        ctx.fillStyle = COLOR_TEXT;
         ctx.fillText(labels[i], x, y);
     }
 })();
