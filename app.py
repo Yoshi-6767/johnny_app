@@ -1709,6 +1709,11 @@ def translate():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
+@app.route("/settings")
+@login_required
+def settings_page():
+    return render_template("settings.html", new_achievements=pop_new_achievements())
+
 
 @app.route("/faq")
 def faq_page():
