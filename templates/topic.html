@@ -161,7 +161,7 @@
 
 {% block content %}
 <div class="topic-header">
-    <div class="emoji">{{ topic.emoji }}</div>
+    <svg class="card-icon" style="width: 56px; height: 56px;"><use href="/static/icons.svg#{{ topic.icon }}"></use></svg>
     <h1>{{ topic.title }}</h1>
 </div>
 <div class="subtitle">Минимум 50 слов для сохранения</div>
