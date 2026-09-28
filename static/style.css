@@ -192,11 +192,23 @@ li:nth-child(8) { animation-delay: 0.16s; }
     gap: 15px;
 }
 .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     font-size: 30px;
     font-weight: 900;
     color: var(--accent);
     text-decoration: none;
     transition: color 0.3s;
+}
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+.logo:hover .logo-icon {
+    transform: scale(1.05);
 }
 .logo span { color: var(--text); }
 .nav {
