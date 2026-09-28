@@ -39,6 +39,7 @@
                                 </div>
                                 <a href="/profile"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-users"></use></svg> Профиль</a>
                                 <a href="/friends"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-chat"></use></svg> Друзья{% if unread_count and unread_count > 0 %} <span style="color: #f44336;">●</span>{% endif %}</a>
+                                <a href="/phrases"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-book-open"></use></svg> Фразы</a>
                                 <a href="/achievements"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-trophy"></use></svg> Достижения</a>
                                 <a href="/goals"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-target"></use></svg> Цели</a>
                                 <a href="/logout"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-arrow-left"></use></svg> Выйти</a>
@@ -50,16 +51,14 @@
                 </div>
             </div>
             <nav class="nav">
-                <a href="/sections" data-tour="sections"><svg class="icon"><use href="/static/icons.svg#icon-folder"></use></svg> Категории</a>
-                <a href="/phrases"><svg class="icon"><use href="/static/icons.svg#icon-chat"></use></svg> Фразы</a>
-                <a href="/topics"><svg class="icon"><use href="/static/icons.svg#icon-note"></use></svg> Топики</a>
+                <a href="/sections" data-tour="sections"><svg class="icon"><use href="/static/icons.svg#icon-folder"></use></svg> Учить слова</a>
                 <a href="/study" data-tour="study"><svg class="icon"><use href="/static/icons.svg#icon-book"></use></svg> Учёба</a>
-                <a href="/games"><svg class="icon"><use href="/static/icons.svg#icon-gamepad"></use></svg> Игры</a>
-                <a href="/achievements"><svg class="icon"><use href="/static/icons.svg#icon-trophy"></use></svg> Достижения</a>
-                <a href="/goals"><svg class="icon"><use href="/static/icons.svg#icon-target"></use></svg> Цели</a>
-                <a href="/progress" data-tour="progress"><svg class="icon"><use href="/static/icons.svg#icon-chart"></use></svg> Прогресс</a>
+                <a href="/topics"><svg class="icon"><use href="/static/icons.svg#icon-note"></use></svg> Топики</a>
+                <a href="/phrases"><svg class="icon"><use href="/static/icons.svg#icon-book-open"></use></svg> Фразы</a>
+                <a href="/games" data-tour="games"><svg class="icon"><use href="/static/icons.svg#icon-gamepad"></use></svg> Игры</a>
+                <a href="/translator"><svg class="icon"><use href="/static/icons.svg#icon-globe"></use></svg> Переводчик</a>
                 <a href="/friends" data-tour="friends"><svg class="icon"><use href="/static/icons.svg#icon-users"></use></svg> Друзья{% if unread_count and unread_count > 0 %} <span style="background: #f44336; color: #fff; padding: 1px 7px; border-radius: 10px; font-size: 11px;">{{ unread_count }}</span>{% endif %}</a>
-                <a href="/utils"><svg class="icon"><use href="/static/icons.svg#icon-settings"></use></svg> Утилиты</a>
+                <a href="/settings"><svg class="icon"><use href="/static/icons.svg#icon-settings"></use></svg> Настройки</a>
                 <a href="/faq"><svg class="icon"><use href="/static/icons.svg#icon-help"></use></svg> FAQ</a>
             </nav>
         </div>
@@ -150,11 +149,11 @@
     <script>
         const TOUR_STEPS = [
             { target: null, title: "Добро пожаловать! 👋", text: "Давай покажу, что тут есть. Это займёт минуту.", position: "center" },
-            { target: '[data-tour="sections"]', title: "📚 Категории", text: "Здесь слова по темам. Отмечай выученные, сдавай экзамены.", position: "bottom" },
+            { target: '[data-tour="sections"]', title: "📚 Учить слова", text: "Здесь слова по темам. Отмечай выученные, сдавай экзамены.", position: "bottom" },
             { target: null, title: "🔥 Тренировка", text: "Главная механика. Заходи в категорию → жми «Тренировать».", position: "center" },
             { target: '[data-tour="study"]', title: "📖 Учёба", text: "Грамматика, глаголы, идиомы, диалоги.", position: "bottom" },
             { target: '[data-tour="friends"]', title: "👥 Друзья", text: "Добавляй друзей, общайся в чате.", position: "bottom" },
-            { target: '[data-tour="progress"]', title: "📊 Прогресс", text: "Статистика, стрик, радар скиллов.", position: "bottom" },
+            { target: '[data-tour="games"]', title: "🎮 Игры", text: "Виселица, квиз, скоростной и другие игры.", position: "bottom" },
             { target: null, title: "👤 Профиль", text: "Аватар, тема, цели, достижения.", position: "center" }
         ];
 
