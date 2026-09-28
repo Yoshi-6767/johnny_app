@@ -319,6 +319,32 @@
         <polyline points="12 19 5 12 12 5" fill="none" stroke="url(#arrowGray)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
 
+    <!-- Дом (Home) -->
+    <symbol id="icon-home" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="homeRoof" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#4fc3f7"/>
+                <stop offset="100%" stop-color="#01579b"/>
+            </linearGradient>
+        </defs>
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="url(#homeRoof)"/>
+        <rect x="9" y="12" width="6" height="10" fill="#fff" opacity="0.85"/>
+        <rect x="10.5" y="14" width="3" height="3" fill="#4fc3f7"/>
+    </symbol>
+
+    <!-- Часы (Routine, Time) -->
+    <symbol id="icon-clock" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="clockBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#4fc3f7"/>
+                <stop offset="100%" stop-color="#01579b"/>
+            </linearGradient>
+        </defs>
+        <circle cx="12" cy="12" r="10" fill="url(#clockBlue)"/>
+        <polyline points="12 6 12 12 16 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="1" fill="#fff"/>
+    </symbol>
+
     <!-- ═══════════════════════════════════════════════
          АЧИВКИ
          ═══════════════════════════════════════════════ -->
@@ -504,10 +530,6 @@
         <circle cx="15" cy="9" r="1.5" fill="#fff"/>
     </symbol>
 
-    <!-- ═══════════════════════════════════════════════
-         НОВЫЕ ИКОНКИ ДЛЯ РАЗВЕДЕНИЯ ДУБЛИКАТОВ
-         ═══════════════════════════════════════════════ -->
-
     <!-- Самолёт (Transport) -->
     <symbol id="icon-airplane" viewBox="0 0 24 24">
         <defs>
@@ -535,7 +557,7 @@
         <rect x="14" y="11" width="2" height="4" rx="0.5" fill="#ffc107"/>
     </symbol>
 
-    <!-- Планета (Environment) — вместо листа -->
+    <!-- Планета (Environment) -->
     <symbol id="icon-planet" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="planetBody" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -770,248 +792,3 @@
         <path d="M5.5 13c.5 1 1.2 1.5 2.5 1.5s2-.5 2.5-1.5" fill="none" stroke="#4e342e" stroke-width="1.2" stroke-linecap="round"/>
         <path d="M15.5 15c.5-1 1.2-1.5 2.5-1.5s2 .5 2.5 1.5" fill="none" stroke="#4e342e" stroke-width="1.2" stroke-linecap="round"/>
     </symbol>
-
-    <!-- ═══════════════════════════════════════════════
-         ИКОНКИ ДЛЯ ИГР
-         ═══════════════════════════════════════════════ -->
-
-    <!-- Виселица -->
-    <symbol id="icon-hangman" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="hangmanWood" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#a1887f"/>
-                <stop offset="100%" stop-color="#4e342e"/>
-            </linearGradient>
-            <linearGradient id="hangmanBody" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ff5252"/>
-                <stop offset="100%" stop-color="#b71c1c"/>
-            </linearGradient>
-        </defs>
-        <line x1="4" y1="22" x2="20" y2="22" stroke="url(#hangmanWood)" stroke-width="2.2" stroke-linecap="round"/>
-        <line x1="7" y1="22" x2="7" y2="3" stroke="url(#hangmanWood)" stroke-width="2.2" stroke-linecap="round"/>
-        <line x1="7" y1="3" x2="16" y2="3" stroke="url(#hangmanWood)" stroke-width="2.2" stroke-linecap="round"/>
-        <line x1="16" y1="3" x2="16" y2="6" stroke="url(#hangmanWood)" stroke-width="2.2" stroke-linecap="round"/>
-        <circle cx="16" cy="9" r="3" fill="#ffeb3b" stroke="url(#hangmanBody)" stroke-width="1.8"/>
-        <circle cx="15" cy="8.5" r="0.4" fill="#000"/>
-        <circle cx="17" cy="8.5" r="0.4" fill="#000"/>
-        <path d="M15 10.5 Q16 11 17 10.5" fill="none" stroke="#000" stroke-width="0.5"/>
-        <line x1="16" y1="12" x2="16" y2="17" stroke="url(#hangmanBody)" stroke-width="2" stroke-linecap="round"/>
-        <line x1="13" y1="14" x2="19" y2="14" stroke="url(#hangmanBody)" stroke-width="2" stroke-linecap="round"/>
-        <line x1="16" y1="17" x2="13" y2="21" stroke="url(#hangmanBody)" stroke-width="2" stroke-linecap="round"/>
-        <line x1="16" y1="17" x2="19" y2="21" stroke="url(#hangmanBody)" stroke-width="2" stroke-linecap="round"/>
-    </symbol>
-
-    <!-- Квиз -->
-    <symbol id="icon-quiz" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="quizBg" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#9575cd"/>
-                <stop offset="100%" stop-color="#4527a0"/>
-            </linearGradient>
-            <linearGradient id="quizQ" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#fff176"/>
-                <stop offset="100%" stop-color="#f57f17"/>
-            </linearGradient>
-        </defs>
-        <rect x="3" y="3" width="18" height="18" rx="4" fill="url(#quizBg)"/>
-        <path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5" fill="none" stroke="url(#quizQ)" stroke-width="2.2" stroke-linecap="round"/>
-        <circle cx="12" cy="17" r="1.4" fill="url(#quizQ)"/>
-    </symbol>
-
-    <!-- Скоростной -->
-    <symbol id="icon-speed" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="speedDial" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#90a4ae"/>
-                <stop offset="100%" stop-color="#37474f"/>
-            </linearGradient>
-            <linearGradient id="speedNeedle" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ff5252"/>
-                <stop offset="100%" stop-color="#b71c1c"/>
-            </linearGradient>
-        </defs>
-        <path d="M12 3a9 9 0 0 0-9 9c0 2 .6 3.8 1.7 5.3l1.5-1.5A6.9 6.9 0 0 1 5 12a7 7 0 0 1 14 0c0 1.4-.4 2.7-1.2 3.8l1.5 1.5A8.9 8.9 0 0 0 21 12a9 9 0 0 0-9-9z" fill="url(#speedDial)"/>
-        <line x1="12" y1="12" x2="16" y2="8" stroke="url(#speedNeedle)" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="12" cy="12" r="1.8" fill="#ffc107"/>
-    </symbol>
-
-    <!-- Аудио-квиз -->
-    <symbol id="icon-audio-quiz" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="audioBand" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#5c6bc0"/>
-                <stop offset="100%" stop-color="#1a237e"/>
-            </linearGradient>
-            <linearGradient id="audioCup" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ba68c8"/>
-                <stop offset="100%" stop-color="#6a1b9a"/>
-            </linearGradient>
-        </defs>
-        <path d="M3 18v-6a9 9 0 0 1 18 0v6" fill="none" stroke="url(#audioBand)" stroke-width="2" stroke-linecap="round"/>
-        <rect x="16" y="14" width="5" height="7" rx="2" fill="url(#audioCup)"/>
-        <rect x="3" y="14" width="5" height="7" rx="2" fill="url(#audioCup)"/>
-        <circle cx="18.5" cy="17.5" r="1" fill="#fff"/>
-        <circle cx="5.5" cy="17.5" r="1" fill="#fff"/>
-    </symbol>
-
-    <!-- Эмодзи-квиз -->
-    <symbol id="icon-emoji-quiz" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="emojiFace" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ffe082"/>
-                <stop offset="100%" stop-color="#ff8f00"/>
-            </linearGradient>
-        </defs>
-        <circle cx="12" cy="12" r="10" fill="url(#emojiFace)"/>
-        <circle cx="9" cy="10" r="1.5" fill="#4e342e"/>
-        <circle cx="15" cy="10" r="1.5" fill="#4e342e"/>
-        <circle cx="7" cy="13" r="1.2" fill="#f48fb1" opacity="0.8"/>
-        <circle cx="17" cy="13" r="1.2" fill="#f48fb1" opacity="0.8"/>
-        <path d="M8 14.5c1 1.5 2.5 2.5 4 2.5s3-1 4-2.5" fill="none" stroke="#4e342e" stroke-width="2" stroke-linecap="round"/>
-    </symbol>
-
-    <!-- Что лишнее -->
-    <symbol id="icon-odd-one" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="oddNormal" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#b0bec5"/>
-                <stop offset="100%" stop-color="#546e7a"/>
-            </linearGradient>
-            <linearGradient id="oddBad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ff5252"/>
-                <stop offset="100%" stop-color="#b71c1c"/>
-            </linearGradient>
-        </defs>
-        <circle cx="6" cy="6" r="3" fill="url(#oddNormal)"/>
-        <circle cx="6" cy="18" r="3" fill="url(#oddNormal)"/>
-        <circle cx="18" cy="6" r="3" fill="url(#oddNormal)"/>
-        <circle cx="18" cy="18" r="4" fill="url(#oddBad)"/>
-        <line x1="16" y1="16" x2="20" y2="20" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
-        <line x1="20" y1="16" x2="16" y2="20" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
-    </symbol>
-
-    <!-- Миллионер -->
-    <symbol id="icon-millionaire" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="millionCase" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#8d6e63"/>
-                <stop offset="100%" stop-color="#3e2723"/>
-            </linearGradient>
-            <linearGradient id="millionLock" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#fff176"/>
-                <stop offset="100%" stop-color="#f57f17"/>
-            </linearGradient>
-        </defs>
-        <path d="M4 8h16v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" fill="url(#millionCase)"/>
-        <path d="M8 8V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3" fill="none" stroke="url(#millionCase)" stroke-width="2"/>
-        <circle cx="12" cy="14" r="3" fill="url(#millionLock)"/>
-        <rect x="11.3" y="14" width="1.4" height="3" fill="#3e2723"/>
-    </symbol>
-
-    <!-- ═══════════════════════════════════════════════
-         ИКОНКИ ДЛЯ ТОПИКОВ (10 новых)
-         ═══════════════════════════════════════════════ -->
-
-    <!-- Солнце (My Day) -->
-    <symbol id="icon-sun" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#fff176"/>
-                <stop offset="100%" stop-color="#f57f17"/>
-            </linearGradient>
-        </defs>
-        <circle cx="12" cy="12" r="5" fill="url(#sunGrad)"/>
-        <line x1="12" y1="2" x2="12" y2="4" stroke="#ffc107" stroke-width="2" stroke-linecap="round"/>
-        <line x1="12" y1="20" x2="12" y2="22" stroke="#ffc107" stroke-width="2" stroke-linecap="round"/>
-        <line x1="2" y1="12" x2="4" y2="12" stroke="#ffc107" stroke-width="2" stroke-linecap="round"/>
-        <line x1="20" y1="12" x2="22" y2="12" stroke="#ffc107" stroke-width="2" stroke-linecap="round"/>
-        <line x1="5" y1="5" x2="6.5" y2="6.5" stroke="#ffc107" stroke-width="2" stroke-linecap="round"/>
-        <line x1="17.5" y1="17.5" x2="19" y2="19" stroke="#ffc107" stroke-width="2" stroke-linecap="round"/>
-        <line x1="5" y1="19" x2="6.5" y2="17.5" stroke="#ffc107" stroke-width="2" stroke-linecap="round"/>
-        <line x1="17.5" y1="6.5" x2="19" y2="5" stroke="#ffc107" stroke-width="2" stroke-linecap="round"/>
-    </symbol>
-
-    <!-- Хобби (My Hobbies) — кубик/контроллер -->
-    <symbol id="icon-hobby" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="hobbyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#9575cd"/>
-                <stop offset="100%" stop-color="#4527a0"/>
-            </linearGradient>
-        </defs>
-        <rect x="2" y="7" width="20" height="11" rx="3" fill="url(#hobbyGrad)"/>
-        <circle cx="7" cy="12.5" r="2" fill="#fff"/>
-        <circle cx="7" cy="12.5" r="1" fill="#ffc107"/>
-        <circle cx="17" cy="11" r="1.3" fill="#ff5252"/>
-        <circle cx="17" cy="14" r="1.3" fill="#4caf50"/>
-    </symbol>
-
-    <!-- Мечта (My Dreams) — облачко -->
-    <symbol id="icon-dream" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="dreamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ce93d8"/>
-                <stop offset="100%" stop-color="#6a1b9a"/>
-            </linearGradient>
-        </defs>
-        <path d="M6 18h11a4 4 0 0 0 0-8 6 6 0 0 0-11.3 1.5A3.5 3.5 0 0 0 6 18z" fill="url(#dreamGrad)"/>
-        <circle cx="15" cy="6" r="1" fill="#ffc107"/>
-        <circle cx="19" cy="9" r="0.7" fill="#ffc107"/>
-    </symbol>
-
-    <!-- Работа (My Job) — портфель (можно оставить как briefcase, но отдельный) -->
-    <symbol id="icon-job" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="jobGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#a1887f"/>
-                <stop offset="100%" stop-color="#3e2723"/>
-            </linearGradient>
-        </defs>
-        <rect x="2" y="7" width="20" height="13" rx="2" fill="url(#jobGrad)"/>
-        <path d="M16 20V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v15" fill="none" stroke="url(#jobGrad)" stroke-width="2"/>
-        <rect x="10" y="12" width="4" height="3" fill="#ffc107"/>
-    </symbol>
-
-    <!-- Путешествие (My Travels) — самолёт (используем airplane) -->
-    <!-- Не создаём, используем icon-airplane -->
-
-    <!-- Еда (My Food) — пицца -->
-    <symbol id="icon-food" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="foodCrust" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ffb74d"/>
-                <stop offset="100%" stop-color="#e65100"/>
-            </linearGradient>
-            <linearGradient id="foodCheese" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#fff59d"/>
-                <stop offset="100%" stop-color="#f9a825"/>
-            </linearGradient>
-        </defs>
-        <path d="M12 2L2 22h20z" fill="url(#foodCrust)"/>
-        <path d="M12 4L5 18h14z" fill="url(#foodCheese)"/>
-        <circle cx="10" cy="12" r="1.2" fill="#d32f2f"/>
-        <circle cx="14" cy="14" r="1.2" fill="#d32f2f"/>
-        <circle cx="12" cy="17" r="1" fill="#388e3c"/>
-    </symbol>
-
-    <!-- Здоровье (My Health) — гантель -->
-    <symbol id="icon-muscle" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="muscleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#90a4ae"/>
-                <stop offset="100%" stop-color="#37474f"/>
-            </linearGradient>
-        </defs>
-        <rect x="2" y="9" width="3" height="6" rx="1" fill="url(#muscleGrad)"/>
-        <rect x="19" y="9" width="3" height="6" rx="1" fill="url(#muscleGrad)"/>
-        <rect x="5" y="10" width="14" height="4" fill="url(#muscleGrad)"/>
-        <rect x="8" y="8" width="2" height="8" fill="#546e7a"/>
-        <rect x="14" y="8" width="2" height="8" fill="#546e7a"/>
-    </symbol>
-
-    <!-- Будущее (My Future) — ракета (используем rocket) -->
-    <!-- Не создаём, используем icon-rocket -->
-
-    <!-- Город (My City) — используем buildings -->
-
-</svg>
