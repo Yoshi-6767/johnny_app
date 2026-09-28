@@ -53,7 +53,12 @@ login_manager.login_view = 'login'
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
+@app.context_processor
+def inject_globals():
+    if current_user.is_authenticated:
+        return {"unread_count": get_unread_count(current_user.id)}
+    return {"unread_count": 0}
+    
 # ═══════════════════════════════════════════════
 # АВТОМИГРАЦИЯ
 # ═══════════════════════════════════════════════
@@ -468,6 +473,19 @@ def change_username():
     current_user.username = new_name
     db.session.commit()
     return redirect("/profile?success=name")
+
+@app.route("/api/onboarding/status")
+@login_required
+def onboarding_status():
+    return jsonify({"done": bool(current_user.onboarding_done)})
+
+
+@app.route("/api/onboarding/done", methods=["POST"])
+@login_required
+def onboarding_done():
+    current_user.onboarding_done = True
+    db.session.commit()
+    return jsonify({"status": "ok"})
 
 
 # ═══════════════════════════════════════════════
