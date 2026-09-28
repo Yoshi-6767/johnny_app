@@ -1,41 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 
-    <!-- ═══ ДЛЯ МЕНЮ ═══ -->
+    <!-- ═══════════════════════════════════════════════
+         ДЛЯ МЕНЮ И НАВИГАЦИИ
+         ═══════════════════════════════════════════════ -->
 
-    <!-- Дом -->
-    <symbol id="icon-home" viewBox="0 0 24 24">
-        <defs>
-            <linearGradient id="homeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#4fc3f7"/>
-                <stop offset="100%" stop-color="#0288d1"/>
-            </linearGradient>
-        </defs>
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="url(#homeGrad)"/>
-        <polyline points="9 22 9 12 15 12 15 22" fill="#fff" fill-opacity="0.4"/>
-    </symbol>
-
-    <!-- Папка (Категории) -->
+    <!-- Папка (Учить слова / Категории) -->
     <symbol id="icon-folder" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="folderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#64b5f6"/>
-                <stop offset="100%" stop-color="#1976d2"/>
+                <stop offset="100%" stop-color="#1565c0"/>
             </linearGradient>
         </defs>
         <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" fill="url(#folderGrad)"/>
-        <path d="M2 9h20v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" fill="#0d47a1" opacity="0.3"/>
+        <path d="M2 9h20v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" fill="#0d47a1" opacity="0.35"/>
     </symbol>
 
-    <!-- Чат (Фразы) -->
-    <symbol id="icon-chat" viewBox="0 0 24 24">
+    <!-- Открытая книга (Фразы) -->
+    <symbol id="icon-book-open" viewBox="0 0 24 24">
         <defs>
-            <linearGradient id="chatGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <linearGradient id="bookOpenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#ba68c8"/>
-                <stop offset="100%" stop-color="#7b1fa2"/>
+                <stop offset="100%" stop-color="#6a1b9a"/>
             </linearGradient>
         </defs>
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="url(#chatGrad)"/>
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" fill="url(#bookOpenGrad)"/>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" fill="url(#bookOpenGrad)" opacity="0.75"/>
     </symbol>
 
     <!-- Заметка (Топики) -->
@@ -43,33 +34,33 @@
         <defs>
             <linearGradient id="noteGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#4db6ac"/>
-                <stop offset="100%" stop-color="#00796b"/>
+                <stop offset="100%" stop-color="#00695c"/>
             </linearGradient>
         </defs>
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="url(#noteGrad)"/>
         <polyline points="14 2 14 8 20 8" fill="#fff" fill-opacity="0.5"/>
-        <line x1="16" y1="13" x2="8" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
-        <line x1="16" y1="17" x2="8" y2="17" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+        <line x1="16" y1="13" x2="8" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
+        <line x1="16" y1="17" x2="8" y2="17" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
     </symbol>
 
     <!-- Книга (Учёба) -->
     <symbol id="icon-book" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="bookGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#a1887f"/>
-                <stop offset="100%" stop-color="#4e342e"/>
+                <stop offset="0%" stop-color="#ff8a65"/>
+                <stop offset="100%" stop-color="#bf360c"/>
             </linearGradient>
         </defs>
         <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" fill="url(#bookGrad)"/>
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" fill="none" stroke="#fff" stroke-width="1" opacity="0.4"/>
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" fill="none" stroke="#fff" stroke-width="1.2" opacity="0.5"/>
     </symbol>
 
     <!-- Геймпад (Игры) -->
     <symbol id="icon-gamepad" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="gamepadGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#9575cd"/>
-                <stop offset="100%" stop-color="#512da8"/>
+                <stop offset="0%" stop-color="#b388ff"/>
+                <stop offset="100%" stop-color="#4527a0"/>
             </linearGradient>
         </defs>
         <rect x="2" y="6" width="20" height="12" rx="2" fill="url(#gamepadGrad)"/>
@@ -85,7 +76,7 @@
             <linearGradient id="trophyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#fff176"/>
                 <stop offset="50%" stop-color="#ffc107"/>
-                <stop offset="100%" stop-color="#ff8f00"/>
+                <stop offset="100%" stop-color="#ff6f00"/>
             </linearGradient>
             <linearGradient id="trophyDark" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#ffb300"/>
@@ -103,12 +94,12 @@
     <symbol id="icon-target" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="targetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ef5350"/>
+                <stop offset="0%" stop-color="#ff5252"/>
                 <stop offset="100%" stop-color="#b71c1c"/>
             </linearGradient>
         </defs>
         <circle cx="12" cy="12" r="10" fill="url(#targetGrad)"/>
-        <circle cx="12" cy="12" r="6" fill="#fff" opacity="0.9"/>
+        <circle cx="12" cy="12" r="6" fill="#fff" opacity="0.95"/>
         <circle cx="12" cy="12" r="2" fill="url(#targetGrad)"/>
     </symbol>
 
@@ -116,7 +107,7 @@
     <symbol id="icon-chart" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#66bb6a"/>
+                <stop offset="0%" stop-color="#81c784"/>
                 <stop offset="100%" stop-color="#1b5e20"/>
             </linearGradient>
         </defs>
@@ -130,25 +121,25 @@
         <defs>
             <linearGradient id="usersGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#4fc3f7"/>
-                <stop offset="100%" stop-color="#0277bd"/>
+                <stop offset="100%" stop-color="#01579b"/>
             </linearGradient>
         </defs>
         <circle cx="9" cy="7" r="4" fill="url(#usersGrad)"/>
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="url(#usersGrad)"/>
-        <circle cx="17" cy="7" r="3" fill="#4fc3f7" opacity="0.7"/>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87" fill="#4fc3f7" opacity="0.7"/>
+        <circle cx="17" cy="7" r="3" fill="#4fc3f7" opacity="0.75"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87" fill="#4fc3f7" opacity="0.75"/>
     </symbol>
 
-    <!-- Шестерёнка (Утилиты) -->
+    <!-- Шестерёнка (Настройки) -->
     <symbol id="icon-settings" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="settingsGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#90a4ae"/>
-                <stop offset="100%" stop-color="#37474f"/>
+                <stop offset="0%" stop-color="#b0bec5"/>
+                <stop offset="100%" stop-color="#263238"/>
             </linearGradient>
         </defs>
         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" fill="url(#settingsGrad)"/>
-        <circle cx="12" cy="12" r="3" fill="#fff" opacity="0.4"/>
+        <circle cx="12" cy="12" r="3" fill="#fff" opacity="0.5"/>
     </symbol>
 
     <!-- Знак вопроса (FAQ) -->
@@ -156,7 +147,7 @@
         <defs>
             <linearGradient id="helpGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#ffd54f"/>
-                <stop offset="100%" stop-color="#f57f17"/>
+                <stop offset="100%" stop-color="#e65100"/>
             </linearGradient>
         </defs>
         <circle cx="12" cy="12" r="10" fill="url(#helpGrad)"/>
@@ -164,7 +155,95 @@
         <line x1="12" y1="17" x2="12.01" y2="17" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
     </symbol>
 
-    <!-- ═══ ДЛЯ ИНТЕРФЕЙСА ═══ -->
+    <!-- Глобус (Переводчик) -->
+    <symbol id="icon-globe" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="globeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#4dd0e1"/>
+                <stop offset="100%" stop-color="#006064"/>
+            </linearGradient>
+        </defs>
+        <circle cx="12" cy="12" r="10" fill="url(#globeGrad)"/>
+        <ellipse cx="12" cy="12" rx="4" ry="10" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.7"/>
+        <line x1="2" y1="12" x2="22" y2="12" stroke="#fff" stroke-width="1.5" opacity="0.7"/>
+        <line x1="4" y1="7" x2="20" y2="7" stroke="#fff" stroke-width="1.2" opacity="0.5"/>
+        <line x1="4" y1="17" x2="20" y2="17" stroke="#fff" stroke-width="1.2" opacity="0.5"/>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════
+         ДЛЯ КАТЕГОРИЙ (разведение дубликатов)
+         ═══════════════════════════════════════════════ -->
+
+    <!-- Одежда (Clothes) — вместо карандаша -->
+    <symbol id="icon-shirt" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="shirtGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#f48fb1"/>
+                <stop offset="100%" stop-color="#ad1457"/>
+            </linearGradient>
+        </defs>
+        <path d="M16 2l4 3-2 2v13a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7L4 5l4-3 4 2z" fill="url(#shirtGrad)"/>
+        <path d="M10 2v3a2 2 0 0 0 4 0V2" fill="none" stroke="#fff" stroke-width="1.2" opacity="0.6"/>
+    </symbol>
+
+    <!-- Пульс (Health) — вместо простого сердца -->
+    <symbol id="icon-heart-pulse" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="heartPulseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ef5350"/>
+                <stop offset="100%" stop-color="#b71c1c"/>
+            </linearGradient>
+        </defs>
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="url(#heartPulseGrad)"/>
+        <polyline points="3 12 8 12 10 9 12 15 14 12 21 12" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <!-- Кошелёк (Shopping) — вместо доллара -->
+    <symbol id="icon-wallet" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="walletGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffd54f"/>
+                <stop offset="100%" stop-color="#e65100"/>
+            </linearGradient>
+        </defs>
+        <path d="M20 7H5a2 2 0 0 1 0-4h13v4" fill="none" stroke="url(#walletGrad)" stroke-width="2"/>
+        <rect x="2" y="7" width="20" height="14" rx="2" fill="url(#walletGrad)"/>
+        <circle cx="17" cy="14" r="1.5" fill="#fff"/>
+    </symbol>
+
+    <!-- Маска (Character) — вместо sparkles -->
+    <symbol id="icon-theater" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="theaterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffb74d"/>
+                <stop offset="100%" stop-color="#bf360c"/>
+            </linearGradient>
+        </defs>
+        <path d="M3 4h8v11a4 4 0 0 1-4 4 4 4 0 0 1-4-4z" fill="url(#theaterGrad)"/>
+        <path d="M13 4h8v11a4 4 0 0 1-4 4 4 4 0 0 1-4-4z" fill="url(#theaterGrad)" opacity="0.7"/>
+        <circle cx="6.5" cy="10" r="1" fill="#fff"/>
+        <circle cx="9.5" cy="10" r="1" fill="#fff"/>
+        <circle cx="16.5" cy="10" r="1" fill="#fff"/>
+        <circle cx="19.5" cy="10" r="1" fill="#fff"/>
+    </symbol>
+
+    <!-- Речевое облачко (Communication) — вместо chat -->
+    <symbol id="icon-speech" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="speechGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#64b5f6"/>
+                <stop offset="100%" stop-color="#0d47a1"/>
+            </linearGradient>
+        </defs>
+        <path d="M21 12a8 8 0 0 1-8 8H7l-4 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z" fill="url(#speechGrad)"/>
+        <circle cx="9" cy="12" r="1.2" fill="#fff"/>
+        <circle cx="13" cy="12" r="1.2" fill="#fff"/>
+        <circle cx="17" cy="12" r="1.2" fill="#fff"/>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════
+         ДЛЯ ИНТЕРФЕЙСА
+         ═══════════════════════════════════════════════ -->
 
     <!-- Огонь -->
     <symbol id="icon-fire" viewBox="0 0 24 24">
@@ -188,7 +267,7 @@
         <defs>
             <linearGradient id="checkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#66bb6a"/>
-                <stop offset="100%" stop-color="#2e7d32"/>
+                <stop offset="100%" stop-color="#1b5e20"/>
             </linearGradient>
         </defs>
         <circle cx="12" cy="12" r="10" fill="url(#checkGrad)"/>
@@ -239,7 +318,7 @@
         <defs>
             <linearGradient id="volumeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#42a5f5"/>
-                <stop offset="100%" stop-color="#1565c0"/>
+                <stop offset="100%" stop-color="#0d47a1"/>
             </linearGradient>
         </defs>
         <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="url(#volumeGrad)"/>
@@ -259,7 +338,7 @@
         <line x1="12" y1="19" x2="12" y2="23" stroke="url(#micGrad)" stroke-width="2" stroke-linecap="round"/>
     </symbol>
 
-    <!-- X (крестик) -->
+    <!-- Крестик -->
     <symbol id="icon-x" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="xGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -276,22 +355,24 @@
     <symbol id="icon-arrow-left" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#90a4ae"/>
-                <stop offset="100%" stop-color="#455a64"/>
+                <stop offset="0%" stop-color="#b0bec5"/>
+                <stop offset="100%" stop-color="#37474f"/>
             </linearGradient>
         </defs>
         <line x1="19" y1="12" x2="5" y2="12" stroke="url(#arrowGrad)" stroke-width="2.5" stroke-linecap="round"/>
         <polyline points="12 19 5 12 12 5" fill="none" stroke="url(#arrowGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
 
-    <!-- ═══ ДЛЯ АЧИВОК ═══ -->
+    <!-- ═══════════════════════════════════════════════
+         ДЛЯ АЧИВОК
+         ═══════════════════════════════════════════════ -->
 
     <!-- Росток -->
     <symbol id="icon-seedling" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="seedlingGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#81c784"/>
-                <stop offset="100%" stop-color="#2e7d32"/>
+                <stop offset="100%" stop-color="#1b5e20"/>
             </linearGradient>
         </defs>
         <path d="M12 22V12" stroke="url(#seedlingGrad)" stroke-width="2" stroke-linecap="round"/>
@@ -316,7 +397,7 @@
             <linearGradient id="crownGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#fff176"/>
                 <stop offset="50%" stop-color="#ffc107"/>
-                <stop offset="100%" stop-color="#ff8f00"/>
+                <stop offset="100%" stop-color="#ff6f00"/>
             </linearGradient>
         </defs>
         <path d="M3 6l4 4 5-8 5 8 4-4v12H3z" fill="url(#crownGrad)"/>
@@ -328,7 +409,7 @@
         <defs>
             <linearGradient id="brainGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#f48fb1"/>
-                <stop offset="100%" stop-color="#ad1457"/>
+                <stop offset="100%" stop-color="#880e4f"/>
             </linearGradient>
         </defs>
         <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z" fill="url(#brainGrad)"/>
@@ -340,7 +421,7 @@
     <symbol id="icon-graduation" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="gradGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#5c6bc0"/>
+                <stop offset="0%" stop-color="#7986cb"/>
                 <stop offset="100%" stop-color="#1a237e"/>
             </linearGradient>
         </defs>
@@ -354,7 +435,7 @@
             <linearGradient id="medalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#fff176"/>
                 <stop offset="50%" stop-color="#ffc107"/>
-                <stop offset="100%" stop-color="#ff8f00"/>
+                <stop offset="100%" stop-color="#ff6f00"/>
             </linearGradient>
         </defs>
         <path d="M7.21 15L2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15" fill="url(#medalGrad)"/>
@@ -367,7 +448,7 @@
         <defs>
             <linearGradient id="headphonesGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#7986cb"/>
-                <stop offset="100%" stop-color="#283593"/>
+                <stop offset="100%" stop-color="#1a237e"/>
             </linearGradient>
         </defs>
         <path d="M3 18v-6a9 9 0 0 1 18 0v6" fill="none" stroke="url(#headphonesGrad)" stroke-width="2" stroke-linecap="round"/>
@@ -385,7 +466,7 @@
         </defs>
         <path d="M12 6c-1-2-3-3-5-3C4 3 2 6 2 9c0 5 6 12 10 12s10-7 10-12c0-3-2-6-5-6-2 0-4 1-5 3z" fill="url(#appleGrad)"/>
         <path d="M12 6V2c1 0 3 1 3 4" fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round"/>
-      </symbol>
+    </symbol>
 
     <!-- Деньги -->
     <symbol id="icon-dollar" viewBox="0 0 24 24">
@@ -405,7 +486,7 @@
         <defs>
             <linearGradient id="sparklesGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#ffd54f"/>
-                <stop offset="100%" stop-color="#f57f17"/>
+                <stop offset="100%" stop-color="#e65100"/>
             </linearGradient>
         </defs>
         <path d="M9 3l1.5 4.5L15 9l-4.5 1.5L9 15l-1.5-4.5L3 9l4.5-1.5z" fill="url(#sparklesGrad)"/>
@@ -417,7 +498,7 @@
         <defs>
             <linearGradient id="eyeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#4dd0e1"/>
-                <stop offset="100%" stop-color="#00838f"/>
+                <stop offset="100%" stop-color="#006064"/>
             </linearGradient>
         </defs>
         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" fill="url(#eyeGrad)"/>
@@ -425,7 +506,7 @@
         <circle cx="12" cy="12" r="1.5" fill="url(#eyeGrad)"/>
     </symbol>
 
-    <!-- Сердце -->
+    <!-- Сердце (для чувств) -->
     <symbol id="icon-heart" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="heartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -446,7 +527,7 @@
         </defs>
         <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" fill="url(#rocketGrad)"/>
         <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" fill="url(#rocketGrad)"/>
-      </symbol>
+    </symbol>
 
     <!-- Crosshair -->
     <symbol id="icon-crosshair" viewBox="0 0 24 24">
@@ -469,29 +550,56 @@
         <defs>
             <linearGradient id="clockGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#4fc3f7"/>
-                <stop offset="100%" stop-color="#0277bd"/>
+                <stop offset="100%" stop-color="#01579b"/>
             </linearGradient>
         </defs>
         <circle cx="12" cy="12" r="10" fill="url(#clockGrad)"/>
         <polyline points="12 6 12 12 16 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
 
-        <!-- Message (другое облачко — для Communication) -->
+    <!-- ═══════════════════════════════════════════════
+         ДЛЯ КАТЕГОРИЙ (специфические)
+         ═══════════════════════════════════════════════ -->
+
+    <!-- Дом -->
+    <symbol id="icon-home" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="homeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#4fc3f7"/>
+                <stop offset="100%" stop-color="#01579b"/>
+            </linearGradient>
+        </defs>
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="url(#homeGrad)"/>
+        <polyline points="9 22 9 12 15 12 15 22" fill="#fff" fill-opacity="0.4"/>
+    </symbol>
+
+    <!-- Облачко (для Communication — было) -->
+    <symbol id="icon-chat" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="chatGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ba68c8"/>
+                <stop offset="100%" stop-color="#6a1b9a"/>
+            </linearGradient>
+        </defs>
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" fill="url(#chatGrad)"/>
+    </symbol>
+
+    <!-- Message (для приветствия) -->
     <symbol id="icon-message" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="messageGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#4fc3f7"/>
-                <stop offset="100%" stop-color="#0277bd"/>
+                <stop offset="100%" stop-color="#01579b"/>
             </linearGradient>
         </defs>
         <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z" fill="url(#messageGrad)"/>
     </symbol>
 
-    <!-- Briefcase (портфель — для Business) -->
+    <!-- Портфель (Work / Business) -->
     <symbol id="icon-briefcase" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="briefcaseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#8d6e63"/>
+                <stop offset="0%" stop-color="#a1887f"/>
                 <stop offset="100%" stop-color="#3e2723"/>
             </linearGradient>
         </defs>
@@ -500,7 +608,7 @@
         <line x1="2" y1="13" x2="22" y2="13" stroke="#fff" stroke-width="1" opacity="0.3"/>
     </symbol>
 
-    <!-- Buildings (здания — для City) -->
+    <!-- Здания (City) -->
     <symbol id="icon-buildings" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="buildingsGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -519,7 +627,7 @@
         <line x1="15" y1="16" x2="19" y2="16" stroke="#fff" stroke-width="1" opacity="0.6"/>
     </symbol>
 
-    <!-- Broom (метла — для Housework) -->
+    <!-- Метла (Housework) -->
     <symbol id="icon-broom" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="broomGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -532,7 +640,7 @@
         <path d="M9 15 Q7 18 4 22" fill="none" stroke="#8d6e63" stroke-width="1" opacity="0.6"/>
     </symbol>
 
-    <!-- Leaf (лист — для Nature) -->
+    <!-- Лист (Nature / Environment) -->
     <symbol id="icon-leaf" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -543,7 +651,7 @@
         <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z" fill="url(#leafGrad)"/>
     </symbol>
 
-    <!-- Palette (палитра — для Art) -->
+    <!-- Палитра (Art) -->
     <symbol id="icon-palette" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="paletteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -554,7 +662,7 @@
         <path d="M12 2a10 10 0 0 0 0 20c1.1 0 2-.9 2-2 0-.53-.2-1-.54-1.38a1.98 1.98 0 0 1-.01-2.66 2 2 0 0 1 1.5-.65H17c2.76 0 5-2.24 5-5 0-4.42-4.48-8-10-8zm-5.5 11a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm2.5-5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm2.5 5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="url(#paletteGrad)"/>
     </symbol>
 
-    <!-- Flask (колба — для Science) -->
+    <!-- Колба (Science) -->
     <symbol id="icon-flask" viewBox="0 0 24 24">
         <defs>
             <linearGradient id="flaskGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -565,6 +673,113 @@
         <path d="M9 2v6L4 19a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3L15 8V2" fill="url(#flaskGrad)"/>
         <line x1="8" y1="2" x2="16" y2="2" stroke="url(#flaskGrad)" stroke-width="2" stroke-linecap="round"/>
         <line x1="7" y1="14" x2="17" y2="14" stroke="#fff" stroke-width="1" opacity="0.4"/>
+    </symbol>
+
+    <!-- ═══════════════════════════════════════════════
+         ДЛЯ ИГР (новые)
+         ═══════════════════════════════════════════════ -->
+
+    <!-- Виселица -->
+    <symbol id="icon-hangman" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="hangmanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#8d6e63"/>
+                <stop offset="100%" stop-color="#3e2723"/>
+            </linearGradient>
+        </defs>
+        <line x1="4" y1="22" x2="20" y2="22" stroke="url(#hangmanGrad)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="7" y1="22" x2="7" y2="3" stroke="url(#hangmanGrad)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="7" y1="3" x2="16" y2="3" stroke="url(#hangmanGrad)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="3" x2="16" y2="6" stroke="url(#hangmanGrad)" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="16" cy="9" r="3" fill="none" stroke="#ef5350" stroke-width="2"/>
+        <line x1="16" y1="12" x2="16" y2="17" stroke="#ef5350" stroke-width="2" stroke-linecap="round"/>
+        <line x1="13" y1="14" x2="19" y2="14" stroke="#ef5350" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="17" x2="13" y2="21" stroke="#ef5350" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="17" x2="19" y2="21" stroke="#ef5350" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Квиз (вопросительный знак в рамке) -->
+    <symbol id="icon-quiz" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="quizGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#9575cd"/>
+                <stop offset="100%" stop-color="#4527a0"/>
+            </linearGradient>
+        </defs>
+        <rect x="3" y="3" width="18" height="18" rx="3" fill="url(#quizGrad)"/>
+        <path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2.5 2-2.5 3.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="12" cy="17" r="1.2" fill="#fff"/>
+    </symbol>
+
+    <!-- Скорость -->
+    <symbol id="icon-speed" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="speedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffd54f"/>
+                <stop offset="100%" stop-color="#e65100"/>
+            </linearGradient>
+        </defs>
+        <path d="M12 3a9 9 0 0 0-9 9c0 2 .6 3.8 1.7 5.3l1.5-1.5A6.9 6.9 0 0 1 5 12a7 7 0 0 1 14 0c0 1.4-.4 2.7-1.2 3.8l1.5 1.5A8.9 8.9 0 0 0 21 12a9 9 0 0 0-9-9z" fill="url(#speedGrad)"/>
+        <line x1="12" y1="12" x2="16" y2="8" stroke="url(#speedGrad)" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="12" cy="12" r="1.5" fill="url(#speedGrad)"/>
+    </symbol>
+
+    <!-- Аудио-квиз -->
+    <symbol id="icon-audio-quiz" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="audioQuizGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#7986cb"/>
+                <stop offset="100%" stop-color="#1a237e"/>
+            </linearGradient>
+        </defs>
+        <path d="M3 18v-6a9 9 0 0 1 18 0v6" fill="none" stroke="url(#audioQuizGrad)" stroke-width="2" stroke-linecap="round"/>
+        <rect x="16" y="14" width="5" height="7" rx="2" fill="url(#audioQuizGrad)"/>
+        <rect x="3" y="14" width="5" height="7" rx="2" fill="url(#audioQuizGrad)"/>
+    </symbol>
+
+    <!-- Эмодзи-квиз -->
+    <symbol id="icon-emoji-quiz" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="emojiQuizGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffd54f"/>
+                <stop offset="100%" stop-color="#e65100"/>
+            </linearGradient>
+        </defs>
+        <circle cx="12" cy="12" r="10" fill="url(#emojiQuizGrad)"/>
+        <circle cx="9" cy="10" r="1.5" fill="#fff"/>
+        <circle cx="15" cy="10" r="1.5" fill="#fff"/>
+        <path d="M8 14.5c1 1.5 2.5 2.5 4 2.5s3-1 4-2.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+
+    <!-- Что лишнее -->
+    <symbol id="icon-odd-one" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="oddOneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ef5350"/>
+                <stop offset="100%" stop-color="#b71c1c"/>
+            </linearGradient>
+        </defs>
+        <circle cx="6" cy="6" r="3" fill="url(#oddOneGrad)" opacity="0.5"/>
+        <circle cx="6" cy="18" r="3" fill="url(#oddOneGrad)" opacity="0.5"/>
+        <circle cx="18" cy="6" r="3" fill="url(#oddOneGrad)" opacity="0.5"/>
+        <circle cx="18" cy="18" r="4" fill="url(#oddOneGrad)"/>
+        <line x1="16" y1="16" x2="20" y2="20" stroke="#fff" stroke-width="1.5"/>
+        <line x1="20" y1="16" x2="16" y2="20" stroke="#fff" stroke-width="1.5"/>
+    </symbol>
+
+    <!-- Миллионер -->
+    <symbol id="icon-millionaire" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="millionaireGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#fff176"/>
+                <stop offset="50%" stop-color="#ffc107"/>
+                <stop offset="100%" stop-color="#e65100"/>
+            </linearGradient>
+        </defs>
+        <path d="M4 8h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" fill="url(#millionaireGrad)"/>
+        <path d="M8 8V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3" fill="none" stroke="url(#millionaireGrad)" stroke-width="2"/>
+        <circle cx="12" cy="13" r="2.5" fill="#fff" opacity="0.9"/>
+        <text x="12" y="14.5" font-size="4" font-weight="900" fill="#e65100" text-anchor="middle" font-family="Rubik, sans-serif">$</text>
     </symbol>
 
 </svg>
