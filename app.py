@@ -2666,18 +2666,6 @@ def logout():
 # ОНБОРДИНГ
 # ═══════════════════════════════════════════════
 
-@app.route("/api/onboarding/status")
-@login_required
-def onboarding_status():
-    return jsonify({"done": bool(current_user.onboarding_done)})
-
-
-@app.route("/api/onboarding/done", methods=["POST"])
-@login_required
-def onboarding_done():
-    current_user.onboarding_done = True
-    db.session.commit()
-    return jsonify({"status": "ok"})
 
 
 if __name__ == "__main__":
