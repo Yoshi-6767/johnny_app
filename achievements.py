@@ -40,10 +40,17 @@ ACHIEVEMENTS = [
     {"code": "game_millionaire_10",  "title": "Миллионер",     "desc": "10+ в Миллионере", "emoji": "💰", "category": "games", "tier": "gold"},
 
     # 📖 УЧЁБА
-        {"code": "study_irregular",  "title": "Знаток глаголов", "desc": "20+ правильных в глаголах", "emoji": "🔤", "category": "study", "tier": "silver"},
-    {"code": "study_all",        "title": "Книжный червь",   "desc": "Открыл все 3 раздела учёбы", "emoji": "📚", "category": "study", "tier": "bronze"},
+    {"code": "study_irregular",  "title": "Знаток глаголов", "desc": "20+ правильных в глаголах", "emoji": "🔤", "category": "study", "tier": "silver"},
+    {"code": "study_all",        "title": "Книжный червь",   "desc": "Открыл все 6 разделов учёбы", "emoji": "📚", "category": "study", "tier": "bronze"},
+    {"code": "study_theorist",   "title": "Теоретик",        "desc": "Прошёл по одному разделу в каждой вкладке учёбы", "emoji": "🧑‍🏫", "category": "study", "tier": "silver"},
     {"code": "grammar_1",        "title": "Первая грамматика", "desc": "Пройден 1 урок грамматики", "emoji": "📖", "category": "study", "tier": "bronze"},
-    {"code": "grammar_all",      "title": "Грамматик",         "desc": "Пройдены все 10 уроков", "emoji": "🎓", "category": "study", "tier": "gold"},
+    {"code": "grammar_all",      "title": "Грамматик",         "desc": "Пройдены все 12 уроков", "emoji": "🎓", "category": "study", "tier": "gold"},
+    {"code": "study_professor",  "title": "Профессор",       "desc": "Прошёл всё в разделе «Учёба»", "emoji": "🧠", "category": "study", "tier": "gold"},
+
+    # 🎮 ИГРЫ (новые)
+    {"code": "game_first_win",   "title": "Первая победа",   "desc": "Выиграл любую игру впервые", "emoji": "🏆", "category": "games", "tier": "bronze"},
+    {"code": "game_all_games",   "title": "Все игры",        "desc": "Сыграл во все 7 игр", "emoji": "🎮", "category": "games", "tier": "silver"},
+    {"code": "game_perfectionist","title": "Перфекционист",  "desc": "Идеальный результат в 3 играх подряд", "emoji": "💯", "category": "games", "tier": "gold"},
 
     # 📝 ТОПИКИ
     {"code": "topic_1",    "title": "Первый топик",       "desc": "Написал 1 топик", "emoji": "✏️", "category": "topics", "tier": "bronze"},
@@ -121,8 +128,16 @@ def check_all(user_id, progress, general_words_count, phrases_count, topics_done
     if games_stats.get("millionaire_10") and unlock(user_id, "game_millionaire_10"):     newly.append("game_millionaire_10")
 
     # УЧЁБА
+        # УЧЁБА
     if study_stats.get("irregular_score", 0) >= 20 and unlock(user_id, "study_irregular"): newly.append("study_irregular")
     if study_stats.get("all_sections_visited") and unlock(user_id, "study_all"):          newly.append("study_all")
+    if study_stats.get("theorist") and unlock(user_id, "study_theorist"):                  newly.append("study_theorist")
+    if study_stats.get("professor") and unlock(user_id, "study_professor"):                newly.append("study_professor")
+
+    # ИГРЫ (новые)
+    if games_stats.get("first_win") and unlock(user_id, "game_first_win"):                 newly.append("game_first_win")
+    if games_stats.get("all_games") and unlock(user_id, "game_all_games"):                 newly.append("game_all_games")
+    if games_stats.get("perfectionist") and unlock(user_id, "game_perfectionist"):         newly.append("game_perfectionist")
 
     # ТОПИКИ
     if topics_done >= 1 and unlock(user_id, "topic_1"):   newly.append("topic_1")
