@@ -142,9 +142,12 @@
 <ul id="words-list">
     {% if words %}
         {% for w in words %}
-        <li class="{% if w.learned %}learned{% endif %}" data-word="{{ w.eng }}">
-            <span class="word-text">{{ w.eng }} → {{ w.rus }}</span>
-            <div class="actions">
+       <li class="{% if w.learned %}learned{% endif %}" data-word="{{ w.eng }}">
+    <div>
+        <span class="word-text">{{ w.eng }} → {{ w.rus }}</span>
+        {% if w.hint %}<div class="word-hint">💡 {{ w.hint }}</div>{% endif %}
+    </div>
+    <div class="actions">
                 <button class="btn-speak" onclick="speak('{{ w.eng }}')" title="Послушать">🔊</button>
                 {% if w.learned %}
                     <button class="btn-unlearn" onclick="unlearnWord('{{ w.eng }}')">⬜ Снять</button>
