@@ -1829,7 +1829,28 @@ def faq_page():
 @app.route("/study")
 @login_required
 def study_page():
-    return render_template("study.html")
+    uid = current_user.id
+    progress = get_user_progress(uid)
+    grammar_progress = progress.get("grammar", {})
+
+    lessons_data = []
+    for lesson in GRAMMAR_LESSONS:
+        lid = lesson["id"]
+        done = grammar_progress.get(lid, {}).get("done", False)
+        score = grammar_progress.get(lid, {}).get("score", 0)
+        total = len(lesson["test"])
+        lessons_data.append({
+            "id": lid,
+            "title": lesson["title"],
+            "emoji": lesson["emoji"],
+            "level": lesson["level"],
+            "intro": lesson["intro"],
+            "done": done,
+            "score": score,
+            "total": total,
+        })
+
+    return render_template("study.html", lessons=lessons_data)
 
 
 @app.route("/study/irregular")
