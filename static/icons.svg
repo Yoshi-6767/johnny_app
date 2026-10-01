@@ -539,4 +539,36 @@
         <rect x="14" y="8" width="2" height="8" fill="#546e7a"/>
     </symbol>
 
+      <!-- ═══ УЧИТЬ СЛОВА (новая) ═══ -->
+    <symbol id="icon-study-words" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="studyWordsCover" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ff8a65"/>
+                <stop offset="50%" stop-color="#ff5722"/>
+                <stop offset="100%" stop-color="#bf360c"/>
+            </linearGradient>
+            <linearGradient id="studyWordsPage" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#fff8e1"/>
+                <stop offset="100%" stop-color="#ffecb3"/>
+            </linearGradient>
+            <linearGradient id="studyWordsCard" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#4fc3f7"/>
+                <stop offset="100%" stop-color="#01579b"/>
+            </linearGradient>
+        </defs>
+        <!-- Обложка книги -->
+        <path d="M4 4a2 2 0 0 1 2-2h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a2 2 0 0 0-2 2V4z" fill="url(#studyWordsCover)"/>
+        <!-- Страницы -->
+        <path d="M6 3h11v15H6a2 2 0 0 0-2 2V5a2 2 0 0 1 2-2z" fill="url(#studyWordsPage)"/>
+        <!-- Красная закладка -->
+        <path d="M14 3h3v6l-1.5-1.5L14 9V3z" fill="#d32f2f"/>
+        <!-- Карточка-слово (синяя) -->
+        <rect x="7" y="10" width="8" height="6" rx="1" fill="url(#studyWordsCard)"/>
+        <!-- Буквы на карточке -->
+        <line x1="8.5" y1="12" x2="13.5" y2="12" stroke="#fff" stroke-width="0.9" stroke-linecap="round"/>
+        <line x1="8.5" y1="14" x2="11.5" y2="14" stroke="#fff" stroke-width="0.9" stroke-linecap="round"/>
+        <!-- Жёлтая звёздочка-акцент -->
+        <path d="M18 16l0.8 1.8 1.8 0.8-1.8 0.8-0.8 1.8-0.8-1.8-1.8-0.8 1.8-0.8z" fill="#ffc107"/>
+    </symbol>  
+
 </svg>
