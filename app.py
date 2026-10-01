@@ -565,6 +565,15 @@ def sections_page():
 
 @app.route("/sections/<sid>")
 @login_required
+def section_page(sid):
+    uid = current_user.id
+    section = get_section(sid)
+    if sid == "general":
+        section_words = get_user_general_words(uid)
+    else:
+        section_words = {k: v for k, v in COMMON_WORDS.items() if v.get("section") == sid}
+
+    learned_set = get_learned_words(uid)
     words_data = []
     for eng, data in section_words.items():
         words_data.append({
