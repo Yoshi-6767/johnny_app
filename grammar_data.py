@@ -1305,4 +1305,172 @@ GRAMMAR_LESSONS = [
             {"type": "translate", "q": "Переведи: Встреча в 3:15.", "answer": "The meeting is at quarter past three"}
         ]
     },
+
+        # ═══════════════════════════════════════════
+    # УРОК — PRESENT PERFECT (расширенный формат)
+    # ═══════════════════════════════════════════
+    {
+        "id": "present_perfect",
+        "title": "Present Perfect",
+        "emoji": "✨",
+        "level": "B1",
+        "intro": "Настоящее совершённое время. Связывает прошлое с настоящим: действие уже произошло, но результат важен сейчас. Это одно из самых сложных времён для русскоговорящих, потому что в русском такого времени нет.",
+        "why": "Present Perfect — это «мост» между прошлым и настоящим. Ты говоришь не о том, КОГДА что-то случилось, а о том, что это УЖЕ случилось и результат виден сейчас. Без Present Perfect ты не сможешь сказать «Я уже поел», «Я никогда не был в Лондоне», «Она только что позвонила». Это время используется в 15-20% всех английских предложений. Особенно часто — в разговорах о жизненном опыте, новостях, достижениях и недавних событиях. Если ты его не освоишь — будешь звучать как иностранец, который говорит «I ate already» вместо «I have already eaten».",
+
+        "rules": [
+            {"h": "Когда использовать", "text": "1) Опыт в жизни (когда — неважно): I have visited Paris. 2) Результат важен сейчас: I have lost my keys (и сейчас не могу войти). 3) Недавние действия: She has just called. 4) Действие началось в прошлом и продолжается: I have lived here for 5 years. 5) С новостями: The president has signed a new law."},
+            {"h": "Как образуется", "text": "have / has + Past Participle (третья форма глагола). Для I / you / we / they — have. Для he / she / it — has. Например: I have worked, she has worked, they have gone, he has eaten. Past Participle у правильных глаголов = глагол + -ed (worked, played). У неправильных — третья форма из таблицы (go → gone, eat → eaten, see → seen)."},
+            {"h": "Правильные глаголы", "text": "Формула: глагол + -ed. work → worked, play → played, watch → watched, finish → finished. Правило добавления -ed такое же, как в Past Simple: если глагол кончается на -e → +d (live → lived). Если согласная + y → y меняется на i + ed (study → studied). Если короткий слог с ударением → удваиваем согласную (stop → stopped)."},
+            {"h": "Неправильные глаголы", "text": "Третья форма из таблицы неправильных глаголов. Топ-10: go → gone, eat → eaten, see → seen, do → done, have → had, be → been, take → taken, give → given, write → written, speak → spoken. ВАЖНО: у неправильных глаголов вторая и третья формы могут совпадать (buy → bought → bought) или различаться (write → wrote → written)."},
+            {"h": "Отрицание", "text": "have not / has not + Past Participle. Сокращения: haven't / hasn't. I haven't finished. She hasn't called. They haven't arrived. ВАЖНО: отрицание всегда с have/has, не с do/does!"},
+            {"h": "Вопрос", "text": "Have / Has + подлежащее + Past Participle? Have you finished? Has she called? Where have you been? What has he done? Ответы: Yes, I have. No, I haven't. Yes, she has. No, she hasn't."},
+            {"h": "Маркеры времени", "text": "already (уже), yet (ещё / уже в вопросах), just (только что), ever (когда-либо), never (никогда), recently (недавно), lately (в последнее время), so far (пока что), today (сегодня), this week (на этой неделе), this year (в этом году). Если видишь эти маркеры — почти всегда Present Perfect."},
+            {"h": "Present Perfect vs Past Simple", "text": "ГЛАВНОЕ отличие: Present Perfect — время НЕВАЖНО или НЕ УКАЗАНО (I have visited Paris — когда-то). Past Simple — время УКАЗАНО или ПОДРАЗУМЕВАЕТСЯ (I visited Paris in 2020). Сравни: I have lost my keys (и сейчас не могу войти) vs I lost my keys yesterday (просто факт). Если есть конкретное время (yesterday, last week, in 2020, 2 hours ago) → Past Simple. Если время неважно или не указано → Present Perfect."},
+            {"h": "For и Since", "text": "FOR + период времени: for 5 years, for 2 hours, for a long time. SINCE + точка отсчёта: since 2020, since Monday, since I was a child. Пример: I have lived here for 5 years (период). I have lived here since 2020 (точка). ВАЖНО: если действие закончилось — используем Past Simple. Если продолжается — Present Perfect."},
+            {"h": "Just, Already, Yet", "text": "JUST — только что (недавно, буквально минуту назад): I have just finished. ALREADY — уже (раньше, чем ожидалось): I have already eaten. YET — ещё (в отрицаниях) / уже (в вопросах): I haven't finished yet. Have you finished yet? Эти три слова — самые частые маркеры Present Perfect."},
+            {"h": "Ever и Never", "text": "EVER — когда-либо (в вопросах о жизненном опыте): Have you ever been to London? NEVER — никогда (в утверждениях): I have never been to London. Эти слова используются, когда ты говоришь о жизненном опыте, без конкретного времени."},
+            {"h": "Been vs Gone", "text": "HAVE BEEN TO — был и вернулся: I have been to Paris (я там был, сейчас вернулся). HAVE GONE TO — уехал и ещё не вернулся: He has gone to Paris (он в Париже сейчас). Разница важная — неправильное использование меняет смысл."},
+            {"h": "Present Perfect с сегодняшним временем", "text": "С today, this week, this month, this year можно использовать и Present Perfect, и Past Simple. Present Perfect — если период ещё не закончился: I have read 3 books this month (месяц продолжается). Past Simple — если период закончился: I read 3 books last month (месяц закончился)."},
+            {"h": "Частая ошибка с русским", "text": "В русском «Я уже поел» — прошедшее время. В английском — Present Perfect: I have already eaten. Русское «Я был в Лондоне» = I have been to London (не I was in London, если не указано время). Это главная ловушка для русскоговорящих."},
+            {"h": "Past Participle неправильных", "text": "Запомни ключевые: be → been, do → done, go → gone, see → seen, eat → eaten, have → had, make → made, take → taken, give → given, write → written, speak → spoken, break → broken, choose → chosen, drive → driven, forget → forgotten, get → gotten/got, know → known, ride → ridden, sing → sung, swim → swum."}
+        ],
+
+        "tables": [
+            {
+                "title": "Спряжение глагола work (правильный)",
+                "headers": ["Местоимение", "Утверждение", "Отрицание", "Вопрос"],
+                "rows": [
+                    ["I", "have worked", "haven't worked", "Have I worked?"],
+                    ["You", "have worked", "haven't worked", "Have you worked?"],
+                    ["He", "has worked", "hasn't worked", "Has he worked?"],
+                    ["She", "has worked", "hasn't worked", "Has she worked?"],
+                    ["It", "has worked", "hasn't worked", "Has it worked?"],
+                    ["We", "have worked", "haven't worked", "Have we worked?"],
+                    ["They", "have worked", "haven't worked", "Have they worked?"]
+                ]
+            },
+            {
+                "title": "Спряжение глагола go (неправильный)",
+                "headers": ["Местоимение", "Утверждение", "Отрицание", "Вопрос"],
+                "rows": [
+                    ["I", "have gone", "haven't gone", "Have I gone?"],
+                    ["You", "have gone", "haven't gone", "Have you gone?"],
+                    ["He", "has gone", "hasn't gone", "Has he gone?"],
+                    ["She", "has gone", "hasn't gone", "Has she gone?"],
+                    ["It", "has gone", "hasn't gone", "Has it gone?"],
+                    ["We", "have gone", "haven't gone", "Have we gone?"],
+                    ["They", "have gone", "haven't gone", "Have they gone?"]
+                ]
+            },
+            {
+                "title": "Present Perfect vs Past Simple",
+                "headers": ["Ситуация", "Present Perfect", "Past Simple"],
+                "rows": [
+                    ["Опыт без времени", "I have visited Paris.", "❌ Нельзя"],
+                    ["Опыт с временем", "❌ Нельзя", "I visited Paris in 2020."],
+                    ["Результат важен", "I have lost my keys.", "❌ Нельзя"],
+                    ["Просто факт", "❌ Нельзя", "I lost my keys yesterday."],
+                    ["Недавнее действие", "She has just called.", "❌ Нельзя"],
+                    ["Давнее действие", "❌ Нельзя", "She called 2 hours ago."],
+                    ["For / Since", "I have lived here for 5 years.", "❌ Нельзя"],
+                    ["Законченное действие", "❌ Нельзя", "I lived there for 5 years."]
+                ]
+            },
+            {
+                "title": "Маркеры и их значения",
+                "headers": ["Маркер", "Перевод", "Где используется"],
+                "rows": [
+                    ["already", "уже", "Утверждение"],
+                    ["yet", "ещё / уже", "Отрицание / вопрос"],
+                    ["just", "только что", "Утверждение"],
+                    ["ever", "когда-либо", "Вопрос"],
+                    ["never", "никогда", "Утверждение"],
+                    ["recently", "недавно", "Утверждение"],
+                    ["lately", "в последнее время", "Утверждение"],
+                    ["so far", "пока что", "Утверждение"],
+                    ["for + период", "в течение", "Утверждение"],
+                    ["since + точка", "с", "Утверждение"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I have saw this film.", "right": "I have seen this film.", "why": "После have/has — третья форма (seen), не вторая (saw)"},
+            {"wrong": "She has went home.", "right": "She has gone home.", "why": "Go → went → gone. После has — gone"},
+            {"wrong": "I have finished yesterday.", "right": "I finished yesterday.", "why": "С конкретным временем (yesterday) — Past Simple"},
+            {"wrong": "Did you have ever been to London?", "right": "Have you ever been to London?", "why": "Present Perfect в вопросах — без did"},
+            {"wrong": "I have ate already.", "right": "I have already eaten.", "why": "Eat → ate → eaten. И already перед глаголом"},
+            {"wrong": "He has wrote a letter.", "right": "He has written a letter.", "why": "Write → wrote → written. После has — written"},
+            {"wrong": "I am living here for 5 years.", "right": "I have lived here for 5 years.", "why": "For + период → Present Perfect, не Present Continuous"},
+            {"wrong": "I have seen him yesterday.", "right": "I saw him yesterday.", "why": "Yesterday — маркер Past Simple, не Present Perfect"},
+            {"wrong": "She has just went out.", "right": "She has just gone out.", "why": "Go → gone, не went"},
+            {"wrong": "I don't have finished.", "right": "I haven't finished.", "why": "Отрицание в Present Perfect — haven't, не don't"},
+            {"wrong": "Have you ever went to Paris?", "right": "Have you ever been to Paris?", "why": "Go → been, когда речь о посещении"},
+            {"wrong": "I have already eat.", "right": "I have already eaten.", "why": "Eat → eaten — третья форма"}
+        ],
+
+        "lifehacks": [
+            "Если можешь ответить на вопрос «КОГДА?» конкретным временем — это Past Simple. Если «когда» неважно — Present Perfect.",
+            "Слова-маркеры Present Perfect: already, yet, just, ever, never, recently, lately. Увидел — почти наверняка Present Perfect.",
+            "For — период (5 years), since — точка (2020). Если путаешься — спроси: «это длительность или момент?»",
+            "Been to — был и вернулся. Gone to — уехал и не вернулся. Разница меняет смысл предложения.",
+            "Для русскоговорящих: думай «Я уже сделал» = I have already done. Не переводи буквально как «I already did».",
+            "С today, this week, this month — Present Perfect, потому что период ещё не закончился.",
+            "Учи 3 формы глаголов сразу: base → past → past participle. Не отдельно, а тройками."
+        ],
+
+        "text": {
+            "title": "A Letter from Emma",
+            "paragraphs": [
+                "Hi Tom! How are you? I'm sorry I haven't written for so long, but so many things have happened since we last met. I have just returned from a two-week trip to Italy. It was amazing! I have visited Rome, Florence and Venice. I have never seen such beautiful architecture before. I have taken hundreds of photos — you have to see them!",
+                "I have also started a new job at a design studio. I have worked there for three months now, and I absolutely love it. The team is very friendly and the projects are exciting. My boss has already given me two big projects to lead. I have never felt so motivated in my life. Of course, I have made some mistakes, but I have learned a lot.",
+                "On the personal side, I have some news too. My sister has just got engaged! We have known her boyfriend for five years, and he is a wonderful person. They haven't set a date yet, but they are thinking about next summer. I have already started looking for a dress. Have you ever been to a wedding in Italy? I haven't — but I can't wait!",
+                "I have also decided to start learning Spanish. I have wanted to learn it for years, but I have never had enough time. Now I have found a good online course, and I have already finished the first module. It's difficult, but I have enjoyed every lesson. So far, I have learned about 200 words.",
+                "Anyway, I have to go — my Italian class starts in 10 minutes. I have already packed my bag. Have you heard from Sarah recently? I haven't seen her since last summer. Write back when you have time. I have missed our long conversations! Love, Emma"
+            ]
+        },
+
+        "text_questions": [
+            {"q": "Where has Emma just returned from?", "options": ["From Spain", "From Italy", "From France", "From Germany"], "correct": "From Italy"},
+            {"q": "Which cities has Emma visited?", "options": ["Paris, Lyon, Nice", "Rome, Florence, Venice", "Madrid, Barcelona, Seville", "Berlin, Munich, Hamburg"], "correct": "Rome, Florence, Venice"},
+            {"q": "How long has Emma worked at the new job?", "options": ["One week", "One month", "Three months", "One year"], "correct": "Three months"},
+            {"q": "What has Emma's boss already given her?", "options": ["A holiday", "Two big projects", "A new office", "A pay rise"], "correct": "Two big projects"},
+            {"q": "What news does Emma have about her sister?", "options": ["She has got a new job", "She has got engaged", "She has moved abroad", "She has had a baby"], "correct": "She has got engaged"},
+            {"q": "How long has the family known the sister's boyfriend?", "options": ["One year", "Two years", "Three years", "Five years"], "correct": "Five years"},
+            {"q": "What language has Emma decided to learn?", "options": ["French", "Italian", "Spanish", "German"], "correct": "Spanish"},
+            {"q": "How many words has Emma learned so far?", "options": ["About 100", "About 200", "About 500", "About 1000"], "correct": "About 200"},
+            {"q": "What has Emma packed before writing?", "options": ["Her luggage", "Her bag", "Her books", "Her lunch"], "correct": "Her bag"},
+            {"q": "When has Emma last seen Sarah?", "options": ["Last week", "Last month", "Last summer", "Last year"], "correct": "Last summer"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "I ___ never ___ to Japan.", "options": ["have / been", "has / been", "have / went", "did / go"], "correct": "have / been"},
+            {"type": "choice", "q": "She ___ just ___ the phone.", "options": ["have / answered", "has / answered", "has / answering", "have / answer"], "correct": "has / answered"},
+            {"type": "choice", "q": "___ you ever ___ Indian food?", "options": ["Did / try", "Have / tried", "Has / tried", "Do / try"], "correct": "Have / tried"},
+            {"type": "choice", "q": "We ___ here for 10 years.", "options": ["live", "lived", "have lived", "are living"], "correct": "have lived"},
+            {"type": "choice", "q": "He ___ his keys. He can't open the door.", "options": ["loses", "lost", "has lost", "is losing"], "correct": "has lost"},
+            {"type": "choice", "q": "I ___ my homework already.", "options": ["do", "did", "have done", "am doing"], "correct": "have done"},
+            {"type": "choice", "q": "They ___ to Paris three times.", "options": ["have been", "has been", "went", "have go"], "correct": "have been"},
+            {"type": "choice", "q": "___ she ___ her breakfast yet?", "options": ["Did / eat", "Has / eaten", "Have / eaten", "Is / eating"], "correct": "Has / eaten"},
+            {"type": "fill", "q": "I ___ (finish) my report.", "answer": "have finished"},
+            {"type": "fill", "q": "She ___ (not / call) me yet.", "answer": "hasn't called"},
+            {"type": "fill", "q": "They ___ (live) here since 2015.", "answer": "have lived"},
+            {"type": "fill", "q": "We ___ (see) this film already.", "answer": "have seen"},
+            {"type": "fill", "q": "He ___ (never / be) to London.", "answer": "has never been"},
+            {"type": "fill", "q": "___ you ___ (ever / try) sushi?", "answer": "Have tried"},
+            {"type": "fill", "q": "I ___ (not / eat) today.", "answer": "haven't eaten"},
+            {"type": "fill", "q": "She ___ (just / arrive).", "answer": "has just arrived"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I have saw this film.", "I have seen this film.", "I have see this film.", "I has seen this film."], "correct": "I have seen this film."},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["She has went home.", "She have gone home.", "She has gone home.", "She has go home."], "correct": "She has gone home."},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I have finished yesterday.", "I finished yesterday.", "I have finish yesterday.", "I did have finished yesterday."], "correct": "I finished yesterday."},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["Did you have ever been to Paris?", "Have you ever been to Paris?", "Have you ever went to Paris?", "Did you ever been to Paris?"], "correct": "Have you ever been to Paris?"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I haven't finished yet.", "I don't have finished yet.", "I haven't finish yet.", "I not finished yet."], "correct": "I haven't finished yet."},
+            {"type": "translate", "q": "Переведи на английский: Я уже поел.", "answer": "I have already eaten"},
+            {"type": "translate", "q": "Переведи на английский: Она никогда не была в Лондоне.", "answer": "She has never been to London"},
+            {"type": "translate", "q": "Переведи на английский: Ты когда-нибудь пробовал суши?", "answer": "Have you ever tried sushi"},
+            {"type": "translate", "q": "Переведи на английский: Мы живём здесь 5 лет.", "answer": "We have lived here for 5 years"},
+            {"type": "translate", "q": "Переведи на английский: Он только что ушёл.", "answer": "He has just left"},
+            {"type": "write", "q": "Напиши 3-5 предложений на тему «Что я уже сделал сегодня».", "sample": "Today I have already woken up early, had breakfast and finished my morning workout. I have also checked my emails and read the news. I haven't started my work project yet, but I have planned it. I have drunk two cups of coffee so far."}
+        ]
+    },
 ]
