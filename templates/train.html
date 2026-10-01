@@ -251,6 +251,31 @@
         font-weight: 500;
     }
     .train-nav a:hover { color: var(--accent); background: var(--bg-hover); }
+
+    /* ⬇⬇⬇ НОВОЕ — подсказка ⬇⬇⬇ */
+    .btn-hint {
+        background: #ffc107;
+        color: #fff;
+        border: none;
+        padding: 16px 20px;
+        border-radius: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+        flex-shrink: 0;
+    }
+    .btn-hint:hover { background: #ffb300; transform: scale(1.05); }
+    .btn-hint:active { transform: scale(0.95); }
+    .hint-box {
+        background: #fff8e1;
+        border-left: 4px solid #ffc107;
+        color: #f57c00;
+        padding: 14px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        font-size: 15px;
+        font-weight: 600;
+    }
 </style>
 {% endblock %}
 
@@ -316,8 +341,14 @@
             <button class="listening-replay" onclick="replayWord()">🔊 Повторить</button>
         </div>
         <div class="result" id="result"></div>
+        {% if hint %}
+        <div class="hint-box" id="hintBox" style="display: none;">💡 {{ hint }}</div>
+        {% endif %}
         <div class="train-form">
             <input id="answer" placeholder="Напиши, что услышал..." autofocus autocomplete="off">
+            {% if hint %}
+            <button class="btn-hint" type="button" onclick="toggleHint()" title="Подсказка">💡</button>
+            {% endif %}
             <button class="btn" onclick="checkAnswer()">Проверить</button>
         </div>
     {% else %}
@@ -328,8 +359,14 @@
             <div class="word-hint">🔊 нажми на слово, чтобы услышать</div>
         </div>
         <div class="result" id="result"></div>
+        {% if hint %}
+        <div class="hint-box" id="hintBox" style="display: none;">💡 {{ hint }}</div>
+        {% endif %}
         <div class="train-form">
             <input id="answer" placeholder="Введи перевод..." autofocus autocomplete="off">
+            {% if hint %}
+            <button class="btn-hint" type="button" onclick="toggleHint()" title="Подсказка">💡</button>
+            {% endif %}
             <button class="btn" onclick="checkAnswer()">Проверить</button>
         </div>
     {% endif %}
@@ -380,6 +417,13 @@
         }
     }
 
+    // ⬇⬇⬇ НОВОЕ — показать/скрыть подсказку ⬇⬇⬇
+    function toggleHint() {
+        const box = document.getElementById("hintBox");
+        if (!box) return;
+        box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
     // ═══ SPEAK MODE ═══
     function startRecognition() {
         if (!window.FW_RECOGNITION_SUPPORTED) {
@@ -396,7 +440,6 @@
             function(recognized, alternatives) {
                 micBtn.classList.remove("recording");
                 result.innerHTML = "Ты сказал: <strong>" + (recognized || "—") + "</strong>";
-                // Отправляем на сервер для проверки
                 checkSpeak(recognized);
             },
             function(error) {
