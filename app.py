@@ -929,13 +929,14 @@ def train():
                                wrong_count=session.get("train_wrong", 0),
                                weak_mode=weak_mode, mode=mode)
 
-    eng = random.choice(list(filtered.keys()))
+        eng = random.choice(list(filtered.keys()))
     session["current_word"] = eng
     session["last_train_word"] = eng
     session["train_reverse"] = reverse
     session["train_section"] = section_id
     session["train_mode"] = mode
-        session["current_hint"] = filtered[eng].get("hint", "")
+    session["current_hint"] = filtered[eng].get("hint", "")
+
     if mode == "listening":
         display = "🎧"
     elif mode == "speak":
@@ -948,8 +949,8 @@ def train():
     return render_template("train.html", word=display, empty=False, reverse=reverse, section=section_id,
                            correct_count=session.get("train_correct", 0),
                            wrong_count=session.get("train_wrong", 0),
-                           weak_mode=weak_mode, mode=mode
-                                hint=filtered[eng].get("hint", ""),
+                           weak_mode=weak_mode, mode=mode,
+                           hint=filtered[eng].get("hint", ""))
 
 
 @app.route("/check", methods=["POST"])
