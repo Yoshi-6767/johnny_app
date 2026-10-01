@@ -1714,6 +1714,65 @@ def translate():
 def settings_page():
     return render_template("settings.html", new_achievements=pop_new_achievements())
 
+@app.route("/export/words")
+@login_required
+def export_words():
+    uid = current_user.id
+    all_w = get_all_words(uid)
+    lines = ["# Мои слова — Flow & Word", ""]
+    for eng, data in sorted(all_w.items()):
+        rus = data.get("rus", "")
+        section = data.get("section", "general")
+        lines.append(f"{eng} — {rus} [{section}]")
+    content = "\n".join(lines)
+    filename = f"flow_word_words_{date.today()}.txt"
+    return Response(
+        content,
+        mimetype="text/plain; charset=utf-8",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
+
+@app.route("/export/phrases")
+@login_required
+def export_phrases():
+    uid = current_user.id
+    phrases = get_user_phrases(uid)
+    lines = ["# Мои фразы — Flow & Word", ""]
+    for eng, rus in sorted(phrases.items()):
+        lines.append(f"{eng} — {rus}")
+    content = "\n".join(lines)
+    filename = f"flow_word_phrases_{date.today()}.txt"
+    return Response(
+        content,
+        mimetype="text/plain; charset=utf-8",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
+
+@app.route("/export/topics")
+@login_required
+def export_topics():
+    uid = current_user.id
+    topics = get_user_topics(uid)
+    lines = ["# Мои топики — Flow & Word", ""]
+    for tid, data in topics.items():
+        if data.get("text"):
+            lines.append(f"## {data.get('title', tid)}")
+            lines.append(f"Слов: {len(data['text'].split())}")
+            lines.append("")
+            lines.append(data["text"])
+            lines.append("")
+            lines.append("—" * 40)
+            lines.append("")
+    content = "\n".join(lines) if len(lines) > 2 else "Пока нет написанных топиков."
+    filename = f"flow_word_topics_{date.today()}.txt"
+    return Response(
+        content,
+        mimetype="text/plain; charset=utf-8",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
 
 @app.route("/faq")
 def faq_page():
