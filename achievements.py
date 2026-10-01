@@ -31,6 +31,9 @@ ACHIEVEMENTS = [
     {"code": "exam_10",  "title": "Десятка экзаменов",   "desc": "Сдал 10 категорий", "emoji": "👑", "category": "exams", "tier": "gold"},
 
     # 🎮 ИГРЫ
+    {"code": "game_first_win",    "title": "Первая победа",  "desc": "Выиграл любую игру впервые", "emoji": "🏆", "category": "games", "tier": "bronze"},
+    {"code": "game_all_games",    "title": "Все игры",       "desc": "Сыграл во все 7 игр", "emoji": "🎮", "category": "games", "tier": "silver"},
+    {"code": "game_perfectionist","title": "Перфекционист",  "desc": "Идеальный результат в 3 играх подряд", "emoji": "💯", "category": "games", "tier": "gold"},
     {"code": "game_hangman_win",     "title": "Палач",         "desc": "Выиграл в Виселицу", "emoji": "🪢", "category": "games", "tier": "bronze"},
     {"code": "game_quiz_10",         "title": "Знаток",        "desc": "10/10 в Квизе", "emoji": "❓", "category": "games", "tier": "silver"},
     {"code": "game_speed_10",        "title": "Скоростной",    "desc": "10/10 в Скоростном", "emoji": "⚡", "category": "games", "tier": "silver"},
@@ -46,11 +49,6 @@ ACHIEVEMENTS = [
     {"code": "grammar_1",        "title": "Первая грамматика", "desc": "Пройден 1 урок грамматики", "emoji": "📖", "category": "study", "tier": "bronze"},
     {"code": "grammar_all",      "title": "Грамматик",         "desc": "Пройдены все 12 уроков", "emoji": "🎓", "category": "study", "tier": "gold"},
     {"code": "study_professor",  "title": "Профессор",       "desc": "Прошёл всё в разделе «Учёба»", "emoji": "🧠", "category": "study", "tier": "gold"},
-
-    # 🎮 ИГРЫ (новые)
-    {"code": "game_first_win",   "title": "Первая победа",   "desc": "Выиграл любую игру впервые", "emoji": "🏆", "category": "games", "tier": "bronze"},
-    {"code": "game_all_games",   "title": "Все игры",        "desc": "Сыграл во все 7 игр", "emoji": "🎮", "category": "games", "tier": "silver"},
-    {"code": "game_perfectionist","title": "Перфекционист",  "desc": "Идеальный результат в 3 играх подряд", "emoji": "💯", "category": "games", "tier": "gold"},
 
     # 📝 ТОПИКИ
     {"code": "topic_1",    "title": "Первый топик",       "desc": "Написал 1 топик", "emoji": "✏️", "category": "topics", "tier": "bronze"},
@@ -118,7 +116,7 @@ def check_all(user_id, progress, general_words_count, phrases_count, topics_done
     if exams_count >= 5 and unlock(user_id, "exam_5"):   newly.append("exam_5")
     if exams_count >= 10 and unlock(user_id, "exam_10"): newly.append("exam_10")
 
-    # ИГРЫ
+    # ИГРЫ (старые проверки через games_stats — оставляем для совместимости)
     if games_stats.get("hangman_win") and unlock(user_id, "game_hangman_win"):           newly.append("game_hangman_win")
     if games_stats.get("quiz_10") and unlock(user_id, "game_quiz_10"):                   newly.append("game_quiz_10")
     if games_stats.get("speed_10") and unlock(user_id, "game_speed_10"):                 newly.append("game_speed_10")
@@ -127,17 +125,9 @@ def check_all(user_id, progress, general_words_count, phrases_count, topics_done
     if games_stats.get("odd_one_10") and unlock(user_id, "game_odd_one_10"):             newly.append("game_odd_one_10")
     if games_stats.get("millionaire_10") and unlock(user_id, "game_millionaire_10"):     newly.append("game_millionaire_10")
 
-    # УЧЁБА
-        # УЧЁБА
+    # УЧЁБА (старые проверки)
     if study_stats.get("irregular_score", 0) >= 20 and unlock(user_id, "study_irregular"): newly.append("study_irregular")
     if study_stats.get("all_sections_visited") and unlock(user_id, "study_all"):          newly.append("study_all")
-    if study_stats.get("theorist") and unlock(user_id, "study_theorist"):                  newly.append("study_theorist")
-    if study_stats.get("professor") and unlock(user_id, "study_professor"):                newly.append("study_professor")
-
-    # ИГРЫ (новые)
-    if games_stats.get("first_win") and unlock(user_id, "game_first_win"):                 newly.append("game_first_win")
-    if games_stats.get("all_games") and unlock(user_id, "game_all_games"):                 newly.append("game_all_games")
-    if games_stats.get("perfectionist") and unlock(user_id, "game_perfectionist"):         newly.append("game_perfectionist")
 
     # ТОПИКИ
     if topics_done >= 1 and unlock(user_id, "topic_1"):   newly.append("topic_1")
