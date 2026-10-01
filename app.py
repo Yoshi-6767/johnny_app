@@ -2574,63 +2574,6 @@ def millionaire_result():
 
 
 # ═══════════════════════════════════════════════
-# УТИЛИТЫ
-# ═══════════════════════════════════════════════
-
-@app.route("/utils")
-@login_required
-def utils_page():
-    return render_template("utils.html")
-
-
-@app.route("/export/words")
-@login_required
-def export_words():
-    uid = current_user.id
-    all_w = get_all_words(uid)
-    text = "МОИ СЛОВА\n\n"
-    for eng, data in all_w.items():
-        section = get_section(data["section"])
-        text += f"{eng} - {data['rus']} ({section['title']})\n"
-    return Response(text, mimetype="text/plain", headers={"Content-Disposition": "attachment; filename=my_words.txt"})
-
-
-@app.route("/export/phrases")
-@login_required
-def export_phrases():
-    text = "МОИ ФРАЗЫ\n\n"
-    for eng, rus in get_user_phrases(current_user.id).items():
-        text += f"{eng} - {rus}\n"
-    return Response(text, mimetype="text/plain", headers={"Content-Disposition": "attachment; filename=my_phrases.txt"})
-
-
-@app.route("/export/section/<sid>")
-@login_required
-def export_section(sid):
-    uid = current_user.id
-    section = get_section(sid)
-    if sid == "general":
-        words_to_export = get_user_general_words(uid)
-    else:
-        words_to_export = {k: v for k, v in COMMON_WORDS.items() if v.get("section") == sid}
-    text = f"КАТЕГОРИЯ: {section['title'].upper()}\n\n"
-    for eng, data in words_to_export.items():
-        text += f"{eng} - {data['rus']}\n"
-    return Response(text, mimetype="text/plain", headers={"Content-Disposition": f"attachment; filename={sid}.txt"})
-
-
-@app.route("/export/topics")
-@login_required
-def export_topics():
-    text = "МОИ ТОПИКИ\n\n"
-    for tid, data in get_user_topics(current_user.id).items():
-        if data.get("done"):
-            text += f"=== {data.get('title', 'Без названия')} ===\n"
-            text += data.get("text", "") + "\n\n"
-    return Response(text, mimetype="text/plain", headers={"Content-Disposition": "attachment; filename=my_topics.txt"})
-
-
-# ═══════════════════════════════════════════════
 # АВТОРИЗАЦИЯ
 # ═══════════════════════════════════════════════
 
