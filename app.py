@@ -1844,7 +1844,6 @@ def study_page():
             "title": lesson["title"],
             "emoji": lesson["emoji"],
             "level": lesson["level"],
-            "intro": lesson["intro"],
             "done": done,
             "score": score,
             "total": total,
