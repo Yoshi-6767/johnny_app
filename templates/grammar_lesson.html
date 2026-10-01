@@ -500,7 +500,7 @@
 <div class="section">
     <h2>❓ Вопросы к тексту</h2>
     {% for q in lesson.text_questions %}
-    <div class="text-q" data-q-index="{{ loop.index0 }}">
+    <div class="text-q" data-q-index="{{ loop.index0 }}" data-correct="{{ q.correct }}">
         <div class="text-q-title">
             <span class="num">{{ loop.index }}</span>
             {{ q.q }}
@@ -573,20 +573,45 @@
     }
 
     function checkTextQuestions() {
-        // Для каждого вопроса к тексту найдём выбранный вариант
-        const questions = document.querySelectorAll(".text-q");
-        let correct = 0;
+    const questions = document.querySelectorAll(".text-q");
+    let correct = 0;
 
-        questions.forEach((q, i) => {
-            const selected = q.querySelector(".text-q-option.selected");
-            const options = q.querySelectorAll(".text-q-option");
-            options.forEach(b => b.disabled = true);
+    questions.forEach((q, i) => {
+        const selected = q.querySelector(".text-q-option.selected");
+        const options = q.querySelectorAll(".text-q-option");
+        options.forEach(b => b.disabled = true);
 
-            // правильный ответ из data-атрибутов? нет — берём из шаблона ниже
+        // Правильный ответ — из атрибута data-correct, который мы добавим в шаблон
+        const correctAnswer = q.dataset.correct;
+
+        options.forEach(b => {
+            if (b.dataset.value === correctAnswer) {
+                b.classList.add("correct");
+            } else if (b === selected) {
+                b.classList.add("wrong");
+            }
+            b.classList.remove("selected");
         });
-        // Пока — просто алерт
-        alert("Проверка вопросов к тексту временно отключена. Сначала пройди тест ниже!");
+
+        if (selected && selected.dataset.value === correctAnswer) {
+            correct++;
+        }
+    });
+
+    // Показ результата
+    const total = questions.length;
+    const percent = Math.round(correct / total * 100);
+    let message = `Результат: ${correct} из ${total} (${percent}%)`;
+    if (correct === total) {
+        message = "🎉 Отлично! Все ответы верные!";
+    } else if (correct >= total * 0.6) {
+        message = `👍 Хорошо! ${correct} из ${total} правильных.`;
+    } else {
+        message = `Попробуй ещё раз. ${correct} из ${total} правильных.`;
     }
+
+    alert(message);
+}
 
     // ═══ ТЕСТ ═══
         function selectTestOption(btn, optIndex) {
