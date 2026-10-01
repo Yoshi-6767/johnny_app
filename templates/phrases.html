@@ -2,9 +2,55 @@
 
 {% block title %}Мои фразы — Flow & Word{% endblock %}
 
+{% block styles %}
+<style>
+    .idioms-banner {
+        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        color: #fff;
+        padding: 22px 28px;
+        border-radius: 14px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        text-decoration: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .idioms-banner:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px var(--accent-shadow);
+    }
+    .idioms-banner h2 {
+        color: #fff;
+        margin: 0 0 4px 0;
+        font-size: 20px;
+    }
+    .idioms-banner p {
+        color: rgba(255,255,255,0.85);
+        margin: 0;
+        font-size: 14px;
+    }
+    .idioms-banner .arrow {
+        font-size: 28px;
+        color: #fff;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <h1>💬 Мои фразы</h1>
 <div class="subtitle">Всего фраз: {{ phrases|length }}</div>
+
+<!-- Блок Идиомы -->
+<a href="/study/idioms" class="idioms-banner">
+    <div>
+        <h2>🎭 Идиомы</h2>
+        <p>30 самых полезных выражений — break a leg, piece of cake и другие</p>
+    </div>
+    <div class="arrow">→</div>
+</a>
 
 <div style="margin-bottom: 25px; display: flex; gap: 10px; flex-wrap: wrap;">
     <a href="/phrases/train?reset=1" class="btn">🔥 Тренировать фразы</a>
