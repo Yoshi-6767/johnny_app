@@ -25,6 +25,13 @@ SECTIONS = [
     {"id": "nature", "title": "Nature", "emoji": "🌳", "level": "B1"},
     {"id": "time", "title": "Time", "emoji": "🕐", "level": "B1"},
     {"id": "housework", "title": "Housework", "emoji": "🧹", "level": "B1"},
+        # Новые категории — фразовые, ложные друзья, сленг
+    {"id": "phrasal_1", "title": "Phrasal Verbs 1", "emoji": "⚡", "level": "B1"},
+    {"id": "phrasal_2", "title": "Phrasal Verbs 2", "emoji": "⚡", "level": "B1"},
+    {"id": "false_friends_1", "title": "False Friends 1", "emoji": "🎭", "level": "B1"},
+    {"id": "false_friends_2", "title": "False Friends 2", "emoji": "🎭", "level": "B1"},
+    {"id": "slang_1", "title": "Slang 1", "emoji": "😎", "level": "B1"},
+    {"id": "slang_2", "title": "Slang 2", "emoji": "😎", "level": "B1"},
     {"id": "business", "title": "Business & Negotiations", "emoji": "🤝", "level": "B2+"},
     {"id": "politics", "title": "Politics & Law", "emoji": "⚖️", "level": "B2+"},
     {"id": "environment", "title": "Environment", "emoji": "🌍", "level": "B2+"},
