@@ -565,18 +565,14 @@ def sections_page():
 
 @app.route("/sections/<sid>")
 @login_required
-def section_page(sid):
-    uid = current_user.id
-    section = get_section(sid)
-    if sid == "general":
-        section_words = get_user_general_words(uid)
-    else:
-        section_words = {k: v for k, v in COMMON_WORDS.items() if v.get("section") == sid}
-
-    learned_set = get_learned_words(uid)
     words_data = []
     for eng, data in section_words.items():
-        words_data.append({"eng": eng, "rus": data["rus"], "learned": eng in learned_set})
+        words_data.append({
+            "eng": eng,
+            "rus": data["rus"],
+            "hint": data.get("hint", ""),
+            "learned": eng in learned_set,
+        })
 
     passed_exam = SectionExam.query.filter_by(
         user_id=uid, section_id=sid, is_passed=True
@@ -930,7 +926,7 @@ def train():
     session["train_reverse"] = reverse
     session["train_section"] = section_id
     session["train_mode"] = mode
-
+        session["current_hint"] = filtered[eng].get("hint", "")
     if mode == "listening":
         display = "🎧"
     elif mode == "speak":
@@ -943,7 +939,8 @@ def train():
     return render_template("train.html", word=display, empty=False, reverse=reverse, section=section_id,
                            correct_count=session.get("train_correct", 0),
                            wrong_count=session.get("train_wrong", 0),
-                           weak_mode=weak_mode, mode=mode)
+                           weak_mode=weak_mode, mode=mode
+                                hint=filtered[eng].get("hint", ""),
 
 
 @app.route("/check", methods=["POST"])
