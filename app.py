@@ -67,7 +67,6 @@ def migrate_db():
     with app.app_context():
         db.create_all()
 
-        # Проверяем user
         inspector_cols = db.session.execute(text("PRAGMA table_info(user)")).fetchall()
         existing = {row[1] for row in inspector_cols}
 
@@ -98,7 +97,6 @@ def migrate_db():
                 db.session.rollback()
                 print(f"[Migration] Ошибка onboarding_done: {e}")
 
-        # Проверяем message
         msg_cols = db.session.execute(text("PRAGMA table_info(message)")).fetchall()
         msg_existing = {row[1] for row in msg_cols}
 
@@ -120,7 +118,6 @@ def migrate_db():
                 db.session.rollback()
                 print(f"[Migration] Ошибка edited_at: {e}")
 
-        # Заполняем nickname для старых юзеров
         users_without_nick = User.query.filter(
             (User.nickname == None) | (User.nickname == '')
         ).all()
@@ -142,10 +139,6 @@ with app.app_context():
 
 migrate_db()
 
-
-# ═══════════════════════════════════════════════
-# BEFORE REQUEST — last_seen
-# ═══════════════════════════════════════════════
 
 @app.before_request
 def update_last_seen():
@@ -270,7 +263,6 @@ def are_friends(user1_id, user2_id):
 
 
 def get_radar_data(uid, all_w, progress):
-    """Считает 5 осей для радара скиллов."""
     learned_count = LearnedWord.query.filter_by(user_id=uid).count()
     total_words_all = len(all_w)
     skills_words = min(100, round(learned_count / total_words_all * 100)) if total_words_all > 0 else 0
@@ -312,6 +304,29 @@ def get_streak_calendar(uid, progress, days=28):
             "is_today": (d == today),
         })
     return result
+
+
+def track_game_played(game_id):
+    """Записывает, что юзер играл в игру. Если 7 игр — открывает ачивку."""
+    played = session.get("games_played", [])
+    if game_id not in played:
+        played.append(game_id)
+        session["games_played"] = played
+    if len(played) >= 7:
+        unlock(current_user.id, "game_all_games")
+
+
+def track_game_win(score, total):
+    """Открывает ачивку «Первая победа» и «Перфекционист» (3 идеальных подряд)."""
+    if score > 0:
+        unlock(current_user.id, "game_first_win")
+    if score == total and total >= 10:
+        perfect = session.get("game_perfect_streak", 0) + 1
+        session["game_perfect_streak"] = perfect
+        if perfect >= 3:
+            unlock(current_user.id, "game_perfectionist")
+    else:
+        session["game_perfect_streak"] = 0
 
 
 # ═══════════════════════════════════════════════
@@ -1774,6 +1789,27 @@ def export_topics():
     )
 
 
+@app.route("/export/section/<sid>")
+@login_required
+def export_section(sid):
+    uid = current_user.id
+    if sid == "general":
+        section_words = get_user_general_words(uid)
+    else:
+        section_words = {k: v for k, v in COMMON_WORDS.items() if v.get("section") == sid}
+    section = get_section(sid)
+    lines = [f"# Категория: {section['title']} — Flow & Word", ""]
+    for eng, data in sorted(section_words.items()):
+        lines.append(f"{eng} — {data['rus']}")
+    content = "\n".join(lines) if len(lines) > 2 else "В категории пока нет слов."
+    filename = f"flow_word_{sid}_{date.today()}.txt"
+    return Response(
+        content,
+        mimetype="text/plain; charset=utf-8",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
+
 @app.route("/faq")
 def faq_page():
     return render_template("faq.html")
@@ -1918,9 +1954,12 @@ def grammar_finish(lesson_id):
     new_ach = []
     if is_passed and unlock(uid, "grammar_1"):
         new_ach.append("grammar_1")
-        done_count = sum(1 for l in GRAMMAR_LESSONS if progress["grammar"].get(l["id"], {}).get("done"))
+
+    done_count = sum(1 for l in GRAMMAR_LESSONS if progress["grammar"].get(l["id"], {}).get("done"))
     if done_count >= 12 and unlock(uid, "grammar_all"):
         new_ach.append("grammar_all")
+    if done_count >= 12 and unlock(uid, "study_professor"):
+        new_ach.append("study_professor")
 
     return jsonify({
         "status": "ok",
@@ -1995,11 +2034,10 @@ def irregular_check():
     else:
         session["irr_wrong"] = session.get("irr_wrong", 0) + 1
 
-    # Ачивка за 20+ правильных в глаголах
     if session.get("irr_correct", 0) >= 20:
         if unlock(current_user.id, "study_irregular"):
             session["new_achievements"] = ["study_irregular"]
-    
+
     return jsonify({
         "status": "ok", "correct": is_correct, "correct_answer": correct_display,
         "score": session.get("irr_correct", 0), "wrong": session.get("irr_wrong", 0),
@@ -2019,6 +2057,7 @@ def games_page():
 @app.route("/games/listening")
 @login_required
 def listening_page():
+    track_game_played("listening")
     all_w = get_all_words(current_user.id)
     available = [w for w in all_w.keys() if 2 <= len(w) <= 20 and " " not in w]
     if len(available) < 4:
@@ -2094,6 +2133,7 @@ def listening_result():
     total = session.get("listening_total", 10)
     if score == total and total >= 10:
         unlock(current_user.id, "game_listening_10")
+    track_game_win(score, total)
     return jsonify({
         "score": score,
         "total": total,
@@ -2104,6 +2144,7 @@ def listening_result():
 @app.route("/games/hangman")
 @login_required
 def hangman_page():
+    track_game_played("hangman")
     uid = current_user.id
     all_w = get_all_words(uid)
     available = [w for w in all_w.keys() if 4 <= len(w) <= 12 and " " not in w]
@@ -2150,6 +2191,7 @@ def hangman_guess():
 
     if all(c in guessed for c in word):
         unlock(current_user.id, "game_hangman_win")
+        unlock(current_user.id, "game_first_win")
         return jsonify({"status": "win", "display": display, "word": word, "errors": errors,
                         "guessed": guessed, "message": "🎉 Ты угадал! Слово: " + word})
     if errors >= 6:
@@ -2161,6 +2203,7 @@ def hangman_guess():
 @app.route("/games/quiz")
 @login_required
 def quiz_page():
+    track_game_played("quiz")
     all_w = get_all_words(current_user.id)
     available = [w for w in all_w.keys() if 4 <= len(w) <= 12 and " " not in w]
     if len(available) < 4:
@@ -2226,6 +2269,7 @@ def quiz_result():
     total = session.get("quiz_total", 10)
     if score == total and total >= 10:
         unlock(current_user.id, "game_quiz_10")
+    track_game_win(score, total)
     return jsonify({
         "score": score, "total": total,
         "errors": session.get("quiz_errors", []),
@@ -2235,6 +2279,7 @@ def quiz_result():
 @app.route("/games/speed")
 @login_required
 def speed_page():
+    track_game_played("speed")
     all_w = get_all_words(current_user.id)
     available = [w for w in all_w.keys() if 2 <= len(w) <= 15]
     if len(available) < 5:
@@ -2294,12 +2339,14 @@ def speed_result():
     total = len(session.get("speed_words", []))
     if score == total and total >= 10:
         unlock(current_user.id, "game_speed_10")
+    track_game_win(score, total)
     return jsonify({"score": score, "total": total})
 
 
 @app.route("/games/emoji")
 @login_required
 def emoji_page():
+    track_game_played("emoji")
     selected = random.sample(EMOJI_WORDS, min(10, len(EMOJI_WORDS)))
     session["emoji_words"] = selected
     session["emoji_index"] = 0
@@ -2363,6 +2410,7 @@ def emoji_result():
     total = len(session.get("emoji_words", []))
     if score == total and total >= 10:
         unlock(current_user.id, "game_emoji_10")
+    track_game_win(score, total)
     return jsonify({
         "score": score,
         "total": total,
@@ -2373,6 +2421,7 @@ def emoji_result():
 @app.route("/games/odd_one")
 @login_required
 def odd_one_page():
+    track_game_played("odd_one")
     session["odd_one_score"] = 0
     session["odd_one_index"] = 0
     session["odd_one_total"] = 10
@@ -2449,6 +2498,7 @@ def odd_one_result():
     total = session.get("odd_one_total", 10)
     if score == total and total >= 10:
         unlock(current_user.id, "game_odd_one_10")
+    track_game_win(score, total)
     return jsonify({
         "score": score,
         "total": total,
@@ -2459,6 +2509,7 @@ def odd_one_result():
 @app.route("/games/millionaire")
 @login_required
 def millionaire_page():
+    track_game_played("millionaire")
     uid = current_user.id
     all_w = get_all_words(uid)
     available = [w for w in all_w.keys() if 2 <= len(w) <= 20 and " " not in w]
@@ -2575,6 +2626,7 @@ def millionaire_result():
     score = session.get("millionaire_score", 0)
     if score >= 10:
         unlock(current_user.id, "game_millionaire_10")
+    track_game_win(score, 15)
     return jsonify({"score": score, "total": 15})
 
 
@@ -2667,12 +2719,6 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
-
-
-# ═══════════════════════════════════════════════
-# ОНБОРДИНГ
-# ═══════════════════════════════════════════════
-
 
 
 if __name__ == "__main__":
