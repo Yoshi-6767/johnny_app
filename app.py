@@ -1918,8 +1918,8 @@ def grammar_finish(lesson_id):
     new_ach = []
     if is_passed and unlock(uid, "grammar_1"):
         new_ach.append("grammar_1")
-    done_count = sum(1 for l in GRAMMAR_LESSONS if progress["grammar"].get(l["id"], {}).get("done"))
-    if done_count >= 10 and unlock(uid, "grammar_all"):
+        done_count = sum(1 for l in GRAMMAR_LESSONS if progress["grammar"].get(l["id"], {}).get("done"))
+    if done_count >= 12 and unlock(uid, "grammar_all"):
         new_ach.append("grammar_all")
 
     return jsonify({
@@ -1995,6 +1995,11 @@ def irregular_check():
     else:
         session["irr_wrong"] = session.get("irr_wrong", 0) + 1
 
+    # Ачивка за 20+ правильных в глаголах
+    if session.get("irr_correct", 0) >= 20:
+        if unlock(current_user.id, "study_irregular"):
+            session["new_achievements"] = ["study_irregular"]
+    
     return jsonify({
         "status": "ok", "correct": is_correct, "correct_answer": correct_display,
         "score": session.get("irr_correct", 0), "wrong": session.get("irr_wrong", 0),
