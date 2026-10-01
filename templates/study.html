@@ -4,16 +4,21 @@
 
 {% block content %}
 <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="/static/icons.svg#icon-book"></use></svg> Учёба</h1>
-<div class="subtitle">Материалы для изучения английского</div>
+<div class="subtitle">Грамматика, глаголы, диалоги — всё в одном месте</div>
 
 <div class="cards">
-    <a href="/study/grammar" class="card">
+    {% for l in lessons %}
+    <a href="/study/grammar/{{ l.id }}" class="card">
         <div>
-            <svg class="card-icon"><use href="/static/icons.svg#icon-book"></use></svg>
-            <div class="card-title">Грамматика</div>
-            <div class="card-count">Все уроки в одном месте</div>
+            <div style="font-size: 32px; margin-bottom: 10px;">{{ l.emoji }}</div>
+            <div class="card-title">{{ l.title }}</div>
+            <div class="card-count">
+                {{ l.level }}
+                {% if l.done %} • ✅ {{ l.score }}/{{ l.total }}{% endif %}
+            </div>
         </div>
     </a>
+    {% endfor %}
 
     <a href="/study/irregular" class="card">
         <div>
