@@ -70,7 +70,7 @@
 {% endblock %}
 
 {% block content %}
-<h1>📚 Учить слова</h1>
+<h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="/static/icons.svg#icon-study-words"></use></svg> Учить слова</h1>
 <div class="subtitle">Всего слов в базе: {{ total_words }}</div>
 
 <div class="filters">
@@ -128,7 +128,7 @@
 <div class="cards" id="sections-grid">
     <a href="/sections/general" class="card {% if sections|selectattr('id','equalto','general')|selectattr('is_passed')|list %}card-passed{% endif %}" data-level="general">
         <div>
-            <svg class="section-icon"><use href="/static/icons.svg#icon-folder"></use></svg>
+            <svg class="section-icon"><use href="/static/icons.svg#icon-study-words"></use></svg>
             <div class="card-title">Общее</div>
             <div class="card-count">
                 {% for s in sections %}
