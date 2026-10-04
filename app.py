@@ -923,13 +923,13 @@ def train():
     if len(filtered) > 1 and last_word in filtered:
         filtered = {k: v for k, v in filtered.items() if k != last_word}
 
-    if not filtered:
+        if not filtered:
         return render_template("train.html", word=None, empty=True, reverse=reverse, section=section_id,
                                correct_count=session.get("train_correct", 0),
                                wrong_count=session.get("train_wrong", 0),
                                weak_mode=weak_mode, mode=mode)
 
-        eng = random.choice(list(filtered.keys()))
+    eng = random.choice(list(filtered.keys()))
     session["current_word"] = eng
     session["last_train_word"] = eng
     session["train_reverse"] = reverse
