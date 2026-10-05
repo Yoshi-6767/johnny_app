@@ -1,7 +1,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: 'Rubik', 'Segoe UI', sans-serif;
+    font-family: 'Nunito', 'Rubik', 'Segoe UI', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
@@ -12,7 +12,7 @@ body {
 .header + .container { padding-bottom: 80px; }
 
 /* ═══════════════════════════════════════════════
-   ПЕРЕМЕННЫЕ — LIGHT (по умолчанию)
+   ПЕРЕМЕННЫЕ — LIGHT
    ═══════════════════════════════════════════════ */
 :root {
     --bg: #f5f7fa;
@@ -26,14 +26,14 @@ body {
     --border: #e0e0e0;
     --border-light: #bbdefb;
     --border-soft: #f0f0f0;
-    --accent: #2196f3;
-    --accent-dark: #1976d2;
-    --accent-light: #bbdefb;
-    --accent-lighter: #e3f2fd;
-    --accent-shadow: rgba(33, 150, 243, 0.3);
+    --accent: #009B77;
+    --accent-dark: #007a5e;
+    --accent-light: #b2dfdb;
+    --accent-lighter: #e0f2f1;
+    --accent-shadow: rgba(0, 155, 119, 0.3);
 }
 
-/* DARK */
+/* DARK — дефолтная */
 body[data-theme="dark"] {
     --bg: #0f0f0f;
     --bg-card: #1e1e1e;
@@ -46,11 +46,11 @@ body[data-theme="dark"] {
     --border: #2a2a2a;
     --border-light: #2a2a2a;
     --border-soft: #2a2a2a;
-    --accent: #2196f3;
-    --accent-dark: #1976d2;
-    --accent-light: #2a2a2a;
-    --accent-lighter: #1a2a3d;
-    --accent-shadow: rgba(33, 150, 243, 0.4);
+    --accent: #009B77;
+    --accent-dark: #007a5e;
+    --accent-light: #1a3d34;
+    --accent-lighter: #0f2a24;
+    --accent-shadow: rgba(0, 155, 119, 0.4);
 }
 
 /* SEPIA */
@@ -191,14 +191,18 @@ li:nth-child(8) { animation-delay: 0.16s; }
     align-items: center;
     gap: 15px;
 }
+
+/* ─── ЛОГОТИП ─── */
 .logo {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    font-family: 'Nunito', 'Rubik', sans-serif;
     font-size: 30px;
     font-weight: 900;
-    color: var(--accent);
+    color: var(--text);
     text-decoration: none;
+    letter-spacing: 0;
     transition: color 0.3s;
 }
 .logo-icon {
@@ -210,15 +214,15 @@ li:nth-child(8) { animation-delay: 0.16s; }
     background: #000;
     transition: transform 0.2s;
 }
-
-.logo .logo-w {
-    color: #4ade80;
-    font-weight: 900;
-}
 .logo:hover .logo-icon {
     transform: scale(1.05);
 }
-.logo span { color: var(--text); }
+.logo .logo-w {
+    color: #009B77;
+    font-weight: 900;
+}
+
+/* ─── НАВИГАЦИЯ ─── */
 .nav {
     display: flex;
     gap: 18px;
@@ -229,6 +233,9 @@ li:nth-child(8) { animation-delay: 0.16s; }
     margin-top: 4px;
 }
 .nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     color: var(--text);
     text-decoration: none;
     font-size: 14px;
@@ -236,6 +243,11 @@ li:nth-child(8) { animation-delay: 0.16s; }
     transition: color 0.2s;
 }
 .nav a:hover { color: var(--accent); }
+.nav a .icon {
+    width: 18px;
+    height: 18px;
+}
+
 .login-link {
     color: var(--accent);
     text-decoration: none;
@@ -349,7 +361,7 @@ h2 {
     border-radius: 10px;
     color: var(--text);
     font-size: 15px;
-    font-family: 'Rubik', sans-serif;
+    font-family: inherit;
     outline: none;
     transition: border 0.2s;
 }
@@ -366,7 +378,7 @@ h2 {
     border-radius: 10px;
     color: var(--text);
     font-size: 15px;
-    font-family: 'Rubik', sans-serif;
+    font-family: inherit;
     outline: none;
 }
 .search input:focus { border-color: var(--accent); }
@@ -452,6 +464,14 @@ li:hover {
 .card-emoji { font-size: 32px; margin-bottom: 10px; }
 .card-title { font-size: 17px; font-weight: 700; margin-bottom: 5px; color: var(--text); }
 .card-count { font-size: 14px; color: var(--text-sub); }
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
+    transition: transform 0.2s;
+}
+.card:hover .card-icon { transform: scale(1.1); }
 
 /* ─── EXTRA ─── */
 .extra {
@@ -567,7 +587,9 @@ li:hover {
 }
 .user-dropdown.active { display: block; }
 .user-dropdown a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 10px 20px;
     color: var(--text);
     text-decoration: none;
@@ -578,6 +600,7 @@ li:hover {
     background: var(--bg-hover);
     color: var(--accent);
 }
+.user-dropdown a .icon { width: 16px; height: 16px; }
 
 /* ─── БЛОК «СЕГОДНЯ» ─── */
 .today-btn-row {
@@ -585,6 +608,56 @@ li:hover {
     gap: 12px;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+/* ─── SVG ИКОНКИ ─── */
+.icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: -0.15em;
+    flex-shrink: 0;
+    transition: color 0.2s, transform 0.2s;
+}
+.icon-sm { width: 16px; height: 16px; }
+.icon-lg { width: 28px; height: 28px; }
+.icon-xl { width: 40px; height: 40px; }
+
+h1 .icon, h2 .icon {
+    width: 32px;
+    height: 32px;
+    color: var(--accent);
+    vertical-align: -0.15em;
+    margin-right: 8px;
+}
+
+.category-title-icon { width: 28px; height: 28px; vertical-align: -0.15em; margin-right: 10px; }
+
+.ach-card-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 12px;
+    display: block;
+    transition: transform 0.3s;
+}
+.ach-card:hover .ach-card-icon { transform: scale(1.1); }
+.ach-card.locked .ach-card-icon { opacity: 0.4; filter: grayscale(0.8); }
+
+.ach-mini-icon { width: 40px; height: 40px; margin-bottom: 6px; }
+.ach-mini.locked .ach-mini-icon { opacity: 0.4; filter: grayscale(0.8); }
+
+.stat-mini .icon, .stat-card .icon {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 6px;
+}
+
+.btn .icon, .btn-outline .icon { width: 18px; height: 18px; vertical-align: -0.2em; }
+
+.checkmarks .icon {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
 }
 
 /* ─── АДАПТИВ ─── */
@@ -600,6 +673,8 @@ li:hover {
     .actions { align-self: flex-end; }
     .cards { grid-template-columns: 1fr; }
     .extra a { min-width: 100%; }
+    .logo { font-size: 24px; }
+    .logo-icon { width: 38px; height: 38px; }
 }
 
 /* ─── МОДАЛКА ДОСТИЖЕНИЙ ─── */
@@ -639,163 +714,3 @@ li:hover {
 .ach-modal-item-emoji { font-size: 28px; }
 .ach-modal-item-title { font-weight: 700; color: var(--text); font-size: 15px; }
 .ach-modal-item-desc { font-size: 13px; color: var(--text-sub); margin-top: 2px; }
-
-/* ═══════════════════════════════════════════════
-   SVG ИКОНКИ
-   ═══════════════════════════════════════════════ */
-
-.icon {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    vertical-align: -0.15em;
-    flex-shrink: 0;
-    transition: color 0.2s, transform 0.2s;
-}
-
-.icon-sm {
-    width: 16px;
-    height: 16px;
-}
-
-.icon-lg {
-    width: 28px;
-    height: 28px;
-}
-
-.icon-xl {
-    width: 40px;
-    height: 40px;
-}
-
-/* Иконка в тексте (акцентный цвет) */
-.icon-accent { color: var(--accent); }
-
-/* Иконка в меню */
-.nav a {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-.nav a .icon {
-    width: 16px;
-    height: 16px;
-    opacity: 0.85;
-    transition: opacity 0.2s, color 0.2s;
-}
-.nav a:hover .icon {
-    opacity: 1;
-    color: var(--accent);
-}
-
-/* Иконка в заголовке h1, h2 */
-h1 .icon, h2 .icon {
-    width: 32px;
-    height: 32px;
-    color: var(--accent);
-    vertical-align: -0.15em;
-    margin-right: 8px;
-}
-
-/* Иконка на карточке */
-.card .icon,
-.card-emoji .icon {
-    width: 36px;
-    height: 36px;
-    color: var(--accent);
-    margin-bottom: 10px;
-}
-
-/* Иконка на ачивке */
-.ach-mini .icon,
-.ach-card .icon {
-    width: 32px;
-    height: 32px;
-    margin-bottom: 6px;
-    color: var(--accent);
-}
-.ach-card.unlocked .icon,
-.ach-mini.unlocked .icon {
-    color: inherit;
-}
-
-/* Иконка на кнопке */
-.btn .icon,
-.btn-outline .icon {
-    width: 18px;
-    height: 18px;
-    vertical-align: -0.2em;
-}
-
-/* Иконки для стрика, слов и т.п. в статистике */
-.stat-card .icon,
-.stat-mini .icon {
-    width: 24px;
-    height: 24px;
-    color: var(--accent);
-    margin-bottom: 6px;
-}
-
-/* Иконка галочки в чате */
-.checkmarks .icon {
-    width: 14px;
-    height: 14px;
-    vertical-align: middle;
-}
-
-/* ═══════════════════════════════════════════════
-   GRADIENT ИКОНКИ
-   ═══════════════════════════════════════════════ */
-
-.icon { width: 20px; height: 20px; vertical-align: -0.15em; flex-shrink: 0; }
-.icon-sm { width: 16px; height: 16px; }
-.icon-lg { width: 32px; height: 32px; }
-.icon-xl { width: 40px; height: 40px; }
-
-.nav a { display: inline-flex; align-items: center; gap: 6px; }
-.nav a .icon { width: 18px; height: 18px; }
-
-.user-dropdown a {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.user-dropdown a .icon { width: 16px; height: 16px; }
-
-.card-icon {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 12px;
-    transition: transform 0.2s;
-}
-.card:hover .card-icon { transform: scale(1.1); }
-
-h1 .icon, h2 .icon {
-    width: 32px;
-    height: 32px;
-    vertical-align: -0.15em;
-    margin-right: 8px;
-}
-
-.ach-card-icon {
-    width: 56px;
-    height: 56px;
-    margin: 0 auto 12px;
-    display: block;
-    transition: transform 0.3s;
-}
-.ach-card:hover .ach-card-icon { transform: scale(1.1); }
-.ach-card.locked .ach-card-icon { opacity: 0.4; filter: grayscale(0.8); }
-
-.ach-mini-icon { width: 40px; height: 40px; margin-bottom: 6px; }
-.ach-mini.locked .ach-mini-icon { opacity: 0.4; filter: grayscale(0.8); }
-
-.stat-mini .icon, .stat-card .icon {
-    width: 28px;
-    height: 28px;
-    margin-bottom: 6px;
-}
-
-.btn .icon, .btn-outline .icon { width: 18px; height: 18px; vertical-align: -0.2em; }
-
-.category-title-icon { width: 28px; height: 28px; vertical-align: -0.15em; margin-right: 10px; }
