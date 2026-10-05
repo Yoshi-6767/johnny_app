@@ -1,7 +1,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: 'Nunito', 'Rubik', 'Segoe UI', sans-serif;
+    font-family: 'Rubik', 'Segoe UI', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
@@ -197,12 +197,11 @@ li:nth-child(8) { animation-delay: 0.16s; }
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    font-family: 'Nunito', 'Rubik', sans-serif;
-    font-size: 30px;
-    font-weight: 900;
+    font-family: 'Russo One', sans-serif;
+    font-size: 26px;
     color: var(--text);
     text-decoration: none;
-    letter-spacing: 0;
+    letter-spacing: 0.5px;
     transition: color 0.3s;
 }
 .logo-icon {
@@ -218,8 +217,8 @@ li:nth-child(8) { animation-delay: 0.16s; }
     transform: scale(1.05);
 }
 .logo .logo-w {
-    color: #06b6d4;
-    font-weight: 900;
+    color: var(--accent);
+    text-shadow: 0 0 16px var(--accent-shadow), 0 0 32px var(--accent-shadow);
 }
 
 /* ─── НАВИГАЦИЯ ─── */
