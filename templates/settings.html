@@ -295,7 +295,7 @@
 <script>
     // ═══ ТЕМА ═══
     (function initThemeUI() {
-        const theme = localStorage.getItem('theme') || 'light';
+        const theme = localStorage.getItem('theme') || 'dark';
         document.querySelectorAll('.theme-card').forEach(card => {
             card.classList.toggle('active', card.dataset.theme === theme);
         });
