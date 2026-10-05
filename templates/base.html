@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/static/style.css">
     <script>
         (function() {
-            const theme = localStorage.getItem('theme') || 'light';
+            const theme = localStorage.getItem('theme') || 'dark';
             if (theme !== 'light') document.documentElement.setAttribute('data-theme-pending', theme);
         })();
     </script>
@@ -23,8 +23,8 @@
         <div class="container">
             <div class="header-top">
                 <a href="/" class="logo">
-    <img src="/static/logo.svg" class="logo-icon" alt="FW">
-    Flow <span>&</span> Word
+    <img src="/static/logo.png" class="logo-icon" alt="FW">
+    Flo<span class="logo-w">w</span> Word
 </a>
                 <div class="header-right">
                     {% if current_user.is_authenticated %}
@@ -233,7 +233,7 @@
         else checkOnboarding();
 
         (function() {
-            const theme = localStorage.getItem('theme') || 'light';
+            const theme = localStorage.getItem('theme') || 'dark';
             if (theme !== 'light') document.body.setAttribute('data-theme', theme);
             document.documentElement.removeAttribute('data-theme-pending');
         })();
