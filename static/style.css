@@ -19,18 +19,18 @@ body {
     --bg-card: #ffffff;
     --bg-header: #ffffff;
     --bg-hover: #f5f7fa;
-    --bg-subtle: #e3f2fd;
+    --bg-subtle: #e0f7fa;
     --text: #333333;
     --text-sub: #888888;
     --text-muted: #aaaaaa;
     --border: #e0e0e0;
-    --border-light: #bbdefb;
+    --border-light: #b2ebf2;
     --border-soft: #f0f0f0;
-    --accent: #009B77;
-    --accent-dark: #007a5e;
-    --accent-light: #b2dfdb;
-    --accent-lighter: #e0f2f1;
-    --accent-shadow: rgba(0, 155, 119, 0.3);
+    --accent: #06b6d4;
+    --accent-dark: #0891b2;
+    --accent-light: #b2ebf2;
+    --accent-lighter: #e0f7fa;
+    --accent-shadow: rgba(6, 182, 212, 0.3);
 }
 
 /* DARK — дефолтная */
@@ -39,18 +39,18 @@ body[data-theme="dark"] {
     --bg-card: #1e1e1e;
     --bg-header: #1a1a1a;
     --bg-hover: #2a2a2a;
-    --bg-subtle: #1a2a3d;
+    --bg-subtle: #0a2a30;
     --text: #e0e0e0;
     --text-sub: #888888;
     --text-muted: #666666;
     --border: #2a2a2a;
     --border-light: #2a2a2a;
     --border-soft: #2a2a2a;
-    --accent: #009B77;
-    --accent-dark: #007a5e;
-    --accent-light: #1a3d34;
-    --accent-lighter: #0f2a24;
-    --accent-shadow: rgba(0, 155, 119, 0.4);
+    --accent: #06b6d4;
+    --accent-dark: #0891b2;
+    --accent-light: #0e3d47;
+    --accent-lighter: #082830;
+    --accent-shadow: rgba(6, 182, 212, 0.4);
 }
 
 /* SEPIA */
@@ -66,11 +66,11 @@ body[data-theme="sepia"] {
     --border: #d9c8a5;
     --border-light: #d9c8a5;
     --border-soft: #e8d9b8;
-    --accent: #8d6e3a;
-    --accent-dark: #6f5528;
-    --accent-light: #d9c8a5;
-    --accent-lighter: #efe5cc;
-    --accent-shadow: rgba(141, 110, 58, 0.35);
+    --accent: #06b6d4;
+    --accent-dark: #0891b2;
+    --accent-light: #b2ebf2;
+    --accent-lighter: #e0f7fa;
+    --accent-shadow: rgba(6, 182, 212, 0.35);
 }
 
 /* NEON */
@@ -79,18 +79,18 @@ body[data-theme="neon"] {
     --bg-card: #14142a;
     --bg-header: #14142a;
     --bg-hover: #1e1e3c;
-    --bg-subtle: #1e1e3c;
+    --bg-subtle: #0a2a30;
     --text: #e8e8ff;
     --text-sub: #8888aa;
     --text-muted: #555577;
     --border: #2a2a4a;
     --border-light: #3a2a5a;
     --border-soft: #2a2a4a;
-    --accent: #ff2d95;
-    --accent-dark: #d81b60;
-    --accent-light: #3a1a3a;
-    --accent-lighter: #1e0f2a;
-    --accent-shadow: rgba(255, 45, 149, 0.5);
+    --accent: #06b6d4;
+    --accent-dark: #0891b2;
+    --accent-light: #0e3d47;
+    --accent-lighter: #082830;
+    --accent-shadow: rgba(6, 182, 212, 0.5);
 }
 
 /* FOREST */
@@ -99,18 +99,18 @@ body[data-theme="forest"] {
     --bg-card: #1a2b22;
     --bg-header: #1a2b22;
     --bg-hover: #243a2e;
-    --bg-subtle: #243a2e;
+    --bg-subtle: #0a2a30;
     --text: #d8e8dd;
     --text-sub: #7a9988;
     --text-muted: #556b5c;
     --border: #2a3d30;
     --border-light: #2a3d30;
     --border-soft: #2a3d30;
-    --accent: #4ade80;
-    --accent-dark: #22c55e;
-    --accent-light: #1a3d28;
-    --accent-lighter: #1a2b22;
-    --accent-shadow: rgba(74, 222, 128, 0.4);
+    --accent: #06b6d4;
+    --accent-dark: #0891b2;
+    --accent-light: #0e3d47;
+    --accent-lighter: #082830;
+    --accent-shadow: rgba(6, 182, 212, 0.4);
 }
 
 /* ─── ПРОГРЕСС-БАР СКРОЛЛА ─── */
@@ -218,7 +218,7 @@ li:nth-child(8) { animation-delay: 0.16s; }
     transform: scale(1.05);
 }
 .logo .logo-w {
-    color: #009B77;
+    color: #06b6d4;
     font-weight: 900;
 }
 
