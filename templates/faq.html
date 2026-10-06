@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}FAQ — Flow & Word{% endblock %}
+{% block title %}FAQ — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -23,15 +23,15 @@
         transition: background 0.2s;
     }
     .faq-question:hover { background: var(--bg-hover); }
-    .faq-question .icon {
+    .faq-question .icon-plus {
+        width: 22px;
+        height: 22px;
         color: var(--accent);
-        font-size: 22px;
-        font-weight: 700;
         transition: transform 0.3s;
         flex-shrink: 0;
         margin-left: 10px;
     }
-    .faq-item.open .faq-question .icon { transform: rotate(45deg); }
+    .faq-item.open .faq-question .icon-plus { transform: rotate(45deg); }
     .faq-answer {
         max-height: 0;
         overflow: hidden;
@@ -46,6 +46,9 @@
         padding: 0 25px 20px 25px;
     }
     .faq-category {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-size: 13px;
         color: var(--accent);
         font-weight: 700;
@@ -53,132 +56,133 @@
         letter-spacing: 1px;
         margin: 30px 0 12px 0;
     }
+    .faq-category .icon { width: 18px; height: 18px; }
     .faq-category:first-of-type { margin-top: 0; }
 </style>
 {% endblock %}
 
 {% block content %}
-<h1>❓ FAQ</h1>
+<h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-help"></use></svg> FAQ</h1>
 <div class="subtitle">Ответы на частые вопросы</div>
 
-<div class="faq-category">🌐 Общее</div>
+<div class="faq-category"><svg class="icon"><use href="#icon-globe"></use></svg> Общее</div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Что такое Flow & Word?<span class="icon">+</span></div>
-    <div class="faq-answer">Flow & Word — приложение для изучения английского. Ты учишь слова по категориям, пишешь топики, тренируешь неправильные глаголы и идиомы, играешь в игры, ставишь цели и получаешь достижения. Всё в одном месте.</div>
+    <div class="faq-question">Что такое Flow Word?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
+    <div class="faq-answer">Flow Word — приложение для изучения английского. Ты учишь слова по категориям, пишешь топики, тренируешь неправильные глаголы и идиомы, играешь в игры, ставишь цели и получаешь достижения. Всё в одном месте.</div>
 </div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Это бесплатно?<span class="icon">+</span></div>
+    <div class="faq-question">Это бесплатно?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
     <div class="faq-answer">Да, сейчас всё бесплатно. В будущем планируется подписка — но базовые функции останутся бесплатными.</div>
 </div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">На каком уровне английского подходит?<span class="icon">+</span></div>
+    <div class="faq-question">На каком уровне английского подходит?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
     <div class="faq-answer">Категории разбиты по уровням: A1-A2 (базовый), B1 (средний), B2+ (продвинутый). Начинай с того, что подходит тебе.</div>
 </div>
 
-<div class="faq-category">📚 Слова и категории</div>
+<div class="faq-category"><svg class="icon"><use href="#icon-book"></use></svg> Слова и категории</div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Как добавить свои слова?<span class="icon">+</span></div>
+    <div class="faq-question">Как добавить свои слова?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
     <div class="faq-answer">Зайди в раздел «Категории» → выбери категорию «Общее» → нажми «Добавить слово». Свои слова можно добавлять только в категорию «Общее» — остальные категории общие для всех.</div>
 </div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Что значит «выучено» (✅)?<span class="icon">+</span></div>
-    <div class="faq-answer">Слово автоматически помечается выученным, если ты ответил на него правильно <strong>3 раза подряд</strong>. Можно и вручную — кнопкой «✅ Выучил» на странице категории. Выученные слова <strong>не попадаются в обычной тренировке</strong>, чтобы ты не тратил на них время.</div>
+    <div class="faq-question">Что значит «выучено»?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
+    <div class="faq-answer">Слово автоматически помечается выученным, если ты ответил на него правильно <strong>3 раза подряд</strong>. Можно и вручную — кнопкой «Выучил» на странице категории. Выученные слова <strong>не попадаются в обычной тренировке</strong>, чтобы ты не тратил на них время.</div>
 </div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Как снять метку «выучено»?<span class="icon">+</span></div>
-    <div class="faq-answer">На странице категории у выученного слова есть кнопка «⬜ Снять». Слово вернётся в тренировку.</div>
+    <div class="faq-question">Как снять метку «выучено»?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
+    <div class="faq-answer">На странице категории у выученного слова есть кнопка «Снять». Слово вернётся в тренировку.</div>
 </div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Что такое экзамен по категории?<span class="icon">+</span></div>
-    <div class="faq-answer">На странице каждой категории есть кнопка «🎓 Сдать экзамен». Тебе показывают все слова категории (по-русски), ты вводишь их по-английски. Если ответил правильно на <strong>все</strong> — категория закрывается галочкой ✅. Если ошибся — в конце покажут разбор ошибок.</div>
+    <div class="faq-question">Что такое экзамен по категории?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
+    <div class="faq-answer">На странице каждой категории есть кнопка «Сдать экзамен». Тебе показывают все слова категории (по-русски), ты вводишь их по-английски. Если ответил правильно на <strong>все</strong> — категория закрывается галочкой. Если ошибся — в конце покажут разбор ошибок.</div>
 </div>
 
-<div class="faq-category">🔥 Тренировки</div>
+<div class="faq-category"><svg class="icon"><use href="#icon-fire"></use></svg> Тренировки</div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Что такое «Слабые слова»?<span class="icon">+</span></div>
-    <div class="faq-answer">Это слова, в которых ты чаще всего ошибаешься. Сайт сам их отслеживает. На главной есть кнопка «🎯 Тренировать слабые» — она тренирует только эти слова.</div>
-</div>
-
-<div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Что такое «Цель дня»?<span class="icon">+</span></div>
-    <div class="faq-answer">Каждый день цель — <strong>10 правильных ответов</strong>. Прогресс-бар на главной. Выполнил — цель дня закрыта ✅.</div>
+    <div class="faq-question">Что такое «Слабые слова»?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
+    <div class="faq-answer">Это слова, в которых ты чаще всего ошибаешься. Сайт сам их отслеживает. На главной есть кнопка «Тренировать слабые» — она тренирует только эти слова.</div>
 </div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Что такое стрик?<span class="icon">+</span></div>
-    <div class="faq-answer">Стрик — количество дней подряд, в которые ты тренировался. Пропустил день — счётчик сбрасывается. Следи за стриком — не теряй огонь 🔥.</div>
+    <div class="faq-question">Что такое «Цель дня»?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
+    <div class="faq-answer">Каждый день цель — <strong>10 правильных ответов</strong>. Прогресс-бар на главной. Выполнил — цель дня закрыта.</div>
 </div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Можно тренировать в обратную сторону?<span class="icon">+</span></div>
-    <div class="faq-answer">Да. На странице тренировки есть переключатель «🇬🇧 EN → 🇷🇺 RU» и «🇷🇺 RU → 🇬🇧 EN». Второй режим — сложнее: показывают русское слово, надо вспомнить английское.</div>
+    <div class="faq-question">Что такое стрик?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
+    <div class="faq-answer">Стрик — количество дней подряд, в которые ты тренировался. Пропустил день — счётчик сбрасывается. Следи за стриком — не теряй огонь.</div>
 </div>
 
-<div class="faq-category">📝 Топики и экзамен-текст</div>
+<div class="faq-item" onclick="this.classList.toggle('open')">
+    <div class="faq-question">Можно тренировать в обратную сторону?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
+    <div class="faq-answer">Да. На странице тренировки есть переключатель «EN → RU» и «RU → EN». Второй режим — сложнее: показывают русское слово, надо вспомнить английское.</div>
+</div>
+
+<div class="faq-category"><svg class="icon"><use href="#icon-note"></use></svg> Топики и экзамен-текст</div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Что такое топики?<span class="icon">+</span></div>
+    <div class="faq-question">Что такое топики?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
     <div class="faq-answer">Топики — тексты на английском по определённой теме. Ты пишешь своими словами, используешь слова-помощники, сохраняешь. Минимум — 50 слов.</div>
 </div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Что такое экзамен-текст?<span class="icon">+</span></div>
+    <div class="faq-question">Что такое экзамен-текст?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
     <div class="faq-answer">Это режим, где случайно выпадает тема, и ты пишешь текст без подсказок. Таймер — 15 минут. После сохранения текст попадает в историю экзаменов.</div>
 </div>
 
-<div class="faq-category">🏆 Достижения и цели</div>
+<div class="faq-category"><svg class="icon"><use href="#icon-trophy"></use></svg> Достижения и цели</div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Что такое достижения (ачивки)?<span class="icon">+</span></div>
+    <div class="faq-question">Что такое достижения (ачивки)?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
     <div class="faq-answer">Это награды за прогресс: за стрик, за количество слов, за сданные экзамены, за игры, за топики. Открываются автоматически, когда ты что-то достигаешь. Смотреть все — на странице «Достижения».</div>
 </div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Что такое цели?<span class="icon">+</span></div>
+    <div class="faq-question">Что такое цели?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
     <div class="faq-answer">Цели ты ставишь сам: «100 слов к концу месяца» или «стрик 30 дней». Сайт показывает прогресс-бар — сколько осталось. Цели — на странице «Цели» или в профиле.</div>
 </div>
 
-<div class="faq-category">📖 Учёба и игры</div>
+<div class="faq-category"><svg class="icon"><use href="#icon-book"></use></svg> Учёба и игры</div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Что в разделе «Учёба»?<span class="icon">+</span></div>
-    <div class="faq-answer">Три раздела: <strong>Неправильные глаголы</strong> (60 штук + тренировка), <strong>Фразовые глаголы</strong> (40 выражений) и <strong>Идиомы</strong> (30 штук).</div>
+    <div class="faq-question">Что в разделе «Учёба»?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
+    <div class="faq-answer">Грамматика (уроки), <strong>Неправильные глаголы</strong> (60 штук + тренировка), <strong>Диалоги</strong> (10 ситуаций). Плюс отдельные категории: фразовые глаголы, ложные друзья, сленг — они в разделе «Учить слова».</div>
 </div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Какие игры есть?<span class="icon">+</span></div>
-    <div class="faq-answer"><strong>Виселица</strong> — угадай слово по буквам. <strong>Квиз</strong> — 10 вопросов с 4 вариантами. <strong>Скоростной</strong> — 30 секунд на 10 слов.</div>
+    <div class="faq-question">Какие игры есть?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
+    <div class="faq-answer"><strong>Виселица</strong> — угадай слово по буквам. <strong>Квиз</strong> — 10 вопросов с 4 вариантами. <strong>Скоростной</strong> — 30 секунд на 10 слов. Плюс аудио-квиз, эмодзи-квиз, «Что лишнее», «Миллионер».</div>
 </div>
 
-<div class="faq-category">🛠 Утилиты</div>
+<div class="faq-category"><svg class="icon"><use href="#icon-settings"></use></svg> Утилиты</div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Как экспортировать слова?<span class="icon">+</span></div>
-    <div class="faq-answer">В разделе «Утилиты» есть экспорт всех слов, фраз и топиков в TXT. Также можно экспортировать отдельную категорию со страницы категории.</div>
+    <div class="faq-question">Как экспортировать слова?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
+    <div class="faq-answer">В разделе «Настройки» есть экспорт всех слов, фраз и топиков в TXT. Также можно экспортировать отдельную категорию со страницы категории.</div>
 </div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Как сменить аватар?<span class="icon">+</span></div>
-    <div class="faq-answer">Зайди в «Профиль» → нажми «📷 Сменить аватар» → выбери картинку. JPG, PNG или GIF.</div>
+    <div class="faq-question">Как сменить аватар?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
+    <div class="faq-answer">Зайди в «Профиль» → нажми «Сменить аватар» → выбери картинку. JPG, PNG или GIF.</div>
 </div>
 
-<div class="faq-category">🔐 Аккаунт</div>
+<div class="faq-category"><svg class="icon"><use href="#icon-lock"></use></svg> Аккаунт</div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Как зарегистрироваться?<span class="icon">+</span></div>
+    <div class="faq-question">Как зарегистрироваться?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
     <div class="faq-answer">Нажми «Войти» → «Зарегистрироваться» → введи имя, email и пароль. На почту придёт код подтверждения — введи его. Всё, аккаунт готов.</div>
 </div>
 
 <div class="faq-item" onclick="this.classList.toggle('open')">
-    <div class="faq-question">Забыл пароль — что делать?<span class="icon">+</span></div>
+    <div class="faq-question">Забыл пароль — что делать?<svg class="icon-plus"><use href="#icon-plus"></use></svg></div>
     <div class="faq-answer">Пока функция восстановления пароля не реализована. Пиши в поддержку (контакт в разработке).</div>
 </div>
 {% endblock %}
