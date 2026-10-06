@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Мои фразы — Flow & Word{% endblock %}
+{% block title %}Мои фразы — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -23,38 +23,69 @@
         box-shadow: 0 8px 24px var(--accent-shadow);
     }
     .idioms-banner h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         color: #fff;
         margin: 0 0 4px 0;
         font-size: 20px;
     }
+    .idioms-banner h2 .icon { width: 24px; height: 24px; }
     .idioms-banner p {
         color: rgba(255,255,255,0.85);
         margin: 0;
         font-size: 14px;
     }
     .idioms-banner .arrow {
-        font-size: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
         color: #fff;
     }
+    .idioms-banner .arrow .icon { width: 28px; height: 28px; }
+
+    .phrase-actions {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+    }
+    .phrase-actions a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .phrase-actions a .icon { width: 18px; height: 18px; }
+
+    .actions button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+    }
+    .actions button .icon { width: 18px; height: 18px; }
 </style>
 {% endblock %}
 
 {% block content %}
-<h1>💬 Мои фразы</h1>
+<h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-chat"></use></svg> Мои фразы</h1>
 <div class="subtitle">Всего фраз: {{ phrases|length }}</div>
 
 <!-- Блок Идиомы -->
 <a href="/study/idioms" class="idioms-banner">
     <div>
-        <h2>🎭 Идиомы</h2>
+        <h2><svg class="icon"><use href="#icon-theater"></use></svg> Идиомы</h2>
         <p>30 самых полезных выражений — break a leg, piece of cake и другие</p>
     </div>
-    <div class="arrow">→</div>
+    <div class="arrow"><svg class="icon"><use href="#icon-arrow-left"></use></svg></div>
 </a>
 
-<div style="margin-bottom: 25px; display: flex; gap: 10px; flex-wrap: wrap;">
-    <a href="/phrases/train?reset=1" class="btn">🔥 Тренировать фразы</a>
-    <a href="/export/phrases" class="btn-outline">📤 Экспорт фраз</a>
+<div class="phrase-actions">
+    <a href="/phrases/train?reset=1" class="btn"><svg class="icon"><use href="#icon-fire"></use></svg> Тренировать фразы</a>
+    <a href="/export/phrases" class="btn-outline"><svg class="icon"><use href="#icon-send"></use></svg> Экспорт фраз</a>
 </div>
 
 <div class="form">
@@ -64,7 +95,7 @@
 </div>
 
 <div class="search">
-    <input id="search" placeholder="🔍 Поиск..." oninput="filterPhrases()">
+    <input id="search" placeholder="Поиск..." oninput="filterPhrases()">
 </div>
 
 <ul id="phrases-list">
@@ -73,8 +104,8 @@
         <li data-word="{{ eng }} {{ rus }}">
             <span class="word-text">{{ eng }} → {{ rus }}</span>
             <div class="actions">
-                <button onclick="editPhrase('{{ eng }}', '{{ rus }}')">✏️</button>
-                <button class="delete-btn" onclick="deletePhrase('{{ eng }}')">✖</button>
+                <button onclick="editPhrase('{{ eng }}', '{{ rus }}')" title="Изменить"><svg class="icon"><use href="#icon-pencil"></use></svg></button>
+                <button class="delete-btn" onclick="deletePhrase('{{ eng }}')" title="Удалить"><svg class="icon"><use href="#icon-x"></use></svg></button>
             </div>
         </li>
         {% endfor %}
