@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}Своя тема — Flow & Word{% endblock %}
+{% block title %}Своя тема — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
     .topic-form {
         max-width: 500px;
     }
+    .topic-form h1 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .topic-form h1 .icon { width: 32px; height: 32px; color: var(--accent); }
     .topic-form input {
         width: 100%;
         padding: 16px 20px;
@@ -25,7 +31,7 @@
 
 {% block content %}
 <div class="topic-form">
-    <h1>➕ Своя тема</h1>
+    <h1><svg class="icon"><use href="#icon-plus"></use></svg> Своя тема</h1>
     <div class="subtitle">Напиши название темы на английском</div>
 
     <form method="POST">
