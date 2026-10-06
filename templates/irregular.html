@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Неправильные глаголы — Flow & Word{% endblock %}
+{% block title %}Неправильные глаголы — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -47,35 +47,53 @@
     .verb-base { font-weight: 700; color: var(--accent); }
     .verb-rus { color: var(--text-sub); }
     .btn-speak-inline {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
         background: var(--bg-subtle);
         color: var(--accent);
         border: none;
-        padding: 4px 8px;
         border-radius: 6px;
-        font-size: 14px;
         cursor: pointer;
         margin-left: 6px;
         transition: all 0.2s;
+        vertical-align: middle;
     }
+    .btn-speak-inline .icon { width: 16px; height: 16px; }
     .btn-speak-inline:hover {
         background: var(--accent);
         color: #fff;
     }
+
+    .train-buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+    }
+    .train-buttons a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .train-buttons a .icon { width: 18px; height: 18px; }
 </style>
 {% endblock %}
 
 {% block content %}
-<h1>🔤 Неправильные глаголы</h1>
+<h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-abc"></use></svg> Неправильные глаголы</h1>
 <div class="subtitle">Всего: {{ verbs|length }} глаголов</div>
 
-<div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
-    <a href="/study/irregular/train?mode=past" class="btn">🔥 Тренировать (Base → Past)</a>
+<div class="train-buttons">
+    <a href="/study/irregular/train?mode=past" class="btn"><svg class="icon"><use href="#icon-fire"></use></svg> Тренировать (Base → Past)</a>
     <a href="/study/irregular/train?mode=pp" class="btn-outline">Base → Past Participle</a>
     <a href="/study/irregular/train?mode=mixed" class="btn-outline">Перемешанный</a>
 </div>
 
 <div class="verb-search">
-    <input id="search" placeholder="🔍 Поиск по глаголу или переводу..." oninput="filterVerbs()">
+    <input id="search" placeholder="Поиск по глаголу или переводу..." oninput="filterVerbs()">
 </div>
 
 <table class="verb-table">
@@ -92,7 +110,7 @@
         <tr data-word="{{ v.base }} {{ v.rus }}">
             <td class="verb-base">
                 {{ v.base }}
-                <button class="btn-speak-inline" onclick="speak('{{ v.base }}')" title="Послушать">🔊</button>
+                <button class="btn-speak-inline" onclick="speak('{{ v.base }}')" title="Послушать"><svg class="icon"><use href="#icon-volume"></use></svg></button>
             </td>
             <td>{{ v.past }}</td>
             <td>{{ v.pp }}</td>
