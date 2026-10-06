@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Идиомы — Flow & Word{% endblock %}
+{% block title %}Идиомы — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -46,16 +46,21 @@
     .idiom-rus { color: var(--text); }
     .idiom-literal { color: var(--text-sub); font-style: italic; font-size: 14px; }
     .btn-speak-inline {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
         background: var(--bg-subtle);
         color: var(--accent);
         border: none;
-        padding: 4px 8px;
         border-radius: 6px;
-        font-size: 14px;
         cursor: pointer;
         margin-left: 6px;
         transition: all 0.2s;
+        vertical-align: middle;
     }
+    .btn-speak-inline .icon { width: 16px; height: 16px; }
     .btn-speak-inline:hover {
         background: var(--accent);
         color: #fff;
@@ -64,11 +69,11 @@
 {% endblock %}
 
 {% block content %}
-<h1>🎭 Идиомы</h1>
+<h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-theater"></use></svg> Идиомы</h1>
 <div class="subtitle">Всего: {{ idioms|length }} выражений</div>
 
 <div class="verb-search">
-    <input id="search" placeholder="🔍 Поиск..." oninput="filterIdioms()">
+    <input id="search" placeholder="Поиск..." oninput="filterIdioms()">
 </div>
 
 <table class="verb-table">
@@ -84,7 +89,7 @@
         <tr data-word="{{ i.idiom }} {{ i.rus }}">
             <td class="idiom-text">
                 {{ i.idiom }}
-                <button class="btn-speak-inline" onclick="speak('{{ i.idiom }}')" title="Послушать">🔊</button>
+                <button class="btn-speak-inline" onclick="speak('{{ i.idiom }}')" title="Послушать"><svg class="icon"><use href="#icon-volume"></use></svg></button>
             </td>
             <td class="idiom-rus">{{ i.rus }}</td>
             <td class="idiom-literal">{{ i.literal }}</td>
