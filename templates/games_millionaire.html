@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Миллионер — Flow & Word{% endblock %}
+{% block title %}Миллионер — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -8,7 +8,7 @@
         background: var(--bg-card);
         border: 1px solid var(--border);
         border-radius: 14px;
-        padding: 15px;
+        padding: 15px 20px;
         margin-bottom: 20px;
         display: flex;
         justify-content: space-between;
@@ -17,10 +17,14 @@
         gap: 10px;
     }
     .mil-money-ladder .score {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-size: 22px;
         font-weight: 900;
         color: var(--accent);
     }
+    .mil-money-ladder .score .icon { width: 22px; height: 22px; }
     .mil-money-ladder .label {
         color: var(--text-sub);
         font-size: 13px;
@@ -86,6 +90,9 @@
         flex-wrap: wrap;
     }
     .mil-hint {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         background: var(--bg-card);
         border: 2px solid var(--accent);
         color: var(--accent);
@@ -97,6 +104,7 @@
         cursor: pointer;
         transition: all 0.2s;
     }
+    .mil-hint .icon { width: 18px; height: 18px; }
     .mil-hint:hover:not(:disabled) {
         background: var(--accent);
         color: #fff;
@@ -107,6 +115,10 @@
         text-decoration: line-through;
     }
     .mil-feedback {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         text-align: center;
         padding: 16px 20px;
         border-radius: 10px;
@@ -115,6 +127,7 @@
         font-weight: 600;
         min-height: 24px;
     }
+    .mil-feedback .icon { width: 20px; height: 20px; }
     .mil-feedback.correct { color: #4caf50; }
     .mil-feedback.wrong { color: #f44336; }
     .mil-result {
@@ -143,13 +156,18 @@
         margin-top: 20px;
     }
     .mil-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         color: var(--text-sub);
         text-decoration: none;
         padding: 12px 25px;
         border-radius: 8px;
         font-weight: 500;
         border: 1px solid var(--border);
+        transition: all 0.2s;
     }
+    .mil-nav a .icon { width: 16px; height: 16px; }
     .mil-nav a:hover { color: var(--accent); border-color: var(--accent); }
     .mil-call-info {
         background: var(--bg-subtle);
@@ -170,11 +188,11 @@
 {% block content %}
 {% if empty %}
     <div class="empty">
-        <h1>💰 Кто хочет стать миллионером</h1>
+        <h1><svg class="icon icon-lg"><use href="#icon-millionaire"></use></svg> Кто хочет стать миллионером</h1>
         <p>Нужно минимум 20 слов в базе. Добавь в <a href="/sections" style="color: var(--accent);">категориях</a>.</p>
     </div>
 {% else %}
-    <h1 style="text-align: center;">💰 Кто хочет стать миллионером</h1>
+    <h1 style="text-align: center;"><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-millionaire"></use></svg> Кто хочет стать миллионером</h1>
     <div class="subtitle" style="text-align: center;">15 вопросов + 3 подсказки. Ошибёшься — вылетаешь.</div>
 
     <div id="mil-play">
@@ -183,7 +201,7 @@
                 <div class="score" id="mil-score">0 / 15</div>
                 <div class="label">Вопрос <span id="mil-qnum">1</span></div>
             </div>
-            <div class="score">💎 x <span id="mil-streak">0</span></div>
+            <div class="score"><svg class="icon"><use href="#icon-diamond"></use></svg> x <span id="mil-streak">0</span></div>
         </div>
 
         <div class="mil-word" id="mil-word">...</div>
@@ -194,9 +212,9 @@
         <div class="mil-options" id="mil-options"></div>
 
         <div class="mil-hints">
-            <button class="mil-hint" id="hintFifty" onclick="useHint('fifty')">✂️ 50/50</button>
-            <button class="mil-hint" id="hintCall" onclick="useHint('call')">📞 Звонок другу</button>
-            <button class="mil-hint" id="hintAudience" onclick="useHint('audience')">👥 Помощь зала</button>
+            <button class="mil-hint" id="hintFifty" onclick="useHint('fifty')"><svg class="icon"><use href="#icon-scissors"></use></svg> 50/50</button>
+            <button class="mil-hint" id="hintCall" onclick="useHint('call')"><svg class="icon"><use href="#icon-phone"></use></svg> Звонок другу</button>
+            <button class="mil-hint" id="hintAudience" onclick="useHint('audience')"><svg class="icon"><use href="#icon-users"></use></svg> Помощь зала</button>
         </div>
     </div>
 
@@ -204,8 +222,8 @@
         <div class="score" id="mil-result-score">0</div>
         <div class="label">из 15</div>
         <div class="mil-nav">
-            <a href="/games/millionaire">🔄 Ещё раз</a>
-            <a href="/games">⬅️ К играм</a>
+            <a href="/games/millionaire"><svg class="icon"><use href="#icon-refresh"></use></svg> Ещё раз</a>
+            <a href="/games"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К играм</a>
         </div>
     </div>
 {% endif %}
@@ -229,11 +247,11 @@
             document.getElementById("mil-qnum").textContent = data.question_num;
             document.getElementById("mil-word").textContent = data.word;
             document.getElementById("mil-feedback").textContent = "";
+            document.getElementById("mil-feedback").className = "mil-feedback";
             document.getElementById("callInfo").classList.remove("show");
             currentCorrect = data.correct;
             answered = false;
 
-            // Кнопки подсказок — сбрасываем disabled на новом вопросе
             document.getElementById("hintFifty").disabled = false;
             document.getElementById("hintCall").disabled = false;
             document.getElementById("hintAudience").disabled = false;
@@ -273,7 +291,7 @@
             const fb = document.getElementById("mil-feedback");
             if (data.correct) {
                 fb.className = "mil-feedback correct";
-                fb.textContent = "✅ Верно!";
+                fb.innerHTML = '<svg class="icon"><use href="#icon-check"></use></svg> Верно!';
                 document.getElementById("mil-score").textContent = data.score + " / 15";
                 document.getElementById("mil-streak").textContent = data.score;
                 setTimeout(() => {
@@ -286,7 +304,7 @@
             } else {
                 btn.classList.add("wrong");
                 fb.className = "mil-feedback wrong";
-                fb.textContent = "❌ Неверно! Правильно: " + data.correct_answer;
+                fb.innerHTML = '<svg class="icon"><use href="#icon-x"></use></svg> Неверно! Правильно: ' + data.correct_answer;
                 gameOver = true;
                 setTimeout(() => showResult(), 2200);
             }
@@ -315,10 +333,10 @@
                 });
                 const fb = document.getElementById("mil-feedback");
                 fb.className = "mil-feedback";
-                fb.textContent = "💡 Осталось меньше вариантов";
+                fb.innerHTML = '<svg class="icon"><use href="#icon-lightbulb"></use></svg> Осталось меньше вариантов';
             } else if (type === "call") {
                 const info = document.getElementById("callInfo");
-                info.innerHTML = "📞 Друг говорит: <strong>" + data.word + "</strong> — это <strong>" + data.translation + "</strong>";
+                info.innerHTML = '<svg class="icon" style="width:16px;height:16px;vertical-align:-0.2em;margin-right:6px;"><use href="#icon-phone"></use></svg> Друг говорит: <strong>' + data.word + '</strong> — это <strong>' + data.translation + '</strong>';
                 info.classList.add("show");
             }
         });
