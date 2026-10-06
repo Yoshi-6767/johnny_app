@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Подтверждение — Flow & Word{% endblock %}
+{% block title %}Подтверждение — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -12,7 +12,15 @@
         border-radius: 14px;
         padding: 30px;
     }
-    .auth-form h1 { text-align: center; margin-bottom: 15px; }
+    .auth-form h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .auth-form h1 .icon { width: 32px; height: 32px; color: var(--accent); }
     .auth-form p { color: var(--text-sub); text-align: center; margin-bottom: 25px; font-size: 14px; }
     .auth-form input {
         width: 100%;
@@ -56,7 +64,7 @@
 
 {% block content %}
 <div class="auth-form">
-    <h1>📧 Подтверждение</h1>
+    <h1><svg class="icon"><use href="#icon-inbox"></use></svg> Подтверждение</h1>
     <p>Мы отправили код на твой email</p>
 
     {% if error %}
