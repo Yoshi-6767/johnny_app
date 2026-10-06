@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Чат с {{ friend.username }} — Flow & Word{% endblock %}
+{% block title %}Чат с {{ friend.username }} — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -14,6 +14,25 @@
         border-radius: 14px;
         margin-bottom: 15px;
     }
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: var(--bg-hover);
+        color: var(--text-sub);
+        text-decoration: none;
+        transition: all 0.2s;
+        flex-shrink: 0;
+    }
+    .back-link:hover {
+        background: var(--accent);
+        color: #fff;
+    }
+    .back-link .icon { width: 20px; height: 20px; }
+
     .avatar-circle {
         width: 50px;
         height: 50px;
@@ -44,9 +63,7 @@
         border: 2px solid var(--bg-card);
         border-radius: 50%;
     }
-    .chat-header-info {
-        flex: 1;
-    }
+    .chat-header-info { flex: 1; }
     .chat-header-name {
         font-size: 17px;
         font-weight: 700;
@@ -112,12 +129,8 @@
         color: var(--text);
         border-bottom-left-radius: 4px;
     }
-    .msg-wrapper.mine .msg:hover {
-        background: var(--accent-dark);
-    }
-    .msg-wrapper.theirs .msg:hover {
-        background: var(--bg-hover);
-    }
+    .msg-wrapper.mine .msg:hover { background: var(--accent-dark); }
+    .msg-wrapper.theirs .msg:hover { background: var(--bg-hover); }
 
     .msg-meta {
         display: flex;
@@ -128,23 +141,23 @@
         margin-top: 4px;
         padding: 0 5px;
     }
-    .msg-time {
-        font-size: 11px;
-        opacity: 0.7;
-    }
+    .msg-time { font-size: 11px; opacity: 0.7; }
     .msg-edited {
         font-size: 10px;
         opacity: 0.6;
         font-style: italic;
     }
     .checkmarks {
-        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
         margin-left: 3px;
-        letter-spacing: -2px;
-        font-family: sans-serif;
     }
-    .checkmarks.read { color: #4fc3f7; }
-    .checkmarks.delivered { color: rgba(255,255,255,0.7); }
+    .checkmarks .icon {
+        width: 16px;
+        height: 16px;
+    }
+    .checkmarks.read .icon { color: #4fc3f7; }
+    .checkmarks.delivered .icon { color: rgba(255,255,255,0.7); }
     .msg-wrapper.theirs .checkmarks { display: none; }
 
     /* КОНТЕКСТНОЕ МЕНЮ */
@@ -156,14 +169,16 @@
         border: 1px solid var(--border);
         border-radius: 10px;
         padding: 6px 0;
-        min-width: 150px;
+        min-width: 170px;
         box-shadow: 0 6px 24px rgba(0,0,0,0.2);
         z-index: 100;
         display: none;
     }
     .msg-menu.active { display: block; }
     .msg-menu button {
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 10px;
         width: 100%;
         padding: 10px 18px;
         background: transparent;
@@ -175,9 +190,8 @@
         cursor: pointer;
         transition: background 0.15s;
     }
-    .msg-menu button:hover {
-        background: var(--bg-hover);
-    }
+    .msg-menu button:hover { background: var(--bg-hover); }
+    .msg-menu button .icon { width: 16px; height: 16px; }
     .msg-menu button.danger { color: #f44336; }
     .msg-menu button.danger:hover { background: #ffebee; }
 
@@ -200,16 +214,22 @@
         outline: none;
     }
     .edit-box button {
-        padding: 8px 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 0;
         border: none;
         border-radius: 8px;
-        font-family: 'Rubik', sans-serif;
-        font-size: 13px;
-        font-weight: 700;
         cursor: pointer;
+        transition: all 0.2s;
     }
+    .edit-box button .icon { width: 18px; height: 18px; }
     .edit-box .save { background: #4caf50; color: #fff; }
+    .edit-box .save:hover { background: #388e3c; }
     .edit-box .cancel { background: var(--bg-hover); color: var(--text-sub); }
+    .edit-box .cancel:hover { background: #f44336; color: #fff; }
 
     .chat-form {
         display: flex;
@@ -232,17 +252,20 @@
     }
     .chat-form input:focus { border-color: var(--accent); }
     .chat-form button {
-        padding: 16px 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        padding: 0;
         background: var(--accent);
         color: #fff;
         border: none;
-        border-radius: 25px;
-        font-size: 16px;
-        font-weight: 700;
-        font-family: 'Rubik', sans-serif;
+        border-radius: 50%;
         cursor: pointer;
         transition: all 0.2s;
     }
+    .chat-form button .icon { width: 22px; height: 22px; }
     .chat-form button:hover { background: var(--accent-dark); }
     .chat-form button:active { transform: scale(0.95); }
 </style>
@@ -250,7 +273,7 @@
 
 {% block content %}
 <div class="chat-header">
-    <a href="/friends" style="color: var(--text-sub); text-decoration: none; font-size: 20px;">←</a>
+    <a href="/friends" class="back-link" title="Назад"><svg class="icon"><use href="#icon-arrow-left"></use></svg></a>
     <div class="avatar-circle">
         {% if friend.avatar %}
             <img src="/avatars/{{ friend.avatar }}" alt="">
@@ -273,7 +296,7 @@
 
 <form class="chat-form" onsubmit="sendMessage(event)">
     <input id="msgInput" placeholder="Напиши сообщение..." autocomplete="off" maxlength="2000">
-    <button type="submit">➤</button>
+    <button type="submit" title="Отправить"><svg class="icon"><use href="#icon-send"></use></svg></button>
 </form>
 {% endblock %}
 
@@ -292,7 +315,6 @@
             .then(r => r.json())
             .then(data => {
                 if (data.status !== "ok") return;
-
                 if (isFirstLoad) {
                     renderAllMessages(data.messages);
                     isFirstLoad = false;
@@ -307,7 +329,7 @@
     function renderAllMessages(messages) {
         const container = document.getElementById("messages");
         if (!messages || messages.length === 0) {
-            container.innerHTML = "<div class='chat-empty'>Начни первым! Напиши что-нибудь 👋</div>";
+            container.innerHTML = "<div class='chat-empty'>Начни первым! Напиши что-нибудь</div>";
             return;
         }
         container.innerHTML = "";
@@ -355,7 +377,6 @@
     }
 
     function appendOneMessage(container, m) {
-        // Если редактируется это сообщение — не перерисовываем
         if (editingMessageId === m.id) return;
 
         const wrapper = document.createElement("div");
@@ -386,15 +407,7 @@
         if (m.from_me) {
             const checks = document.createElement("span");
             checks.className = "checkmarks " + (m.is_read ? "read" : "delivered");
-            // Галочки: ✓ (одна) — если ещё не сохранено (редко),
-            // ✓✓ (две) — если сохранено, но не прочитано,
-            // ✓✓ (синие) — если прочитано
-            checks.textContent = m.is_read ? "✓✓" : "✓✓";
-            if (m.is_read) {
-                checks.style.color = "#4fc3f7";
-            } else {
-                checks.style.color = "rgba(255,255,255,0.7)";
-            }
+            checks.innerHTML = '<svg class="icon"><use href="#icon-check-double"></use></svg>';
             meta.appendChild(checks);
         }
 
@@ -406,23 +419,24 @@
     function toggleMenu(e, messageId, isMine) {
         e.stopPropagation();
         closeMenu();
-
-        if (!isMine) return; // чужие не редактируем и не удаляем
+        if (!isMine) return;
 
         const wrapper = document.querySelector('.msg-wrapper[data-id="' + messageId + '"]');
         if (!wrapper) return;
 
-        // Создаём меню
         const menu = document.createElement("div");
         menu.className = "msg-menu active";
         menu.innerHTML = `
-            <button onclick="startEdit(${messageId})">✏️ Изменить</button>
-            <button class="danger" onclick="deleteMessage(${messageId})">🗑️ Удалить</button>
+            <button onclick="startEdit(${messageId})">
+                <svg class="icon"><use href="#icon-pencil"></use></svg> Изменить
+            </button>
+            <button class="danger" onclick="deleteMessage(${messageId})">
+                <svg class="icon"><use href="#icon-trash"></use></svg> Удалить
+            </button>
         `;
         wrapper.appendChild(menu);
         activeMenu = menu;
 
-        // Клик вне меню — закрыть
         setTimeout(() => {
             document.addEventListener("click", closeMenu, { once: true });
         }, 50);
@@ -447,18 +461,16 @@
 
         editingMessageId = messageId;
 
-        // Скрываем старое содержимое
         msg.style.display = "none";
         meta.style.display = "none";
 
-        // Показываем поле редактирования
         const editBox = document.createElement("div");
         editBox.className = "edit-box";
         editBox.id = "editBox";
         editBox.innerHTML = `
             <input type="text" id="editInput" value="${escapeAttr(oldText)}" maxlength="2000">
-            <button class="save" onclick="saveEdit(${messageId})">✓</button>
-            <button class="cancel" onclick="cancelEdit(${messageId})">✕</button>
+            <button class="save" onclick="saveEdit(${messageId})" title="Сохранить"><svg class="icon"><use href="#icon-check"></use></svg></button>
+            <button class="cancel" onclick="cancelEdit(${messageId})" title="Отмена"><svg class="icon"><use href="#icon-x"></use></svg></button>
         `;
         wrapper.appendChild(editBox);
         setTimeout(() => {
@@ -469,7 +481,6 @@
             }
         }, 50);
 
-        // Enter — сохранить, Esc — отмена
         document.getElementById("editInput").addEventListener("keydown", function(e) {
             if (e.key === "Enter") { e.preventDefault(); saveEdit(messageId); }
             if (e.key === "Escape") { e.preventDefault(); cancelEdit(messageId); }
@@ -494,7 +505,6 @@
         .then(data => {
             if (data.status === "ok") {
                 editingMessageId = null;
-                // Просто перезагружаем чат
                 isFirstLoad = true;
                 lastMessageId = 0;
                 loadMessages();
@@ -525,7 +535,6 @@
         .then(r => r.json())
         .then(data => {
             if (data.status === "ok") {
-                // Убираем из DOM
                 const wrapper = document.querySelector('.msg-wrapper[data-id="' + messageId + '"]');
                 if (wrapper) wrapper.remove();
             } else {
@@ -535,12 +544,6 @@
     }
 
     // ═══ УТИЛИТЫ ═══
-    function escapeHtml(text) {
-        const div = document.createElement("div");
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
     function escapeAttr(text) {
         return text.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
     }
