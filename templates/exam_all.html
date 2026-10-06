@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Экзамен по всему — Flow & Word{% endblock %}
+{% block title %}Экзамен по всему — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -90,10 +90,15 @@
         border-color: #4caf50;
         background: linear-gradient(135deg, var(--bg-card), #f1f8e9);
     }
-    .exam-result .emoji {
-        font-size: 64px;
+    .result-icon-wrap {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
         margin-bottom: 15px;
     }
+    .result-icon-wrap .icon { width: 64px; height: 64px; }
     .exam-result h2 {
         font-size: 28px;
         margin-bottom: 15px;
@@ -114,10 +119,14 @@
         border-radius: 12px;
     }
     .exam-errors h3 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-size: 16px;
         color: var(--text);
         margin-bottom: 15px;
     }
+    .exam-errors h3 .icon { width: 20px; height: 20px; }
     .error-item {
         padding: 10px 0;
         border-bottom: 1px solid var(--border);
@@ -135,12 +144,16 @@
         flex-wrap: wrap;
     }
     .exam-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         text-decoration: none;
         padding: 14px 28px;
         border-radius: 30px;
         font-weight: 700;
         font-size: 15px;
     }
+    .exam-nav a .icon { width: 18px; height: 18px; }
     .exam-nav a.primary {
         background: var(--accent);
         color: #fff;
@@ -158,11 +171,11 @@
 {% block content %}
 {% if empty %}
     <div class="empty">
-        <h1>📚 Пока мало слов</h1>
+        <h1><svg class="icon icon-lg"><use href="#icon-book"></use></svg> Пока мало слов</h1>
         <p>Нужно минимум <strong>5 слов</strong> в базе. Добавь в <a href="/sections" style="color: var(--accent);">категориях</a>.</p>
     </div>
 {% else %}
-    <h1>🎓 Экзамен по всему</h1>
+    <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-graduation"></use></svg> Экзамен по всему</h1>
     <div class="subtitle">20 случайных слов из всех категорий. Микс RU→EN и EN→RU.</div>
 
     <div id="exam-play">
@@ -183,16 +196,16 @@
     </div>
 
     <div class="exam-result" id="result">
-        <div class="emoji" id="result-emoji">🎉</div>
+        <div class="result-icon-wrap" id="result-icon"><svg class="icon"><use href="#icon-sparkles"></use></svg></div>
         <h2 id="result-title">Результат</h2>
         <div class="score" id="result-score">0 / 20</div>
         <div id="errors-box" class="exam-errors" style="display: none;">
-            <h3>❌ Твои ошибки:</h3>
+            <h3><svg class="icon"><use href="#icon-x"></use></svg> Твои ошибки:</h3>
             <div id="errors-list"></div>
         </div>
         <div class="exam-nav">
-            <a href="/sections" class="primary">← К категориям</a>
-            <a href="/exam/all" class="secondary">🔄 Пройти заново</a>
+            <a href="/sections" class="primary"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К категориям</a>
+            <a href="/exam/all" class="secondary"><svg class="icon"><use href="#icon-refresh"></use></svg> Пройти заново</a>
         </div>
     </div>
 {% endif %}
@@ -240,10 +253,10 @@
             const fb = document.getElementById("feedback");
             if (data.correct) {
                 fb.className = "exam-feedback correct";
-                fb.textContent = "✅ Верно!";
+                fb.textContent = "Верно!";
             } else {
                 fb.className = "exam-feedback wrong";
-                fb.textContent = "❌ Правильно: " + data.correct_answer;
+                fb.textContent = "Правильно: " + data.correct_answer;
             }
             setTimeout(() => loadNext(), 1200);
         });
@@ -262,12 +275,13 @@
 
             document.getElementById("result-score").textContent = data.correct + " / " + data.total;
 
+            const iconEl = document.getElementById("result-icon");
             if (data.is_passed) {
                 result.classList.add("passed");
-                document.getElementById("result-emoji").textContent = "🏆";
+                iconEl.innerHTML = '<svg class="icon"><use href="#icon-trophy"></use></svg>';
                 document.getElementById("result-title").textContent = "Идеально!";
             } else {
-                document.getElementById("result-emoji").textContent = "💪";
+                iconEl.innerHTML = '<svg class="icon"><use href="#icon-muscle"></use></svg>';
                 document.getElementById("result-title").textContent = "Неплохо";
             }
 
