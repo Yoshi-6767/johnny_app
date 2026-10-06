@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Тренировка глаголов — Flow & Word{% endblock %}
+{% block title %}Тренировка глаголов — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -40,12 +40,16 @@
     }
     .train-form input:focus { border-color: var(--accent); }
     .result {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         padding: 16px 20px;
         border-radius: 10px;
         margin-bottom: 20px;
         font-size: 16px;
         display: none;
     }
+    .result .icon { width: 20px; height: 20px; flex-shrink: 0; }
     .result.correct {
         background: #e8f5e9;
         border-left: 4px solid #4caf50;
@@ -67,15 +71,28 @@
     }
     .stats div { text-align: center; }
     .stats .num { font-size: 24px; font-weight: 700; color: var(--accent); }
-    .stats .label { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
+    .stats .label {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 13px;
+        color: var(--text-sub);
+        margin-top: 4px;
+    }
+    .stats .label .icon { width: 16px; height: 16px; }
     .nav { display: flex; gap: 10px; justify-content: center; }
     .nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         color: var(--text-sub);
         text-decoration: none;
         padding: 10px 20px;
         border-radius: 8px;
         font-weight: 500;
+        transition: all 0.2s;
     }
+    .nav a .icon { width: 16px; height: 16px; }
     .nav a:hover { color: var(--accent); background: var(--bg-hover); }
     .finish {
         display: none;
@@ -102,12 +119,12 @@
 {% block content %}
 {% if empty %}
     <div class="empty">
-        <h1>🔤 Пока нет глаголов</h1>
+        <h1><svg class="icon icon-lg"><use href="#icon-abc"></use></svg> Пока нет глаголов</h1>
         <p>Вернись в <a href="/study/irregular" style="color: var(--accent);">раздел глаголов</a>.</p>
     </div>
 {% else %}
     <div id="train-play">
-        <h1>🔤 Тренировка глаголов</h1>
+        <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-abc"></use></svg> Тренировка глаголов</h1>
         <div class="subtitle">Режим: {% if mode == 'past' %}Base → Past{% elif mode == 'pp' %}Base → Past Participle{% else %}Перемешанный{% endif %}</div>
 
         <div class="train-label" id="train-label">Загрузка...</div>
@@ -115,11 +132,11 @@
         <div class="stats">
             <div>
                 <div class="num" id="correct-count">0</div>
-                <div class="label">✅ Верно</div>
+                <div class="label"><svg class="icon"><use href="#icon-check"></use></svg> Верно</div>
             </div>
             <div>
                 <div class="num" id="wrong-count">0</div>
-                <div class="label">❌ Ошибок</div>
+                <div class="label"><svg class="icon"><use href="#icon-x"></use></svg> Ошибок</div>
             </div>
         </div>
 
@@ -133,8 +150,8 @@
         </div>
 
         <div class="nav">
-            <a href="/study/irregular/train?mode={{ mode }}">🔄 Заново</a>
-            <a href="/study/irregular">⬅️ К глаголам</a>
+            <a href="/study/irregular/train?mode={{ mode }}"><svg class="icon"><use href="#icon-refresh"></use></svg> Заново</a>
+            <a href="/study/irregular"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К глаголам</a>
         </div>
     </div>
 
@@ -142,8 +159,8 @@
         <div class="score" id="finish-score">0</div>
         <div class="label">Всего правильных</div>
         <div class="nav">
-            <a href="/study/irregular/train?mode={{ mode }}">🔄 Ещё раз</a>
-            <a href="/study/irregular">⬅️ К глаголам</a>
+            <a href="/study/irregular/train?mode={{ mode }}"><svg class="icon"><use href="#icon-refresh"></use></svg> Ещё раз</a>
+            <a href="/study/irregular"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К глаголам</a>
         </div>
     </div>
 {% endif %}
@@ -180,13 +197,13 @@
         .then(r => r.json())
         .then(data => {
             const result = document.getElementById("result");
-            result.style.display = "block";
+            result.style.display = "flex";
             if (data.correct) {
                 result.className = "result correct";
-                result.textContent = "✅ Верно!";
+                result.innerHTML = '<svg class="icon"><use href="#icon-check"></use></svg> Верно!';
             } else {
                 result.className = "result wrong";
-                result.textContent = "❌ Правильно: " + data.correct_answer;
+                result.innerHTML = '<svg class="icon"><use href="#icon-x"></use></svg> Правильно: ' + data.correct_answer;
             }
             document.getElementById("correct-count").textContent = data.score;
             document.getElementById("wrong-count").textContent = data.wrong;
