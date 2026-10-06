@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Переводчик — Flow & Word{% endblock %}
+{% block title %}Переводчик — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -10,6 +10,10 @@
         margin-bottom: 20px;
     }
     .direction button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         flex: 1;
         padding: 14px;
         border-radius: 10px;
@@ -22,6 +26,7 @@
         cursor: pointer;
         transition: all 0.2s;
     }
+    .direction button .icon { width: 18px; height: 18px; }
     .direction button.active {
         background: var(--accent);
         border-color: var(--accent);
@@ -67,12 +72,12 @@
 {% endblock %}
 
 {% block content %}
-<h1>🌐 Переводчик</h1>
+<h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-globe"></use></svg> Переводчик</h1>
 <div class="subtitle">Перевод слов и текстов RU ↔ EN</div>
 
 <div class="direction">
-    <button id="ru-en" class="active" onclick="setDirection('ru-en')">🇷🇺 RU → 🇬🇧 EN</button>
-    <button id="en-ru" onclick="setDirection('en-ru')">🇬🇧 EN → 🇷🇺 RU</button>
+    <button id="ru-en" class="active" onclick="setDirection('ru-en')">RU → EN</button>
+    <button id="en-ru" onclick="setDirection('en-ru')">EN → RU</button>
 </div>
 
 <textarea id="input" class="translator-textarea" placeholder="Введи текст..."></textarea>
