@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Профиль — Flow & Word{% endblock %}
+{% block title %}Профиль — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -32,10 +32,7 @@
         font-weight: 700;
         flex-shrink: 0;
     }
-    .profile-info {
-        flex: 1;
-        min-width: 200px;
-    }
+    .profile-info { flex: 1; min-width: 200px; }
     .profile-name {
         font-size: 26px;
         font-weight: 700;
@@ -54,7 +51,9 @@
     }
     .profile-upload input[type="file"] { display: none; }
     .profile-upload label {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         background: var(--accent);
         color: #fff;
         padding: 10px 20px;
@@ -62,8 +61,17 @@
         cursor: pointer;
         font-weight: 600;
         font-size: 14px;
+        transition: background 0.2s;
     }
     .profile-upload label:hover { background: var(--accent-dark); }
+    .profile-upload label .icon { width: 18px; height: 18px; }
+
+    .btn-with-icon {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .btn-with-icon .icon { width: 18px; height: 18px; }
 
     .stats-row {
         display: grid;
@@ -87,11 +95,13 @@
         font-size: 13px;
         color: var(--text-sub);
         margin-top: 4px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
     }
+    .stat-mini .label .icon { width: 16px; height: 16px; }
 
-    .section-block {
-        margin-bottom: 30px;
-    }
+    .section-block { margin-bottom: 30px; }
     .section-block-header {
         display: flex;
         justify-content: space-between;
@@ -102,12 +112,19 @@
         font-size: 20px;
         color: var(--text);
         margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
+    .section-block-header h2 .icon { width: 24px; height: 24px; }
     .section-block-header a {
         font-size: 14px;
         color: var(--accent);
         text-decoration: none;
         font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
     }
     .section-block-header a:hover { text-decoration: underline; }
 
@@ -163,19 +180,14 @@
         transition: transform 0.15s;
         cursor: pointer;
     }
-    .streak-cell.trained {
-        background: var(--accent);
-        color: #fff;
-    }
+    .streak-cell.trained { background: var(--accent); color: #fff; }
     .streak-cell.today {
         border: 2px solid var(--accent);
         box-shadow: 0 0 8px var(--accent-shadow);
         color: var(--accent);
         font-weight: 700;
     }
-    .streak-cell:hover {
-        transform: scale(1.15);
-    }
+    .streak-cell:hover { transform: scale(1.15); }
 
     /* АЧИВКИ */
     .ach-mini-grid {
@@ -217,7 +229,11 @@
         font-weight: 600;
         color: var(--text);
         margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
+    .goal-mini-title .icon { width: 18px; height: 18px; }
     .goal-mini-bar {
         height: 8px;
         background: var(--border);
@@ -255,13 +271,12 @@
         background: var(--accent);
         color: #fff;
     }
-    .settings-link .icon {
-        width: 20px;
-        height: 20px;
-    }
+    .settings-link .icon { width: 20px; height: 20px; }
 
     .logout-link {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         color: #f44336;
         text-decoration: none;
         font-size: 14px;
@@ -269,6 +284,33 @@
         font-weight: 600;
     }
     .logout-link:hover { text-decoration: underline; }
+    .logout-link .icon { width: 16px; height: 16px; }
+
+    .alert-error {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #ffebee;
+        color: #c62828;
+        padding: 12px 16px;
+        border-radius: 10px;
+        margin-top: 12px;
+        font-size: 14px;
+    }
+    .alert-error .icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+    .alert-success {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 12px 16px;
+        border-radius: 10px;
+        margin-top: 12px;
+        font-size: 14px;
+    }
+    .alert-success .icon { width: 20px; height: 20px; flex-shrink: 0; }
 </style>
 {% endblock %}
 
@@ -285,9 +327,9 @@
         <div class="profile-actions">
             <form method="POST" action="/profile/upload_avatar" enctype="multipart/form-data" class="profile-upload" style="display:inline;">
                 <input type="file" name="avatar" id="avatarInput" accept="image/*" onchange="this.form.submit()">
-                <label for="avatarInput">📷 Сменить аватар</label>
+                <label for="avatarInput"><svg class="icon"><use href="#icon-eye"></use></svg> Сменить аватар</label>
             </form>
-            <button type="button" class="btn-outline" onclick="document.getElementById('nameForm').style.display='block'; this.style.display='none';">✏️ Сменить имя</button>
+            <button type="button" class="btn-outline btn-with-icon" onclick="document.getElementById('nameForm').style.display='block'; this.style.display='none';"><svg class="icon"><use href="#icon-pencil"></use></svg> Сменить имя</button>
         </div>
         <form method="POST" action="/profile/change_username" id="nameForm" style="display: none; margin-top: 15px;">
             <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
@@ -299,13 +341,15 @@
         </form>
 
         {% if request.args.get('error') == 'name' %}
-        <div style="background: #ffebee; color: #c62828; padding: 12px 16px; border-radius: 10px; margin-top: 12px; font-size: 14px;">
-            ⚠️ Некорректное имя. Только буквы, цифры, пробел, дефис, подчёркивание. 2-30 символов.
+        <div class="alert-error">
+            <svg class="icon"><use href="#icon-alert"></use></svg>
+            Некорректное имя. Только буквы, цифры, пробел, дефис, подчёркивание. 2-30 символов.
         </div>
         {% endif %}
         {% if request.args.get('success') == 'name' %}
-        <div style="background: #e8f5e9; color: #2e7d32; padding: 12px 16px; border-radius: 10px; margin-top: 12px; font-size: 14px;">
-            ✅ Имя изменено!
+        <div class="alert-success">
+            <svg class="icon"><use href="#icon-check"></use></svg>
+            Имя изменено!
         </div>
         {% endif %}
     </div>
@@ -313,7 +357,7 @@
 
 <!-- ССЫЛКА НА НАСТРОЙКИ -->
 <a href="/settings" class="settings-link">
-    <svg class="icon"><use href="/static/icons.svg#icon-settings"></use></svg>
+    <svg class="icon"><use href="#icon-settings"></use></svg>
     Настройки (тема, звук, экспорт)
 </a>
 
@@ -321,26 +365,26 @@
 <div class="stats-row">
     <div class="stat-mini">
         <div class="num">{{ streak }}</div>
-        <div class="label">🔥 Стрик</div>
+        <div class="label"><svg class="icon"><use href="#icon-fire"></use></svg> Стрик</div>
     </div>
     <div class="stat-mini">
         <div class="num">{{ total_words }}</div>
-        <div class="label">📚 Слов</div>
+        <div class="label"><svg class="icon"><use href="#icon-book"></use></svg> Слов</div>
     </div>
     <div class="stat-mini">
         <div class="num">{{ total_phrases }}</div>
-        <div class="label">💬 Фраз</div>
+        <div class="label"><svg class="icon"><use href="#icon-chat"></use></svg> Фраз</div>
     </div>
     <div class="stat-mini">
         <div class="num">{{ achievements_unlocked }} / {{ achievements_total }}</div>
-        <div class="label">🏆 Ачивок</div>
+        <div class="label"><svg class="icon"><use href="#icon-trophy"></use></svg> Ачивок</div>
     </div>
 </div>
 
 <!-- РАДАР -->
 <div class="section-block">
     <div class="section-block-header">
-        <h2>🕸️ Радар скиллов</h2>
+        <h2><svg class="icon"><use href="#icon-radar"></use></svg> Радар скиллов</h2>
     </div>
     <div class="profile-radar-block">
         <canvas id="profileRadarCanvas" width="400" height="400"></canvas>
@@ -350,7 +394,7 @@
 <!-- КАЛЕНДАРЬ СТРИКА -->
 <div class="section-block">
     <div class="section-block-header">
-        <h2>📅 Календарь стрика</h2>
+        <h2><svg class="icon"><use href="#icon-calendar"></use></svg> Календарь стрика</h2>
         <span style="color: var(--text-sub); font-size: 13px;">Последние 28 дней</span>
     </div>
     <div class="streak-calendar">
@@ -369,7 +413,7 @@
 {% if recent_achievements %}
 <div class="section-block">
     <div class="section-block-header">
-        <h2>🏆 Последние достижения</h2>
+        <h2><svg class="icon"><use href="#icon-trophy"></use></svg> Последние достижения</h2>
         <a href="/achievements">Все →</a>
     </div>
     {% set icon_map = {
@@ -392,7 +436,7 @@
     <div class="ach-mini-grid">
         {% for a in recent_achievements %}
         <div class="ach-mini {{ a.tier }}">
-            <svg class="ach-mini-icon"><use href="/static/icons.svg#{{ icon_map.get(a.code, 'icon-sparkles') }}"></use></svg>
+            <svg class="ach-mini-icon"><use href="#{{ icon_map.get(a.code, 'icon-sparkles') }}"></use></svg>
             <div class="ach-mini-title">{{ a.title }}</div>
         </div>
         {% endfor %}
@@ -404,15 +448,15 @@
 {% if goals %}
 <div class="section-block">
     <div class="section-block-header">
-        <h2>🎯 Мои цели</h2>
+        <h2><svg class="icon"><use href="#icon-target"></use></svg> Мои цели</h2>
         <a href="/goals">Все →</a>
     </div>
     <div class="goal-mini-list">
         {% for g in goals %}
         <div class="goal-mini">
             <div class="goal-mini-title">
-                {% if g.goal_type == "words" %}📚 Выучить {{ g.target }} слов
-                {% elif g.goal_type == "streak" %}🔥 Стрик {{ g.target }} дней{% endif %}
+                {% if g.goal_type == "words" %}<svg class="icon"><use href="#icon-book"></use></svg> Выучить {{ g.target }} слов
+                {% elif g.goal_type == "streak" %}<svg class="icon"><use href="#icon-fire"></use></svg> Стрик {{ g.target }} дней{% endif %}
             </div>
             <div class="goal-mini-bar">
                 <div class="goal-mini-fill" style="width: {{ g.percent }}%"></div>
@@ -424,7 +468,7 @@
 </div>
 {% endif %}
 
-<a href="/logout" class="logout-link">Выйти из аккаунта</a>
+<a href="/logout" class="logout-link"><svg class="icon"><use href="#icon-arrow-left"></use></svg> Выйти из аккаунта</a>
 {% endblock %}
 
 {% block scripts %}
@@ -437,7 +481,7 @@
     const cy = canvas.height / 2;
     const radius = 140;
 
-    const labels = ["📚 Слова", "📖 Чтение", "🎧 Слушание", "🗣️ Речь", "✍️ Письмо"];
+    const labels = ["Слова", "Чтение", "Слушание", "Речь", "Письмо"];
     const values = [
         {{ radar.words }} / 100,
         {{ radar.reading }} / 100,
@@ -448,11 +492,9 @@
     const n = labels.length;
     const angleStep = (Math.PI * 2) / n;
 
-    // Жёсткие цвета — не зависят от темы
-    const COLOR_LINE = "#90a4ae";      // сетка — серо-голубая
-    const COLOR_TEXT = "#37474f";      // подписи — тёмно-серые
-    const COLOR_ACCENT = "#2196f3";    // данные — синие
-    const COLOR_ACCENT_2 = "#4fc3f7";  // данные — светло-синие
+    const COLOR_LINE = "#90a4ae";
+    const COLOR_TEXT = "#37474f";
+    const COLOR_ACCENT = "#2196f3";
 
     // Сетка
     ctx.strokeStyle = COLOR_LINE;
@@ -518,7 +560,7 @@
         ctx.stroke();
     }
 
-    // Подписи — с белой обводкой, чтобы читались на любом фоне
+    // Подписи
     ctx.font = "bold 14px Rubik, sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
