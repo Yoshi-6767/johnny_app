@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Цели — Flow & Word{% endblock %}
+{% block title %}Цели — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -12,6 +12,19 @@
         gap: 15px;
         margin-bottom: 25px;
     }
+    .goals-header h1 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .goals-header h1 .icon { width: 32px; height: 32px; color: var(--accent); }
+    .goals-header .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .goals-header .btn-outline .icon { width: 18px; height: 18px; }
+
     .goal-form {
         background: var(--bg-card);
         border: 1px solid var(--border);
@@ -20,10 +33,14 @@
         margin-bottom: 30px;
     }
     .goal-form h3 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-size: 18px;
         color: var(--text);
         margin-bottom: 20px;
     }
+    .goal-form h3 .icon { width: 20px; height: 20px; }
     .goal-form-row {
         display: flex;
         gap: 12px;
@@ -55,6 +72,7 @@
     }
     .goal-form-field select:focus,
     .goal-form-field input:focus { border-color: var(--accent); }
+
     .goal-list {
         display: flex;
         flex-direction: column;
@@ -79,18 +97,27 @@
         gap: 10px;
     }
     .goal-card-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-size: 17px;
         font-weight: 700;
         color: var(--text);
     }
-    .goal-card-title .emoji {
-        font-size: 22px;
-        margin-right: 8px;
-    }
+    .goal-card-title .icon { width: 22px; height: 22px; }
     .goal-card-deadline {
         font-size: 13px;
         color: var(--text-sub);
     }
+    .goal-card-deadline.done {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: #4caf50;
+        font-weight: 600;
+    }
+    .goal-card-deadline.done .icon { width: 16px; height: 16px; }
+
     .goal-card-progress-bar {
         height: 12px;
         background: var(--border);
@@ -115,30 +142,33 @@
         align-items: center;
     }
     .goal-card-delete {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         background: transparent;
         border: none;
         color: #f44336;
         cursor: pointer;
         font-size: 14px;
         font-weight: 600;
+        transition: all 0.2s;
     }
-    .goal-card-delete:hover {
-        text-decoration: underline;
-    }
+    .goal-card-delete .icon { width: 16px; height: 16px; }
+    .goal-card-delete:hover { text-decoration: underline; }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="goals-header">
     <div>
-        <h1>🎯 Мои цели</h1>
+        <h1><svg class="icon"><use href="#icon-target"></use></svg> Мои цели</h1>
         <div class="subtitle">Ставь цель — и добивайся</div>
     </div>
-    <a href="/achievements" class="btn-outline">🏆 Достижения</a>
+    <a href="/achievements" class="btn-outline"><svg class="icon"><use href="#icon-trophy"></use></svg> Достижения</a>
 </div>
 
 <div class="goal-form">
-    <h3>➕ Новая цель</h3>
+    <h3><svg class="icon"><use href="#icon-plus"></use></svg> Новая цель</h3>
     <div class="goal-form-row">
         <div class="goal-form-field">
             <label>Что</label>
@@ -166,14 +196,14 @@
         <div class="goal-card-head">
             <div class="goal-card-title">
                 {% if g.goal_type == "words" %}
-                    <span class="emoji">📚</span>Выучить {{ g.target }} слов
+                    <svg class="icon"><use href="#icon-book"></use></svg>Выучить {{ g.target }} слов
                 {% elif g.goal_type == "streak" %}
-                    <span class="emoji">🔥</span>Стрик {{ g.target }} дней
+                    <svg class="icon"><use href="#icon-fire"></use></svg>Стрик {{ g.target }} дней
                 {% endif %}
             </div>
-            <div class="goal-card-deadline">
+            <div class="goal-card-deadline {% if g.is_completed %}done{% endif %}">
                 {% if g.is_completed %}
-                    ✅ Достигнуто!
+                    <svg class="icon"><use href="#icon-check"></use></svg> Достигнуто!
                 {% elif g.deadline %}
                     До {{ g.deadline }}
                 {% endif %}
@@ -184,7 +214,7 @@
         </div>
         <div class="goal-card-footer">
             <span>{{ g.current }} / {{ g.target }} ({{ g.percent }}%)</span>
-            <button class="goal-card-delete" onclick="deleteGoal({{ g.id }})">Удалить</button>
+            <button class="goal-card-delete" onclick="deleteGoal({{ g.id }})"><svg class="icon"><use href="#icon-trash"></use></svg> Удалить</button>
         </div>
     </div>
     {% endfor %}
