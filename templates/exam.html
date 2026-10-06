@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Экзамен — Flow & Word{% endblock %}
+{% block title %}Экзамен — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -57,11 +57,11 @@
 {% block content %}
 {% if empty %}
     <div class="empty">
-        <h1>📝 Пока нет тем</h1>
+        <h1><svg class="icon icon-lg"><use href="#icon-note"></use></svg> Пока нет тем</h1>
         <p>Добавь топики в <a href="/topics" style="color: var(--accent);">разделе топиков</a>.</p>
     </div>
 {% else %}
-    <h1>🎓 Экзамен</h1>
+    <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-graduation"></use></svg> Экзамен</h1>
     <div class="subtitle">Случайная тема. Без подсказок. Таймер 15 минут.</div>
 
     <div class="exam-header">
@@ -75,7 +75,7 @@
     <div class="word-counter" id="counter">0 слов</div>
 
     <button class="btn" onclick="saveExam()" style="width: 100%;">Сохранить</button>
-    <div class="status" id="status">✅ Сохранено! Переход к истории...</div>
+    <div class="status" id="status"><svg class="icon icon-sm" style="vertical-align: -0.2em; margin-right: 4px;"><use href="#icon-check"></use></svg> Сохранено! Переход к истории...</div>
 {% endif %}
 {% endblock %}
 
