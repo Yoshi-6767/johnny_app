@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ dialogue.title }} — Flow & Word{% endblock %}
+{% block title %}{{ dialogue.title }} — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -31,11 +31,15 @@
         margin-bottom: 25px;
     }
     .role-picker-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-size: 15px;
         font-weight: 600;
         color: var(--text);
         margin-bottom: 15px;
     }
+    .role-picker-title .icon { width: 20px; height: 20px; }
     .role-buttons {
         display: flex;
         gap: 12px;
@@ -130,15 +134,19 @@
         gap: 10px;
     }
     .line-name .speak-line {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
         background: var(--bg-subtle);
         color: var(--accent);
         border: none;
-        padding: 3px 9px;
         border-radius: 6px;
-        font-size: 13px;
         cursor: pointer;
         transition: all 0.2s;
     }
+    .line-name .speak-line .icon { width: 16px; height: 16px; }
     .line-name .speak-line:hover {
         background: var(--accent);
         color: #fff;
@@ -164,6 +172,10 @@
         margin-bottom: 25px;
     }
     .dialogue-actions button, .dialogue-actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         flex: 1;
         min-width: 180px;
         padding: 16px 22px;
@@ -177,6 +189,7 @@
         transition: all 0.2s;
         border: none;
     }
+    .dialogue-actions button .icon, .dialogue-actions a .icon { width: 18px; height: 18px; }
     .btn-play-all {
         background: var(--accent);
         color: #fff;
@@ -207,10 +220,14 @@
         padding: 22px 25px;
     }
     .vocab-box h3 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-size: 16px;
         color: var(--text);
         margin-bottom: 15px;
     }
+    .vocab-box h3 .icon { width: 20px; height: 20px; }
     .vocab-chips {
         display: flex;
         flex-wrap: wrap;
@@ -234,6 +251,10 @@
     }
 
     .speaking-now {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         text-align: center;
         color: var(--accent);
         font-weight: 600;
@@ -241,6 +262,7 @@
         margin: 15px 0;
         min-height: 22px;
     }
+    .speaking-now .icon { width: 18px; height: 18px; }
 </style>
 {% endblock %}
 
@@ -252,7 +274,7 @@
 </div>
 
 <div class="role-picker">
-    <div class="role-picker-title">🎭 Выбери свою роль:</div>
+    <div class="role-picker-title"><svg class="icon"><use href="#icon-theater"></use></svg> Выбери свою роль:</div>
     <div class="role-buttons">
         <button class="role-btn" data-role="a" onclick="setRole('a')">
             <span class="role-label">Role A</span>
@@ -276,7 +298,7 @@
         <div class="line-content">
             <div class="line-name">
                 <span>{% if line.who == 'a' %}{{ dialogue.characters.a }}{% else %}{{ dialogue.characters.b }}{% endif %}</span>
-                <button class="speak-line" onclick="speakLine('{{ line.text|replace("'", "\\'") }}')">🔊</button>
+                <button class="speak-line" onclick="speakLine('{{ line.text|replace("'", "\\'") }}')" title="Послушать"><svg class="icon"><use href="#icon-volume"></use></svg></button>
             </div>
             <div class="line-text">{{ line.text }}</div>
             <div class="line-rus">{{ line.rus }}</div>
@@ -286,13 +308,13 @@
 </div>
 
 <div class="dialogue-actions">
-    <button class="btn-play-all" id="btnPlayAll" onclick="playAll()">🔊 Прослушать весь диалог</button>
-    <button class="btn-stop" id="btnStop" onclick="stopAll()" style="display: none;">⏹️ Остановить</button>
-    <a href="/dialogues" class="btn-back">⬅️ К диалогам</a>
+    <button class="btn-play-all" id="btnPlayAll" onclick="playAll()"><svg class="icon"><use href="#icon-volume"></use></svg> Прослушать весь диалог</button>
+    <button class="btn-stop" id="btnStop" onclick="stopAll()" style="display: none;"><svg class="icon"><use href="#icon-stop"></use></svg> Остановить</button>
+    <a href="/dialogues" class="btn-back"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К диалогам</a>
 </div>
 
 <div class="vocab-box">
-    <h3>💡 Слова и фразы из диалога (клик → послушать)</h3>
+    <h3><svg class="icon"><use href="#icon-lightbulb"></use></svg> Слова и фразы из диалога (клик → послушать)</h3>
     <div class="vocab-chips" id="vocabChips"></div>
 </div>
 {% endblock %}
@@ -309,13 +331,12 @@
     let playQueue = [];
     let isPlaying = false;
 
-    // ═══ ВЫБОР РОЛИ ═══
+    // ВЫБОР РОЛИ
     function setRole(role) {
         currentRole = role;
         document.querySelectorAll(".role-btn").forEach(btn => {
             btn.classList.toggle("active", btn.dataset.role === role);
         });
-        // Подсвечиваем свои реплики
         document.querySelectorAll(".line").forEach(line => {
             const who = line.dataset.who;
             line.classList.remove("active-role", "dimmed");
@@ -326,15 +347,13 @@
             }
         });
         const roleName = role === "a" ? "{{ dialogue.characters.a }}" : "{{ dialogue.characters.b }}";
-        document.getElementById("speakingNow").textContent = "🎭 Ты играешь роль: " + roleName;
+        document.getElementById("speakingNow").innerHTML = '<svg class="icon"><use href="#icon-theater"></use></svg> Ты играешь роль: ' + roleName;
     }
 
-    // ═══ ОЗВУЧКА ОДНОЙ РЕПЛИКИ ═══
     function speakLine(text) {
         if (window.speak) window.speak(text);
     }
 
-    // ═══ ОЗВУЧКА ВСЕГО ДИАЛОГА ═══
     function playAll() {
         if (!window.speak || !window.FW_SPEECH_SUPPORTED) {
             alert("Озвучка не поддерживается в этом браузере. Попробуй Chrome.");
@@ -343,7 +362,7 @@
         if (isPlaying) return;
         isPlaying = true;
         document.getElementById("btnPlayAll").style.display = "none";
-        document.getElementById("btnStop").style.display = "inline-block";
+        document.getElementById("btnStop").style.display = "inline-flex";
 
         let i = 0;
         const speakNext = () => {
@@ -353,9 +372,8 @@
             }
             const line = dialogueLines[i];
             const name = line.who === "a" ? "{{ dialogue.characters.a }}" : "{{ dialogue.characters.b }}";
-            document.getElementById("speakingNow").textContent = "🔊 Говорит: " + name;
+            document.getElementById("speakingNow").innerHTML = '<svg class="icon"><use href="#icon-volume"></use></svg> Говорит: ' + name;
 
-            // Подсвечиваем текущую реплику
             document.querySelectorAll(".line").forEach(l => l.style.transform = "");
             const currentLine = document.querySelector('.line[data-text="' + line.text.replace(/"/g, '\\"') + '"]');
             if (currentLine) currentLine.style.transform = "scale(1.03)";
@@ -372,7 +390,7 @@
 
             utter.onend = () => {
                 i++;
-                setTimeout(speakNext, 600);  // пауза между репликами
+                setTimeout(speakNext, 600);
             };
             utter.onerror = () => {
                 stopAll();
@@ -386,13 +404,13 @@
     function stopAll() {
         isPlaying = false;
         if (window.speechSynthesis) window.speechSynthesis.cancel();
-        document.getElementById("btnPlayAll").style.display = "inline-block";
+        document.getElementById("btnPlayAll").style.display = "inline-flex";
         document.getElementById("btnStop").style.display = "none";
-        document.getElementById("speakingNow").textContent = currentRole ? "🎭 Ты играешь роль: " + (currentRole === "a" ? "{{ dialogue.characters.a }}" : "{{ dialogue.characters.b }}") : "";
+        document.getElementById("speakingNow").innerHTML = currentRole ? '<svg class="icon"><use href="#icon-theater"></use></svg> Ты играешь роль: ' + (currentRole === "a" ? "{{ dialogue.characters.a }}" : "{{ dialogue.characters.b }}") : "";
         document.querySelectorAll(".line").forEach(l => l.style.transform = "");
     }
 
-    // ═══ СЛОВА-ПОМОЩНИКИ (уникальные слова из диалога) ═══
+    // СЛОВА-ПОМОЩНИКИ
     (function buildVocab() {
         const allText = dialogueLines.map(l => l.text).join(" ");
         const words = allText
