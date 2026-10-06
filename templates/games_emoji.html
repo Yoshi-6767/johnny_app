@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Эмодзи-квиз — Flow & Word{% endblock %}
+{% block title %}Эмодзи-квиз — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -91,10 +91,14 @@
         border-radius: 12px;
     }
     .emoji-errors h3 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         color: var(--text);
         font-size: 16px;
         margin-bottom: 15px;
     }
+    .emoji-errors h3 .icon { width: 20px; height: 20px; }
     .emoji-error-item {
         padding: 10px 0;
         border-bottom: 1px solid var(--border);
@@ -111,13 +115,18 @@
         margin-top: 20px;
     }
     .emoji-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         color: var(--text-sub);
         text-decoration: none;
         padding: 12px 25px;
         border-radius: 8px;
         font-weight: 500;
         border: 1px solid var(--border);
+        transition: all 0.2s;
     }
+    .emoji-nav a .icon { width: 16px; height: 16px; }
     .emoji-nav a:hover { color: var(--accent); border-color: var(--accent); }
 </style>
 {% endblock %}
@@ -125,11 +134,11 @@
 {% block content %}
 {% if empty %}
     <div class="empty">
-        <h1>🍎 Эмодзи-квиз</h1>
+        <h1><svg class="icon icon-lg"><use href="#icon-emoji-quiz"></use></svg> Эмодзи-квиз</h1>
         <p>Что-то пошло не так. Попробуй позже.</p>
     </div>
 {% else %}
-    <h1 style="text-align: center;">🍎 Эмодзи-квиз</h1>
+    <h1 style="text-align: center;"><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-emoji-quiz"></use></svg> Эмодзи-квиз</h1>
     <div class="subtitle" style="text-align: center;">Угадай английское слово по эмодзи</div>
 
     <div id="emoji-play">
@@ -153,13 +162,13 @@
         <div class="label">из 10</div>
 
         <div class="emoji-errors" id="errors-box" style="display: none;">
-            <h3>❌ Твои ошибки:</h3>
+            <h3><svg class="icon"><use href="#icon-x"></use></svg> Твои ошибки:</h3>
             <div id="errors-list"></div>
         </div>
 
         <div class="emoji-nav">
-            <a href="/games/emoji">🔄 Ещё раз</a>
-            <a href="/games">⬅️ К играм</a>
+            <a href="/games/emoji"><svg class="icon"><use href="#icon-refresh"></use></svg> Ещё раз</a>
+            <a href="/games"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К играм</a>
         </div>
     </div>
 {% endif %}
@@ -186,7 +195,6 @@
             document.getElementById("feedback").textContent = "";
             answered = false;
 
-            // Анимация появления
             const el = document.getElementById("emoji");
             el.style.animation = "none";
             setTimeout(() => el.style.animation = "pop 0.5s ease", 10);
@@ -209,10 +217,10 @@
             const fb = document.getElementById("feedback");
             if (data.correct) {
                 fb.className = "emoji-feedback correct";
-                fb.textContent = "✅ Верно! " + data.correct_answer;
+                fb.textContent = "Верно! " + data.correct_answer;
             } else {
                 fb.className = "emoji-feedback wrong";
-                fb.textContent = "❌ Правильно: " + data.correct_answer;
+                fb.textContent = "Правильно: " + data.correct_answer;
             }
             setTimeout(() => loadNext(), 1200);
         });
