@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Тренировка слов — Flow & Word{% endblock %}
+{% block title %}Тренировка слов — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -11,6 +11,10 @@
         flex-wrap: wrap;
     }
     .mode-switch a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
         flex: 1;
         min-width: 110px;
         text-align: center;
@@ -24,6 +28,7 @@
         color: var(--text-sub);
         transition: all 0.2s;
     }
+    .mode-switch a .icon { width: 16px; height: 16px; }
     .mode-switch a.active {
         background: var(--accent);
         border-color: var(--accent);
@@ -33,6 +38,7 @@
         border-color: var(--accent);
         color: var(--accent);
     }
+
     .weak-banner {
         background: var(--bg-subtle);
         border-left: 4px solid var(--accent);
@@ -41,15 +47,20 @@
         margin-bottom: 20px;
     }
     .weak-banner-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-weight: 700;
         color: var(--accent);
         font-size: 15px;
     }
+    .weak-banner-title .icon { width: 18px; height: 18px; }
     .weak-banner-desc {
         font-size: 13px;
         color: var(--text-sub);
         margin-top: 4px;
     }
+
     .word-wrap {
         position: relative;
         margin-bottom: 25px;
@@ -74,11 +85,16 @@
         transform: scale(1.01);
     }
     .word-hint {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
         font-size: 13px;
         color: var(--text-sub);
-        text-align: center;
         margin-top: 6px;
     }
+    .word-hint .icon { width: 16px; height: 16px; }
+
     .listening-box {
         background: var(--bg-card);
         border: 1px solid var(--border);
@@ -89,16 +105,23 @@
         margin-bottom: 25px;
     }
     .listening-icon {
-        font-size: 72px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        height: 100px;
         margin-bottom: 15px;
-        display: block;
     }
+    .listening-icon .icon { width: 80px; height: 80px; }
     .listening-hint {
         color: var(--text-sub);
         font-size: 14px;
         margin-bottom: 20px;
     }
     .listening-replay {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         background: var(--accent);
         color: #fff;
         border: none;
@@ -110,6 +133,7 @@
         cursor: pointer;
         transition: all 0.2s;
     }
+    .listening-replay .icon { width: 20px; height: 20px; }
     .listening-replay:hover {
         background: var(--accent-dark);
         transform: scale(1.05);
@@ -132,30 +156,36 @@
         margin-bottom: 10px;
     }
     .speak-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         color: var(--text-sub);
         font-size: 14px;
         margin-bottom: 25px;
     }
+    .speak-label .icon { width: 18px; height: 18px; }
     .mic-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         width: 100px;
         height: 100px;
         border-radius: 50%;
         background: var(--accent);
         color: #fff;
         border: none;
-        font-size: 44px;
         cursor: pointer;
         transition: all 0.2s;
         box-shadow: 0 8px 30px var(--accent-shadow);
         margin-bottom: 15px;
     }
+    .mic-btn .icon { width: 44px; height: 44px; }
     .mic-btn:hover {
         background: var(--accent-dark);
         transform: scale(1.05);
     }
-    .mic-btn:active {
-        transform: scale(0.95);
-    }
+    .mic-btn:active { transform: scale(0.95); }
     .mic-btn.recording {
         background: #f44336;
         animation: pulse-red 1s infinite;
@@ -170,10 +200,11 @@
         min-height: 24px;
         margin-top: 15px;
     }
-    .speak-result strong {
-        color: var(--accent);
-    }
+    .speak-result strong { color: var(--accent); }
     .speak-listen {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         background: transparent;
         color: var(--accent);
         border: 2px solid var(--accent);
@@ -186,10 +217,8 @@
         margin-top: 15px;
         transition: all 0.2s;
     }
-    .speak-listen:hover {
-        background: var(--accent);
-        color: #fff;
-    }
+    .speak-listen .icon { width: 18px; height: 18px; }
+    .speak-listen:hover { background: var(--accent); color: #fff; }
 
     .train-form {
         display: flex;
@@ -208,13 +237,18 @@
         outline: none;
     }
     .train-form input:focus { border-color: var(--accent); }
+
     .result {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         padding: 16px 20px;
         border-radius: 10px;
         margin-bottom: 20px;
         font-size: 16px;
         display: none;
     }
+    .result .icon { width: 20px; height: 20px; flex-shrink: 0; }
     .result.correct {
         background: #e8f5e9;
         border-left: 4px solid #4caf50;
@@ -230,6 +264,7 @@
         border-left: 4px solid #f44336;
         color: #c62828;
     }
+
     .stats {
         display: flex;
         justify-content: space-around;
@@ -241,32 +276,53 @@
     }
     .stats div { text-align: center; }
     .stats .num { font-size: 24px; font-weight: 700; color: var(--accent); }
-    .stats .label { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
+    .stats .label {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 13px;
+        color: var(--text-sub);
+        margin-top: 4px;
+    }
+    .stats .label .icon { width: 16px; height: 16px; }
+
     .train-nav { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
     .train-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         color: var(--text-sub);
         text-decoration: none;
         padding: 10px 20px;
         border-radius: 8px;
         font-weight: 500;
+        transition: all 0.2s;
     }
+    .train-nav a .icon { width: 16px; height: 16px; }
     .train-nav a:hover { color: var(--accent); background: var(--bg-hover); }
 
-    /* ⬇⬇⬇ НОВОЕ — подсказка ⬇⬇⬇ */
     .btn-hint {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
         background: #ffc107;
         color: #fff;
         border: none;
-        padding: 16px 20px;
         border-radius: 10px;
-        font-size: 20px;
         cursor: pointer;
         transition: all 0.2s;
         flex-shrink: 0;
     }
+    .btn-hint .icon { width: 24px; height: 24px; }
     .btn-hint:hover { background: #ffb300; transform: scale(1.05); }
     .btn-hint:active { transform: scale(0.95); }
+
     .hint-box {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
         background: #fff8e1;
         border-left: 4px solid #ffc107;
         color: #f57c00;
@@ -276,78 +332,79 @@
         font-size: 15px;
         font-weight: 600;
     }
+    .hint-box .icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
 </style>
 {% endblock %}
 
 {% block content %}
 {% if empty %}
     <div class="empty">
-        <h1>📚 Пока нет слов</h1>
+        <h1><svg class="icon icon-lg"><use href="#icon-book"></use></svg> Пока нет слов</h1>
         {% if weak_mode %}
-        <p>Слабых слов нет — ты молодец! 🎉</p>
+        <p>Слабых слов нет — ты молодец!</p>
         <p style="margin-top: 10px;"><a href="/train?reset=1" style="color: var(--accent);">Тренировать все слова →</a></p>
         {% else %}
         <p>Добавь слова в <a href="/sections" style="color: var(--accent);">категориях</a>, чтобы тренироваться.</p>
-        {% if section %}<p style="margin-top: 10px; font-size: 14px;">В этой категории все слова выучены — снимай ✅, чтобы повторить.</p>{% endif %}
+        {% if section %}<p style="margin-top: 10px; font-size: 14px;">В этой категории все слова выучены — снимай галочку, чтобы повторить.</p>{% endif %}
         {% endif %}
     </div>
 {% else %}
     {% if weak_mode %}
     <div class="weak-banner">
-        <div class="weak-banner-title">🎯 Тренировка слабых слов</div>
+        <div class="weak-banner-title"><svg class="icon"><use href="#icon-target"></use></svg> Тренировка слабых слов</div>
         <div class="weak-banner-desc">Слова, в которых ты чаще всего ошибаешься</div>
     </div>
     {% endif %}
 
-    <h1>🔥 Тренировка слов</h1>
+    <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-fire"></use></svg> Тренировка слов</h1>
 
     <div class="mode-switch">
         <a href="/train?reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}"
-           class="{% if not reverse and mode == 'normal' %}active{% endif %}">🇬🇧 EN → 🇷🇺 RU</a>
+           class="{% if not reverse and mode == 'normal' %}active{% endif %}">EN → RU</a>
         <a href="/train?reverse=1&reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}"
-           class="{% if reverse and mode == 'normal' %}active{% endif %}">🇷🇺 RU → 🇬🇧 EN</a>
+           class="{% if reverse and mode == 'normal' %}active{% endif %}">RU → EN</a>
         <a href="/train?mode=listening&reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}"
-           class="{% if mode == 'listening' %}active{% endif %}">🎧 Слушай</a>
+           class="{% if mode == 'listening' %}active{% endif %}"><svg class="icon"><use href="#icon-headphones"></use></svg> Слушай</a>
         <a href="/train?mode=speak&reset=1{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}"
-           class="{% if mode == 'speak' %}active{% endif %}">🎤 Говори</a>
+           class="{% if mode == 'speak' %}active{% endif %}"><svg class="icon"><use href="#icon-mic"></use></svg> Говори</a>
     </div>
 
     <div class="stats">
         <div>
             <div class="num" id="correct-count">{{ correct_count }}</div>
-            <div class="label">✅ Верно</div>
+            <div class="label"><svg class="icon"><use href="#icon-check"></use></svg> Верно</div>
         </div>
         <div>
             <div class="num" id="wrong-count">{{ wrong_count }}</div>
-            <div class="label">❌ Ошибок</div>
+            <div class="label"><svg class="icon"><use href="#icon-x"></use></svg> Ошибок</div>
         </div>
     </div>
 
     {% if mode == "speak" %}
         <div class="speak-box">
             <div class="speak-word">{{ word }}</div>
-            <div class="speak-label">🎤 Скажи это по-английски</div>
-            <button class="mic-btn" id="micBtn" onclick="startRecognition()">🎤</button>
+            <div class="speak-label"><svg class="icon"><use href="#icon-mic"></use></svg> Скажи это по-английски</div>
+            <button class="mic-btn" id="micBtn" onclick="startRecognition()"><svg class="icon"><use href="#icon-mic"></use></svg></button>
             <div class="speak-result" id="speakResult">Нажми на микрофон и проговори слово</div>
             <div>
-                <button class="speak-listen" onclick="listenTarget()">🔊 Послушать эталон</button>
+                <button class="speak-listen" onclick="listenTarget()"><svg class="icon"><use href="#icon-volume"></use></svg> Послушать эталон</button>
             </div>
         </div>
         <div class="result" id="result"></div>
     {% elif mode == "listening" %}
         <div class="listening-box">
-            <span class="listening-icon">🎧</span>
+            <span class="listening-icon"><svg class="icon"><use href="#icon-headphones"></use></svg></span>
             <div class="listening-hint">Послушай слово и напиши его по-английски</div>
-            <button class="listening-replay" onclick="replayWord()">🔊 Повторить</button>
+            <button class="listening-replay" onclick="replayWord()"><svg class="icon"><use href="#icon-volume"></use></svg> Повторить</button>
         </div>
         <div class="result" id="result"></div>
         {% if hint %}
-        <div class="hint-box" id="hintBox" style="display: none;">💡 {{ hint }}</div>
+        <div class="hint-box" id="hintBox" style="display: none;"><svg class="icon"><use href="#icon-lightbulb"></use></svg> {{ hint }}</div>
         {% endif %}
         <div class="train-form">
             <input id="answer" placeholder="Напиши, что услышал..." autofocus autocomplete="off">
             {% if hint %}
-            <button class="btn-hint" type="button" onclick="toggleHint()" title="Подсказка">💡</button>
+            <button class="btn-hint" type="button" onclick="toggleHint()" title="Подсказка"><svg class="icon"><use href="#icon-lightbulb"></use></svg></button>
             {% endif %}
             <button class="btn" onclick="checkAnswer()">Проверить</button>
         </div>
@@ -356,28 +413,28 @@
             <div class="word speakable" onclick="speakCurrentWord()" title="Нажми, чтобы послушать">
                 {{ word }}
             </div>
-            <div class="word-hint">🔊 нажми на слово, чтобы услышать</div>
+            <div class="word-hint"><svg class="icon"><use href="#icon-volume"></use></svg> нажми на слово, чтобы услышать</div>
         </div>
         <div class="result" id="result"></div>
         {% if hint %}
-        <div class="hint-box" id="hintBox" style="display: none;">💡 {{ hint }}</div>
+        <div class="hint-box" id="hintBox" style="display: none;"><svg class="icon"><use href="#icon-lightbulb"></use></svg> {{ hint }}</div>
         {% endif %}
         <div class="train-form">
             <input id="answer" placeholder="Введи перевод..." autofocus autocomplete="off">
             {% if hint %}
-            <button class="btn-hint" type="button" onclick="toggleHint()" title="Подсказка">💡</button>
+            <button class="btn-hint" type="button" onclick="toggleHint()" title="Подсказка"><svg class="icon"><use href="#icon-lightbulb"></use></svg></button>
             {% endif %}
             <button class="btn" onclick="checkAnswer()">Проверить</button>
         </div>
     {% endif %}
 
     <div class="train-nav">
-        <a href="/train?{% if mode != 'normal' %}mode={{ mode }}&{% endif %}reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}">🔄 Следующее</a>
+        <a href="/train?{% if mode != 'normal' %}mode={{ mode }}&{% endif %}reverse={{ '1' if reverse else '0' }}{% if section %}&section={{ section }}{% endif %}{% if weak_mode %}&weak=1{% endif %}"><svg class="icon"><use href="#icon-refresh"></use></svg> Следующее</a>
         {% if weak_mode %}
-        <a href="/">⬅️ На главную</a>
+        <a href="/"><svg class="icon"><use href="#icon-arrow-left"></use></svg> На главную</a>
         {% else %}
-        <a href="/sections{% if section %}/{{ section }}{% endif %}">⬅️ К категории</a>
-        <a href="/sections">📚 Все категории</a>
+        <a href="/sections{% if section %}/{{ section }}{% endif %}"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К категории</a>
+        <a href="/sections"><svg class="icon"><use href="#icon-book"></use></svg> Все категории</a>
         {% endif %}
     </div>
 {% endif %}
@@ -392,7 +449,6 @@
     const SESSION_WORD = "{{ session.get('current_word', '') }}";
     const TARGET_ENG = "{{ session.get('current_word', '') }}";
 
-    // Автоозвучка в listening при загрузке
     window.addEventListener('DOMContentLoaded', function() {
         if (LISTENING_MODE && SESSION_WORD && window.speak) {
             setTimeout(() => window.speak(SESSION_WORD), 300);
@@ -417,24 +473,23 @@
         }
     }
 
-    // ⬇⬇⬇ НОВОЕ — показать/скрыть подсказку ⬇⬇⬇
     function toggleHint() {
         const box = document.getElementById("hintBox");
         if (!box) return;
-        box.style.display = box.style.display === "none" ? "block" : "none";
+        box.style.display = box.style.display === "none" ? "flex" : "none";
     }
 
-    // ═══ SPEAK MODE ═══
+    // SPEAK MODE
     function startRecognition() {
         if (!window.FW_RECOGNITION_SUPPORTED) {
-            document.getElementById("speakResult").innerHTML = "❌ Браузер не поддерживает микрофон. Попробуй Chrome.";
+            document.getElementById("speakResult").innerHTML = "Браузер не поддерживает микрофон. Попробуй Chrome.";
             return;
         }
 
         const micBtn = document.getElementById("micBtn");
         const result = document.getElementById("speakResult");
         micBtn.classList.add("recording");
-        result.textContent = "🎧 Слушаю...";
+        result.textContent = "Слушаю...";
 
         window.recognizeSpeech(
             function(recognized, alternatives) {
@@ -445,11 +500,11 @@
             function(error) {
                 micBtn.classList.remove("recording");
                 if (error === "not-allowed" || error === "service-not-allowed") {
-                    result.textContent = "❌ Доступ к микрофону запрещён. Разреши в браузере.";
+                    result.textContent = "Доступ к микрофону запрещён. Разреши в браузере.";
                 } else if (error === "no-speech") {
-                    result.textContent = "🔇 Не расслышал. Попробуй ещё раз.";
+                    result.textContent = "Не расслышал. Попробуй ещё раз.";
                 } else {
-                    result.textContent = "❌ Ошибка: " + error;
+                    result.textContent = "Ошибка: " + error;
                 }
             }
         );
@@ -464,15 +519,15 @@
         .then(r => r.json())
         .then(data => {
             const resultDiv = document.getElementById("result");
-            resultDiv.style.display = "block";
+            resultDiv.style.display = "flex";
 
             if (data.status === "correct") {
                 if (data.match === "perfect") {
                     resultDiv.className = "result correct";
-                    resultDiv.textContent = "✅ Идеально! " + data.correct_answer;
+                    resultDiv.innerHTML = '<svg class="icon"><use href="#icon-check"></use></svg> Идеально! ' + data.correct_answer;
                 } else {
                     resultDiv.className = "result close";
-                    resultDiv.textContent = "🟡 Почти! Правильно: " + data.correct_answer;
+                    resultDiv.innerHTML = '<svg class="icon"><use href="#icon-lightbulb"></use></svg> Почти! Правильно: ' + data.correct_answer;
                 }
                 document.getElementById("correct-count").textContent = data.correct_count;
                 document.getElementById("wrong-count").textContent = data.wrong_count;
@@ -481,14 +536,14 @@
                 }, 1500);
             } else {
                 resultDiv.className = "result wrong";
-                resultDiv.textContent = "❌ Не то. Правильно: " + data.correct_answer;
+                resultDiv.innerHTML = '<svg class="icon"><use href="#icon-x"></use></svg> Не то. Правильно: ' + data.correct_answer;
                 document.getElementById("correct-count").textContent = data.correct_count;
                 document.getElementById("wrong-count").textContent = data.wrong_count;
             }
         });
     }
 
-    // ═══ NORMAL / LISTENING ═══
+    // NORMAL / LISTENING
     if (!SPEAK_MODE) {
         document.getElementById("answer").addEventListener("keypress", function(e) {
             if (e.key === "Enter") checkAnswer();
@@ -506,10 +561,10 @@
         .then(r => r.json())
         .then(data => {
             const result = document.getElementById("result");
-            result.style.display = "block";
+            result.style.display = "flex";
             if (data.status === "correct") {
                 result.className = "result correct";
-                result.textContent = "✅ Верно! " + data.correct_answer;
+                result.innerHTML = '<svg class="icon"><use href="#icon-check"></use></svg> Верно! ' + data.correct_answer;
                 document.getElementById("correct-count").textContent = data.correct_count;
                 document.getElementById("wrong-count").textContent = data.wrong_count;
                 setTimeout(() => {
@@ -517,7 +572,7 @@
                 }, 1200);
             } else {
                 result.className = "result wrong";
-                result.textContent = "❌ Не то. Правильно: " + data.correct_answer;
+                result.innerHTML = '<svg class="icon"><use href="#icon-x"></use></svg> Не то. Правильно: ' + data.correct_answer;
                 document.getElementById("correct-count").textContent = data.correct_count;
                 document.getElementById("wrong-count").textContent = data.wrong_count;
             }
