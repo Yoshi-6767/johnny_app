@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Прогресс — Flow & Word{% endblock %}
+{% block title %}Прогресс — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -23,10 +23,14 @@
         color: var(--accent);
     }
     .stat-card .label {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         font-size: 13px;
         color: var(--text-sub);
         margin-top: 6px;
     }
+    .stat-card .label .icon { width: 16px; height: 16px; }
 
     .radar-block {
         background: var(--bg-card);
@@ -140,11 +144,15 @@
         margin-bottom: 30px;
     }
     .recommendation h2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-size: 18px;
         font-weight: 700;
         color: var(--accent);
         margin-bottom: 10px;
     }
+    .recommendation h2 .icon { width: 22px; height: 22px; }
     .recommendation p {
         color: var(--text-sub);
         font-size: 15px;
@@ -183,55 +191,64 @@
         color: var(--accent);
         font-weight: 600;
     }
+
+    .section-h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+        font-size: 22px;
+    }
+    .section-h2 .icon { width: 26px; height: 26px; color: var(--accent); }
 </style>
 {% endblock %}
 
 {% block content %}
-<h1>📊 Дневник прогресса</h1>
+<h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-chart"></use></svg> Дневник прогресса</h1>
 <div class="subtitle">Твоя статистика за всё время</div>
 
 <div class="stats-grid">
     <div class="stat-card">
         <div class="num">{{ total_words }}</div>
-        <div class="label">📚 Слов</div>
+        <div class="label"><svg class="icon"><use href="#icon-book"></use></svg> Слов</div>
     </div>
     <div class="stat-card">
         <div class="num">{{ total_phrases }}</div>
-        <div class="label">💬 Фраз</div>
+        <div class="label"><svg class="icon"><use href="#icon-chat"></use></svg> Фраз</div>
     </div>
     <div class="stat-card">
         <div class="num">{{ streak }}</div>
-        <div class="label">🔥 Серия дней</div>
+        <div class="label"><svg class="icon"><use href="#icon-fire"></use></svg> Серия дней</div>
     </div>
     <div class="stat-card">
         <div class="num">{{ total_correct }}</div>
-        <div class="label">✅ Верно</div>
+        <div class="label"><svg class="icon"><use href="#icon-check"></use></svg> Верно</div>
     </div>
     <div class="stat-card">
         <div class="num">{{ total_wrong }}</div>
-        <div class="label">❌ Ошибок</div>
+        <div class="label"><svg class="icon"><use href="#icon-x"></use></svg> Ошибок</div>
     </div>
     <div class="stat-card">
         <div class="num">{{ accuracy }}%</div>
-        <div class="label">📈 Точность</div>
+        <div class="label"><svg class="icon"><use href="#icon-chart"></use></svg> Точность</div>
     </div>
 </div>
 
-<h2 style="margin-bottom: 15px; font-size: 22px;">🕸️ Радар скиллов</h2>
+<h2 class="section-h2"><svg class="icon"><use href="#icon-radar"></use></svg> Радар скиллов</h2>
 <div class="radar-block">
     <canvas id="radarCanvas" width="500" height="500"></canvas>
     <div class="radar-legend">
-        <div class="radar-legend-item">📚 Слова — <strong>{{ radar.words }}%</strong></div>
-        <div class="radar-legend-item">📖 Чтение — <strong>{{ radar.reading }}%</strong></div>
-        <div class="radar-legend-item">🎧 Слушание — <strong>{{ radar.listening }}%</strong></div>
-        <div class="radar-legend-item">🗣️ Речь — <strong>{{ radar.speaking }}%</strong></div>
-        <div class="radar-legend-item">✍️ Письмо — <strong>{{ radar.writing }}%</strong></div>
+        <div class="radar-legend-item">Слова — <strong>{{ radar.words }}%</strong></div>
+        <div class="radar-legend-item">Чтение — <strong>{{ radar.reading }}%</strong></div>
+        <div class="radar-legend-item">Слушание — <strong>{{ radar.listening }}%</strong></div>
+        <div class="radar-legend-item">Речь — <strong>{{ radar.speaking }}%</strong></div>
+        <div class="radar-legend-item">Письмо — <strong>{{ radar.writing }}%</strong></div>
     </div>
 </div>
 
 {% if weak_words %}
 <div class="recommendation">
-    <h2>💡 Рекомендация</h2>
+    <h2><svg class="icon"><use href="#icon-lightbulb"></use></svg> Рекомендация</h2>
     <p>Повтори эти слова — ты чаще всего ошибаешься в них:</p>
     <p style="margin-top: 10px; font-weight: 600; color: var(--accent);">
         {% for w in weak_words[:5] %}{{ w.word }}{% if not loop.last %}, {% endif %}{% endfor %}
@@ -239,7 +256,7 @@
 </div>
 {% endif %}
 
-<h2 style="margin-bottom: 15px; font-size: 22px;">📅 Календарь активности</h2>
+<h2 class="section-h2"><svg class="icon"><use href="#icon-calendar"></use></svg> Календарь активности</h2>
 <div class="calendar">
     <div class="calendar-title">{{ month_name }}</div>
     <div class="calendar-grid">
@@ -264,7 +281,7 @@
 </div>
 
 {% if weak_words %}
-<h2 style="margin-bottom: 15px; font-size: 22px;">🔴 Слабые слова</h2>
+<h2 class="section-h2"><svg class="icon"><use href="#icon-target"></use></svg> Слабые слова</h2>
 <div class="weak-words">
     {% for w in weak_words %}
     <div class="weak-item">
@@ -278,7 +295,7 @@
 </div>
 {% endif %}
 
-<h2 style="margin-bottom: 15px; font-size: 22px;">📈 Активность за неделю</h2>
+<h2 class="section-h2"><svg class="icon"><use href="#icon-chart"></use></svg> Активность за неделю</h2>
 <div class="chart">
     {% if last_7 %}
         {% for day in last_7 %}
@@ -304,7 +321,7 @@
     const cy = canvas.height / 2;
     const radius = 180;
 
-    const labels = ["📚 Слова", "📖 Чтение", "🎧 Слушание", "🗣️ Речь", "✍️ Письмо"];
+    const labels = ["Слова", "Чтение", "Слушание", "Речь", "Письмо"];
     const values = [
         {{ radar.words }} / 100,
         {{ radar.reading }} / 100,
@@ -319,7 +336,6 @@
     const COLOR_TEXT = "#37474f";
     const COLOR_ACCENT = "#2196f3";
 
-    // Сетка
     ctx.strokeStyle = COLOR_LINE;
     ctx.lineWidth = 1.2;
     for (let level = 1; level <= 5; level++) {
@@ -335,7 +351,6 @@
         ctx.stroke();
     }
 
-    // Лучи
     for (let i = 0; i < n; i++) {
         const angle = -Math.PI / 2 + i * angleStep;
         const x = cx + Math.cos(angle) * radius;
@@ -346,7 +361,6 @@
         ctx.stroke();
     }
 
-    // Данные — заливка градиентом
     const gradient = ctx.createRadialGradient(cx, cy, 5, cx, cy, radius);
     gradient.addColorStop(0, "rgba(79, 195, 247, 0.6)");
     gradient.addColorStop(1, "rgba(33, 150, 243, 0.15)");
@@ -368,7 +382,6 @@
     ctx.lineWidth = 2.5;
     ctx.stroke();
 
-    // Точки данных
     for (let i = 0; i < n; i++) {
         const angle = -Math.PI / 2 + i * angleStep;
         const r = radius * values[i];
@@ -383,7 +396,6 @@
         ctx.stroke();
     }
 
-    // Подписи
     ctx.font = "bold 14px Rubik, sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
