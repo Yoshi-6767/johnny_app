@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Виселица — Flow & Word{% endblock %}
+{% block title %}Виселица — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -29,7 +29,15 @@
     }
     .hangman-stats div { text-align: center; }
     .hangman-stats .num { font-size: 24px; font-weight: 700; color: var(--accent); }
-    .hangman-stats .label { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
+    .hangman-stats .label {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 13px;
+        color: var(--text-sub);
+        margin-top: 4px;
+    }
+    .hangman-stats .label .icon { width: 16px; height: 16px; }
     .hangman-form {
         display: flex;
         gap: 10px;
@@ -95,12 +103,17 @@
         justify-content: center;
     }
     .hangman-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         color: var(--text-sub);
         text-decoration: none;
         padding: 10px 20px;
         border-radius: 8px;
         font-weight: 500;
+        transition: all 0.2s;
     }
+    .hangman-nav a .icon { width: 16px; height: 16px; }
     .hangman-nav a:hover { color: var(--accent); background: var(--bg-hover); }
     .section-info {
         text-align: center;
@@ -116,12 +129,12 @@
 {% block content %}
 {% if empty %}
     <div class="empty">
-        <h1>🪢 Пока нет слов</h1>
+        <h1><svg class="icon icon-lg"><use href="#icon-hangman"></use></svg> Пока нет слов</h1>
         <p>Добавь слова в <a href="/sections" style="color: var(--accent);">категориях</a>, чтобы играть.</p>
         <p style="margin-top: 10px; font-size: 14px;">Нужны слова от 4 до 12 букв.</p>
     </div>
 {% else %}
-    <h1>🪢 Виселица</h1>
+    <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-hangman"></use></svg> Виселица</h1>
     <div class="subtitle">Угадай слово. 6 ошибок — проигрыш.</div>
 
     <div class="section-info">
@@ -132,11 +145,11 @@
     <div class="hangman-stats">
         <div>
             <div class="num" id="errors-count">0</div>
-            <div class="label">❌ Ошибок</div>
+            <div class="label"><svg class="icon"><use href="#icon-x"></use></svg> Ошибок</div>
         </div>
         <div>
             <div class="num" id="word-length">{{ word_length }}</div>
-            <div class="label">📏 Букв</div>
+            <div class="label"><svg class="icon"><use href="#icon-ruler"></use></svg> Букв</div>
         </div>
     </div>
 
@@ -152,8 +165,8 @@
     </div>
 
     <div class="hangman-nav">
-        <a href="/games/hangman">🔄 Новая игра</a>
-        <a href="/games">⬅️ К играм</a>
+        <a href="/games/hangman"><svg class="icon"><use href="#icon-refresh"></use></svg> Новая игра</a>
+        <a href="/games"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К играм</a>
     </div>
 {% endif %}
 {% endblock %}
