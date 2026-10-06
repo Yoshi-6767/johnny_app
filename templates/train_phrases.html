@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Тренировка фраз — Flow & Word{% endblock %}
+{% block title %}Тренировка фраз — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -10,6 +10,10 @@
         margin-bottom: 20px;
     }
     .mode-switch a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         flex: 1;
         text-align: center;
         padding: 12px;
@@ -61,12 +65,16 @@
     }
     .train-form input:focus { border-color: var(--accent); }
     .result {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         padding: 16px 20px;
         border-radius: 10px;
         margin-bottom: 20px;
         font-size: 16px;
         display: none;
     }
+    .result .icon { width: 20px; height: 20px; flex-shrink: 0; }
     .result.correct {
         background: #e8f5e9;
         border-left: 4px solid #4caf50;
@@ -88,15 +96,28 @@
     }
     .stats div { text-align: center; }
     .stats .num { font-size: 24px; font-weight: 700; color: var(--accent); }
-    .stats .label { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
+    .stats .label {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 13px;
+        color: var(--text-sub);
+        margin-top: 4px;
+    }
+    .stats .label .icon { width: 16px; height: 16px; }
     .train-nav { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
     .train-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         color: var(--text-sub);
         text-decoration: none;
         padding: 10px 20px;
         border-radius: 8px;
         font-weight: 500;
+        transition: all 0.2s;
     }
+    .train-nav a .icon { width: 16px; height: 16px; }
     .train-nav a:hover { color: var(--accent); background: var(--bg-hover); }
 </style>
 {% endblock %}
@@ -104,25 +125,25 @@
 {% block content %}
 {% if empty %}
     <div class="empty">
-        <h1>💬 Пока нет фраз</h1>
+        <h1><svg class="icon icon-lg"><use href="#icon-chat"></use></svg> Пока нет фраз</h1>
         <p>Добавь фразы в <a href="/phrases" style="color: var(--accent);">разделе фраз</a>, чтобы тренироваться.</p>
     </div>
 {% else %}
-    <h1>🎯 Тренировка фраз</h1>
+    <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-target"></use></svg> Тренировка фраз</h1>
 
     <div class="mode-switch">
-        <a href="/phrases/train?reset=1" class="{% if not reverse %}active{% endif %}">🇬🇧 EN → 🇷🇺 RU</a>
-        <a href="/phrases/train?reverse=1&reset=1" class="{% if reverse %}active{% endif %}">🇷🇺 RU → 🇬🇧 EN</a>
+        <a href="/phrases/train?reset=1" class="{% if not reverse %}active{% endif %}">EN → RU</a>
+        <a href="/phrases/train?reverse=1&reset=1" class="{% if reverse %}active{% endif %}">RU → EN</a>
     </div>
 
     <div class="stats">
         <div>
             <div class="num" id="correct-count">{{ correct_count }}</div>
-            <div class="label">✅ Верно</div>
+            <div class="label"><svg class="icon"><use href="#icon-check"></use></svg> Верно</div>
         </div>
         <div>
             <div class="num" id="wrong-count">{{ wrong_count }}</div>
-            <div class="label">❌ Ошибок</div>
+            <div class="label"><svg class="icon"><use href="#icon-x"></use></svg> Ошибок</div>
         </div>
     </div>
 
@@ -136,8 +157,8 @@
     </div>
 
     <div class="train-nav">
-        <a href="/phrases/train{% if reverse %}?reverse=1{% endif %}">🔄 Следующая</a>
-        <a href="/phrases">⬅️ К фразам</a>
+        <a href="/phrases/train{% if reverse %}?reverse=1{% endif %}"><svg class="icon"><use href="#icon-refresh"></use></svg> Следующая</a>
+        <a href="/phrases"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К фразам</a>
     </div>
 {% endif %}
 {% endblock %}
@@ -160,10 +181,10 @@
         .then(r => r.json())
         .then(data => {
             const result = document.getElementById("result");
-            result.style.display = "block";
+            result.style.display = "flex";
             if (data.status === "correct") {
                 result.className = "result correct";
-                result.textContent = "✅ Верно! " + data.correct_answer;
+                result.innerHTML = '<svg class="icon"><use href="#icon-check"></use></svg> Верно! ' + data.correct_answer;
                 document.getElementById("correct-count").textContent = data.correct_count;
                 document.getElementById("wrong-count").textContent = data.wrong_count;
                 setTimeout(() => {
@@ -171,7 +192,7 @@
                 }, 1200);
             } else {
                 result.className = "result wrong";
-                result.textContent = "❌ Не то. Правильно: " + data.correct_answer;
+                result.innerHTML = '<svg class="icon"><use href="#icon-x"></use></svg> Не то. Правильно: ' + data.correct_answer;
                 document.getElementById("correct-count").textContent = data.correct_count;
                 document.getElementById("wrong-count").textContent = data.wrong_count;
             }
