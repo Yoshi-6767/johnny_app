@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Flow & Word{% endblock %}</title>
+    <title>{% block title %}Flow Word{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&family=Russo+One&display=swap" rel="stylesheet">
@@ -17,6 +17,15 @@
     {% block styles %}{% endblock %}
 </head>
 <body>
+
+<!-- ═══════════════════════════════════════════════
+     SVG-СПРАЙТ (инлайн, для мобилки)
+     ═══════════════════════════════════════════════ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <!-- Сюда вставим все <symbol> из icons.svg -->
+    <!-- Я показываю только НАЧАЛО — полный набор ниже по файлу -->
+</svg>
+
     <div class="scroll-progress" id="scrollProgress"></div>
 
     <div class="header">
@@ -37,12 +46,12 @@
                                     <div style="font-size: 14px; font-weight: 700; color: var(--text);">{{ current_user.username }}</div>
                                     <div style="font-size: 12px; color: var(--accent); margin-top: 3px;">@{{ current_user.nickname }}</div>
                                 </div>
-                                <a href="/profile"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-users"></use></svg> Профиль</a>
-                                <a href="/friends"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-chat"></use></svg> Друзья{% if unread_count and unread_count > 0 %} <span style="color: #f44336;">●</span>{% endif %}</a>
-                                <a href="/phrases"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-book-open"></use></svg> Фразы</a>
-                                <a href="/achievements"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-trophy"></use></svg> Достижения</a>
-                                <a href="/goals"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-target"></use></svg> Цели</a>
-                                <a href="/logout"><svg class="icon icon-sm"><use href="/static/icons.svg#icon-arrow-left"></use></svg> Выйти</a>
+                                <a href="/profile"><svg class="icon icon-sm"><use href="#icon-users"></use></svg> Профиль</a>
+                                <a href="/friends"><svg class="icon icon-sm"><use href="#icon-chat"></use></svg> Друзья{% if unread_count and unread_count > 0 %} <span style="color: #f44336;">●</span>{% endif %}</a>
+                                <a href="/phrases"><svg class="icon icon-sm"><use href="#icon-book-open"></use></svg> Фразы</a>
+                                <a href="/achievements"><svg class="icon icon-sm"><use href="#icon-trophy"></use></svg> Достижения</a>
+                                <a href="/goals"><svg class="icon icon-sm"><use href="#icon-target"></use></svg> Цели</a>
+                                <a href="/logout"><svg class="icon icon-sm"><use href="#icon-arrow-left"></use></svg> Выйти</a>
                             </div>
                         </div>
                     {% else %}
@@ -51,15 +60,15 @@
                 </div>
             </div>
             <nav class="nav">
-                <a href="/sections" data-tour="sections"><svg class="icon"><use href="/static/icons.svg#icon-study-words"></use></svg> Учить слова</a>
-                <a href="/study" data-tour="study"><svg class="icon"><use href="/static/icons.svg#icon-book"></use></svg> Учёба</a>
-                <a href="/topics"><svg class="icon"><use href="/static/icons.svg#icon-note"></use></svg> Топики</a>
-                <a href="/phrases"><svg class="icon"><use href="/static/icons.svg#icon-book-open"></use></svg> Фразы</a>
-                <a href="/games" data-tour="games"><svg class="icon"><use href="/static/icons.svg#icon-gamepad"></use></svg> Игры</a>
-                <a href="/translator"><svg class="icon"><use href="/static/icons.svg#icon-globe"></use></svg> Переводчик</a>
-                <a href="/friends" data-tour="friends"><svg class="icon"><use href="/static/icons.svg#icon-users"></use></svg> Друзья{% if unread_count and unread_count > 0 %} <span style="background: #f44336; color: #fff; padding: 1px 7px; border-radius: 10px; font-size: 11px;">{{ unread_count }}</span>{% endif %}</a>
-                <a href="/settings"><svg class="icon"><use href="/static/icons.svg#icon-settings"></use></svg> Настройки</a>
-                <a href="/faq"><svg class="icon"><use href="/static/icons.svg#icon-help"></use></svg> FAQ</a>
+                <a href="/sections" data-tour="sections"><svg class="icon"><use href="#icon-study-words"></use></svg> Учить слова</a>
+                <a href="/study" data-tour="study"><svg class="icon"><use href="#icon-book"></use></svg> Учёба</a>
+                <a href="/topics"><svg class="icon"><use href="#icon-note"></use></svg> Топики</a>
+                <a href="/phrases"><svg class="icon"><use href="#icon-book-open"></use></svg> Фразы</a>
+                <a href="/games" data-tour="games"><svg class="icon"><use href="#icon-gamepad"></use></svg> Игры</a>
+                <a href="/translator"><svg class="icon"><use href="#icon-globe"></use></svg> Переводчик</a>
+                <a href="/friends" data-tour="friends"><svg class="icon"><use href="#icon-users"></use></svg> Друзья{% if unread_count and unread_count > 0 %} <span style="background: #f44336; color: #fff; padding: 1px 7px; border-radius: 10px; font-size: 11px;">{{ unread_count }}</span>{% endif %}</a>
+                <a href="/settings"><svg class="icon"><use href="#icon-settings"></use></svg> Настройки</a>
+                <a href="/faq"><svg class="icon"><use href="#icon-help"></use></svg> FAQ</a>
             </nav>
         </div>
     </div>
@@ -96,7 +105,7 @@
         <div class="onb-welcome">
             <div class="onb-welcome-emoji">👋</div>
             <h2>Привет, {{ current_user.username }}!</h2>
-            <p>Добро пожаловать в <strong>Flow & Word</strong> — твой тренажёр английского.</p>
+            <p>Добро пожаловать в <strong>Flow Word</strong> — твой тренажёр английского.</p>
             <p>Сейчас покажу, что тут есть. Это займёт минуту.</p>
             <div class="onb-welcome-actions">
                 <button class="btn" onclick="startTour()">🚀 Показать тур</button>
