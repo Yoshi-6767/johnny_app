@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ section.title }} — Flow & Word{% endblock %}
+{% block title %}{{ section.title }} — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -10,11 +10,17 @@
         margin-bottom: 25px;
         flex-wrap: wrap;
     }
-    .section-actions a, .section-actions button {
+    .section-actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         flex: 1;
         min-width: 180px;
         text-align: center;
     }
+    .section-actions a .icon { width: 18px; height: 18px; }
+
     .exam-banner {
         background: linear-gradient(135deg, var(--accent), var(--accent-dark));
         color: #fff;
@@ -28,16 +34,23 @@
         gap: 15px;
     }
     .exam-banner h2 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         color: #fff;
         margin: 0 0 5px 0;
         font-size: 20px;
     }
+    .exam-banner h2 .icon { width: 24px; height: 24px; }
     .exam-banner p {
         color: rgba(255,255,255,0.85);
         margin: 0;
         font-size: 14px;
     }
     .exam-banner .btn-white {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         background: #fff;
         color: var(--accent-dark);
         padding: 14px 28px;
@@ -46,11 +59,17 @@
         font-weight: 700;
         font-size: 15px;
         white-space: nowrap;
+        transition: all 0.2s;
     }
     .exam-banner .btn-white:hover {
         background: #f5f7fa;
     }
+
     .passed-banner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
         background: linear-gradient(135deg, #4caf50, #388e3c);
         color: #fff;
         padding: 20px 25px;
@@ -60,6 +79,8 @@
         font-weight: 700;
         font-size: 17px;
     }
+    .passed-banner .icon { width: 24px; height: 24px; }
+
     li.learned {
         background: #e8f5e9 !important;
         border-color: #a5d6a7 !important;
@@ -69,10 +90,17 @@
         text-decoration: line-through;
         color: #558b2f;
     }
+    .actions button {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .actions button .icon { width: 16px; height: 16px; }
+
     .actions button.btn-learn {
         background: #e8f5e9;
         color: #2e7d32;
-        padding: 6px 12px;
+        padding: 8px 14px;
         border-radius: 6px;
         font-size: 14px;
         font-weight: 600;
@@ -84,7 +112,7 @@
     .actions button.btn-unlearn {
         background: #fff3e0;
         color: #e65100;
-        padding: 6px 12px;
+        padding: 8px 14px;
         border-radius: 6px;
         font-size: 14px;
         font-weight: 600;
@@ -94,27 +122,44 @@
         color: #fff;
     }
     .actions button.btn-speak {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
         background: var(--bg-subtle);
         color: var(--accent);
-        padding: 6px 12px;
+        padding: 0;
         border-radius: 6px;
-        font-size: 16px;
-        font-weight: 600;
         transition: all 0.2s;
     }
+    .actions button.btn-speak .icon { width: 18px; height: 18px; }
     .actions button.btn-speak:hover {
         background: var(--accent);
         color: #fff;
         transform: scale(1.1);
     }
-    /* ⬇⬇⬇ НОВОЕ — подсказка под словом ⬇⬇⬇ */
+
     .word-hint {
+        display: flex;
+        align-items: center;
+        gap: 6px;
         font-size: 12px;
         color: var(--text-sub);
         font-style: italic;
         margin-top: 4px;
         max-width: 500px;
     }
+    .word-hint .icon { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .learned-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: #4caf50;
+        font-weight: 600;
+    }
+    .learned-badge .icon { width: 16px; height: 16px; }
 </style>
 {% endblock %}
 
@@ -123,19 +168,19 @@
 <div class="subtitle">
     Всего в категории: {{ words|length }}
     {% set learned_count = words|selectattr('learned')|list|length %}
-    {% if learned_count > 0 %} • ✅ Выучено: {{ learned_count }}{% endif %}
+    {% if learned_count > 0 %} • <span class="learned-badge"><svg class="icon"><use href="#icon-check"></use></svg> Выучено: {{ learned_count }}</span>{% endif %}
 </div>
 
 {% if is_passed %}
 <div class="passed-banner">
-    ✅ Категория закрыта! Ты сдал экзамен по всем словам.
+    <svg class="icon"><use href="#icon-check"></use></svg> Категория закрыта! Ты сдал экзамен по всем словам.
 </div>
 {% endif %}
 
 {% if words %}
 <div class="exam-banner">
     <div>
-        <h2>🎓 Сдать экзамен по категории</h2>
+        <h2><svg class="icon"><use href="#icon-graduation"></use></svg> Сдать экзамен по категории</h2>
         <p>Ответь правильно на все {{ words|length }} слов — и категория закроется</p>
     </div>
     <a href="/exam/section/{{ section.id }}" class="btn-white">Начать экзамен</a>
@@ -143,8 +188,8 @@
 {% endif %}
 
 <div class="section-actions">
-    <a href="/train?section={{ section.id }}&reset=1" class="btn">🔥 Тренировать тему</a>
-    <a href="/export/section/{{ section.id }}" class="btn-outline">📤 Экспорт категории</a>
+    <a href="/train?section={{ section.id }}&reset=1" class="btn"><svg class="icon"><use href="#icon-fire"></use></svg> Тренировать тему</a>
+    <a href="/export/section/{{ section.id }}" class="btn-outline"><svg class="icon"><use href="#icon-send"></use></svg> Экспорт категории</a>
 </div>
 
 <ul id="words-list">
@@ -153,14 +198,14 @@
         <li class="{% if w.learned %}learned{% endif %}" data-word="{{ w.eng }}">
             <div>
                 <span class="word-text">{{ w.eng }} → {{ w.rus }}</span>
-                {% if w.hint %}<div class="word-hint">💡 {{ w.hint }}</div>{% endif %}
+                {% if w.hint %}<div class="word-hint"><svg class="icon"><use href="#icon-lightbulb"></use></svg> {{ w.hint }}</div>{% endif %}
             </div>
             <div class="actions">
-                <button class="btn-speak" onclick="speak('{{ w.eng }}')" title="Послушать">🔊</button>
+                <button class="btn-speak" onclick="speak('{{ w.eng }}')" title="Послушать"><svg class="icon"><use href="#icon-volume"></use></svg></button>
                 {% if w.learned %}
-                    <button class="btn-unlearn" onclick="unlearnWord('{{ w.eng }}')">⬜ Снять</button>
+                    <button class="btn-unlearn" onclick="unlearnWord('{{ w.eng }}')"><svg class="icon"><use href="#icon-undo"></use></svg> Снять</button>
                 {% else %}
-                    <button class="btn-learn" onclick="learnWord('{{ w.eng }}')">✅ Выучил</button>
+                    <button class="btn-learn" onclick="learnWord('{{ w.eng }}')"><svg class="icon"><use href="#icon-check"></use></svg> Выучил</button>
                 {% endif %}
             </div>
         </li>
