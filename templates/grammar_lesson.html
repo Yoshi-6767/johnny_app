@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ lesson.title }} — Грамматика — Flow & Word{% endblock %}
+{% block title %}{{ lesson.title }} — Грамматика — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -45,6 +45,7 @@
         align-items: center;
         gap: 10px;
     }
+    .section h2 .icon { width: 26px; height: 26px; }
     .why-text {
         font-size: 16px;
         color: var(--text);
@@ -71,9 +72,7 @@
     }
 
     /* ТАБЛИЦЫ */
-    .table-block {
-        margin-bottom: 25px;
-    }
+    .table-block { margin-bottom: 25px; }
     .table-block:last-child { margin-bottom: 0; }
     .table-title {
         font-size: 16px;
@@ -118,7 +117,7 @@
         gap: 10px;
         margin-bottom: 6px;
     }
-    .mistake-row .icon { font-size: 18px; flex-shrink: 0; }
+    .mistake-row .icon { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; }
     .mistake-row .text { font-size: 15px; color: var(--text); }
     .mistake-row.wrong .text { color: #f44336; text-decoration: line-through; }
     .mistake-row.right .text { color: #4caf50; font-weight: 700; }
@@ -140,7 +139,7 @@
         line-height: 1.6;
     }
     .hack-item:not(:last-child) { border-bottom: 1px solid var(--border-soft); }
-    .hack-icon { font-size: 20px; flex-shrink: 0; }
+    .hack-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
 
     /* ТЕКСТ */
     .lesson-text-title {
@@ -326,6 +325,10 @@
         margin-top: 25px;
     }
     .actions button, .actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         flex: 1;
         min-width: 180px;
         padding: 16px 22px;
@@ -339,6 +342,7 @@
         border: none;
         transition: all 0.2s;
     }
+    .actions .icon { width: 20px; height: 20px; }
     .btn-primary {
         background: var(--accent);
         color: #fff;
@@ -403,14 +407,14 @@
 
 <!-- ЗАЧЕМ -->
 <div class="section">
-    <h2>💡 Зачем это нужно</h2>
+    <h2><svg class="icon"><use href="#icon-lightbulb"></use></svg> Зачем это нужно</h2>
     <div class="why-text">{{ lesson.why }}</div>
 </div>
 
 <!-- ТЕОРИЯ (правила) -->
 {% if lesson.rules %}
 <div class="section">
-    <h2>📚 Правила</h2>
+    <h2><svg class="icon"><use href="#icon-book"></use></svg> Правила</h2>
     {% for rule in lesson.rules %}
     <div class="rule-item">
         <h3>{{ rule.h }}</h3>
@@ -423,7 +427,7 @@
 <!-- ТАБЛИЦЫ -->
 {% if lesson.tables %}
 <div class="section">
-    <h2>📊 Таблицы</h2>
+    <h2><svg class="icon"><use href="#icon-table"></use></svg> Таблицы</h2>
     {% for table in lesson.tables %}
     <div class="table-block">
         <div class="table-title">{{ table.title }}</div>
@@ -453,15 +457,15 @@
 <!-- ЧАСТЫЕ ОШИБКИ -->
 {% if lesson.mistakes %}
 <div class="section">
-    <h2>⚠️ Частые ошибки</h2>
+    <h2><svg class="icon"><use href="#icon-alert"></use></svg> Частые ошибки</h2>
     {% for m in lesson.mistakes %}
     <div class="mistake-item">
         <div class="mistake-row wrong">
-            <span class="icon">❌</span>
+            <svg class="icon"><use href="#icon-x"></use></svg>
             <span class="text">{{ m.wrong }}</span>
         </div>
         <div class="mistake-row right">
-            <span class="icon">✅</span>
+            <svg class="icon"><use href="#icon-check"></use></svg>
             <span class="text">{{ m.right }}</span>
         </div>
         <div class="mistake-why">Почему: {{ m.why }}</div>
@@ -473,10 +477,10 @@
 <!-- ЛАЙФХАКИ -->
 {% if lesson.lifehacks %}
 <div class="section">
-    <h2>💡 Лайфхаки</h2>
+    <h2><svg class="icon"><use href="#icon-lightbulb"></use></svg> Лайфхаки</h2>
     {% for hack in lesson.lifehacks %}
     <div class="hack-item">
-        <span class="hack-icon">✨</span>
+        <svg class="hack-icon"><use href="#icon-sparkles"></use></svg>
         <span>{{ hack }}</span>
     </div>
     {% endfor %}
@@ -486,7 +490,7 @@
 <!-- ТЕКСТ ПО ТЕМЕ -->
 {% if lesson.text %}
 <div class="section">
-    <h2>📝 Текст: {{ lesson.text.title }}</h2>
+    <h2><svg class="icon"><use href="#icon-note"></use></svg> Текст: {{ lesson.text.title }}</h2>
     <div class="lesson-text">
         {% for p in lesson.text.paragraphs %}
         <p>{{ p }}</p>
@@ -498,7 +502,7 @@
 <!-- ВОПРОСЫ К ТЕКСТУ -->
 {% if lesson.text_questions %}
 <div class="section">
-    <h2>❓ Вопросы к тексту</h2>
+    <h2><svg class="icon"><use href="#icon-help"></use></svg> Вопросы к тексту</h2>
     {% for q in lesson.text_questions %}
     <div class="text-q" data-q-index="{{ loop.index0 }}" data-correct="{{ q.correct }}">
         <div class="text-q-title">
@@ -514,14 +518,14 @@
     {% endfor %}
 
     <div class="actions">
-        <button class="btn-primary" onclick="checkTextQuestions()">✅ Проверить ответы на текст</button>
+        <button class="btn-primary" onclick="checkTextQuestions()"><svg class="icon"><use href="#icon-check"></use></svg> Проверить ответы на текст</button>
     </div>
 </div>
 {% endif %}
 
 <!-- ТЕСТ -->
 <div class="section">
-    <h2>🎯 Тест</h2>
+    <h2><svg class="icon"><use href="#icon-target"></use></svg> Тест</h2>
     <div id="test-container">
         {% for q in lesson.test %}
         <div class="test-q" data-q-index="{{ loop.index0 }}" data-type="{{ q.type }}">
@@ -547,8 +551,8 @@
     </div>
 
     <div class="actions">
-        <button class="btn-primary" id="checkTestBtn" onclick="checkTest()">🎯 Проверить тест</button>
-        <a href="/study/grammar" class="btn-secondary">⬅️ К урокам</a>
+        <button class="btn-primary" id="checkTestBtn" onclick="checkTest()"><svg class="icon"><use href="#icon-target"></use></svg> Проверить тест</button>
+        <a href="/study" class="btn-secondary"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К урокам</a>
     </div>
 
     <div class="result-banner" id="resultBanner">
@@ -566,55 +570,53 @@
     const TOTAL_TEST_Q = {{ lesson.test|length }};
 
     // ═══ ВОПРОСЫ К ТЕКСТУ ═══
-        function selectTextOption(btn, optIndex) {
+    function selectTextOption(btn, optIndex) {
         const parent = btn.parentElement;
         parent.querySelectorAll(".text-q-option").forEach(b => b.classList.remove("selected"));
         btn.classList.add("selected");
     }
 
     function checkTextQuestions() {
-    const questions = document.querySelectorAll(".text-q");
-    let correct = 0;
+        const questions = document.querySelectorAll(".text-q");
+        let correct = 0;
 
-    questions.forEach((q, i) => {
-        const selected = q.querySelector(".text-q-option.selected");
-        const options = q.querySelectorAll(".text-q-option");
-        options.forEach(b => b.disabled = true);
+        questions.forEach((q, i) => {
+            const selected = q.querySelector(".text-q-option.selected");
+            const options = q.querySelectorAll(".text-q-option");
+            options.forEach(b => b.disabled = true);
 
-        // Правильный ответ — из атрибута data-correct, который мы добавим в шаблон
-        const correctAnswer = q.dataset.correct;
+            const correctAnswer = q.dataset.correct;
 
-        options.forEach(b => {
-            if (b.dataset.value === correctAnswer) {
-                b.classList.add("correct");
-            } else if (b === selected) {
-                b.classList.add("wrong");
+            options.forEach(b => {
+                if (b.dataset.value === correctAnswer) {
+                    b.classList.add("correct");
+                } else if (b === selected) {
+                    b.classList.add("wrong");
+                }
+                b.classList.remove("selected");
+            });
+
+            if (selected && selected.dataset.value === correctAnswer) {
+                correct++;
             }
-            b.classList.remove("selected");
         });
 
-        if (selected && selected.dataset.value === correctAnswer) {
-            correct++;
+        const total = questions.length;
+        const percent = Math.round(correct / total * 100);
+        let message = `Результат: ${correct} из ${total} (${percent}%)`;
+        if (correct === total) {
+            message = "Отлично! Все ответы верные!";
+        } else if (correct >= total * 0.6) {
+            message = `Хорошо! ${correct} из ${total} правильных.`;
+        } else {
+            message = `Попробуй ещё раз. ${correct} из ${total} правильных.`;
         }
-    });
 
-    // Показ результата
-    const total = questions.length;
-    const percent = Math.round(correct / total * 100);
-    let message = `Результат: ${correct} из ${total} (${percent}%)`;
-    if (correct === total) {
-        message = "🎉 Отлично! Все ответы верные!";
-    } else if (correct >= total * 0.6) {
-        message = `👍 Хорошо! ${correct} из ${total} правильных.`;
-    } else {
-        message = `Попробуй ещё раз. ${correct} из ${total} правильных.`;
+        alert(message);
     }
 
-    alert(message);
-}
-
     // ═══ ТЕСТ ═══
-        function selectTestOption(btn, optIndex) {
+    function selectTestOption(btn, optIndex) {
         const parent = btn.parentElement;
         parent.querySelectorAll(".test-option").forEach(b => b.classList.remove("selected"));
         btn.classList.add("selected");
@@ -644,7 +646,6 @@
         .then(data => {
             if (data.status !== "ok") return;
 
-            // Подсветка
             questions.forEach((q, i) => {
                 const res = data.results[i];
                 if (q.dataset.type === "choice" || q.dataset.type === "error") {
@@ -669,7 +670,6 @@
                 }
             });
 
-            // Показ результата
             const percent = Math.round(data.correct / data.total * 100);
             const isPassed = data.correct >= data.total * 0.6;
             const banner = document.getElementById("resultBanner");
@@ -677,12 +677,11 @@
             document.getElementById("resultScore").textContent = data.correct + " / " + data.total;
             document.getElementById("resultPercent").textContent = "Точность: " + percent + "%";
             document.getElementById("resultLabel").textContent = isPassed
-                ? "🎉 Урок пройден! Ты молодец!"
+                ? "Урок пройден! Ты молодец!"
                 : "Попробуй ещё раз — нужно минимум " + Math.ceil(data.total * 0.6) + " правильных";
 
             document.getElementById("checkTestBtn").disabled = true;
 
-            // Сохраняем прогресс
             fetch("/study/grammar/" + LESSON_ID + "/finish", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -691,7 +690,7 @@
             .then(r => r.json())
             .then(finishData => {
                 if (finishData.new_achievements && finishData.new_achievements.length > 0) {
-                    setTimeout(() => location.href = "/study/grammar", 2500);
+                    setTimeout(() => location.href = "/study", 2500);
                 }
             });
         });
