@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Скоростной режим — Flow & Word{% endblock %}
+{% block title %}Скоростной режим — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -52,6 +52,10 @@
     }
     .speed-form input:focus { border-color: var(--accent); }
     .speed-feedback {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         text-align: center;
         padding: 12px;
         border-radius: 10px;
@@ -60,6 +64,7 @@
         font-weight: 600;
         min-height: 24px;
     }
+    .speed-feedback .icon { width: 20px; height: 20px; }
     .speed-feedback.correct { color: #4caf50; }
     .speed-feedback.wrong { color: #f44336; }
     .speed-result {
@@ -88,13 +93,18 @@
         margin-top: 20px;
     }
     .speed-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         color: var(--text-sub);
         text-decoration: none;
         padding: 12px 25px;
         border-radius: 8px;
         font-weight: 500;
         border: 1px solid var(--border);
+        transition: all 0.2s;
     }
+    .speed-nav a .icon { width: 16px; height: 16px; }
     .speed-nav a:hover { color: var(--accent); border-color: var(--accent); }
 </style>
 {% endblock %}
@@ -102,13 +112,13 @@
 {% block content %}
 {% if empty %}
     <div class="empty">
-        <h1>⚡ Пока мало слов</h1>
+        <h1><svg class="icon icon-lg"><use href="#icon-speed"></use></svg> Пока мало слов</h1>
         <p>Нужно минимум <strong>5 слов</strong>.</p>
         <p>Добавь в <a href="/sections" style="color: var(--accent);">категориях</a>.</p>
     </div>
 {% else %}
     <div id="speed-start-screen">
-        <h1>⚡ Скоростной режим</h1>
+        <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-speed"></use></svg> Скоростной режим</h1>
         <div class="subtitle">30 секунд. 10 слов. Успеешь?</div>
         <div style="text-align: center; margin-top: 30px;">
             <button class="btn" onclick="startGame()" style="padding: 20px 50px; font-size: 18px;">Начать</button>
@@ -116,7 +126,7 @@
     </div>
 
     <div id="speed-play" style="display: none;">
-        <h1>⚡ Скоростной режим</h1>
+        <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-speed"></use></svg> Скоростной режим</h1>
         <div class="speed-timer" id="timer">30</div>
         <div class="speed-progress" id="progress">Слово 1 из 10</div>
 
@@ -134,8 +144,8 @@
         <div class="score" id="result-score">0</div>
         <div class="label">из 10</div>
         <div class="speed-nav">
-            <a href="/games/speed">🔄 Ещё раз</a>
-            <a href="/games">⬅️ К играм</a>
+            <a href="/games/speed"><svg class="icon"><use href="#icon-refresh"></use></svg> Ещё раз</a>
+            <a href="/games"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К играм</a>
         </div>
     </div>
 {% endif %}
@@ -210,10 +220,10 @@
             const feedback = document.getElementById("feedback");
             if (data.correct) {
                 feedback.className = "speed-feedback correct";
-                feedback.textContent = "✅ Верно!";
+                feedback.innerHTML = '<svg class="icon"><use href="#icon-check"></use></svg> Верно!';
             } else {
                 feedback.className = "speed-feedback wrong";
-                feedback.textContent = "❌ " + data.correct_answer;
+                feedback.innerHTML = '<svg class="icon"><use href="#icon-x"></use></svg> ' + data.correct_answer;
             }
             setTimeout(() => loadNextWord(), 500);
         });
