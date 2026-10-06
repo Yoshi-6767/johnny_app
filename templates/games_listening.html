@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Аудио-квиз — Flow & Word{% endblock %}
+{% block title %}Аудио-квиз — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -9,16 +9,23 @@
         margin-bottom: 25px;
     }
     .listening-big-icon {
-        font-size: 80px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 120px;
+        height: 120px;
         margin-bottom: 15px;
-        display: block;
         animation: pulse 2s infinite;
     }
+    .listening-big-icon .icon { width: 100px; height: 100px; }
     @keyframes pulse {
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.08); }
     }
     .listening-replay {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         background: var(--accent);
         color: #fff;
         border: none;
@@ -31,6 +38,7 @@
         transition: all 0.2s;
         margin-top: 10px;
     }
+    .listening-replay .icon { width: 20px; height: 20px; }
     .listening-replay:hover {
         background: var(--accent-dark);
         transform: scale(1.05);
@@ -108,10 +116,14 @@
         border-radius: 12px;
     }
     .quiz-errors h3 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         color: var(--text);
         font-size: 16px;
         margin-bottom: 15px;
     }
+    .quiz-errors h3 .icon { width: 20px; height: 20px; }
     .quiz-errors .error-item {
         padding: 10px 0;
         border-bottom: 1px solid var(--border);
@@ -127,13 +139,18 @@
         margin-top: 20px;
     }
     .quiz-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         color: var(--text-sub);
         text-decoration: none;
         padding: 12px 25px;
         border-radius: 8px;
         font-weight: 500;
         border: 1px solid var(--border);
+        transition: all 0.2s;
     }
+    .quiz-nav a .icon { width: 16px; height: 16px; }
     .quiz-nav a:hover { color: var(--accent); border-color: var(--accent); }
 </style>
 {% endblock %}
@@ -141,19 +158,20 @@
 {% block content %}
 {% if empty %}
     <div class="empty">
-        <h1>🎧 Пока мало слов</h1>
+        <h1><svg class="icon icon-lg"><use href="#icon-headphones"></use></svg> Пока мало слов</h1>
         <p>Нужно минимум <strong>4 слова</strong>.</p>
         <p>Добавь в <a href="/sections" style="color: var(--accent);">категориях</a>.</p>
     </div>
 {% else %}
     <div id="listening-play">
-        <h1 style="text-align: center;">🎧 Аудио-квиз</h1>
+        <h1 style="text-align: center;"><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-headphones"></use></svg> Аудио-квиз</h1>
         <div class="subtitle" style="text-align: center;">Послушай слово и выбери правильный перевод</div>
         <div class="quiz-progress" id="progress">Вопрос 1 из 10</div>
 
         <div class="listening-header">
-            <span class="listening-big-icon" id="icon">🎧</span>
-            <button class="listening-replay" onclick="replayWord()">🔊 Повторить</button>
+            <div class="listening-big-icon" id="icon"><svg class="icon"><use href="#icon-headphones"></use></svg></div>
+            <br>
+            <button class="listening-replay" onclick="replayWord()"><svg class="icon"><use href="#icon-volume"></use></svg> Повторить</button>
         </div>
 
         <div class="quiz-options" id="options"></div>
@@ -164,13 +182,13 @@
         <div class="label">из 10</div>
 
         <div class="quiz-errors" id="errors-box" style="display: none;">
-            <h3>❌ Твои ошибки:</h3>
+            <h3><svg class="icon"><use href="#icon-x"></use></svg> Твои ошибки:</h3>
             <div id="errors-list"></div>
         </div>
 
         <div class="quiz-nav">
-            <a href="/games/listening">🔄 Ещё раз</a>
-            <a href="/games">⬅️ К играм</a>
+            <a href="/games/listening"><svg class="icon"><use href="#icon-refresh"></use></svg> Ещё раз</a>
+            <a href="/games"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К играм</a>
         </div>
     </div>
 {% endif %}
@@ -196,7 +214,6 @@
             answered = false;
             document.getElementById("progress").textContent = "Вопрос " + data.question_num + " из " + data.total;
 
-            // Автоозвучка
             setTimeout(() => {
                 if (window.speak) window.speak(data.word);
             }, 200);
@@ -240,7 +257,6 @@
             if (!data.correct) {
                 btn.classList.add("wrong");
             }
-            // Повторяем слово ещё раз для запоминания
             setTimeout(() => {
                 if (window.speak) window.speak(currentWord);
             }, 800);
