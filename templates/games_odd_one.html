@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Что лишнее — Flow & Word{% endblock %}
+{% block title %}Что лишнее — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -66,6 +66,10 @@
     }
     .odd-option.wrong .eng { color: #c62828; }
     .odd-feedback {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
         text-align: center;
         padding: 16px 20px;
         border-radius: 10px;
@@ -74,6 +78,7 @@
         font-weight: 600;
         min-height: 24px;
     }
+    .odd-feedback .icon { width: 20px; height: 20px; }
     .odd-feedback.correct { color: #4caf50; }
     .odd-feedback.wrong { color: #f44336; }
     .odd-result {
@@ -102,13 +107,18 @@
         margin-top: 20px;
     }
     .odd-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         color: var(--text-sub);
         text-decoration: none;
         padding: 12px 25px;
         border-radius: 8px;
         font-weight: 500;
         border: 1px solid var(--border);
+        transition: all 0.2s;
     }
+    .odd-nav a .icon { width: 16px; height: 16px; }
     .odd-nav a:hover { color: var(--accent); border-color: var(--accent); }
 </style>
 {% endblock %}
@@ -116,11 +126,11 @@
 {% block content %}
 {% if empty %}
     <div class="empty">
-        <h1>🎯 Что лишнее</h1>
+        <h1><svg class="icon icon-lg"><use href="#icon-odd-one"></use></svg> Что лишнее</h1>
         <p>Нужно минимум 2 категории с 3+ словами. Добавь слова.</p>
     </div>
 {% else %}
-    <h1 style="text-align: center;">🎯 Что лишнее</h1>
+    <h1 style="text-align: center;"><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-odd-one"></use></svg> Что лишнее</h1>
     <div class="subtitle" style="text-align: center;">Три слова из одной категории, одно — из другой</div>
 
     <div id="odd-play">
@@ -139,8 +149,8 @@
         <div class="score" id="result-score">0</div>
         <div class="label">из 10</div>
         <div class="odd-nav">
-            <a href="/games/odd_one">🔄 Ещё раз</a>
-            <a href="/games">⬅️ К играм</a>
+            <a href="/games/odd_one"><svg class="icon"><use href="#icon-refresh"></use></svg> Ещё раз</a>
+            <a href="/games"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К играм</a>
         </div>
     </div>
 {% endif %}
@@ -161,6 +171,7 @@
             }
             document.getElementById("progress").textContent = "Вопрос " + data.question_num + " из " + data.total;
             document.getElementById("feedback").textContent = "";
+            document.getElementById("feedback").className = "odd-feedback";
             answered = false;
 
             const optionsDiv = document.getElementById("options");
@@ -200,10 +211,10 @@
             const fb = document.getElementById("feedback");
             if (data.correct) {
                 fb.className = "odd-feedback correct";
-                fb.textContent = "✅ Верно! Лишнее — " + data.correct_answer;
+                fb.innerHTML = '<svg class="icon"><use href="#icon-check"></use></svg> Верно! Лишнее — ' + data.correct_answer;
             } else {
                 fb.className = "odd-feedback wrong";
-                fb.textContent = "❌ Лишнее — " + data.correct_answer;
+                fb.innerHTML = '<svg class="icon"><use href="#icon-x"></use></svg> Лишнее — ' + data.correct_answer;
             }
             setTimeout(() => loadNext(), 1800);
         });
