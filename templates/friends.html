@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Друзья — Flow & Word{% endblock %}
+{% block title %}Друзья — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -12,6 +12,12 @@
         gap: 15px;
         margin-bottom: 25px;
     }
+    .friends-header h1 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .friends-header h1 .icon { width: 32px; height: 32px; color: var(--accent); }
     .search-box {
         background: var(--bg-card);
         border: 1px solid var(--border);
@@ -24,7 +30,11 @@
         font-weight: 700;
         color: var(--text);
         margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
+    .search-box-title .icon { width: 18px; height: 18px; }
     .search-input-row {
         display: flex;
         gap: 10px;
@@ -86,21 +96,19 @@
         border: 2px solid var(--bg-card);
         border-radius: 50%;
     }
-    .user-info {
-        flex: 1;
-        min-width: 0;
-    }
+    .user-info { flex: 1; min-width: 0; }
     .user-name {
         font-size: 15px;
         font-weight: 700;
         color: var(--text);
         margin-bottom: 2px;
     }
-    .user-nick {
-        font-size: 13px;
-        color: var(--text-sub);
-    }
+    .user-nick { font-size: 13px; color: var(--text-sub); }
+
     .btn-sm {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         padding: 8px 16px;
         border-radius: 20px;
         font-family: 'Rubik', sans-serif;
@@ -111,6 +119,7 @@
         transition: all 0.2s;
         white-space: nowrap;
     }
+    .btn-sm .icon { width: 16px; height: 16px; }
     .btn-primary {
         background: var(--accent);
         color: #fff;
@@ -144,6 +153,7 @@
         align-items: center;
         gap: 10px;
     }
+    .section-block-title .icon { width: 22px; height: 22px; }
     .section-block-title .badge {
         background: var(--accent);
         color: #fff;
@@ -172,9 +182,15 @@
         border-color: var(--accent);
         transform: translateY(-2px);
     }
-    .friend-item .user-info {
-        flex: 1;
+    .friend-item .user-info { flex: 1; }
+    .friend-item .chat-icon {
+        width: 22px;
+        height: 22px;
+        color: var(--text-sub);
+        transition: color 0.2s;
     }
+    .friend-item:hover .chat-icon { color: var(--accent); }
+
     .unread-badge {
         background: #f44336;
         color: #fff;
@@ -216,18 +232,18 @@
 {% block content %}
 <div class="friends-header">
     <div>
-        <h1>👥 Друзья</h1>
+        <h1><svg class="icon"><use href="#icon-users"></use></svg> Друзья</h1>
         <div class="subtitle">
             Всего: {{ friends|length }} ·
             Твой ник: <strong style="color: var(--accent);">@{{ current_user.nickname }}</strong>
-            <button class="btn-sm btn-ghost" style="margin-left: 8px; padding: 4px 10px;" onclick="copyNick()">📋 Скопировать</button>
+            <button class="btn-sm btn-ghost" style="margin-left: 8px;" onclick="copyNick(this)"><svg class="icon"><use href="#icon-copy"></use></svg> Скопировать</button>
         </div>
     </div>
 </div>
 
 <!-- ПОИСК -->
 <div class="search-box">
-    <div class="search-box-title">🔍 Найти пользователя по @нику</div>
+    <div class="search-box-title"><svg class="icon"><use href="#icon-search"></use></svg> Найти пользователя по @нику</div>
     <div class="search-input-row">
         <input id="searchInput" placeholder="@ник (например, yoshi)" oninput="searchUsers()">
     </div>
@@ -237,7 +253,7 @@
 <!-- ВХОДЯЩИЕ ЗАЯВКИ -->
 {% if incoming %}
 <div class="section-block-title">
-    📩 Заявки в друзья
+    <svg class="icon"><use href="#icon-inbox"></use></svg> Заявки в друзья
     <span class="badge">{{ incoming|length }}</span>
 </div>
 <div class="friends-list">
@@ -255,8 +271,8 @@
             <div class="user-nick">@{{ r.user.nickname }}</div>
         </div>
         <div class="request-actions">
-            <button class="btn-sm btn-success" onclick="acceptRequest({{ r.friendship_id }})">✓ Принять</button>
-            <button class="btn-sm btn-danger" onclick="declineRequest({{ r.friendship_id }})">✕ Отклонить</button>
+            <button class="btn-sm btn-success" onclick="acceptRequest({{ r.friendship_id }})"><svg class="icon"><use href="#icon-check"></use></svg> Принять</button>
+            <button class="btn-sm btn-danger" onclick="declineRequest({{ r.friendship_id }})"><svg class="icon"><use href="#icon-x"></use></svg> Отклонить</button>
         </div>
     </div>
     {% endfor %}
@@ -265,7 +281,7 @@
 
 <!-- ИСХОДЯЩИЕ ЗАЯВКИ -->
 {% if outgoing %}
-<div class="section-block-title">📤 Отправленные заявки</div>
+<div class="section-block-title"><svg class="icon"><use href="#icon-send"></use></svg> Отправленные заявки</div>
 <div class="friends-list">
     {% for r in outgoing %}
     <div class="request-item">
@@ -288,7 +304,7 @@
 
 <!-- ДРУЗЬЯ -->
 <div class="section-block-title">
-    👥 Мои друзья
+    <svg class="icon"><use href="#icon-users"></use></svg> Мои друзья
     {% if friends %}<span class="badge">{{ friends|length }}</span>{% endif %}
 </div>
 
@@ -314,7 +330,7 @@
         {% if f.unread > 0 %}
         <span class="unread-badge">{{ f.unread }}</span>
         {% endif %}
-        <span style="color: var(--text-sub);">💬</span>
+        <svg class="icon chat-icon"><use href="#icon-chat"></use></svg>
     </a>
     {% endfor %}
 </div>
@@ -328,13 +344,12 @@
 
 {% block scripts %}
 <script>
-    function copyNick() {
+    function copyNick(btn) {
         const nick = "@{{ current_user.nickname }}";
         navigator.clipboard.writeText(nick).then(() => {
-            const btn = event.target;
-            const old = btn.textContent;
-            btn.textContent = "✓ Скопировано!";
-            setTimeout(() => btn.textContent = old, 1500);
+            const old = btn.innerHTML;
+            btn.innerHTML = '<svg class="icon"><use href="#icon-check"></use></svg> Скопировано!';
+            setTimeout(() => btn.innerHTML = old, 1500);
         });
     }
 
@@ -364,11 +379,11 @@
                         div.className = "search-result";
                         let actionHTML = "";
                         if (u.status === "friends") {
-                            actionHTML = "<span style='color: #4caf50; font-weight: 700;'>✓ Друзья</span>";
+                            actionHTML = "<span style='display:inline-flex;align-items:center;gap:5px;color: #4caf50; font-weight: 700;'><svg class='icon icon-sm'><use href='#icon-check'></use></svg> Друзья</span>";
                         } else if (u.status === "pending") {
                             actionHTML = "<span style='color: var(--text-sub); font-size: 13px;'>Заявка отправлена</span>";
                         } else {
-                            actionHTML = "<button class='btn-sm btn-primary' onclick='sendRequest(" + u.id + ", this)'>+ Добавить</button>";
+                            actionHTML = "<button class='btn-sm btn-primary' onclick='sendRequest(" + u.id + ", this)'><svg class='icon'><use href='#icon-plus'></use></svg> Добавить</button>";
                         }
 
                         const avatarHTML = u.avatar
@@ -391,17 +406,17 @@
 
     function sendRequest(userId, btn) {
         btn.disabled = true;
-        btn.textContent = "...";
+        btn.innerHTML = "...";
         fetch("/friends/request/" + userId, {method: "POST"})
             .then(r => r.json())
             .then(data => {
                 if (data.status === "ok") {
-                    btn.textContent = "✓ Отправлено";
+                    btn.innerHTML = "<svg class='icon'><use href='#icon-check'></use></svg> Отправлено";
                     btn.className = "btn-sm btn-ghost";
                 } else {
                     alert(data.message || "Ошибка");
                     btn.disabled = false;
-                    btn.textContent = "+ Добавить";
+                    btn.innerHTML = "<svg class='icon'><use href='#icon-plus'></use></svg> Добавить";
                 }
             });
     }
