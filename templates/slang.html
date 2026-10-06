@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Сленг — Flow & Word{% endblock %}
+{% block title %}Сленг — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -61,7 +61,7 @@
 {% endblock %}
 
 {% block content %}
-<h1>😎 Сленг и разговорные выражения</h1>
+<h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-speech"></use></svg> Сленг и разговорные выражения</h1>
 <div class="subtitle">Всего: {{ slang|length }} выражений</div>
 
 <div class="info-banner">
@@ -70,7 +70,7 @@
 </div>
 
 <div class="slang-search">
-    <input id="search" placeholder="🔍 Поиск..." oninput="filterSlang()">
+    <input id="search" placeholder="Поиск..." oninput="filterSlang()">
 </div>
 
 <table class="slang-table">
