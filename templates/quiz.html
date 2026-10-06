@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Квиз — Flow & Word{% endblock %}
+{% block title %}Квиз — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -85,10 +85,14 @@
         border-radius: 12px;
     }
     .quiz-errors h3 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         color: var(--text);
         font-size: 16px;
         margin-bottom: 15px;
     }
+    .quiz-errors h3 .icon { width: 20px; height: 20px; }
     .quiz-errors .error-item {
         padding: 10px 0;
         border-bottom: 1px solid var(--border);
@@ -104,13 +108,18 @@
         margin-top: 20px;
     }
     .quiz-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         color: var(--text-sub);
         text-decoration: none;
         padding: 12px 25px;
         border-radius: 8px;
         font-weight: 500;
         border: 1px solid var(--border);
+        transition: all 0.2s;
     }
+    .quiz-nav a .icon { width: 16px; height: 16px; }
     .quiz-nav a:hover { color: var(--accent); border-color: var(--accent); }
 </style>
 {% endblock %}
@@ -118,13 +127,13 @@
 {% block content %}
 {% if empty %}
     <div class="empty">
-        <h1>❓ Пока мало слов</h1>
+        <h1><svg class="icon icon-lg"><use href="#icon-help"></use></svg> Пока мало слов</h1>
         <p>Нужно минимум <strong>4 слова</strong> от 4 до 12 букв.</p>
         <p>Добавь в <a href="/sections" style="color: var(--accent);">категориях</a>.</p>
     </div>
 {% else %}
     <div id="quiz-play">
-        <h1>❓ Квиз</h1>
+        <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-quiz"></use></svg> Квиз</h1>
         <div class="quiz-progress" id="progress">Вопрос 1 из 10</div>
 
         <div class="quiz-word" id="word">...</div>
@@ -137,13 +146,13 @@
         <div class="label">из 10</div>
 
         <div class="quiz-errors" id="errors-box" style="display: none;">
-            <h3>❌ Твои ошибки:</h3>
+            <h3><svg class="icon"><use href="#icon-x"></use></svg> Твои ошибки:</h3>
             <div id="errors-list"></div>
         </div>
 
         <div class="quiz-nav">
-            <a href="/games/quiz">🔄 Ещё раз</a>
-            <a href="/games">⬅️ К играм</a>
+            <a href="/games/quiz"><svg class="icon"><use href="#icon-refresh"></use></svg> Ещё раз</a>
+            <a href="/games"><svg class="icon"><use href="#icon-arrow-left"></use></svg> К играм</a>
         </div>
     </div>
 {% endif %}
