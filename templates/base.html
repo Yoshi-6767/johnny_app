@@ -841,6 +841,16 @@
     </script>
     {% endif %}
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('svg.icon').forEach(function(svg) {
+        if (!svg.getAttribute('viewBox')) {
+            svg.setAttribute('viewBox', '0 0 24 24');
+        }
+    });
+});
+</script>
+    
     <script src="/static/audio.js"></script>
 </body>
 </html>
