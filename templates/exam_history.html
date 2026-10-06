@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 
-{% block title %}История экзаменов — Flow & Word{% endblock %}
+{% block title %}История экзаменов — Flow Word{% endblock %}
 
 {% block content %}
-<h1>🎓 История экзаменов</h1>
+<h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-history"></use></svg> История экзаменов</h1>
 <div class="subtitle">Все твои экзаменационные работы</div>
 
 <div style="margin-bottom: 25px;">
-    <a href="/exam" class="btn">🎓 Новый экзамен</a>
+    <a href="/exam" class="btn" style="display: inline-flex; align-items: center; gap: 8px;">
+        <svg class="icon"><use href="#icon-graduation"></use></svg> Новый экзамен
+    </a>
 </div>
 
 {% if exams %}
