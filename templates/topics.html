@@ -1,10 +1,51 @@
 {% extends "base.html" %}
 
-{% block title %}Мои топики — Flow & Word{% endblock %}
+{% block title %}Мои топики — Flow Word{% endblock %}
+
+{% block styles %}
+<style>
+    .topics-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .topics-header h1 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .topics-header h1 .icon { width: 32px; height: 32px; color: var(--accent); }
+
+    .topic-count {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+        color: var(--text-sub);
+    }
+    .topic-count .icon { width: 16px; height: 16px; }
+    .topic-count .done { color: #4caf50; }
+    .topic-count .notdone { color: var(--text-muted); }
+
+    .new-topic-row {
+        text-align: center;
+        margin-top: 30px;
+    }
+    .new-topic-row a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .new-topic-row a .icon { width: 18px; height: 18px; }
+</style>
+{% endblock %}
 
 {% block content %}
-<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 15px;">
-    <h1>📝 Мои топики</h1>
+<div class="topics-header">
+    <h1><svg class="icon"><use href="#icon-note"></use></svg> Мои топики</h1>
     <button class="btn-outline" onclick="document.getElementById('infoModal').classList.add('active')">Что такое топики?</button>
 </div>
 <div class="subtitle">Написано: {{ topics|selectattr('done')|list|length }} из {{ topics|length }}</div>
@@ -13,13 +54,13 @@
     {% for topic in topics %}
     <a href="/topics/{{ topic.id }}" class="card">
         <div>
-            <svg class="card-icon"><use href="/static/icons.svg#{{ topic.icon }}"></use></svg>
+            <svg class="card-icon"><use href="#{{ topic.icon }}"></use></svg>
             <div class="card-title">{{ topic.title }}</div>
             <div class="card-count">
                 {% if topic.done %}
-                    ✅ Написан ({{ topic.word_count }} слов)
+                    <span class="topic-count"><svg class="icon done"><use href="#icon-check"></use></svg> Написан ({{ topic.word_count }} слов)</span>
                 {% else %}
-                    ⬜ Не написан
+                    <span class="topic-count"><svg class="icon notdone"><use href="#icon-square"></use></svg> Не написан</span>
                 {% endif %}
             </div>
         </div>
@@ -27,8 +68,8 @@
     {% endfor %}
 </div>
 
-<div style="text-align: center; margin-top: 30px;">
-    <a href="/topics/new" class="btn-outline">➕ Своя тема</a>
+<div class="new-topic-row">
+    <a href="/topics/new" class="btn-outline"><svg class="icon"><use href="#icon-plus"></use></svg> Своя тема</a>
 </div>
 
 <div class="modal-overlay" id="infoModal">
