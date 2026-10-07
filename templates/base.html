@@ -225,21 +225,35 @@
 
     <symbol id="icon-users" viewBox="0 0 24 24">
     <defs>
-        <linearGradient id="famMain" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#4fc3f7"/>
-            <stop offset="100%" stop-color="#01579b"/>
+        <linearGradient id="famDad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#42a5f5"/>
+            <stop offset="100%" stop-color="#0d47a1"/>
         </linearGradient>
-        <linearGradient id="famPink" x1="0%" y1="0%" x2="0%" y2="100%">
+        <linearGradient id="famMom" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#f48fb1"/>
             <stop offset="100%" stop-color="#880e4f"/>
         </linearGradient>
+        <linearGradient id="famSon" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#66bb6a"/>
+            <stop offset="100%" stop-color="#1b5e20"/>
+        </linearGradient>
+        <linearGradient id="famGirl2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffb74d"/>
+            <stop offset="100%" stop-color="#e65100"/>
+        </linearGradient>
     </defs>
-    <!-- Большая голова (взрослый) -->
-    <circle cx="9" cy="7" r="4" fill="url(#famMain)"/>
-    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="url(#famMain)"/>
-    <!-- Маленькая голова (ребёнок) -->
-    <circle cx="17" cy="7" r="3" fill="url(#famPink)"/>
-    <path d="M23 21v-2a4 4 0 0 0-3-3.87" fill="url(#famPink)"/>
+    <!-- Папа (слева, высокий) -->
+    <circle cx="6" cy="6" r="2.5" fill="url(#famDad)"/>
+    <path d="M1 17 v-2 a4 4 0 0 1 4-4 h2 a4 4 0 0 1 4 4 v2 z" fill="url(#famDad)"/>
+    <!-- Мама (справа, высокая) -->
+    <circle cx="18" cy="6" r="2.5" fill="url(#famMom)"/>
+    <path d="M13 17 v-2 a4 4 0 0 1 4-4 h2 a4 4 0 0 1 4 4 v2 z" fill="url(#famMom)"/>
+    <!-- Сын (снизу-слева, маленький) -->
+    <circle cx="8" cy="14" r="1.8" fill="url(#famSon)"/>
+    <path d="M4.5 22 v-1 a3 3 0 0 1 3-3 h1 a3 3 0 0 1 3 3 v1 z" fill="url(#famSon)"/>
+    <!-- Дочь (снизу-справа, маленькая) -->
+    <circle cx="16" cy="14" r="1.8" fill="url(#famGirl2)"/>
+    <path d="M12.5 22 v-1 a3 3 0 0 1 3-3 h1 a3 3 0 0 1 3 3 v1 z" fill="url(#famGirl2)"/>
 </symbol>
 
     <symbol id="icon-note" viewBox="0 0 24 24">
@@ -521,24 +535,22 @@
 
    <symbol id="icon-apple" viewBox="0 0 24 24">
     <defs>
-        <linearGradient id="bananaStroke" x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient id="bananaSimple" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stop-color="#fff176"/>
             <stop offset="50%" stop-color="#ffeb3b"/>
             <stop offset="100%" stop-color="#f9a825"/>
         </linearGradient>
     </defs>
+    <!-- Банан одной жирной дугой -->
+    <path d="M3 7 Q4 17, 13 19 Q19 19.5, 21 15" fill="none" stroke="url(#bananaSimple)" stroke-width="5" stroke-linecap="round"/>
+    <!-- Хвостик слева -->
+    <circle cx="3.5" cy="6" r="1.2" fill="#5d4037"/>
+    <!-- Кончик справа -->
+    <circle cx="20.5" cy="14.5" r="0.9" fill="#5d4037"/>
     <!-- Тень под бананом -->
-    <path d="M3.5 19 Q12 21, 20.5 17" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" opacity="0.15" transform="translate(0, 1)"/>
-    <!-- Банан — толстая изогнутая линия (дуга) -->
-    <path d="M3 8 C5 16, 10 19, 16 18 C19 17.5, 20.5 16, 21 14" fill="none" stroke="url(#bananaStroke)" stroke-width="4" stroke-linecap="round"/>
-    <!-- Хвостик сверху слева (коричневый) -->
-    <path d="M2.5 7 L4 6 L5.5 7.5 L4 8.5 Z" fill="#5d4037"/>
-    <!-- Кончик снизу справа (коричневый) -->
-    <path d="M20.5 13 L21.5 13 L21.5 15 L20.5 15 Z" fill="#5d4037"/>
-    <!-- Внутренняя линия (объём) -->
-    <path d="M5 10 C7 15, 12 17, 17 16" fill="none" stroke="#f57f17" stroke-width="0.6" opacity="0.5"/>
-    <!-- Блик сверху -->
-    <path d="M5 8.5 C7 12, 11 14, 15 14" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.5" stroke-linecap="round"/>
+    <path d="M5 20 Q12 22, 20 19" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" opacity="0.15"/>
+    <!-- Блик -->
+    <path d="M5.5 9 Q7 14, 12 16.5" fill="none" stroke="#fff" stroke-width="0.7" opacity="0.5" stroke-linecap="round"/>
 </symbol>
 
     <symbol id="icon-dollar" viewBox="0 0 24 24">
@@ -593,17 +605,26 @@
 
     <symbol id="icon-lie" viewBox="0 0 24 24">
     <defs>
-        <linearGradient id="lieRedGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#ef5350"/>
-            <stop offset="100%" stop-color="#b71c1c"/>
+        <linearGradient id="lieMouthFull" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#d32f2f"/>
+            <stop offset="100%" stop-color="#7f0000"/>
         </linearGradient>
-        <linearGradient id="liePinkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#f48fb1"/>
+        <linearGradient id="lieTongueFull" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#f8bbd0"/>
             <stop offset="100%" stop-color="#ad1457"/>
         </linearGradient>
     </defs>
-    <path d="M3 8 Q12 14, 21 8 Q12 10, 3 8 Z" fill="url(#lieRedGrad)"/>
-    <path d="M11 10 Q12 14, 11.5 17 Q11 14, 11 10 Z" fill="url(#liePinkGrad)"/>
+    <!-- Рот (улыбка с открытым низом) -->
+    <path d="M3 8 Q12 16, 21 8 Q12 10, 3 8 Z" fill="url(#lieMouthFull)"/>
+    <!-- Зубы сверху (белые) -->
+    <path d="M5 9 Q12 11, 19 9 L18.5 8.5 Q12 10, 5.5 8.5 Z" fill="#fff"/>
+    <!-- Язык (торчит вниз изо рта) -->
+    <path d="M10 12 Q10.5 16, 11 18 Q12.5 16, 14 12 Z" fill="url(#lieTongueFull)"/>
+    <!-- Линия по центру языка -->
+    <path d="M12 12 Q12 15, 12 17" stroke="#7f0000" stroke-width="0.4" opacity="0.6"/>
+    <!-- Брови (хитрые, дугами) -->
+    <path d="M5 5 Q7 3.5, 9 5" fill="none" stroke="#3e2723" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M15 5 Q17 3.5, 19 5" fill="none" stroke="#3e2723" stroke-width="1.2" stroke-linecap="round"/>
 </symbol>
 
     <symbol id="icon-rocket" viewBox="0 0 24 24">
