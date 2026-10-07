@@ -31,45 +31,40 @@
         <line x1="2" y1="10" x2="22" y2="10" stroke="#fff" stroke-width="1" opacity="0.4"/>
     </symbol>
 
-    <symbol id="icon-book-open" viewBox="0 0 24 24">
+   <symbol id="icon-book-open" viewBox="0 0 24 24">
     <defs>
-        <linearGradient id="quoteBg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="phPerson1" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#ba68c8"/>
             <stop offset="100%" stop-color="#4a148c"/>
         </linearGradient>
-    </defs>
-    <!-- Речевой пузырь -->
-    <path d="M4 4h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-6l-3 3v-3H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" fill="url(#quoteBg)"/>
-    <!-- Кавычки (двойные, крупно) -->
-    <text x="7" y="14" font-size="9" font-weight="900" fill="#fff" font-family="Georgia, serif" opacity="0.95">"</text>
-    <text x="13.5" y="14" font-size="9" font-weight="900" fill="#fff" font-family="Georgia, serif" opacity="0.95">"</text>
-</symbol>
-
-    <symbol id="icon-note" viewBox="0 0 24 24">
-    <defs>
-        <linearGradient id="noteBody2" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#4db6ac"/>
-            <stop offset="100%" stop-color="#004d40"/>
+        <linearGradient id="phPerson2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#f48fb1"/>
+            <stop offset="100%" stop-color="#880e4f"/>
         </linearGradient>
-        <linearGradient id="noteFold" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#80cbc4"/>
-            <stop offset="100%" stop-color="#26a69a"/>
+        <linearGradient id="phBubble1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4fc3f7"/>
+            <stop offset="100%" stop-color="#0277bd"/>
         </linearGradient>
-        <linearGradient id="notePencil" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ffca28"/>
-            <stop offset="100%" stop-color="#f57f17"/>
+        <linearGradient id="phBubble2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#81c784"/>
+            <stop offset="100%" stop-color="#1b5e20"/>
         </linearGradient>
     </defs>
-    <!-- Заметка -->
-    <path d="M5 3h10l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" fill="url(#noteBody2)"/>
-    <!-- Загнутый угол -->
-    <path d="M15 3v4h4z" fill="url(#noteFold)"/>
-    <!-- Строки текста -->
-    <line x1="7" y1="10" x2="16" y2="10" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
-    <line x1="7" y1="13" x2="14" y2="13" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
-    <line x1="7" y1="16" x2="12" y2="16" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
-    <!-- Карандаш сбоку -->
-    <path d="M20 13l1.5 1.5-4 4-1.5-1.5z" fill="url(#notePencil)" transform="rotate(-30 20 16)"/>
+    <!-- Левый человек (голова + плечи) -->
+    <circle cx="5" cy="16" r="2.2" fill="url(#phPerson1)"/>
+    <path d="M1.5 23v-1.5a3.5 3.5 0 0 1 3.5-3.5h0a3.5 3.5 0 0 1 3.5 3.5V23z" fill="url(#phPerson1)"/>
+    <!-- Правый человек (голова + плечи) -->
+    <circle cx="19" cy="16" r="2.2" fill="url(#phPerson2)"/>
+    <path d="M15.5 23v-1.5a3.5 3.5 0 0 1 3.5-3.5h0a3.5 3.5 0 0 1 3.5 3.5V23z" fill="url(#phPerson2)"/>
+    <!-- Левая реплика (пузырь) -->
+    <path d="M4 2h8a1.5 1.5 0 0 1 1.5 1.5v4A1.5 1.5 0 0 1 12 9H7l-2.5 2.5V9H4a1.5 1.5 0 0 1-1.5-1.5v-4A1.5 1.5 0 0 1 4 2z" fill="url(#phBubble1)"/>
+    <circle cx="6" cy="5.5" r="0.5" fill="#fff"/>
+    <circle cx="8.5" cy="5.5" r="0.5" fill="#fff"/>
+    <circle cx="11" cy="5.5" r="0.5" fill="#fff"/>
+    <!-- Правая реплика (пузырь) -->
+    <path d="M16 2h4a1.5 1.5 0 0 1 1.5 1.5v4A1.5 1.5 0 0 1 20 9h-0.5v2.5L17 9h-1a1.5 1.5 0 0 1-1.5-1.5v-4A1.5 1.5 0 0 1 16 2z" fill="url(#phBubble2)"/>
+    <circle cx="17.5" cy="5.5" r="0.5" fill="#fff"/>
+    <circle cx="19.5" cy="5.5" r="0.5" fill="#fff"/>
 </symbol>
 
     <symbol id="icon-book" viewBox="0 0 24 24">
@@ -705,28 +700,29 @@
 
     <symbol id="icon-study-words" viewBox="0 0 24 24">
     <defs>
-        <linearGradient id="swBg" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#4fc3f7"/>
-            <stop offset="100%" stop-color="#01579b"/>
+        <linearGradient id="swCard" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4dd0e1"/>
+            <stop offset="100%" stop-color="#00838f"/>
         </linearGradient>
-        <linearGradient id="swBgBack" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#81d4fa"/>
-            <stop offset="100%" stop-color="#0277bd"/>
+        <linearGradient id="swCardBack" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#80deea"/>
+            <stop offset="100%" stop-color="#26c6da"/>
         </linearGradient>
-        <linearGradient id="swArrow" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="swArrow2" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#ffd54f"/>
-            <stop offset="100%" stop-color="#e65100"/>
+            <stop offset="100%" stop-color="#f57f17"/>
         </linearGradient>
     </defs>
     <!-- Задняя карточка (повёрнута) -->
-    <rect x="6" y="5" width="14" height="14" rx="2" fill="url(#swBgBack)" opacity="0.5" transform="rotate(8 13 12)"/>
+    <rect x="6.5" y="5" width="13" height="13" rx="1.8" fill="url(#swCardBack)" opacity="0.55" transform="rotate(10 13 11.5)"/>
     <!-- Передняя карточка -->
-    <rect x="4" y="5" width="14" height="14" rx="2" fill="url(#swBg)"/>
-    <!-- Буква на карточке -->
-    <text x="11" y="14.5" font-size="8" font-weight="900" fill="#fff" text-anchor="middle" font-family="Rubik, sans-serif">Aa</text>
-    <!-- Стрелка (заучивание/повтор) -->
-    <path d="M20 8a4 4 0 0 1 0 8" fill="none" stroke="url(#swArrow)" stroke-width="1.6" stroke-linecap="round"/>
-    <polyline points="20 14 21 16 19 16" fill="none" stroke="url(#swArrow)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="4" y="5" width="13" height="13" rx="1.8" fill="url(#swCard)"/>
+    <!-- Буква Aa -->
+    <text x="10.5" y="14" font-size="7.5" font-weight="900" fill="#fff" text-anchor="middle" font-family="Rubik, sans-serif">Aa</text>
+    <!-- Круглая стрелка (заучивание) — по дуге справа -->
+    <path d="M19.5 7.5 a5 5 0 0 1 0 9" fill="none" stroke="url(#swArrow2)" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- Стрелка-наконечник (треугольник, чёткий) -->
+    <polygon points="19.5,16.5 21.5,15 18.5,13.5" fill="#f57f17"/>
 </symbol>
 
         <!-- ═══ ПАРТИЯ 1 — UI-БАЗОВЫЕ ═══ -->
