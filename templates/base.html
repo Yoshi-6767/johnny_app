@@ -1515,15 +1515,29 @@
     <!-- Учёба — книга -->
 <symbol id="icon-book" viewBox="0 0 24 24">
     <defs>
-        <linearGradient id="bookCoverNew2" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#ff8a65"/>
-            <stop offset="100%" stop-color="#bf360c"/>
+        <linearGradient id="trumpSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffcc80"/>
+            <stop offset="100%" stop-color="#e65100"/>
+        </linearGradient>
+        <linearGradient id="trumpHair" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fff59d"/>
+            <stop offset="100%" stop-color="#ffb300"/>
+        </linearGradient>
+        <linearGradient id="trumpSuit" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#37474f"/>
+            <stop offset="100%" stop-color="#0d0d0d"/>
         </linearGradient>
     </defs>
-    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" fill="url(#bookCoverNew2)"/>
-    <path d="M6.5 17H20v5H6.5A2.5 2.5 0 0 1 4 19.5 2.5 2.5 0 0 1 6.5 17z" fill="#fff"/>
-    <line x1="7" y1="5" x2="10" y2="5" stroke="#fff" stroke-width="1" opacity="0.7"/>
-    <line x1="7" y1="7" x2="10" y2="7" stroke="#fff" stroke-width="1" opacity="0.7"/>
+    <path d="M5 7 Q5 3, 12 3 Q19 3, 19 7 Q19 8, 18 8 L18 10 Q16 9, 15 10 L9 10 Q8 9, 6 10 L6 8 Q5 8, 5 7 Z" fill="url(#trumpHair)"/>
+    <ellipse cx="12" cy="12" rx="5" ry="5.5" fill="url(#trumpSkin)"/>
+    <circle cx="10" cy="11.5" r="0.6" fill="#1a1a1a"/>
+    <circle cx="14" cy="11.5" r="0.6" fill="#1a1a1a"/>
+    <line x1="9" y1="10.2" x2="11" y2="10.5" stroke="#8d6e63" stroke-width="0.7" stroke-linecap="round"/>
+    <line x1="15" y1="10.2" x2="13" y2="10.5" stroke="#8d6e63" stroke-width="0.7" stroke-linecap="round"/>
+    <path d="M10 14.5 Q12 15.5, 14 14.5" fill="none" stroke="#bf360c" stroke-width="0.7" stroke-linecap="round"/>
+    <path d="M6 18 Q6 17, 8 16.5 L16 16.5 Q18 17, 18 18 L18 22 L6 22 Z" fill="url(#trumpSuit)"/>
+    <path d="M11 17 L12 20 L13 17 Z" fill="#fff"/>
+    <path d="M11.5 17 L12 22 L12.5 17 Z" fill="#d32f2f"/>
 </symbol>
 
 <!-- Топики — заметка -->
@@ -1543,19 +1557,19 @@
 <!-- Фразы — две карточки веером с FW -->
 <symbol id="icon-book-open" viewBox="0 0 24 24">
     <defs>
-        <linearGradient id="phraseCardF2" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ba68c8"/>
-            <stop offset="100%" stop-color="#4a148c"/>
+        <linearGradient id="phraseCardW3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#80deea"/>
+            <stop offset="100%" stop-color="#26c6da"/>
         </linearGradient>
-        <linearGradient id="phraseCardW2" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#ce93d8"/>
-            <stop offset="100%" stop-color="#6a1b9a"/>
+        <linearGradient id="phraseCardF3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4dd0e1"/>
+            <stop offset="100%" stop-color="#00838f"/>
         </linearGradient>
     </defs>
-    <rect x="2" y="4" width="11" height="15" rx="2" fill="url(#phraseCardW2)" transform="rotate(-8 7.5 11.5)"/>
-    <text x="7.5" y="14" font-size="7" font-weight="900" fill="#fff" text-anchor="middle" font-family="Rubik, sans-serif" transform="rotate(-8 7.5 11.5)">"</text>
-    <rect x="11" y="6" width="11" height="15" rx="2" fill="url(#phraseCardF2)" transform="rotate(8 16.5 13.5)"/>
-    <text x="16.5" y="16" font-size="7" font-weight="900" fill="#fff" text-anchor="middle" font-family="Rubik, sans-serif" transform="rotate(8 16.5 13.5)">"</text>
+    <rect x="2" y="4" width="11" height="15" rx="2" fill="url(#phraseCardW3)" transform="rotate(-8 7.5 11.5)"/>
+    <text x="7.5" y="14" font-size="7" font-weight="900" fill="#fff" text-anchor="middle" font-family="Rubik, sans-serif" transform="rotate(-8 7.5 11.5)">W</text>
+    <rect x="11" y="6" width="11" height="15" rx="2" fill="url(#phraseCardF3)" transform="rotate(8 16.5 13.5)"/>
+    <text x="16.5" y="16" font-size="7" font-weight="900" fill="#fff" text-anchor="middle" font-family="Rubik, sans-serif" transform="rotate(8 16.5 13.5)">F</text>
 </symbol>
     
 </svg>
