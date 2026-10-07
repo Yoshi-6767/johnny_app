@@ -296,12 +296,45 @@
     <rect x="12.5" y="13.5" width="5" height="0.8" fill="#8e0000"/>
 </symbol>
 
-    <symbol id="icon-clock" viewBox="0 0 24 24">
-        <defs><linearGradient id="clockBlue" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#4fc3f7"/><stop offset="100%" stop-color="#01579b"/></linearGradient></defs>
-        <circle cx="12" cy="12" r="10" fill="url(#clockBlue)"/>
-        <polyline points="12 6 12 12 16 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="12" cy="12" r="1" fill="#fff"/>
-    </symbol>
+   <symbol id="icon-clock" viewBox="0 0 24 24">
+    <defs>
+        <linearGradient id="clkBody" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#81d4fa"/>
+            <stop offset="100%" stop-color="#0277bd"/>
+        </linearGradient>
+        <linearGradient id="clkRim" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#b3e5fc"/>
+            <stop offset="100%" stop-color="#01579b"/>
+        </linearGradient>
+    </defs>
+    <!-- Внешний ободок -->
+    <circle cx="12" cy="12" r="10" fill="url(#clkRim)"/>
+    <!-- Циферблат -->
+    <circle cx="12" cy="12" r="8.5" fill="#ffffff"/>
+    <!-- Метки часов (12, 3, 6, 9 — крупные) -->
+    <rect x="11.4" y="4" width="1.2" height="1.6" rx="0.4" fill="#37474f"/>
+    <rect x="11.4" y="18.4" width="1.2" height="1.6" rx="0.4" fill="#37474f"/>
+    <rect x="4" y="11.4" width="1.6" height="1.2" rx="0.4" fill="#37474f"/>
+    <rect x="18.4" y="11.4" width="1.6" height="1.2" rx="0.4" fill="#37474f"/>
+    <!-- Мелкие метки (1,2,4,5,7,8,10,11) -->
+    <circle cx="8.5" cy="5.5" r="0.3" fill="#90a4ae"/>
+    <circle cx="15.5" cy="5.5" r="0.3" fill="#90a4ae"/>
+    <circle cx="18.5" cy="8.5" r="0.3" fill="#90a4ae"/>
+    <circle cx="18.5" cy="15.5" r="0.3" fill="#90a4ae"/>
+    <circle cx="15.5" cy="18.5" r="0.3" fill="#90a4ae"/>
+    <circle cx="8.5" cy="18.5" r="0.3" fill="#90a4ae"/>
+    <circle cx="5.5" cy="15.5" r="0.3" fill="#90a4ae"/>
+    <circle cx="5.5" cy="8.5" r="0.3" fill="#90a4ae"/>
+    <!-- Часовая стрелка (толстая, короткая) -->
+    <line x1="12" y1="12" x2="9" y2="9" stroke="#263238" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- Минутная стрелка (длинная) -->
+    <line x1="12" y1="12" x2="16" y2="10" stroke="#263238" stroke-width="1.4" stroke-linecap="round"/>
+    <!-- Секундная (тонкая, красная) -->
+    <line x1="12" y1="12" x2="12" y2="6" stroke="#ef5350" stroke-width="0.7" stroke-linecap="round"/>
+    <!-- Центр -->
+    <circle cx="12" cy="12" r="1" fill="#263238"/>
+    <circle cx="12" cy="12" r="0.4" fill="#fff"/>
+</symbol>
 
     <!-- ═══ ИНТЕРФЕЙС ═══ -->
     <symbol id="icon-fire" viewBox="0 0 24 24">
@@ -418,12 +451,26 @@
     </symbol>
 
     <symbol id="icon-apple" viewBox="0 0 24 24">
-        <defs><linearGradient id="appleRed" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ef5350"/><stop offset="100%" stop-color="#b71c1c"/></linearGradient></defs>
-        <path d="M12 6c-1-2-3-3-5-3C4 3 2 6 2 9c0 5 6 12 10 12s10-7 10-12c0-3-2-6-5-6-2 0-4 1-5 3z" fill="url(#appleRed)"/>
-        <path d="M12 6V2c1 0 3 1 3 4" fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round"/>
-        <ellipse cx="16.5" cy="3.5" rx="2" ry="1" fill="#66bb6a" transform="rotate(30 16.5 3.5)"/>
-        <ellipse cx="8" cy="10" rx="1.5" ry="2" fill="#fff" opacity="0.4"/>
-    </symbol>
+    <defs>
+        <linearGradient id="bananaYellow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fff59d"/>
+            <stop offset="50%" stop-color="#ffeb3b"/>
+            <stop offset="100%" stop-color="#f9a825"/>
+        </linearGradient>
+        <linearGradient id="bananaTip" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#6d4c41"/>
+            <stop offset="100%" stop-color="#3e2723"/>
+        </linearGradient>
+    </defs>
+    <!-- Банан (изогнутая форма) -->
+    <path d="M4 6 C4 6, 5 14, 12 17 C16 18.5, 19 17, 20 14 C20 14, 18 15, 15 14 C9 12, 6 8, 5 5 C4.7 4.5, 4 5, 4 6 Z" fill="url(#bananaYellow)"/>
+    <!-- Внутренняя тень (объём) -->
+    <path d="M5.5 7 C6 10, 8 13.5, 12 15.5 C14 16.3, 16 16.3, 17.5 15.5" fill="none" stroke="#f57f17" stroke-width="0.5" opacity="0.5"/>
+    <!-- Хвостик (коричневый) -->
+    <path d="M3.5 5 L5 5.5 L5.2 4.5 L4 4 Z" fill="url(#bananaTip)"/>
+    <!-- Блик -->
+    <ellipse cx="10" cy="12" rx="3" ry="0.6" fill="#fff" opacity="0.35" transform="rotate(-30 10 12)"/>
+</symbol>
 
     <symbol id="icon-dollar" viewBox="0 0 24 24">
         <defs><linearGradient id="dollarGreen" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#66bb6a"/><stop offset="100%" stop-color="#1b5e20"/></linearGradient></defs>
@@ -434,20 +481,59 @@
     </symbol>
 
     <symbol id="icon-sparkles" viewBox="0 0 24 24">
-        <defs><linearGradient id="sparklesGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fff176"/><stop offset="100%" stop-color="#f57f17"/></linearGradient></defs>
-        <path d="M9 3l1.5 4.5L15 9l-4.5 1.5L9 15l-1.5-4.5L3 9l4.5-1.5z" fill="url(#sparklesGrad)"/>
-        <path d="M18 12l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill="url(#sparklesGrad)"/>
-        <path d="M17 4l0.5 1.5L19 6l-1.5 0.5L17 8l-0.5-1.5L15 6l1.5-0.5z" fill="#42a5f5"/>
-    </symbol>
+    <defs>
+        <radialGradient id="wSun" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff59d"/>
+            <stop offset="70%" stop-color="#ffeb3b"/>
+            <stop offset="100%" stop-color="#f9a825"/>
+        </radialGradient>
+        <linearGradient id="wCloud" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#b0bec5"/>
+        </linearGradient>
+        <linearGradient id="wRain" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#4fc3f7"/>
+            <stop offset="100%" stop-color="#0277bd"/>
+        </linearGradient>
+    </defs>
+    <!-- Солнце сзади (частично видно) -->
+    <circle cx="8" cy="8" r="4.5" fill="url(#wSun)"/>
+    <!-- Лучи солнца (короткие) -->
+    <line x1="8" y1="2" x2="8" y2="3.5" stroke="#f9a825" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="2" y1="8" x2="3.5" y2="8" stroke="#f9a825" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="3.5" y1="3.5" x2="4.5" y2="4.5" stroke="#f9a825" stroke-width="1.2" stroke-linecap="round"/>
+    <!-- Облако (спереди) -->
+    <path d="M8 16 C5 16, 3 14, 3 12 C3 10.3, 4.3 9, 6 9 C6.3 7, 8 5.5, 10 5.5 C12 5.5, 13.5 7, 13.9 9 C15.7 9, 17 10.3, 17 12 C17 14, 15 16, 12 16 Z" fill="url(#wCloud)"/>
+    <!-- Капли дождя (3 штуки) -->
+    <line x1="8" y1="18" x2="7.5" y2="20" stroke="url(#wRain)" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="11" y1="18" x2="10.5" y2="21" stroke="url(#wRain)" stroke-width="1.2" stroke-linecap="round"/>
+    <line x1="14" y1="18" x2="13.5" y2="20" stroke="url(#wRain)" stroke-width="1.2" stroke-linecap="round"/>
+</symbol>
 
     <symbol id="icon-eye" viewBox="0 0 24 24">
-        <defs><linearGradient id="eyeTeal" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#4dd0e1"/><stop offset="100%" stop-color="#006064"/></linearGradient></defs>
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" fill="url(#eyeTeal)"/>
-        <circle cx="12" cy="12" r="4" fill="#fff"/>
-        <circle cx="12" cy="12" r="2" fill="#4dd0e1"/>
-        <circle cx="12" cy="12" r="1" fill="#000"/>
-        <circle cx="13" cy="11" r="0.4" fill="#fff"/>
-    </symbol>
+    <defs>
+        <linearGradient id="appFace" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffcc80"/>
+            <stop offset="100%" stop-color="#e65100"/>
+        </linearGradient>
+        <linearGradient id="appEye" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#4dd0e1"/>
+            <stop offset="100%" stop-color="#006064"/>
+        </linearGradient>
+    </defs>
+    <!-- Стилизованный профиль лица (упрощённый, не реалистичный) -->
+    <path d="M5 20 V10 C5 6, 8 3, 12 3 C16 3, 19 6, 19 10 V12 C19 14, 18 16, 16 17 L16 20 Z" fill="url(#appFace)"/>
+    <!-- Глаз (миндалевидный) -->
+    <ellipse cx="11" cy="10" rx="2" ry="1.2" fill="#fff"/>
+    <circle cx="11" cy="10" r="0.9" fill="url(#appEye)"/>
+    <circle cx="11" cy="10" r="0.4" fill="#000"/>
+    <!-- Бровь -->
+    <path d="M8.5 7.5 Q11 6.8 13.5 7.8" fill="none" stroke="#3e2723" stroke-width="0.9" stroke-linecap="round"/>
+    <!-- Нос (профиль) -->
+    <path d="M17.5 10 L18.5 13 L17 13.5" fill="none" stroke="#bf360c" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Губы (лёгкая линия) -->
+    <path d="M15 16 Q16 15.7 17 16" fill="none" stroke="#c62828" stroke-width="0.8" stroke-linecap="round"/>
+</symbol>
 
     <symbol id="icon-heart" viewBox="0 0 24 24">
         <defs><linearGradient id="heartRed" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ff5252"/><stop offset="100%" stop-color="#b71c1c"/></linearGradient></defs>
@@ -464,19 +550,70 @@
 
     <!-- ═══ НОВЫЕ ═══ -->
     <symbol id="icon-airplane" viewBox="0 0 24 24">
-        <defs><linearGradient id="planeBody" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#e3f2fd"/><stop offset="100%" stop-color="#64b5f6"/></linearGradient></defs>
-        <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" fill="url(#planeBody)" stroke="#1565c0" stroke-width="0.5"/>
-        <circle cx="12" cy="14" r="0.8" fill="#1565c0"/>
-    </symbol>
+    <defs>
+        <linearGradient id="carBody" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ef5350"/>
+            <stop offset="100%" stop-color="#b71c1c"/>
+        </linearGradient>
+        <linearGradient id="carWindow" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#b3e5fc"/>
+            <stop offset="100%" stop-color="#0277bd"/>
+        </linearGradient>
+    </defs>
+    <!-- Кузов машины (вид сбоку, хэтчбек) -->
+    <path d="M3 14 L4 10 C4.3 9, 5 8.5, 6 8.5 L16 8.5 C17 8.5, 18 9, 18.5 10 L20 12 L21 12.5 C21.6 12.7, 22 13.2, 22 14 L22 16 L2 16 Z" fill="url(#carBody)"/>
+    <!-- Крыша (сверху) -->
+    <path d="M6 8.5 L7.5 6 C7.8 5.5, 8.5 5, 9.5 5 L14 5 C15 5, 15.7 5.5, 16 6 L17 8.5 Z" fill="url(#carBody)"/>
+    <!-- Лобовое стекло -->
+    <path d="M7 8.5 L8 6.3 L11 6.3 L11 8.5 Z" fill="url(#carWindow)"/>
+    <!-- Боковое окно -->
+    <path d="M11.5 8.5 L11.5 6.3 L15 6.3 L16 8.5 Z" fill="url(#carWindow)"/>
+    <!-- Дверная линия -->
+    <line x1="11.5" y1="8.5" x2="11.5" y2="16" stroke="#7f0000" stroke-width="0.4" opacity="0.6"/>
+    <!-- Фара -->
+    <rect x="20.5" y="13" width="1.4" height="1.2" rx="0.3" fill="#fff59d"/>
+    <!-- Задний фонарь -->
+    <rect x="2.2" y="13.2" width="1" height="1.2" rx="0.2" fill="#ff5252"/>
+    <!-- Колёса -->
+    <circle cx="6.5" cy="17" r="2" fill="#212121"/>
+    <circle cx="6.5" cy="17" r="0.9" fill="#bdbdbd"/>
+    <circle cx="17.5" cy="17" r="2" fill="#212121"/>
+    <circle cx="17.5" cy="17" r="0.9" fill="#bdbdbd"/>
+    <!-- Дорога (тонкая линия) -->
+    <line x1="2" y1="20" x2="22" y2="20" stroke="#616161" stroke-width="0.5" stroke-linecap="round" opacity="0.5"/>
+</symbol>
 
     <symbol id="icon-suitcase" viewBox="0 0 24 24">
-        <defs><linearGradient id="suitcaseBody" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ff8a65"/><stop offset="100%" stop-color="#bf360c"/></linearGradient></defs>
-        <rect x="2" y="7" width="20" height="14" rx="2" fill="url(#suitcaseBody)"/>
-        <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" fill="none" stroke="url(#suitcaseBody)" stroke-width="2"/>
-        <line x1="2" y1="13" x2="22" y2="13" stroke="#fff" stroke-width="1" opacity="0.5"/>
-        <rect x="8" y="11" width="2" height="4" rx="0.5" fill="#ffc107"/>
-        <rect x="14" y="11" width="2" height="4" rx="0.5" fill="#ffc107"/>
-    </symbol>
+    <defs>
+        <linearGradient id="palmTrunk" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#a1887f"/>
+            <stop offset="100%" stop-color="#5d4037"/>
+        </linearGradient>
+        <linearGradient id="palmLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#66bb6a"/>
+            <stop offset="100%" stop-color="#1b5e20"/>
+        </linearGradient>
+        <radialGradient id="palmSun" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff59d"/>
+            <stop offset="100%" stop-color="#ffb300"/>
+        </radialGradient>
+    </defs>
+    <!-- Солнце сзади -->
+    <circle cx="17" cy="6" r="4" fill="url(#palmSun)"/>
+    <!-- Песок (холм) -->
+    <path d="M2 22 Q12 17, 22 22 Z" fill="#ffe082"/>
+    <!-- Ствол пальмы (изогнутый) -->
+    <path d="M11 22 Q10 16, 11 12 Q11.5 9, 12 8 L13 8 Q12.5 9, 12 12 Q11 16, 12 22 Z" fill="url(#palmTrunk)"/>
+    <!-- Листья пальмы (5 штук веером) -->
+    <path d="M12.5 8 Q8 6, 4 7 Q7 8, 12 9 Z" fill="url(#palmLeaf)"/>
+    <path d="M12.5 8 Q9 4, 6 3 Q9 5, 12 8 Z" fill="url(#palmLeaf)"/>
+    <path d="M12.5 8 Q13 3, 15 2 Q14 5, 13 8 Z" fill="url(#palmLeaf)"/>
+    <path d="M12.5 8 Q16 4, 19 4 Q16 6, 13 8 Z" fill="url(#palmLeaf)"/>
+    <path d="M12.5 8 Q17 8, 20 10 Q16 10, 13 9 Z" fill="url(#palmLeaf)"/>
+    <!-- Кокосы (2 маленьких коричневых кружка) -->
+    <circle cx="11.5" cy="9" r="0.7" fill="#4e342e"/>
+    <circle cx="13.5" cy="9.3" r="0.7" fill="#4e342e"/>
+</symbol>
 
     <symbol id="icon-planet" viewBox="0 0 24 24">
         <defs><linearGradient id="planetBody" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4dd0e1"/><stop offset="100%" stop-color="#006064"/></linearGradient></defs>
@@ -576,11 +713,27 @@
         <line x1="12" y1="9" x2="12" y2="15" stroke="#fff" stroke-width="1" opacity="0.6"/>
     </symbol>
 
-    <symbol id="icon-heart-pulse" viewBox="0 0 24 24">
-        <defs><linearGradient id="heartPulseBody" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ff5252"/><stop offset="100%" stop-color="#b71c1c"/></linearGradient></defs>
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="url(#heartPulseBody)"/>
-        <polyline points="3 12 8 12 10 9 12 15 14 12 21 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24">
+    <defs>
+        <linearGradient id="heartBetter" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ff8a80"/>
+            <stop offset="40%" stop-color="#ff5252"/>
+            <stop offset="100%" stop-color="#b71c1c"/>
+        </linearGradient>
+        <radialGradient id="heartShine" cx="30%" cy="25%" r="40%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </radialGradient>
+    </defs>
+    <!-- Тень -->
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="#7f0000" opacity="0.35" transform="translate(0.5, 0.5)"/>
+    <!-- Основное сердце -->
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="url(#heartBetter)"/>
+    <!-- Блик -->
+    <ellipse cx="8.5" cy="9" rx="1.8" ry="2.5" fill="url(#heartShine)"/>
+    <!-- Маленький блик -->
+    <circle cx="15" cy="7" r="0.8" fill="#fff" opacity="0.5"/>
+</symbol>
 
     <symbol id="icon-wallet" viewBox="0 0 24 24">
         <defs><linearGradient id="walletBody" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#a1887f"/><stop offset="100%" stop-color="#4e342e"/></linearGradient><linearGradient id="walletCoin" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fff176"/><stop offset="100%" stop-color="#f57f17"/></linearGradient></defs>
@@ -591,16 +744,37 @@
     </symbol>
 
     <symbol id="icon-theater" viewBox="0 0 24 24">
-        <defs><linearGradient id="theaterHappy" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffe082"/><stop offset="100%" stop-color="#ff8f00"/></linearGradient><linearGradient id="theaterSad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ff8a65"/><stop offset="100%" stop-color="#bf360c"/></linearGradient></defs>
-        <path d="M3 4h8v11a4 4 0 0 1-4 4 4 4 0 0 1-4-4z" fill="url(#theaterHappy)"/>
-        <path d="M13 4h8v11a4 4 0 0 1-4 4 4 4 0 0 1-4-4z" fill="url(#theaterSad)"/>
-        <circle cx="6.5" cy="10" r="1" fill="#4e342e"/>
-        <circle cx="9.5" cy="10" r="1" fill="#4e342e"/>
-        <circle cx="16.5" cy="10" r="1" fill="#4e342e"/>
-        <circle cx="19.5" cy="10" r="1" fill="#4e342e"/>
-        <path d="M5.5 13c.5 1 1.2 1.5 2.5 1.5s2-.5 2.5-1.5" fill="none" stroke="#4e342e" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M15.5 15c.5-1 1.2-1.5 2.5-1.5s2 .5 2.5 1.5" fill="none" stroke="#4e342e" stroke-width="1.2" stroke-linecap="round"/>
-    </symbol>
+    <defs>
+        <linearGradient id="charHappy" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fff176"/>
+            <stop offset="100%" stop-color="#f9a825"/>
+        </linearGradient>
+        <linearGradient id="charSad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ff8a65"/>
+            <stop offset="100%" stop-color="#bf360c"/>
+        </linearGradient>
+    </defs>
+    <!-- Левая маска (весёлая) -->
+    <path d="M2 4 Q2 2.5, 3.5 2.5 L9.5 2.5 Q11 2.5, 11 4 L11 12 Q11 16.5, 6.5 16.5 Q2 16.5, 2 12 Z" fill="url(#charHappy)"/>
+    <!-- Ленты маски (2 маленькие) -->
+    <path d="M2 5 L0.5 6 L0.5 8 L2 7 Z" fill="#f57f17"/>
+    <path d="M11 5 L12.5 6 L12.5 8 L11 7 Z" fill="#f57f17"/>
+    <!-- Глаза весёлой (дуги) -->
+    <path d="M4.5 7 Q5.5 6, 6.5 7" fill="none" stroke="#4e342e" stroke-width="0.9" stroke-linecap="round"/>
+    <path d="M7.5 7 Q8.5 6, 9.5 7" fill="none" stroke="#4e342e" stroke-width="0.9" stroke-linecap="round"/>
+    <!-- Улыбка -->
+    <path d="M5 12 Q6.5 13.5, 8 12" fill="none" stroke="#4e342e" stroke-width="1" stroke-linecap="round"/>
+    <!-- Правая маска (грустная) -->
+    <path d="M13 4 Q13 2.5, 14.5 2.5 L20.5 2.5 Q22 2.5, 22 4 L22 12 Q22 16.5, 17.5 16.5 Q13 16.5, 13 12 Z" fill="url(#charSad)"/>
+    <!-- Ленты маски -->
+    <path d="M13 5 L11.5 6 L11.5 8 L13 7 Z" fill="#bf360c"/>
+    <path d="M22 5 L23.5 6 L23.5 8 L22 7 Z" fill="#bf360c"/>
+    <!-- Глаза грустной (наклонные) -->
+    <path d="M15 6.5 Q16 7, 17 6.5" fill="none" stroke="#4e342e" stroke-width="0.9" stroke-linecap="round"/>
+    <path d="M18 6.5 Q19 7, 20 6.5" fill="none" stroke="#4e342e" stroke-width="0.9" stroke-linecap="round"/>
+    <!-- Грустный рот -->
+    <path d="M15.5 12.5 Q17 11, 18.5 12.5" fill="none" stroke="#4e342e" stroke-width="1" stroke-linecap="round"/>
+</symbol>
 
     <!-- ═══ ИГРЫ ═══ -->
     <symbol id="icon-hangman" viewBox="0 0 24 24">
