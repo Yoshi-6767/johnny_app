@@ -11,7 +11,11 @@
         flex-wrap: wrap;
         margin-bottom: 10px;
     }
-    .lesson-header .emoji { font-size: 56px; }
+    .lesson-header .lesson-icon {
+        width: 56px;
+        height: 56px;
+        flex-shrink: 0;
+    }
     .lesson-header h1 { margin: 0; }
     .lesson-header .level {
         background: var(--bg-subtle);
@@ -398,8 +402,28 @@
 {% endblock %}
 
 {% block content %}
+{% set lesson_icons = {
+    "🕐": "icon-clock",
+    "⏪": "icon-history",
+    "🎬": "icon-speed",
+    "🔮": "icon-dream",
+    "🔤": "icon-abc",
+    "📍": "icon-target",
+    "🏠": "icon-home",
+    "💪": "icon-muscle",
+    "📊": "icon-chart",
+    "🎭": "icon-theater",
+    "🔢": "icon-abc",
+    "✨": "icon-sparkles",
+    "⏳": "icon-clock",
+    "⏮️": "icon-history",
+    "🔄": "icon-refresh",
+    "🔀": "icon-list",
+    "🗣️": "icon-speech"
+} %}
+
 <div class="lesson-header">
-    <div class="emoji">{{ lesson.emoji }}</div>
+    <svg class="icon lesson-icon"><use href="#{{ lesson_icons.get(lesson.emoji, 'icon-book') }}"></use></svg>
     <h1>{{ lesson.title }}</h1>
     <span class="level">{{ lesson.level }}</span>
 </div>
