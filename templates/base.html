@@ -332,6 +332,13 @@
 </symbol>
 
    <symbol id="icon-clock" viewBox="0 0 24 24">
+    <defs><linearGradient id="clockBlue" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#4fc3f7"/><stop offset="100%" stop-color="#01579b"/></linearGradient></defs>
+    <circle cx="12" cy="12" r="10" fill="url(#clockBlue)"/>
+    <polyline points="12 6 12 12 16 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="1" fill="#fff"/>
+</symbol>
+
+    <symbol id="icon-hourglass" viewBox="0 0 24 24">
     <defs>
         <linearGradient id="hourGlass" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#4dd0e1"/>
@@ -342,21 +349,13 @@
             <stop offset="100%" stop-color="#f57f17"/>
         </linearGradient>
     </defs>
-    <!-- Верхняя крышка -->
     <rect x="4" y="2" width="16" height="1.5" rx="0.5" fill="url(#hourGlass)"/>
-    <!-- Нижняя крышка -->
     <rect x="4" y="20.5" width="16" height="1.5" rx="0.5" fill="url(#hourGlass)"/>
-    <!-- Стекло (верхняя полусфера) -->
     <path d="M5 3.5 L12 11 L19 3.5 Z" fill="url(#hourGlass)" opacity="0.5"/>
-    <!-- Песок сверху (треугольник) -->
     <path d="M6 4 L12 10.5 L18 4 Z" fill="url(#hourSand)"/>
-    <!-- Стекло (нижняя полусфера) -->
     <path d="M12 13 L5 20.5 L19 20.5 Z" fill="url(#hourGlass)" opacity="0.5"/>
-    <!-- Песок снизу (треугольник) -->
     <path d="M7 20 L12 14 L17 20 Z" fill="url(#hourSand)"/>
-    <!-- Падающая песчинка (вертикальная линия) -->
     <line x1="12" y1="11" x2="12" y2="13" stroke="#f57f17" stroke-width="0.8"/>
-    <!-- Стеклянные боковые линии -->
     <path d="M5 3.5 L12 11 L19 3.5" fill="none" stroke="#80deea" stroke-width="0.6"/>
     <path d="M12 13 L5 20.5 M12 13 L19 20.5" fill="none" stroke="#80deea" stroke-width="0.6"/>
 </symbol>
