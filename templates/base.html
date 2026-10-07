@@ -207,6 +207,33 @@
     <path d="M13 20a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2h-4z" fill="url(#famGirl)"/>
 </symbol>
 
+    <symbol id="icon-note" viewBox="0 0 24 24">
+    <defs>
+        <linearGradient id="noteBody2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#4db6ac"/>
+            <stop offset="100%" stop-color="#004d40"/>
+        </linearGradient>
+        <linearGradient id="noteFold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#80cbc4"/>
+            <stop offset="100%" stop-color="#26a69a"/>
+        </linearGradient>
+        <linearGradient id="notePencil" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffca28"/>
+            <stop offset="100%" stop-color="#f57f17"/>
+        </linearGradient>
+    </defs>
+    <!-- Заметка -->
+    <path d="M5 3h10l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" fill="url(#noteBody2)"/>
+    <!-- Загнутый угол -->
+    <path d="M15 3v4h4z" fill="url(#noteFold)"/>
+    <!-- Строки текста -->
+    <line x1="7" y1="10" x2="16" y2="10" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+    <line x1="7" y1="13" x2="14" y2="13" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+    <line x1="7" y1="16" x2="12" y2="16" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+    <!-- Карандаш сбоку -->
+    <path d="M20 13l1.5 1.5-4 4-1.5-1.5z" fill="url(#notePencil)" transform="rotate(-30 20 16)"/>
+</symbol>
+
     <symbol id="icon-settings" viewBox="0 0 24 24">
         <defs><linearGradient id="settingsGear" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#b0bec5"/><stop offset="100%" stop-color="#263238"/></linearGradient></defs>
         <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" fill="url(#settingsGear)"/>
@@ -700,29 +727,23 @@
 
     <symbol id="icon-study-words" viewBox="0 0 24 24">
     <defs>
-        <linearGradient id="swCard" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="swCard3" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#4dd0e1"/>
             <stop offset="100%" stop-color="#00838f"/>
         </linearGradient>
-        <linearGradient id="swCardBack" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#80deea"/>
-            <stop offset="100%" stop-color="#26c6da"/>
-        </linearGradient>
-        <linearGradient id="swArrow2" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id="swArrow3" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#ffd54f"/>
             <stop offset="100%" stop-color="#f57f17"/>
         </linearGradient>
     </defs>
-    <!-- Задняя карточка (повёрнута) -->
-    <rect x="6.5" y="5" width="13" height="13" rx="1.8" fill="url(#swCardBack)" opacity="0.55" transform="rotate(10 13 11.5)"/>
-    <!-- Передняя карточка -->
-    <rect x="4" y="5" width="13" height="13" rx="1.8" fill="url(#swCard)"/>
+    <!-- Одна большая карточка (без задней) -->
+    <rect x="4" y="3" width="16" height="13" rx="2" fill="url(#swCard3)"/>
     <!-- Буква Aa -->
-    <text x="10.5" y="14" font-size="7.5" font-weight="900" fill="#fff" text-anchor="middle" font-family="Rubik, sans-serif">Aa</text>
-    <!-- Круглая стрелка (заучивание) — по дуге справа -->
-    <path d="M19.5 7.5 a5 5 0 0 1 0 9" fill="none" stroke="url(#swArrow2)" stroke-width="1.8" stroke-linecap="round"/>
-    <!-- Стрелка-наконечник (треугольник, чёткий) -->
-    <polygon points="19.5,16.5 21.5,15 18.5,13.5" fill="#f57f17"/>
+    <text x="12" y="12.5" font-size="8" font-weight="900" fill="#fff" text-anchor="middle" font-family="Rubik, sans-serif">Aa</text>
+    <!-- Петля-стрелка снизу (повтор) -->
+    <path d="M7 20a5 3 0 0 1 10 0" fill="none" stroke="url(#swArrow3)" stroke-width="1.8" stroke-linecap="round"/>
+    <polygon points="5,20 7,17.5 7,21" fill="#f57f17"/>
+    <polygon points="19,20 17,17.5 17,21" fill="#f57f17"/>
 </symbol>
 
         <!-- ═══ ПАРТИЯ 1 — UI-БАЗОВЫЕ ═══ -->
