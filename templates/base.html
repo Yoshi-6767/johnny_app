@@ -68,13 +68,39 @@
 </symbol>
 
     <symbol id="icon-book" viewBox="0 0 24 24">
-        <defs><linearGradient id="bookCover" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ff8a65"/><stop offset="100%" stop-color="#bf360c"/></linearGradient></defs>
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" fill="url(#bookCover)"/>
-        <path d="M6.5 17H20v5H6.5A2.5 2.5 0 0 1 4 19.5 2.5 2.5 0 0 1 6.5 17z" fill="#fff"/>
-        <line x1="7" y1="4" x2="10" y2="4" stroke="#fff" stroke-width="1" opacity="0.7"/>
-        <line x1="7" y1="6" x2="10" y2="6" stroke="#fff" stroke-width="1" opacity="0.7"/>
-    </symbol>
-
+    <defs>
+        <linearGradient id="trumpSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffcc80"/>
+            <stop offset="100%" stop-color="#e65100"/>
+        </linearGradient>
+        <linearGradient id="trumpHair" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fff59d"/>
+            <stop offset="100%" stop-color="#ffb300"/>
+        </linearGradient>
+        <linearGradient id="trumpSuit" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#37474f"/>
+            <stop offset="100%" stop-color="#0d0d0d"/>
+        </linearGradient>
+    </defs>
+    <!-- Причёска (жёлтая, волной) -->
+    <path d="M5 7 Q5 3, 12 3 Q19 3, 19 7 Q19 8, 18 8 L18 10 Q16 9, 15 10 L9 10 Q8 9, 6 10 L6 8 Q5 8, 5 7 Z" fill="url(#trumpHair)"/>
+    <!-- Лицо -->
+    <ellipse cx="12" cy="12" rx="5" ry="5.5" fill="url(#trumpSkin)"/>
+    <!-- Глаза -->
+    <circle cx="10" cy="11.5" r="0.6" fill="#1a1a1a"/>
+    <circle cx="14" cy="11.5" r="0.6" fill="#1a1a1a"/>
+    <!-- Брови (сдвинуты) -->
+    <line x1="9" y1="10.2" x2="11" y2="10.5" stroke="#8d6e63" stroke-width="0.7" stroke-linecap="round"/>
+    <line x1="15" y1="10.2" x2="13" y2="10.5" stroke="#8d6e63" stroke-width="0.7" stroke-linecap="round"/>
+    <!-- Рот (ухмылка) -->
+    <path d="M10 14.5 Q12 15.5, 14 14.5" fill="none" stroke="#bf360c" stroke-width="0.7" stroke-linecap="round"/>
+    <!-- Костюм (тёмный, снизу) -->
+    <path d="M6 18 Q6 17, 8 16.5 L16 16.5 Q18 17, 18 18 L18 22 L6 22 Z" fill="url(#trumpSuit)"/>
+    <!-- Белая рубашка (треугольник) -->
+    <path d="M11 17 L12 20 L13 17 Z" fill="#fff"/>
+    <!-- Красный галстук -->
+    <path d="M11.5 17 L12 22 L12.5 17 Z" fill="#d32f2f"/>
+</symbol>
     <symbol id="icon-gamepad" viewBox="0 0 24 24">
     <defs>
         <linearGradient id="ps5Body2" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -174,37 +200,27 @@
 
    <symbol id="icon-users" viewBox="0 0 24 24">
     <defs>
-        <linearGradient id="famMan" x1="0%" y1="0%" x2="0%" y2="100%">
+        <linearGradient id="kissBoy" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#64b5f6"/>
             <stop offset="100%" stop-color="#0d47a1"/>
         </linearGradient>
-        <linearGradient id="famWoman" x1="0%" y1="0%" x2="0%" y2="100%">
+        <linearGradient id="kissGirl" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#f48fb1"/>
-            <stop offset="100%" stop-color="#880e4f"/>
-        </linearGradient>
-        <linearGradient id="famBoy" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#81c784"/>
-            <stop offset="100%" stop-color="#1b5e20"/>
-        </linearGradient>
-        <linearGradient id="famGirl" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#ffb74d"/>
-            <stop offset="100%" stop-color="#e65100"/>
+            <stop offset="100%" stop-color="#ad1457"/>
         </linearGradient>
     </defs>
-    <!-- Папа (слева, высокий) -->
-    <circle cx="5" cy="6" r="2" fill="url(#famMan)"/>
-    <path d="M2 14a3 3 0 0 1 3-3h0a3 3 0 0 1 3 3v5H2z" fill="url(#famMan)"/>
-    <!-- Мама (справа, высокая, с длинными волосами) -->
-    <circle cx="19" cy="6" r="2" fill="url(#famWoman)"/>
-    <path d="M19 4c-1.5 0-2.5 1-2.5 2.5 0 0.5 0.2 1 0.5 1.4V9c0 0.6-0.5 1-1 1s-1-0.4-1-1V6.5a4 4 0 0 1 8 0V9c0 0.6-0.5 1-1 1s-1-0.4-1-1V7.9c0.3-0.4 0.5-0.9 0.5-1.4C21.5 5 20.5 4 19 4z" fill="url(#famWoman)"/>
-    <path d="M16 14a3 3 0 0 1 3-3h0a3 3 0 0 1 3 3v5h-6z" fill="url(#famWoman)"/>
-    <!-- Сын (снизу слева) -->
-    <circle cx="9" cy="14" r="1.5" fill="url(#famBoy)"/>
-    <path d="M7 20a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2H7z" fill="url(#famBoy)"/>
-    <!-- Дочь (снизу справа) -->
-    <circle cx="15" cy="14" r="1.5" fill="url(#famGirl)"/>
-    <path d="M15 12.5c-1.2 0-2 0.8-2 2V15c0 0.4-0.3 0.7-0.7 0.7s-0.7-0.3-0.7-0.7v-1.5a3.4 3.4 0 0 1 6.8 0V15c0 0.4-0.3 0.7-0.7 0.7s-0.7-0.3-0.7-0.7v-0.5c0-1.2-0.8-2-2-2z" fill="url(#famGirl)"/>
-    <path d="M13 20a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2h-4z" fill="url(#famGirl)"/>
+    <!-- Парень (слева, голова + плечо) -->
+    <circle cx="8" cy="8" r="3.5" fill="url(#kissBoy)"/>
+    <path d="M1 22 v-1.5 a5 5 0 0 1 5-5 h1 a5 5 0 0 1 3 1 v5.5 z" fill="url(#kissBoy)"/>
+    <!-- Девушка (справа, с длинными волосами) -->
+    <circle cx="16" cy="8" r="3.5" fill="#ffcc80"/>
+    <path d="M13 5 Q12 3, 14 3 Q16 3, 19 5 Q21 7, 20 11 L21 15 L18 13 L15 14 L12 12 Q11 8, 13 5 Z" fill="url(#kissGirl)"/>
+    <!-- Плечо девушки -->
+    <path d="M13 22 v-1.5 a5 5 0 0 1 5-5 h1 a5 5 0 0 1 5 5 V22 z" fill="url(#kissGirl)"/>
+    <!-- Поцелуй (губы соприкасаются) -->
+    <path d="M10.5 9 Q12 8.5, 12 9 Q12 9.5, 10.5 9.5 Z" fill="#c62828"/>
+    <!-- Сердечко над головами -->
+    <path d="M12 2.5 a1 1 0 0 0-1 1 c0 1 1 2 1 2 s1-1 1-2 a1 1 0 0 0-1-1 z" fill="#ef5350"/>
 </symbol>
 
     <symbol id="icon-note" viewBox="0 0 24 24">
@@ -663,22 +679,64 @@
 </symbol>
 
     <symbol id="icon-planet" viewBox="0 0 24 24">
-        <defs><linearGradient id="planetBody" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4dd0e1"/><stop offset="100%" stop-color="#006064"/></linearGradient></defs>
-        <circle cx="12" cy="12" r="8" fill="url(#planetBody)"/>
-        <ellipse cx="12" cy="12" rx="11" ry="3" fill="none" stroke="#ffc107" stroke-width="1.5" transform="rotate(-20 12 12)"/>
-        <circle cx="9" cy="9" r="1.5" fill="#4caf50" opacity="0.8"/>
-        <circle cx="14" cy="13" r="2" fill="#4caf50" opacity="0.6"/>
-        <circle cx="11" cy="15" r="1" fill="#4caf50" opacity="0.7"/>
-    </symbol>
+    <defs>
+        <radialGradient id="earthBlue" cx="40%" cy="35%" r="60%">
+            <stop offset="0%" stop-color="#4dd0e1"/>
+            <stop offset="70%" stop-color="#0277bd"/>
+            <stop offset="100%" stop-color="#01579b"/>
+        </radialGradient>
+        <linearGradient id="earthLand" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#81c784"/>
+            <stop offset="100%" stop-color="#1b5e20"/>
+        </linearGradient>
+        <linearGradient id="earthRing" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ffc107"/>
+            <stop offset="50%" stop-color="#fff59d"/>
+            <stop offset="100%" stop-color="#ffc107"/>
+        </linearGradient>
+    </defs>
+    <!-- Кольцо (сзади) -->
+    <ellipse cx="12" cy="12" rx="11" ry="4" fill="none" stroke="url(#earthRing)" stroke-width="1.2" transform="rotate(-20 12 12)" opacity="0.6"/>
+    <!-- Планета -->
+    <circle cx="12" cy="12" r="8" fill="url(#earthBlue)"/>
+    <!-- Континенты (абстрактные) -->
+    <path d="M7 9 Q9 8, 10 10 Q9 12, 7 11 Z" fill="url(#earthLand)"/>
+    <path d="M14 10 Q16 9, 17 11 Q16 13, 14 12 Z" fill="url(#earthLand)"/>
+    <path d="M10 15 Q12 14, 13 16 Q12 18, 10 17 Z" fill="url(#earthLand)"/>
+    <!-- Кольцо (спереди, дуга) -->
+    <path d="M2 14 Q12 20, 22 14" fill="none" stroke="url(#earthRing)" stroke-width="1.2" transform="rotate(-20 12 12)" opacity="0.9"/>
+    <!-- Блик -->
+    <ellipse cx="8.5" cy="8" rx="2" ry="1.5" fill="#fff" opacity="0.3"/>
+</symbol>
 
-    <symbol id="icon-dialogue" viewBox="0 0 24 24">
-        <defs><linearGradient id="dialogueLeft" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#42a5f5"/><stop offset="100%" stop-color="#0d47a1"/></linearGradient><linearGradient id="dialogueRight" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#f48fb1"/><stop offset="100%" stop-color="#880e4f"/></linearGradient></defs>
-        <circle cx="7" cy="7" r="3" fill="url(#dialogueLeft)"/>
-        <path d="M1 17v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1z" fill="url(#dialogueLeft)"/>
-        <circle cx="17" cy="7" r="3" fill="url(#dialogueRight)"/>
-        <path d="M11 17v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1z" fill="url(#dialogueRight)"/>
-    </symbol>
-
+    <symbol id="icon-flask" viewBox="0 0 24 24">
+    <defs>
+        <linearGradient id="flaskGlass2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#e1f5fe" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#80deea" stop-opacity="0.4"/>
+        </linearGradient>
+        <linearGradient id="flaskLiquid2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#66bb6a"/>
+            <stop offset="100%" stop-color="#1b5e20"/>
+        </linearGradient>
+    </defs>
+    <!-- Горлышко -->
+    <rect x="9" y="2" width="6" height="1.5" rx="0.5" fill="#80deea"/>
+    <!-- Стекло колбы (трапеция) -->
+    <path d="M10 3.5 L10 8 L5 18 Q4.5 20, 6 20 L18 20 Q19.5 20, 19 18 L14 8 L14 3.5 Z" fill="url(#flaskGlass2)" stroke="#4dd0e1" stroke-width="0.6"/>
+    <!-- Жидкость (зелёная) -->
+    <path d="M7 14 L5.5 18 Q5 19.5, 6 19.5 L18 19.5 Q19 19.5, 18.5 18 L17 14 Z" fill="url(#flaskLiquid2)"/>
+    <!-- Пробка -->
+    <rect x="8.5" y="1.5" width="7" height="1.5" rx="0.5" fill="#8d6e63"/>
+    <!-- Пузырьки -->
+    <circle cx="10" cy="16" r="0.5" fill="#fff" opacity="0.7"/>
+    <circle cx="12" cy="17" r="0.4" fill="#fff" opacity="0.6"/>
+    <circle cx="14" cy="15.5" r="0.5" fill="#fff" opacity="0.7"/>
+    <circle cx="11" cy="18" r="0.3" fill="#fff" opacity="0.5"/>
+    <circle cx="13.5" cy="17.5" r="0.4" fill="#fff" opacity="0.6"/>
+    <!-- Блик на стекле -->
+    <path d="M9 10 L8 14" stroke="#fff" stroke-width="0.6" opacity="0.7" stroke-linecap="round"/>
+</symbol>
     <symbol id="icon-speech" viewBox="0 0 24 24">
     <defs>
         <linearGradient id="rapSkin" x1="0%" y1="0%" x2="0%" y2="100%">
