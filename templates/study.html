@@ -6,15 +6,35 @@
 <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-book"></use></svg> Учёба</h1>
 <div class="subtitle">Грамматика, глаголы, диалоги — всё в одном месте</div>
 
+{% set lesson_icons = {
+    "🕐": "icon-clock",
+    "⏪": "icon-history",
+    "🎬": "icon-speed",
+    "🔮": "icon-dream",
+    "🔤": "icon-abc",
+    "📍": "icon-target",
+    "🏠": "icon-home",
+    "💪": "icon-muscle",
+    "📊": "icon-chart",
+    "🎭": "icon-theater",
+    "🔢": "icon-abc",
+    "✨": "icon-sparkles",
+    "⏳": "icon-clock",
+    "⏮️": "icon-history",
+    "🔄": "icon-refresh",
+    "🔀": "icon-list",
+    "🗣️": "icon-speech"
+} %}
+
 <div class="cards">
     {% for l in lessons %}
     <a href="/study/grammar/{{ l.id }}" class="card">
         <div>
-            <div style="font-size: 32px; margin-bottom: 10px;">{{ l.emoji }}</div>
+            <svg class="card-icon" style="width: 42px; height: 42px;"><use href="#{{ lesson_icons.get(l.emoji, 'icon-book') }}"></use></svg>
             <div class="card-title">{{ l.title }}</div>
             <div class="card-count">
                 {{ l.level }}
-                {% if l.done %} • <svg class="icon icon-sm" style="color: #4caf50;"><use href="#icon-check"></use></svg> {{ l.score }}/{{ l.total }}{% endif %}
+                {% if l.done %} • <svg class="icon icon-sm" style="color: #4caf50; vertical-align: -0.2em;"><use href="#icon-check"></use></svg> {{ l.score }}/{{ l.total }}{% endif %}
             </div>
         </div>
     </a>
