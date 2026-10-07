@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Учить слова — Flow & Word{% endblock %}
+{% block title %}Учить слова — Flow Word{% endblock %}
 
 {% block styles %}
 <style>
@@ -46,9 +46,6 @@
         border-color: #4caf50 !important;
         background: linear-gradient(135deg, var(--bg-card) 0%, #f1f8e9 100%);
     }
-    .card-passed .card-title::after {
-        content: " ✅";
-    }
     .learned-badge {
         display: inline-block;
         background: var(--accent-lighter);
@@ -70,7 +67,7 @@
 {% endblock %}
 
 {% block content %}
-<h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="/static/icons.svg#icon-study-words"></use></svg> Учить слова</h1>
+<h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-study-words"></use></svg> Учить слова</h1>
 <div class="subtitle">Всего слов в базе: {{ total_words }}</div>
 
 <div class="filters">
@@ -82,8 +79,8 @@
 </div>
 
 <div class="section-actions">
-    <a href="/train?reset=1" class="btn">🔥 Тренировать все слова</a>
-    <a href="/exam/all" class="btn-outline">🎓 Экзамен по всему</a>
+    <a href="/train?reset=1" class="btn"><svg class="icon" style="width:18px;height:18px;vertical-align:-0.2em;margin-right:6px;"><use href="#icon-fire"></use></svg>Тренировать все слова</a>
+    <a href="/exam/all" class="btn-outline"><svg class="icon" style="width:18px;height:18px;vertical-align:-0.2em;margin-right:6px;"><use href="#icon-graduation"></use></svg>Экзамен по всему</a>
 </div>
 
 {% set section_icons = {
@@ -122,19 +119,19 @@
     'false_friends_2': 'icon-eye',
     'slang_1': 'icon-speech',
     'slang_2': 'icon-chat',
-    'general': 'icon-folder'
+    'general': 'icon-study-words'
 } %}
 
 <div class="cards" id="sections-grid">
     <a href="/sections/general" class="card {% if sections|selectattr('id','equalto','general')|selectattr('is_passed')|list %}card-passed{% endif %}" data-level="general">
         <div>
-            <svg class="section-icon"><use href="/static/icons.svg#icon-study-words"></use></svg>
+            <svg class="section-icon"><use href="#icon-study-words"></use></svg>
             <div class="card-title">Общее</div>
             <div class="card-count">
                 {% for s in sections %}
                     {% if s.id == 'general' %}
                         {{ s.count }} слов
-                        {% if s.learned > 0 %}<span class="learned-badge">✅ {{ s.learned }}</span>{% endif %}
+                        {% if s.learned > 0 %}<span class="learned-badge">✓ {{ s.learned }}</span>{% endif %}
                     {% endif %}
                 {% endfor %}
             </div>
@@ -145,11 +142,11 @@
         {% if s.id != "general" %}
         <a href="/sections/{{ s.id }}" class="card {% if s.is_passed %}card-passed{% endif %}" data-level="{{ s.level }}">
             <div>
-                <svg class="section-icon"><use href="/static/icons.svg#{{ section_icons.get(s.id, 'icon-folder') }}"></use></svg>
+                <svg class="section-icon"><use href="#{{ section_icons.get(s.id, 'icon-folder') }}"></use></svg>
                 <div class="card-title">{{ s.title }}</div>
                 <div class="card-count">
                     {{ s.count }} слов • {{ s.level }}
-                    {% if s.learned > 0 %}<span class="learned-badge">✅ {{ s.learned }}</span>{% endif %}
+                    {% if s.learned > 0 %}<span class="learned-badge">✓ {{ s.learned }}</span>{% endif %}
                 </div>
             </div>
         </a>
