@@ -73,6 +73,12 @@
         line-height: 1.6;
     }
     .info-banner strong { color: var(--accent); }
+    .grammar-icon {
+        width: 42px;
+        height: 42px;
+        transition: transform 0.2s;
+    }
+    .grammar-card:hover .grammar-icon { transform: scale(1.1); }
 </style>
 {% endblock %}
 
@@ -85,10 +91,31 @@
     Пройди тест на 60% и выше, чтобы урок считался завершённым.
 </div>
 
+{# МАППИНГ ЭМОДЗИ → ИКОНКАМ ГРАММАТИКИ (новые id из base.html) #}
+{% set lesson_icons = {
+    "🕐": "icon-grammar-present-simple",
+    "⏪": "icon-grammar-past-simple",
+    "🎬": "icon-grammar-present-continuous",
+    "🔮": "icon-grammar-future-simple",
+    "🔤": "icon-grammar-articles",
+    "📍": "icon-grammar-prepositions",
+    "🏠": "icon-grammar-there-is",
+    "💪": "icon-grammar-modals",
+    "📊": "icon-grammar-comparatives",
+    "🎭": "icon-grammar-gerund",
+    "🔢": "icon-grammar-countable",
+    "✨": "icon-grammar-present-perfect",
+    "⏳": "icon-grammar-past-continuous",
+    "⏮️": "icon-grammar-past-perfect",
+    "🔄": "icon-grammar-ppc",
+    "🔀": "icon-grammar-conditionals",
+    "🗣️": "icon-grammar-reported"
+} %}
+
 <div class="cards">
     {% for l in lessons %}
     <a href="/study/grammar/{{ l.id }}" class="grammar-card {% if l.done %}done{% endif %}">
-        <div class="grammar-emoji">{{ l.emoji }}</div>
+        <svg class="grammar-icon"><use href="#{{ lesson_icons.get(l.emoji, 'icon-book') }}"></use></svg>
         <div class="grammar-title">{{ l.title }}</div>
         <div class="grammar-intro">{{ l.intro }}</div>
         <div class="grammar-meta">
