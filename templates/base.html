@@ -38,30 +38,22 @@
         <line x1="2" y1="10" x2="22" y2="10" stroke="#fff" stroke-width="1" opacity="0.4"/>
     </symbol>
 
-    <!-- Учить слова — КНИГА С КАРТОЧКАМИ (старая, из твоего файла) -->
+        <!-- УЧИТЬ СЛОВА — FW-КАРТОЧКИ -->
     <symbol id="icon-study-words" viewBox="0 0 24 24">
         <defs>
-            <linearGradient id="swCoverFinal" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ff8a65"/>
-                <stop offset="50%" stop-color="#ff5722"/>
-                <stop offset="100%" stop-color="#bf360c"/>
+            <linearGradient id="swFixFront" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4dd0e1"/>
+                <stop offset="100%" stop-color="#00838f"/>
             </linearGradient>
-            <linearGradient id="swPageFinal" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#fff8e1"/>
-                <stop offset="100%" stop-color="#ffecb3"/>
-            </linearGradient>
-            <linearGradient id="swCardFinal" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#4fc3f7"/>
-                <stop offset="100%" stop-color="#01579b"/>
+            <linearGradient id="swFixBack" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#80deea"/>
+                <stop offset="100%" stop-color="#26c6da"/>
             </linearGradient>
         </defs>
-        <path d="M4 4a2 2 0 0 1 2-2h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a2 2 0 0 0-2 2V4z" fill="url(#swCoverFinal)"/>
-        <path d="M6 3h11v15H6a2 2 0 0 0-2 2V5a2 2 0 0 1 2-2z" fill="url(#swPageFinal)"/>
-        <path d="M14 3h3v6l-1.5-1.5L14 9V3z" fill="#d32f2f"/>
-        <rect x="7" y="10" width="8" height="6" rx="1" fill="url(#swCardFinal)"/>
-        <line x1="8.5" y1="12" x2="13.5" y2="12" stroke="#fff" stroke-width="0.9" stroke-linecap="round"/>
-        <line x1="8.5" y1="14" x2="11.5" y2="14" stroke="#fff" stroke-width="0.9" stroke-linecap="round"/>
-        <path d="M18 16l0.8 1.8 1.8 0.8-1.8 0.8-0.8 1.8-0.8-1.8-1.8-0.8 1.8-0.8z" fill="#ffc107"/>
+        <rect x="2" y="4" width="11" height="15" rx="2" fill="url(#swFixBack)" transform="rotate(-8 7.5 11.5)"/>
+        <text x="7.5" y="14" font-size="7" font-weight="900" fill="#fff" text-anchor="middle" font-family="Rubik, sans-serif" transform="rotate(-8 7.5 11.5)">W</text>
+        <rect x="11" y="6" width="11" height="15" rx="2" fill="url(#swFixFront)" transform="rotate(8 16.5 13.5)"/>
+        <text x="16.5" y="16" font-size="7" font-weight="900" fill="#fff" text-anchor="middle" font-family="Rubik, sans-serif" transform="rotate(8 16.5 13.5)">F</text>
     </symbol>
 
     <!-- Учёба — открытая книга (твоя старая) -->
@@ -635,25 +627,29 @@
     </symbol>
 
     <!-- Ложные друзья 1 — маска (твой старый) -->
+        <!-- FALSE FRIENDS 1 — КРАСНЫЙ ЗНАК С «!» -->
     <symbol id="icon-false-friends-1" viewBox="0 0 24 24">
-        <defs><linearGradient id="ff1GradFinal" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ba68c8"/><stop offset="100%" stop-color="#4a148c"/></linearGradient></defs>
-        <path d="M3 4 Q3 2, 5 2 L11 2 Q13 2, 13 4 L13 12 Q13 17, 8 17 Q3 17, 3 12 Z" fill="url(#ff1GradFinal)"/>
-        <path d="M5.5 9 Q7 7.5, 8.5 9" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M8.5 9 Q10 7.5, 11.5 9" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M5.5 13 Q8 14.5, 10.5 13" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
-        <circle cx="8" cy="20" r="2" fill="#ffc107"/>
-        <text x="8" y="21" font-size="2.5" font-weight="900" fill="#4a148c" text-anchor="middle" font-family="Rubik, sans-serif">?</text>
+        <defs>
+            <linearGradient id="ff1FixRed" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ef5350"/>
+                <stop offset="100%" stop-color="#b71c1c"/>
+            </linearGradient>
+        </defs>
+        <polygon points="8,2 16,2 22,8 22,16 16,22 8,22 2,16 2,8" fill="url(#ff1FixRed)" stroke="#fff" stroke-width="1.2"/>
+        <text x="12" y="16" font-size="9" font-weight="900" fill="#fff" text-anchor="middle" font-family="Rubik, sans-serif">!</text>
     </symbol>
 
     <!-- Ложные друзья 2 — книга со знаком (НОРМАЛЬНАЯ, вместо чаши с зубьями) -->
+        <!-- FALSE FRIENDS 2 — ОРАНЖЕВЫЙ ЗНАК С «?» -->
     <symbol id="icon-false-friends-2" viewBox="0 0 24 24">
-        <defs><linearGradient id="ff2GradFinal" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ef5350"/><stop offset="100%" stop-color="#b71c1c"/></linearGradient></defs>
-        <path d="M4 3 Q4 2, 5 2 L17 2 Q19 2, 19 4 L19 20 Q19 22, 17 22 L5 22 Q4 22, 4 21 Z" fill="url(#ff2GradFinal)"/>
-        <line x1="4" y1="6" x2="19" y2="6" stroke="#fff" stroke-width="0.8" opacity="0.5"/>
-        <line x1="4" y1="10" x2="19" y2="10" stroke="#fff" stroke-width="0.8" opacity="0.5"/>
-        <line x1="4" y1="14" x2="19" y2="14" stroke="#fff" stroke-width="0.8" opacity="0.5"/>
-        <line x1="12" y1="17" x2="12" y2="18.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-        <circle cx="12" cy="20.5" r="0.7" fill="#fff"/>
+        <defs>
+            <linearGradient id="ff2FixOrange" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ff9800"/>
+                <stop offset="100%" stop-color="#e65100"/>
+            </linearGradient>
+        </defs>
+        <polygon points="8,2 16,2 22,8 22,16 16,22 8,22 2,16 2,8" fill="url(#ff2FixOrange)" stroke="#fff" stroke-width="1.2"/>
+        <text x="12" y="16" font-size="9" font-weight="900" fill="#fff" text-anchor="middle" font-family="Rubik, sans-serif">?</text>
     </symbol>
 
     <!-- Сленг 1 — кепка рэпера (твой старый) -->
@@ -712,17 +708,28 @@
         <path d="M9 14 Q12 15.5, 15 14" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round"/>
     </symbol>
 
-    <!-- My Hobbies — гитара -->
+        <!-- MY HOBBIES — ФУТБОЛЬНЫЙ МЯЧ -->
     <symbol id="icon-topic-hobby" viewBox="0 0 24 24">
-        <defs><linearGradient id="topicHobbyBody" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffb74d"/><stop offset="100%" stop-color="#e65100"/></linearGradient></defs>
-        <path d="M14 2 L16 4 L12 8 L10 6 Z" fill="#5d4037"/>
-        <ellipse cx="9" cy="15" rx="5" ry="6" fill="url(#topicHobbyBody)"/>
-        <circle cx="9" cy="15" r="2" fill="#3e2723"/>
-        <line x1="4" y1="12" x2="14" y2="18" stroke="#3e2723" stroke-width="0.8"/>
-        <line x1="4" y1="18" x2="14" y2="12" stroke="#3e2723" stroke-width="0.8"/>
-        <line x1="14" y1="2" x2="20" y2="8" stroke="#5d4037" stroke-width="2" stroke-linecap="round"/>
+        <defs>
+            <radialGradient id="hobbyFixBall" cx="35%" cy="30%" r="65%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="80%" stop-color="#eceff1"/>
+                <stop offset="100%" stop-color="#b0bec5"/>
+            </radialGradient>
+        </defs>
+        <circle cx="12" cy="12" r="10" fill="url(#hobbyFixBall)" stroke="#90a4ae" stroke-width="0.5"/>
+        <polygon points="12 6.5, 15.5 9.5, 14 13.5, 10 13.5, 8.5 9.5" fill="#263238"/>
+        <line x1="12" y1="6.5" x2="12" y2="3" stroke="#263238" stroke-width="0.8"/>
+        <line x1="15.5" y1="9.5" x2="20" y2="8" stroke="#263238" stroke-width="0.8"/>
+        <line x1="14" y1="13.5" x2="17" y2="18" stroke="#263238" stroke-width="0.8"/>
+        <line x1="10" y1="13.5" x2="7" y2="18" stroke="#263238" stroke-width="0.8"/>
+        <line x1="8.5" y1="9.5" x2="4" y2="8" stroke="#263238" stroke-width="0.8"/>
+        <polygon points="12 3, 14.5 4.5, 13.5 7, 10.5 7, 9.5 4.5" fill="#263238" opacity="0.85"/>
+        <polygon points="20 8, 21 11, 19 13, 17 12, 17 9" fill="#263238" opacity="0.85"/>
+        <polygon points="17 18, 14 21, 11.5 20, 11.5 17, 14 16" fill="#263238" opacity="0.85"/>
+        <polygon points="7 18, 10 21, 12.5 20, 12.5 17, 10 16" fill="#263238" opacity="0.85"/>
+        <polygon points="4 8, 3 11, 5 13, 7 12, 7 9" fill="#263238" opacity="0.85"/>
     </symbol>
-
     <!-- My City — городской пейзаж -->
     <symbol id="icon-topic-city" viewBox="0 0 24 24">
         <defs><linearGradient id="topicCityBg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#64b5f6"/><stop offset="100%" stop-color="#0d47a1"/></linearGradient></defs>
@@ -808,18 +815,23 @@
          ═══════════════════════════════════════════════ -->
 
     <!-- Present Simple — календарь «каждый день» -->
-    <symbol id="icon-grammar-present-simple" viewBox="0 0 24 24">
-        <defs><linearGradient id="gpsBg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#4fc3f7"/><stop offset="100%" stop-color="#01579b"/></linearGradient></defs>
-        <rect x="3" y="4" width="18" height="17" rx="2" fill="url(#gpsBg)"/>
-        <rect x="3" y="4" width="18" height="4" fill="#01579b"/>
-        <line x1="8" y1="2" x2="8" y2="6" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
-        <line x1="16" y1="2" x2="16" y2="6" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
-        <circle cx="8" cy="13" r="1" fill="#fff"/>
-        <circle cx="12" cy="13" r="1" fill="#fff"/>
-        <circle cx="16" cy="13" r="1" fill="#fff"/>
-        <circle cx="8" cy="17" r="1" fill="#fff"/>
-        <circle cx="12" cy="17" r="1" fill="#fff"/>
-        <circle cx="16" cy="17" r="1" fill="#fff"/>
+        <!-- THERE IS / THERE ARE — БЕЗ ДОМА! Галочка + плюс -->
+    <symbol id="icon-grammar-there-is" viewBox="0 0 24 24">
+        <defs>
+            <linearGradient id="thereFixGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#66bb6a"/>
+                <stop offset="100%" stop-color="#1b5e20"/>
+            </linearGradient>
+            <linearGradient id="thereFixBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#4fc3f7"/>
+                <stop offset="100%" stop-color="#01579b"/>
+            </linearGradient>
+        </defs>
+        <circle cx="8" cy="10" r="6" fill="url(#thereFixGreen)"/>
+        <polyline points="5 10 7 12 11 7.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="17" cy="17" r="6" fill="url(#thereFixBlue)"/>
+        <line x1="17" y1="14" x2="17" y2="20" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <line x1="14" y1="17" x2="20" y2="17" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
     </symbol>
 
     <!-- Past Simple — календарь со стрелкой назад -->
