@@ -232,28 +232,28 @@ li:nth-child(8) { animation-delay: 0.16s; }
     display: none; 
 }
 
-/* LIGHT — светлый логотип с обводкой */
+/* LIGHT — светлый логотип крупнее внутри */
 html[data-theme-pending="light"] .logo-dark { display: none !important; }
 html[data-theme-pending="light"] .logo-light { 
     display: block !important; 
     background: #ffffff;
     border: 2px solid #d0d7e0;
     border-radius: 15px;
-    padding: 6px;
+    padding: 2px;
     width: 56px;
     height: 56px;
     object-fit: contain;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* SEPIA — светлый логотип с обводкой */
+/* SEPIA — светлый логотип крупнее */
 html[data-theme-pending="sepia"] .logo-dark { display: none !important; }
 html[data-theme-pending="sepia"] .logo-light { 
     display: block !important; 
     background: #ffffff;
     border: 2px solid #d9c8a5;
     border-radius: 15px;
-    padding: 6px;
+    padding: 2px;
     width: 64px;
     height: 64px;
     object-fit: contain;
