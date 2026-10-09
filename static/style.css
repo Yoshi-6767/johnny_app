@@ -212,14 +212,16 @@ li:nth-child(8) { animation-delay: 0.16s; }
     object-fit: cover;
     transition: transform 0.2s;
 }
+
+/* По умолчанию (тёмные темы) — показываем лого с чёрным фоном */
 .logo-icon.logo-dark { background: #000; display: block; }
 .logo-icon.logo-light { background: transparent; display: none; }
 
-/* Light — светлый логотип */
+/* LIGHT тема — показываем прозрачный логотип, прячем чёрный */
 body[data-theme="light"] .logo-dark { display: none !important; }
 body[data-theme="light"] .logo-light { display: block !important; width: 44px; height: 44px; }
 
-/* Sepia — светлый логотип, крупнее */
+/* SEPIA тема — показываем прозрачный логотип крупнее, прячем чёрный */
 body[data-theme="sepia"] .logo-dark { display: none !important; }
 body[data-theme="sepia"] .logo-light { display: block !important; width: 56px; height: 56px; }
 
