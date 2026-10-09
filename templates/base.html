@@ -2003,10 +2003,9 @@
     else checkOnboarding();
 
     (function() {
-        const theme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme-pending', theme);
-        document.documentElement.removeAttribute('data-theme-pending');
-    })();
+    const theme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme-pending', theme);
+})();
 
     function setTheme(theme) {
         localStorage.setItem('theme', theme);
