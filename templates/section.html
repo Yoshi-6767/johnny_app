@@ -81,15 +81,54 @@
     }
     .passed-banner .icon { width: 24px; height: 24px; }
 
-    li.learned {
-        background: #e8f5e9 !important;
-        border-color: #a5d6a7 !important;
-        opacity: 0.85;
-    }
-    li.learned .word-text {
-        text-decoration: line-through;
-        color: #558b2f;
-    }
+    /* ─── ВЫУЧЕННЫЕ СЛОВА (подсветка под каждую тему) ─── */
+
+/* Light — бирюзовая */
+li.learned {
+    background: var(--accent-lighter) !important;
+    border-color: var(--accent-light) !important;
+    opacity: 0.9;
+}
+li.learned .word-text {
+    text-decoration: line-through;
+    color: var(--accent-dark);
+}
+
+/* Dark — приглушённая бирюзовая */
+body[data-theme="dark"] li.learned {
+    background: #082830 !important;
+    border-color: #0e3d47 !important;
+}
+body[data-theme="dark"] li.learned .word-text {
+    color: #4dd0e1;
+}
+
+/* Sepia — бежево-бирюзовая */
+body[data-theme="sepia"] li.learned {
+    background: #e0f2f1 !important;
+    border-color: #b2dfdb !important;
+}
+body[data-theme="sepia"] li.learned .word-text {
+    color: #00695c;
+}
+
+/* Neon — розовая (у неона розовый акцент) */
+body[data-theme="neon"] li.learned {
+    background: #2a0a1e !important;
+    border-color: #ff2d95 !important;
+}
+body[data-theme="neon"] li.learned .word-text {
+    color: #ff2d95;
+}
+
+/* Forest — зелёная (тема зелёная) */
+body[data-theme="forest"] li.learned {
+    background: #0f2a1a !important;
+    border-color: #2a5c3a !important;
+}
+body[data-theme="forest"] li.learned .word-text {
+    color: #4ade80;
+}
     .actions button {
         display: inline-flex;
         align-items: center;
