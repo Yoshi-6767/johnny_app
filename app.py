@@ -144,8 +144,12 @@ migrate_db()
 def update_last_seen():
     if current_user.is_authenticated:
         try:
-            current_user.last_seen = datetime.utcnow()
-            db.session.commit()
+            now = datetime.utcnow()
+            last = current_user.last_seen
+            # Обновляем не чаще, чем раз в 60 секунд
+            if not last or (now - last).total_seconds() > 60:
+                current_user.last_seen = now
+                db.session.commit()
         except Exception:
             db.session.rollback()
 
