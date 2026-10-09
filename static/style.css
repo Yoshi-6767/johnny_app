@@ -215,18 +215,13 @@ li:nth-child(8) { animation-delay: 0.16s; }
 .logo-icon.logo-dark { background: #000; display: block; }
 .logo-icon.logo-light { background: transparent; display: none; }
 
-/* Для светлых тем — светлый логотип, скрываем тёмный */
-body[data-theme="light"] .logo-dark,
-body[data-theme="sepia"] .logo-dark { display: none; }
-body[data-theme="light"] .logo-light,
-body[data-theme="sepia"] .logo-light { display: block; }
-.logo:hover .logo-icon {
-    transform: scale(1.05);
-}
-.logo .logo-w {
-    color: var(--accent);
-    text-shadow: 0 0 16px var(--accent-shadow), 0 0 32px var(--accent-shadow);
-}
+/* Light — светлый логотип */
+body[data-theme="light"] .logo-dark { display: none !important; }
+body[data-theme="light"] .logo-light { display: block !important; width: 44px; height: 44px; }
+
+/* Sepia — светлый логотип, крупнее */
+body[data-theme="sepia"] .logo-dark { display: none !important; }
+body[data-theme="sepia"] .logo-light { display: block !important; width: 56px; height: 56px; }
 
 /* ─── НАВИГАЦИЯ ─── */
 .nav {
