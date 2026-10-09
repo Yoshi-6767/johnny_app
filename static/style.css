@@ -211,8 +211,50 @@ li:nth-child(8) { animation-delay: 0.16s; }
     height: 44px;
     flex-shrink: 0;
     border-radius: 10px;
-    object-fit: cover;
+    object-fit: contain;
+    padding: 4px;
+    box-sizing: border-box;
     transition: transform 0.2s;
+}
+
+/* Тёмный логотип — чёрный фон */
+.logo-icon.logo-dark { 
+    background: #000; 
+    display: block; 
+    object-fit: cover; 
+    padding: 0; 
+}
+
+/* Светлый логотип — скрыт по умолчанию */
+.logo-icon.logo-light { 
+    background: transparent; 
+    display: none; 
+}
+
+/* LIGHT — светлый логотип с лёгким фоном */
+html[data-theme-pending="light"] .logo-dark { display: none !important; }
+html[data-theme-pending="light"] .logo-light { 
+    display: block !important; 
+    background: #f0f4f8;
+    border: 1px solid #e0e6ed;
+    border-radius: 10px;
+    padding: 4px;
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+/* SEPIA — светлый логотип с бежевым фоном, крупнее */
+html[data-theme-pending="sepia"] .logo-dark { display: none !important; }
+html[data-theme-pending="sepia"] .logo-light { 
+    display: block !important; 
+    background: #f5ecd4;
+    border: 1px solid #e0d2b0;
+    border-radius: 10px;
+    padding: 4px;
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
 }
 
 /* 2. По умолчанию — тёмный */
