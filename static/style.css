@@ -204,6 +204,8 @@ li:nth-child(8) { animation-delay: 0.16s; }
     letter-spacing: 0.5px;
     transition: color 0.3s;
 }
+
+/* 1. Основной размер логотипа */
 .logo-icon {
     width: 44px;
     height: 44px;
@@ -213,17 +215,17 @@ li:nth-child(8) { animation-delay: 0.16s; }
     transition: transform 0.2s;
 }
 
-/* По умолчанию (тёмные темы) — показываем лого с чёрным фоном */
+/* 2. По умолчанию — тёмный */
 .logo-icon.logo-dark { background: #000; display: block; }
 .logo-icon.logo-light { background: transparent; display: none; }
 
-/* LIGHT тема — показываем прозрачный логотип, прячем чёрный */
-body[data-theme="light"] .logo-dark { display: none !important; }
-body[data-theme="light"] .logo-light { display: block !important; width: 44px; height: 44px; }
+/* 3. Light — прозрачный */
+html[data-theme-pending="light"] .logo-dark { display: none !important; }
+html[data-theme-pending="light"] .logo-light { display: block !important; width: 44px; height: 44px; }
 
-/* SEPIA тема — показываем прозрачный логотип крупнее, прячем чёрный */
-body[data-theme="sepia"] .logo-dark { display: none !important; }
-body[data-theme="sepia"] .logo-light { display: block !important; width: 56px; height: 56px; }
+/* 4. Sepia — прозрачный, крупнее */
+html[data-theme-pending="sepia"] .logo-dark { display: none !important; }
+html[data-theme-pending="sepia"] .logo-light { display: block !important; width: 56px; height: 56px; }
 
 /* ─── НАВИГАЦИЯ ─── */
 .nav {
