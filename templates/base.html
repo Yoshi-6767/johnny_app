@@ -2004,7 +2004,7 @@
 
     (function() {
         const theme = localStorage.getItem('theme') || 'dark';
-        if (theme !== 'light') document.body.setAttribute('data-theme', theme);
+        document.documentElement.setAttribute('data-theme-pending', theme);
         document.documentElement.removeAttribute('data-theme-pending');
     })();
 
