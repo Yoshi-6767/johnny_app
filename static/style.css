@@ -206,18 +206,19 @@ li:nth-child(8) { animation-delay: 0.16s; }
 }
 
 /* 1. Основной размер логотипа */
+/* Основной размер логотипа */
 .logo-icon {
-    width: 44px;
-    height: 44px;
+    width: 56px;
+    height: 56px;
     flex-shrink: 0;
-    border-radius: 10px;
+    border-radius: 15px;
     object-fit: contain;
-    padding: 4px;
+    padding: 6px;
     box-sizing: border-box;
     transition: transform 0.2s;
 }
 
-/* Тёмный логотип — чёрный фон */
+/* Тёмный логотип — чёрный фон, логотип вплотную */
 .logo-icon.logo-dark { 
     background: #000; 
     display: block; 
@@ -225,35 +226,33 @@ li:nth-child(8) { animation-delay: 0.16s; }
     padding: 0; 
 }
 
-/* Светлый логотип — скрыт по умолчанию */
+/* Светлый логотип — по умолчанию СКРЫТ */
 .logo-icon.logo-light { 
     background: transparent; 
     display: none; 
 }
 
-/* LIGHT — светлый логотип с лёгким фоном */
+/* LIGHT — показываем светлый логотип */
 html[data-theme-pending="light"] .logo-dark { display: none !important; }
 html[data-theme-pending="light"] .logo-light { 
     display: block !important; 
     background: #f0f4f8;
-    border: 1px solid #e0e6ed;
-    border-radius: 10px;
-    padding: 4px;
-    width: 44px;
-    height: 44px;
+    border-radius: 15px;
+    padding: 6px;
+    width: 56px;
+    height: 56px;
     object-fit: contain;
 }
 
-/* SEPIA — светлый логотип с бежевым фоном, крупнее */
+/* SEPIA — светлый логотип, крупнее */
 html[data-theme-pending="sepia"] .logo-dark { display: none !important; }
 html[data-theme-pending="sepia"] .logo-light { 
     display: block !important; 
     background: #f5ecd4;
-    border: 1px solid #e0d2b0;
-    border-radius: 10px;
-    padding: 4px;
-    width: 56px;
-    height: 56px;
+    border-radius: 15px;
+    padding: 6px;
+    width: 64px;
+    height: 64px;
     object-fit: contain;
 }
 
