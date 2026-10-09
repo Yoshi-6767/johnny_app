@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="/static/style.css">
     <script>
         (function() {
-            const theme = localStorage.getItem('theme') || 'dark';
-            if (theme !== 'light') document.documentElement.setAttribute('data-theme-pending', theme);
-        })();
+    const theme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme-pending', theme);
+})();
     </script>
     {% block styles %}{% endblock %}
 </head>
