@@ -1791,7 +1791,11 @@
 <div class="header">
     <div class="container">
         <div class="header-top">
-            <a href="/" class="logo"><img src="/static/logo.png" class="logo-icon" alt="FW"><span>Flo<span class="logo-w">w</span> Word</span></a>
+            <a href="/" class="logo">
+    <img src="/static/logo.png" class="logo-icon logo-dark" alt="FW">
+    <img src="/static/logo-light.png" class="logo-icon logo-light" alt="FW">
+    <span>Flo<span class="logo-w">w</span> Word</span>
+</a>
             <div class="header-right">
                 {% if current_user.is_authenticated %}
                     <div class="user-menu" onclick="toggleUserMenu(event)">
