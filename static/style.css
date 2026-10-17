@@ -790,6 +790,11 @@ body {
     box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3) !important;
     overflow: hidden !important;
     flex-shrink: 0 !important;
+    transition: transform 0.2s ease !important; /* Вернули анимацию */
+}
+
+.logo:hover .logo-img-wrap {
+    transform: scale(1.05) rotate(-5deg) !important; /* Вернули наведение */
 }
 
 .logo-icon {
@@ -803,8 +808,8 @@ body {
 
 /* ═══ ШРИФТ ШАПКИ (NUNITO) ═══ */
 .logo-text {
-    font-family: 'Nunito', sans-serif !important;
-    font-size: 34px !important;
+    font-family: 'Nunito', 'Rubik', sans-serif !important;
+    font-size: 36px !important;
     font-weight: 900 !important;
     letter-spacing: -0.5px !important;
     background: linear-gradient(90deg, #00b894, #00cec9, #0984e3, #6c5ce7, #e84393) !important;
