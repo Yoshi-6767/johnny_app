@@ -800,8 +800,8 @@ body {
 .logo-icon {
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover !important;
-    transform: scale(1.3) !important;
+    object-fit: contain !important; /* Возвращаем contain, чтобы влезло */
+    transform: scale(1.1) !important; /* Легкое увеличение, чтобы убрать прозрачные края, но не обрезать */
     padding: 0 !important;
     border-radius: 0 !important;
 }
