@@ -9,10 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
     <script>
-    (function() {
-        const theme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme-pending', theme);
-    })();
+(function() {
+    const theme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', theme === 'light' ? '' : theme);
+    document.documentElement.setAttribute('data-theme-pending', theme);
+})();
 </script>
     {% block styles %}{% endblock %}
 </head>
@@ -1792,9 +1793,10 @@
     <div class="container">
         <div class="header-top">
             <a href="/" class="logo">
-    <img src="/static/logo.png" class="logo-icon logo-dark" alt="FW">
-    <img src="/static/logo-light.png" class="logo-icon logo-light" alt="FW">
-    <span>Flo<span class="logo-w">w</span> Word</span>
+    <div class="logo-img-wrap">
+        <img src="/static/logo-light.png" class="logo-icon" alt="FW">
+    </div>
+    <span class="logo-text">Flow Word</span>
 </a>
             <div class="header-right">
                 {% if current_user.is_authenticated %}
@@ -2008,13 +2010,16 @@
 })();
 
     function setTheme(theme) {
-        localStorage.setItem('theme', theme);
-        if (theme === 'light') document.body.removeAttribute('data-theme');
-        else document.body.setAttribute('data-theme', theme);
-        document.querySelectorAll('.theme-card').forEach(card => {
-            card.classList.toggle('active', card.dataset.theme === theme);
-        });
-    }
+    localStorage.setItem('theme', theme);
+    if (theme === 'light') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', theme);
+    
+    document.documentElement.setAttribute('data-theme-pending', theme);
+    
+    document.querySelectorAll('.theme-card').forEach(card => {
+        card.classList.toggle('active', card.dataset.theme === theme);
+    });
+}
 
     window.addEventListener('scroll', function() {
         const scrollTop = window.scrollY;
