@@ -771,56 +771,49 @@ body {
     background-attachment: fixed !important;
 }
 
-/* ═══ НОВЫЙ ЛОГОТИП ═══ */
+/* ═══ ЛОГОТИП ═══ */
 .logo {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 15px !important;
-    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
 }
 
 .logo-img-wrap {
-    width: 56px !important;
-    height: 56px !important;
-    border-radius: 16px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: #ffffff !important;
-    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3) !important;
-    overflow: hidden !important;
-    flex-shrink: 0 !important;
-    transition: transform 0.2s ease !important; /* Вернули анимацию */
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
 }
 
 .logo:hover .logo-img-wrap {
-    transform: scale(1.05) rotate(-5deg) !important; /* Вернули наведение */
+    transform: scale(1.05) rotate(-5deg);
 }
 
 .logo-icon {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain !important; /* Возвращаем contain, чтобы влезло */
-    transform: scale(1.1) !important; /* Легкое увеличение, чтобы убрать прозрачные края, но не обрезать */
-    padding: 0 !important;
-    border-radius: 0 !important;
+    width: 40px; /* Чуть меньше квадратика, чтобы был отступ */
+    height: 40px;
+    object-fit: contain; /* Влезает полностью, ничего не обрезается */
 }
 
-/* ═══ ШРИФТ ШАПКИ (NUNITO) ═══ */
+/* ═══ ШРИФТ ═══ */
 .logo-text {
-    font-family: 'Nunito', 'Rubik', sans-serif !important;
-    font-size: 36px !important;
-    font-weight: 900 !important;
-    letter-spacing: -0.5px !important;
-    background: linear-gradient(90deg, #00b894, #00cec9, #0984e3, #6c5ce7, #e84393) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-    color: transparent !important;
-    line-height: 1 !important;
-    padding-bottom: 4px !important;
+    font-family: 'Rubik', sans-serif; /* Оставили Rubik, он нормальный */
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, #00b894, #00cec9, #0984e3, #6c5ce7, #e84393);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
 body[data-theme="dark"] .logo-text {
-    filter: brightness(1.2) !important;
+    filter: brightness(1.2);
 }
