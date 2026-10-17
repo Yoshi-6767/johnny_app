@@ -6,17 +6,12 @@
     <title>{% block title %}Flow Word{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&family=Russo+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800;900&family=Rubik:wght@400;500;700;900&family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
     <script>
 (function() {
     const theme = localStorage.getItem('theme') || 'dark';
-    if (theme === 'light') {
-        document.documentElement.removeAttribute('data-theme');
-    } else {
-        document.documentElement.setAttribute('data-theme', theme);
-    }
-    document.documentElement.setAttribute('data-theme-pending', theme);
+    document.documentElement.setAttribute('data-theme', theme);
 })();
 </script>
     {% block styles %}{% endblock %}
@@ -2010,14 +2005,7 @@
 
     function setTheme(theme) {
     localStorage.setItem('theme', theme);
-    if (theme === 'light') {
-        document.documentElement.removeAttribute('data-theme');
-    } else {
-        document.documentElement.setAttribute('data-theme', theme);
-    }
-    document.documentElement.setAttribute('data-theme-pending', theme);
-    
-    // Обновляем галочки в настройках, если мы на странице настроек
+    document.documentElement.setAttribute('data-theme', theme);
     document.querySelectorAll('.theme-card').forEach(card => {
         card.classList.toggle('active', card.dataset.theme === theme);
     });
