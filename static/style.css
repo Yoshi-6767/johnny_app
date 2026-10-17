@@ -819,3 +819,50 @@ body {
 body[data-theme="dark"] .logo-text {
     filter: brightness(1.2);
 }
+
+/* ═══ СТИЛИЗАЦИЯ ЛОГОТИПА ═══ */
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+}
+
+.logo-img-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    box-shadow: 0 4px 12px var(--accent-shadow);
+    transition: transform 0.2s;
+}
+
+.logo:hover .logo-img-wrap {
+    transform: scale(1.05) rotate(-5deg);
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+/* ═══ ГРАДИЕНТНЫЙ ТЕКСТ ═══ */
+.logo-text {
+    font-family: 'Rubik', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, #00b894, #00cec9, #0984e3, #6c5ce7, #e84393);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+body[data-theme="dark"] .logo-text {
+    filter: brightness(1.3);
+}
