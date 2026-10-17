@@ -11,7 +11,11 @@
     <script>
 (function() {
     const theme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', theme === 'light' ? '' : theme);
+    if (theme === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+    } else {
+        document.documentElement.setAttribute('data-theme', theme);
+    }
     document.documentElement.setAttribute('data-theme-pending', theme);
 })();
 </script>
@@ -2004,11 +2008,20 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", checkOnboarding);
     else checkOnboarding();
 
-    (function() {
-    const theme = localStorage.getItem('theme') || 'dark';
+    function setTheme(theme) {
+    localStorage.setItem('theme', theme);
+    if (theme === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+    } else {
+        document.documentElement.setAttribute('data-theme', theme);
+    }
     document.documentElement.setAttribute('data-theme-pending', theme);
-})();
-
+    
+    // Обновляем галочки в настройках, если мы на странице настроек
+    document.querySelectorAll('.theme-card').forEach(card => {
+        card.classList.toggle('active', card.dataset.theme === theme);
+    });
+}
     function setTheme(theme) {
     localStorage.setItem('theme', theme);
     if (theme === 'light') document.documentElement.removeAttribute('data-theme');
