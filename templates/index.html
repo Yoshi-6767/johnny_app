@@ -197,24 +197,6 @@
     </div>
 </div>
 
-<div class="daily-goal {% if daily_done %}done{% endif %}">
-    <div class="daily-goal-head">
-        <div class="daily-goal-title">
-            {% if daily_done %}
-            <svg class="icon"><use href="#icon-check"></use></svg>
-            Цель дня выполнена!
-            {% else %}
-            <svg class="icon"><use href="#icon-target"></use></svg>
-            Цель дня: {{ daily_goal }} слов
-            {% endif %}
-        </div>
-        <div class="daily-goal-count">{{ today_correct }} / {{ daily_goal }}</div>
-    </div>
-    <div class="daily-goal-bar">
-        <div class="daily-goal-fill" style="width: {{ daily_percent }}%"></div>
-    </div>
-</div>
-
 {% if weak_list %}
 <div class="weak-block">
     <div class="weak-block-head">
