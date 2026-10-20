@@ -19,8 +19,6 @@
         align-items: center;
         gap: 10px;
     }
-    .today-block h2 .icon { width: 26px; height: 26px; }
-    
     .today-stats {
         display: flex;
         gap: 35px;
@@ -28,33 +26,32 @@
         margin-bottom: 22px;
     }
     
-    /* ОБНОВЛЕННЫЕ СТИЛИ ДЛЯ ИКОНОК СПРАВА */
+    /* СТИЛИ ДЛЯ ЦИФР И ИКОНОК В ОДНУ ЛИНИЮ */
     .today-stat {
         display: flex;
-        align-items: center;
-        gap: 12px;
+        align-items: flex-start;
+        gap: 8px;
     }
     .today-stat .stat-info {
         display: flex;
         flex-direction: column;
     }
-    .today-stat .num { font-size: 32px; font-weight: 900; line-height: 1; }
+    .today-stat .num { 
+        font-size: 32px; 
+        font-weight: 900; 
+        line-height: 1; 
+        display: flex;
+        align-items: center;
+        gap: 6px; /* Расстояние между цифрой и иконкой */
+    }
+    .today-stat .num .icon { 
+        width: 22px; 
+        height: 22px; 
+    }
     .today-stat .label {
         font-size: 13px;
         opacity: 0.9;
         margin-top: 4px;
-    }
-    .today-stat .stat-icon {
-        width: 44px;
-        height: 44px;
-        flex-shrink: 0;
-    }
-    .wave-icon {
-        width: 36px;
-        height: 36px;
-        vertical-align: middle;
-        margin-right: 8px;
-        display: inline-block;
     }
 
     .today-btn-row {
@@ -178,32 +175,50 @@
 {% if current_user.is_authenticated %}
 <div class="today-block">
     <h2>
-        <svg class="wave-icon"><use href="#icon-hand-wave"></use></svg>
-        Привет, {{ current_user.username }}!
+        👋 Привет, {{ current_user.username }}!
     </h2>
     <div class="today-stats">
         <div class="today-stat">
             <div class="stat-info">
-                <div class="num">{{ streak }}</div>
+                <div class="num">
+                    {{ streak }}
+                    <svg class="icon"><use href="#icon-fire"></use></svg>
+                </div>
                 <div class="label">Дней подряд</div>
             </div>
-            <svg class="stat-icon"><use href="#icon-fire-outline"></use></svg>
         </div>
         <div class="today-stat">
             <div class="stat-info">
-                <div class="num">{{ today_correct }}</div>
+                <div class="num">
+                    {{ today_correct }}
+                    <svg class="icon"><use href="#icon-check"></use></svg>
+                </div>
                 <div class="label">Правильно сегодня</div>
             </div>
-            <svg class="stat-icon"><use href="#icon-check-outline"></use></svg>
         </div>
         <div class="today-stat">
             <div class="stat-info">
-                <div class="num">{{ weak_list|length }}</div>
+                <div class="num">
+                    {{ weak_list|length }}
+                    <svg class="icon"><use href="#icon-target"></use></svg>
+                </div>
                 <div class="label">Слабых слов</div>
             </div>
-            <svg class="stat-icon"><use href="#icon-target"></use></svg>
         </div>
     </div>
+    <div class="today-btn-row">
+        {% if weak_list %}
+        <a href="/train?weak=1&reset=1" class="today-btn weak-btn">
+            <svg class="icon"><use href="#icon-target"></use></svg>
+            Тренировать слабые
+        </a>
+        {% endif %}
+        <a href="/train?reset=1" class="today-btn {% if weak_list %}ghost{% endif %}">
+            <svg class="icon"><use href="#icon-fire"></use></svg>
+            Тренировать все
+        </a>
+    </div>
+</div>
     <div class="today-btn-row">
         {% if weak_list %}
         <a href="/train?weak=1&reset=1" class="today-btn weak-btn">
