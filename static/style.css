@@ -195,7 +195,7 @@ html[data-theme="neon"] .blob-2 { background: #00d2ff; }
 }
 
 .nav {
-    display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
     padding-top: 6px; border-top: 1px solid var(--border-soft); margin-top: 4px;
 }
 .nav a {
