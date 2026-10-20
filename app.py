@@ -9,6 +9,7 @@ from deep_translator import MyMemoryTranslator
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import text
+from jp_app import jp_bp
 
 from config import Config
 from models import (
@@ -40,6 +41,8 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 db.init_app(app)
+
+app.register_blueprint(jp_bp)
 
 if not os.path.exists(app.config['AVATAR_FOLDER']):
     os.makedirs(app.config['AVATAR_FOLDER'])
