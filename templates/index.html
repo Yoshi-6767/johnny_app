@@ -160,7 +160,7 @@
         <svg class="icon"><use href="#icon-sparkles"></use></svg>
         Привет, {{ current_user.username }}!
     </h2>
-                <div class="today-stats">
+    <div class="today-stats">
         <div class="today-stat">
             <div class="num">{{ streak }}</div>
             <div class="label">
@@ -186,7 +186,22 @@
             </div>
         </div>
     </div>
+    <div class="today-btn-row">
+        {% if weak_list %}
+        <a href="/train?weak=1&reset=1" class="today-btn weak-btn">
+            <svg class="icon"><use href="#icon-target"></use></svg>
+            Тренировать слабые
+        </a>
+        {% endif %}
+        <a href="/train?reset=1" class="today-btn {% if weak_list %}ghost{% endif %}">
+            <svg class="icon"><use href="#icon-fire"></use></svg>
+            Тренировать все
+        </a>
+    </div>
+</div>
+{% endif %}
 
+{% if current_user.is_authenticated %}
 {% if weak_list %}
 <div class="weak-block">
     <div class="weak-block-head">
@@ -218,7 +233,6 @@
 </div>
 {% endfor %}
 {% endif %}
-
 {% else %}
 <div class="hero">
     <h1>Твой английский в потоке</h1>
