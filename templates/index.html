@@ -178,24 +178,45 @@
 {% if current_user.is_authenticated %}
 <div class="today-block">
     <h2>
-        👋 Привет, {{ current_user.username }}!
+        <svg class="wave-icon"><use href="#icon-hand-wave"></use></svg>
+        Привет, {{ current_user.username }}!
     </h2>
     <div class="today-stats">
         <div class="today-stat">
-            <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:#ffc107;flex-shrink:0;"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
             <div class="stat-info">
                 <div class="num">{{ streak }}</div>
                 <div class="label">Дней подряд</div>
             </div>
+            <svg class="stat-icon"><use href="#icon-fire-outline"></use></svg>
         </div>
-        
         <div class="today-stat">
-            <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:#4caf50;flex-shrink:0;"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
             <div class="stat-info">
                 <div class="num">{{ today_correct }}</div>
                 <div class="label">Правильно сегодня</div>
             </div>
+            <svg class="stat-icon"><use href="#icon-check-outline"></use></svg>
         </div>
+        <div class="today-stat">
+            <div class="stat-info">
+                <div class="num">{{ weak_list|length }}</div>
+                <div class="label">Слабых слов</div>
+            </div>
+            <svg class="stat-icon"><use href="#icon-target"></use></svg>
+        </div>
+    </div>
+    <div class="today-btn-row">
+        {% if weak_list %}
+        <a href="/train?weak=1&reset=1" class="today-btn weak-btn">
+            <svg class="icon"><use href="#icon-target"></use></svg>
+            Тренировать слабые
+        </a>
+        {% endif %}
+        <a href="/train?reset=1" class="today-btn {% if weak_list %}ghost{% endif %}">
+            <svg class="icon"><use href="#icon-fire"></use></svg>
+            Тренировать все
+        </a>
+    </div>
+</div>
 
         <div class="today-stat">
             <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:#f44336;flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 9c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>
