@@ -46,10 +46,8 @@
                         {% endif %}
                         <span class="username">{{ current_user.username }}</span>
                         
-                        <div class="user-dropdown" id="userDropdown">
+                                                <div class="user-dropdown" id="userDropdown">
                             <a href="/profile"><svg class="icon"><use href="#icon-profile"></use></svg> Профиль</a>
-                            <a href="/settings"><svg class="icon"><use href="#icon-settings"></use></svg> Настройки</a>
-                            <a href="/friends"><svg class="icon"><use href="#icon-users"></use></svg> Друзья {% if unread_count > 0 %}<span style="background:#f44336;color:#fff;border-radius:10px;padding:2px 8px;font-size:11px;margin-left:auto;">{{ unread_count }}</span>{% endif %}</a>
                             <a href="/logout"><svg class="icon"><use href="#icon-logout"></use></svg> Выйти</a>
                         </div>
                     </div>
@@ -59,15 +57,16 @@
             </div>
         </div>
 
-        <nav class="nav">
+                <nav class="nav">
             <a href="/sections"><svg class="icon"><use href="#icon-study-words"></use></svg> Слова</a>
-            <a href="/train"><svg class="icon"><use href="#icon-fire"></use></svg> Тренировка</a>
             <a href="/study"><svg class="icon"><use href="#icon-book"></use></svg> Учёба</a>
             <a href="/phrases"><svg class="icon"><use href="#icon-phrases"></use></svg> Фразы</a>
             <a href="/topics"><svg class="icon"><use href="#icon-note"></use></svg> Топики</a>
             <a href="/games"><svg class="icon"><use href="#icon-gamepad"></use></svg> Игры</a>
             <a href="/progress"><svg class="icon"><use href="#icon-chart"></use></svg> Прогресс</a>
-            <a href="/translator"><svg class="icon"><use href="#icon-globe"></use></svg> Перевод</a>
+            <a href="/friends"><svg class="icon"><use href="#icon-users"></use></svg> Друзья {% if unread_count > 0 %}<span style="background:#f44336;color:#fff;border-radius:10px;padding:2px 8px;font-size:11px;margin-left:4px;">{{ unread_count }}</span>{% endif %}</a>
+            <a href="/settings"><svg class="icon"><use href="#icon-settings"></use></svg> Настройки</a>
+            <a href="/faq"><svg class="icon"><use href="#icon-help"></use></svg> FAQ</a>
         </nav>
     </div>
 </header>
