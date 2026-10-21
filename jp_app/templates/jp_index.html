@@ -1,57 +1,23 @@
-{% extends "base.html" %} <!-- Пока используем общий base, потом сделаем отдельный -->
-
-{% block title %}Японский Хаб — Flow Word{% endblock %}
-
-{% block styles %}
-<style>
-    /* Переопределяем цвета для японского */
-    body {
-        background-color: #1a1a1a !important; /* Черный фон */
-        color: #ffffff !important;
-    }
-    .today-block {
-        background: linear-gradient(135deg, #b71c1c, #880e4f) !important; /* Красно-черный градиент */
-    }
-    .nav a, .logo-text, .username { color: #ffffff !important; }
-    
-    .card {
-        background: #2a2a2a !important;
-        border-color: #b71c1c !important;
-        color: #fff !important;
-    }
-    .card:hover {
-        background: #3a3a3a !important;
-        border-color: #ff5252 !important;
-    }
-    .card-title { color: #ff5252 !important; }
-    .card-count { color: #aaa !important; }
-</style>
-{% endblock %}
+{% extends "jp_base.html" %}
 
 {% block content %}
-<div class="hero" style="margin-bottom: 30px;">
-    <h1 style="color: #ff5252;">🇯🇵 Японский Хаб</h1>
-    <p>Изучай японский по методике Шамова</p>
+<div style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
+    <h1 style="color: #ff5252; font-size: 42px; font-weight: 900; text-shadow: 0 0 20px rgba(255, 82, 82, 0.5);">
+        ようこそ (Добро пожаловать)
+    </h1>
+    <p style="color: #aaa; font-size: 18px;">Изучай японский по методике Шамова</p>
 </div>
 
-<div class="cards">
-    <a href="/jp/hiragana" class="card">
-        <div>
-            <svg class="card-icon" style="color: #ff5252;"><use href="#icon-book"></use></svg>
-            <div class="card-title">Азбука (Хирагана)</div>
-            <div class="card-count">Учим японские буквы</div>
-        </div>
+<div class="cards" style="max-width: 800px; margin: 0 auto;">
+    <a href="/jp/hiragana" class="card" style="text-align: center; padding: 40px;">
+        <div style="font-size: 48px; margin-bottom: 15px;">あ</div>
+        <div class="card-title">Азбука (Хирагана)</div>
+        <div class="card-count">Учим японские буквы</div>
     </a>
-    <a href="/jp/words" class="card">
-        <div>
-            <svg class="card-icon" style="color: #ff5252;"><use href="#icon-study-words"></use></svg>
-            <div class="card-title">Слова (Кандзи)</div>
-            <div class="card-count">Иероглифы и их чтение</div>
-        </div>
+    <a href="/jp/words" class="card" style="text-align: center; padding: 40px;">
+        <div style="font-size: 48px; margin-bottom: 15px;">漢</div>
+        <div class="card-title">Слова (Кандзи)</div>
+        <div class="card-count">Иероглифы и их чтение</div>
     </a>
-</div>
-
-<div style="margin-top: 30px; text-align: center;">
-    <a href="/" style="color: #ff5252; text-decoration: none; font-weight: bold;">← Вернуться на английский</a>
 </div>
 {% endblock %}
