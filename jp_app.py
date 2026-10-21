@@ -19,3 +19,8 @@ def jp_hiragana():
 @login_required
 def jp_words():
     return render_template('jp_words.html', words=JP_WORDS)
+
+@jp_bp.route('/friends')
+@login_required
+def jp_friends():
+    return render_template('jp_friends.html')
