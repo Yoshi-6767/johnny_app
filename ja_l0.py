@@ -286,5 +286,5 @@ JA_L0_U2 = {
       "strokeOrderText": {"ru": "1. Одна черта: начинается сверху, идет вниз влево, затем резко вправо-вниз.", "en": "1. One stroke: starts at the top, goes down-left, then sharply down-right.", "ja": "1. 一本の線：上から左下へ行き、急に右下へ曲がる。"}
     }
   ],
-  "essayPrompt": null
+  "essayPrompt": None
 }
