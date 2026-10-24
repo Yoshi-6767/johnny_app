@@ -1,0 +1,17 @@
+{% extends "jp_base.html" %}
+
+{% block content %}
+<div style="margin-top: 20px;">
+    <h1 style="color: #ff5252; font-size: 32px; margin-bottom: 20px;">あ Азбука (Хирагана)</h1>
+    <p style="color: #aaa; margin-bottom: 30px;">Нажми на карточку, чтобы услышать произношение (пока в разработке)</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 20px;">
+        {% for item in hiragana %}
+        <div style="background: #2a2a2a; border: 2px solid #b71c1c; border-radius: 12px; padding: 20px; text-align: center;">
+            <div style="font-size: 48px; font-weight: bold; color: #ff5252; margin-bottom: 10px;">{{ item.kana }}</div>
+            <div style="font-size: 16px; color: #aaa; text-transform: uppercase;">{{ item.romaji }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
