@@ -100,7 +100,9 @@
         
         {% for ex in unit.exercises %}
             <div style="margin-bottom: 30px;">
-                <div class="ex-title">{{ ex.prompt.ru }}</div>
+                <div class="ex-title">
+    {% if ex.prompt %}{{ ex.prompt.ru }}{% else %}Упражнение{% endif %}
+</div>
                 
                 {% if ex.type == 'multiple_choice' %}
                     <div class="ex-options">
