@@ -64,57 +64,6 @@
     </div>
 </header>
 
-<!-- КРАСИВЫЙ БАННЕР ДЛЯ ЯПОНСКОГО ХАБА -->
-<div class="container" style="margin-top: 15px; margin-bottom: 8px; padding-bottom: 8px;">
-    <div style="
-        background: linear-gradient(135deg, rgba(42,0,0,0.8), rgba(26,26,26,0.9));
-        border: 1px solid #b71c1c;
-        border-radius: 20px;
-        padding: 15px 20px;
-        text-align: center;
-        box-shadow: 0 8px 25px rgba(183, 28, 28, 0.2);
-        backdrop-filter: blur(10px);
-    ">
-        <div style="font-size: 13px; color: #ffcccc; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;">
-            Выберите режим обучения
-        </div>
-        <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-            <!-- Английский (Неактивный) -->
-            <a href="/" style="
-                display: inline-flex; align-items: center; gap: 10px;
-                padding: 12px 28px; border-radius: 30px;
-                background: #2a2a2a; color: #ccc; text-decoration: none;
-                font-weight: 700; font-size: 15px;
-                border: 2px solid #444;
-                transition: all 0.2s;
-            " onmouseover="this.style.borderColor='#888'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='#444'; this.style.transform='translateY(0)'">
-                <!-- Флаг Англии (ПРАВИЛЬНЫЙ) -->
-                <span style="display: inline-block; width: 22px; height: 22px; border-radius: 50%; background: #ffffff; position: relative; overflow: hidden; border: 1px solid #444; box-shadow: 0 0 3px rgba(0,0,0,0.5);">
-                    <span style="position: absolute; top: 50%; left: 0; width: 100%; height: 6px; background: #C8102E; transform: translateY(-50%);"></span>
-                    <span style="position: absolute; top: 0; left: 50%; width: 6px; height: 100%; background: #C8102E; transform: translateX(-50%);"></span>
-                </span>
-                Английский
-            </a>
-            <!-- Японский (Активный) -->
-            <a href="/jp" style="
-                display: inline-flex; align-items: center; gap: 10px;
-                padding: 12px 28px; border-radius: 30px;
-                background: #b71c1c; color: white; text-decoration: none;
-                font-weight: 700; font-size: 15px;
-                border: 2px solid #b71c1c;
-                box-shadow: 0 6px 15px rgba(183, 28, 28, 0.5);
-                transition: transform 0.2s;
-            " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-                <!-- Флаг Японии (ПРАВИЛЬНЫЙ) -->
-                <span style="display: inline-block; width: 22px; height: 22px; border-radius: 50%; background: #ffffff; position: relative; border: 1px solid #ddd; box-shadow: 0 0 3px rgba(0,0,0,0.1);">
-                    <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; background: #bc002d; border-radius: 50%;"></span>
-                </span>
-                Японский
-            </a>
-        </div>
-    </div>
-</div>
-
 <main class="container">
     {% block content %}{% endblock %}
 </main>
