@@ -49,9 +49,10 @@ JA_L0_U1 = {
             "alternatives": ["い"],
             "explain": {"ru": "Символ い читается как 'и'.", "en": "The symbol い reads as 'i'.", "ja": "「い」は「i」と読みます。"}
         },
-        {
+                {
             "type": "handwrite",
             "id": "ja-l0-u1-ex3",
+            "prompt": {"ru": "Напиши символ あ", "en": "Write the symbol あ", "ja": "「あ」を書いてください"},
             "target": "あ",
             "mode": "free",
             "strokeOrderText": "1. Горизонтальная черта. 2. Вертикальная черта. 3. Круг с хвостиком."
