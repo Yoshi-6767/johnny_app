@@ -8,16 +8,31 @@
     <p style="color: #aaa; font-size: 18px;">Погрузись в мир японского языка</p>
 </div>
 
-<div class="cards" style="max-width: 800px; margin: 0 auto;">
-    <a href="/jp/hiragana" class="card" style="text-align: center; padding: 40px;">
-        <div style="font-size: 48px; margin-bottom: 15px;">あ</div>
-        <div class="card-title">Азбука (Хирагана)</div>
-        <div class="card-count">Учим японские буквы</div>
-    </a>
-    <a href="/jp/words" class="card" style="text-align: center; padding: 40px;">
-        <div style="font-size: 48px; margin-bottom: 15px;">漢</div>
-        <div class="card-title">Слова (Кандзи)</div>
-        <div class="card-count">Иероглифы и их чтение</div>
-    </a>
+<!-- КАРТА УРОКОВ -->
+<div style="max-width: 900px; margin: 0 auto;">
+    <h2 style="color: #fff; font-size: 24px; border-bottom: 2px solid #b71c1c; padding-bottom: 10px; margin-bottom: 20px;">
+        🇯🇵 Уровень 0: Фундамент
+    </h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+        {% for lesson in lessons %}
+            <a href="/jp/lesson/{{ lesson.id }}" style="
+                display: flex; flex-direction: column; align-items: center; justify-content: center;
+                background: #2a2a2a; border: 2px solid #b71c1c; border-radius: 16px;
+                padding: 30px 20px; text-decoration: none; transition: all 0.2s;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            " onmouseover="this.style.transform='translateY(-5px)'; this.style.borderColor='#ff5252'; this.style.boxShadow='0 8px 20px rgba(255,82,82,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#b71c1c'; this.style.boxShadow='0 4px 10px rgba(0,0,0,0.3)'">
+                <div style="font-size: 36px; margin-bottom: 15px; color: #ff5252;">
+                    {% if loop.index == 1 %}あ{% elif loop.index == 2 %}か{% else %}漢{% endif %}
+                </div>
+                <div style="font-size: 18px; font-weight: 700; color: #fff; text-align: center; margin-bottom: 5px;">
+                    {{ lesson.title }}
+                </div>
+                <div style="font-size: 13px; color: #aaa; background: #1a1a1a; padding: 4px 12px; border-radius: 10px;">
+                    Урок {{ lesson.order }}
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
