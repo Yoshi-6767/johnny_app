@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, session
 from jp_data import HIRAGANA, JP_WORDS
+from ja_l0 import JA_L0_U1  # Импортируем наш тестовый юнит
 from flask_login import login_required, current_user
 
-# Создаем Blueprint. Все пути внутри будут начинаться с /jp
 jp_bp = Blueprint('jp', __name__, url_prefix='/jp', template_folder='jp_app/templates')
 
 @jp_bp.route('/')
@@ -20,7 +20,14 @@ def jp_hiragana():
 def jp_words():
     return render_template('jp_words.html', words=JP_WORDS)
 
-@jp_bp.route('/friends')
+# НОВЫЙ РОУТ ДЛЯ УРОКА
+@jp_bp.route('/lesson/<unit_id>')
 @login_required
-def jp_friends():
-    return render_template('jp_friends.html')
+def jp_lesson(unit_id):
+    # Пока у нас только один юнит, проверяем его ID
+    if unit_id == JA_L0_U1["id"]:
+        unit = JA_L0_U1
+    else:
+        return "Урок не найден", 404
+    
+    return render_template('jp_lesson.html', unit=unit, user=current_user)
