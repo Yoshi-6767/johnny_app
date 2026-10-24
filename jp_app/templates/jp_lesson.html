@@ -1,0 +1,174 @@
+{% extends "jp_base.html" %}
+
+{% block title %}{{ unit.title.ru }} — Японский Хаб{% endblock %}
+
+{% block styles %}
+<style>
+    .lesson-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #2a2a2a;
+        border: 1px solid #b71c1c;
+        border-radius: 16px;
+        padding: 30px;
+    }
+    .lesson-title {
+        color: #ff5252;
+        font-size: 28px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #b71c1c;
+        padding-bottom: 10px;
+    }
+    .block-paragraph { font-size: 18px; line-height: 1.6; margin-bottom: 20px; color: #ddd; }
+    .block-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    .block-table th, .block-table td { border: 1px solid #444; padding: 12px; text-align: center; font-size: 20px; }
+    .block-table th { background: #333; color: #ff5252; }
+    .callout { background: #3a1a1a; border-left: 4px solid #ff5252; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; }
+    .callout.tip { border-left-color: #4caf50; background: #1a2a1a; }
+    
+    .exercise-block {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px dashed #444;
+    }
+    .ex-title { font-size: 20px; color: #fff; margin-bottom: 15px; }
+    .ex-options { display: flex; flex-direction: column; gap: 10px; }
+    .ex-option {
+        background: #1a1a1a;
+        border: 2px solid #444;
+        padding: 15px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        color: #ddd;
+        transition: 0.2s;
+    }
+    .ex-option:hover { border-color: #ff5252; }
+    .ex-option.correct { border-color: #4caf50; background: #1a2a1a; }
+    .ex-option.wrong { border-color: #f44336; background: #2a1a1a; }
+    
+    .handwrite-area {
+        width: 300px; height: 300px;
+        background: #fff;
+        border-radius: 10px;
+        margin: 0 auto;
+        position: relative;
+        border: 2px dashed #b71c1c;
+    }
+    .handwrite-grid {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background-image: linear-gradient(to right, #ddd 1px, transparent 1px), linear-gradient(to bottom, #ddd 1px, transparent 1px);
+        background-size: 50% 50%;
+    }
+    .handwrite-target {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        font-size: 200px; display: flex; align-items: center; justify-content: center;
+        color: rgba(0,0,0,0.05); pointer-events: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="lesson-container">
+    <h1 class="lesson-title">{{ unit.title.ru }}</h1>
+    
+    <!-- РЕНДЕР УРОКОВ -->
+    {% for lesson in unit.lessons %}
+        <h2 style="color: #fff; margin-top: 20px;">{{ lesson.title.ru }}</h2>
+        
+        {% for block in lesson.blocks %}
+            {% if block.type == 'paragraph' %}
+                <p class="block-paragraph">{{ block.text.ru }}</p>
+            {% elif block.type == 'table' %}
+                <table class="block-table">
+                    <thead><tr>{% for h in block.headers %}<th>{{ h.ru }}</th>{% endfor %}</tr></thead>
+                    <tbody>
+                        {% for row in block.rows %}
+                            <tr>{% for cell in row %}<td>{{ cell.ru }}</td>{% endfor %}</tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% elif block.type == 'callout' %}
+                <div class="callout {{ block.kind }}">{{ block.text.ru }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+    <!-- РЕНДЕР УПРАЖНЕНИЙ -->
+    <div class="exercise-block">
+        <h2 style="color: #ff5252; margin-bottom: 20px;">Упражнения</h2>
+        
+        {% for ex in unit.exercises %}
+            <div style="margin-bottom: 30px;">
+                <div class="ex-title">{{ ex.prompt.ru }}</div>
+                
+                {% if ex.type == 'multiple_choice' %}
+                    <div class="ex-options">
+                        {% for opt in ex.options %}
+                            <div class="ex-option" onclick="checkAnswer(this, '{{ opt.id }}', '{{ ex.answer }}')">{{ opt.text.ru }}</div>
+                        {% endfor %}
+                    </div>
+                {% elif ex.type == 'fill_blank' %}
+                    <input type="text" id="fill-input-{{ ex.id }}" style="padding: 10px; font-size: 18px; border-radius: 8px; border: 2px solid #444; background: #1a1a1a; color: #fff; width: 100px;">
+                    <button onclick="checkFill('{{ ex.id }}', '{{ ex.answer }}')" style="padding: 10px 20px; background: #b71c1c; color: #fff; border: none; border-radius: 8px; cursor: pointer; margin-left: 10px;">Проверить</button>
+                    <div id="fill-result-{{ ex.id }}" style="margin-top: 10px; font-weight: bold;"></div>
+                {% elif ex.type == 'handwrite' %}
+                    <div style="text-align: center;">
+                        <div class="handwrite-area">
+                            <div class="handwrite-grid"></div>
+                            <div class="handwrite-target">{{ ex.target }}</div>
+                            <canvas id="canvas-{{ ex.id }}" width="300" height="300" style="position: absolute; top: 0; left: 0; cursor: crosshair;"></canvas>
+                        </div>
+                        <p style="color: #aaa; margin-top: 10px;">Порядок черт: {{ ex.strokeOrderText }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    // Простая проверка для теста
+    function checkAnswer(el, selected, correct) {
+        if (selected === correct) {
+            el.classList.add('correct');
+            alert('Правильно!');
+        } else {
+            el.classList.add('wrong');
+            alert('Неправильно!');
+        }
+    }
+
+    function checkFill(id, correct) {
+        const input = document.getElementById('fill-input-' + id).value.trim();
+        const result = document.getElementById('fill-result-' + id);
+        if (input === correct) {
+            result.style.color = '#4caf50';
+            result.innerText = 'Правильно!';
+        } else {
+            result.style.color = '#f44336';
+            result.innerText = 'Неправильно! Правильный ответ: ' + correct;
+        }
+    }
+
+    // Рисование на canvas (пропись)
+    const canvas = document.getElementById('canvas-ja-l0-u1-ex3');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        ctx.lineWidth = 6;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#b71c1c';
+        
+        let drawing = false;
+        canvas.addEventListener('mousedown', (e) => { drawing = true; ctx.beginPath(); ctx.moveTo(e.offsetX, e.offsetY); });
+        canvas.addEventListener('mousemove', (e) => { if (drawing) { ctx.lineTo(e.offsetX, e.offsetY); ctx.stroke(); } });
+        canvas.addEventListener('mouseup', () => { drawing = false; });
+        canvas.addEventListener('mouseout', () => { drawing = false; });
+        
+        // Поддержка тач-экранов (стилус)
+        canvas.addEventListener('touchstart', (e) => { e.preventDefault(); drawing = true; const rect = canvas.getBoundingClientRect(); ctx.beginPath(); ctx.moveTo(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top); });
+        canvas.addEventListener('touchmove', (e) => { e.preventDefault(); if (drawing) { const rect = canvas.getBoundingClientRect(); ctx.lineTo(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top); ctx.stroke(); } });
+        canvas.addEventListener('touchend', () => { drawing = false; });
+    }
+</script>
+{% endblock %}
