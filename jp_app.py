@@ -1,4 +1,4 @@
-ffrom flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session
 from flask_login import login_required, current_user
 from jp_data import HIRAGANA, JP_WORDS
 from ja_l0 import JA_L0_U1, JA_L0_U2  # Импортируем оба юнита
