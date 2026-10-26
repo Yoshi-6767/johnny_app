@@ -78,57 +78,79 @@
     </div>
 </div>
 
-<!-- ПОДКЛЮЧАЕМ БИБЛИОТЕКУ HANZIWRITER -->
-<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5.0/dist/hanzi-writer.min.js"></script>
+<!-- Подключаем локальную библиотеку -->
+<script src="/static/hanzi-writer.min.js"></script>
 <script>
+    // Ждем, пока страница загрузится
+    document.addEventListener('DOMContentLoaded', function() {
+        let writeCount = 0;
+        let errorCount = 0;
+        const targetCount = 5;
 
-    let writeCount = 0;
-    let errorCount = 0;
-    const targetCount = 5;
-
+        // Инициализируем писатель
         const writer = HanziWriter.create('character-target', 'あ', {
-        width: 300,
-        height: 300,
-        padding: 10,
-        showOutline: true,
-        strokeAnimationSpeed: 1,
-        delayBetweenStrokes: 200,
-        strokeColor: '#b71c1c', // Красный цвет
-        outlineColor: '#ddd',
-        highlightOnMistake: true,
-        highlightColor: '#f44336'
-    });
-
-    // Запускаем анимацию, чтобы юзер увидел, как писать
-    writer.animateCharacter();
-
-    // Логика проверки: юзер водит мышкой/пальцем
-    writer.quiz({
-        onMistake: function(strokeData) {
-            errorCount++;
-            document.getElementById('error-count').innerText = errorCount;
-        },
-        onComplete: function(summaryData) {
-            writeCount++;
-            document.getElementById('write-count').innerText = writeCount;
+            width: 300,
+            height: 300,
+            padding: 10,
+            showOutline: true,
+            strokeAnimationSpeed: 1,
+            delayBetweenStrokes: 200,
+            strokeColor: '#b71c1c',
+            outlineColor: '#ddd',
+            highlightOnMistake: true,
+            highlightColor: '#f44336',
             
-            if (writeCount >= targetCount) {
-                alert('🎉 Урок пройден! Ты написал символ 5 раз.');
-                // Тут в будущем мы будем сохранять прогресс в базу
-            } else {
-                // Если не дошел до 5, запускаем заново
-                setTimeout(() => writer.quiz(), 1000);
+            // ГОВОРИМ БИБЛИОТЕКЕ БРАТЬ ДАННЫЕ ИЗ ИНТЕРНЕТА (CDN)
+            charDataLoader: function(char, onComplete, onError) {
+                // Ссылка на официальный сервер с данными
+                const url = `https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${char}.json`;
+                
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        onComplete(data);
+                        // Запускаем анимацию, только когда данные загрузились
+                        writer.animateCharacter();
+                        // Включаем режим проверки
+                        startQuiz();
+                    })
+                    .catch(error => {
+                        console.error('Ошибка загрузки данных:', error);
+                        if (onError) onError(error);
+                        document.getElementById('character-target').innerHTML = '<p style="color:red; padding:20px;">Ошибка загрузки данных</p>';
+                    });
             }
-        }
-    });
+        });
 
-    function resetPractice() {
-        writeCount = 0;
-        errorCount = 0;
-        document.getElementById('write-count').innerText = 0;
-        document.getElementById('error-count').innerText = 0;
-        writer.cancelQuiz();
-        writer.quiz();
-    }
+        // Функция для запуска проверки
+        function startQuiz() {
+            writer.quiz({
+                onMistake: function(strokeData) {
+                    errorCount++;
+                    document.getElementById('error-count').innerText = errorCount;
+                },
+                onComplete: function(summaryData) {
+                    writeCount++;
+                    document.getElementById('write-count').innerText = writeCount;
+                    
+                    if (writeCount >= targetCount) {
+                        alert('🎉 Урок пройден! Ты написал символ 5 раз.');
+                    } else {
+                        setTimeout(() => writer.quiz(), 1000);
+                    }
+                }
+            });
+        }
+
+        // Кнопка сброса
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            writeCount = 0;
+            errorCount = 0;
+            document.getElementById('write-count').innerText = 0;
+            document.getElementById('error-count').innerText = 0;
+            writer.cancelQuiz();
+            writer.quiz();
+        });
+    });
 </script>
 {% endblock %}
