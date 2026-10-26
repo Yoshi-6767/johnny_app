@@ -2,11 +2,86 @@
 
 {% block title %}Учёба — Flow Word{% endblock %}
 
+{% block styles %}
+<style>
+    .study-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+    }
+    .study-item {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        text-decoration: none;
+        color: var(--text);
+        transition: all 0.2s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+    .study-item:hover {
+        transform: translateY(-3px);
+        border-color: var(--accent);
+        box-shadow: 0 8px 20px var(--accent-shadow);
+    }
+    .study-icon-wrap {
+        width: 60px;
+        height: 60px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-subtle);
+        border-radius: 14px;
+    }
+    .study-icon-wrap svg {
+        width: 40px;
+        height: 40px;
+    }
+    .study-content {
+        flex-grow: 1;
+    }
+    .study-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 5px;
+        color: var(--text);
+    }
+    .study-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        color: var(--text-sub);
+        margin-bottom: 8px;
+    }
+    .study-progress-bar {
+        height: 8px;
+        background: var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+        width: 100%;
+    }
+    .study-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+        border-radius: 4px;
+    }
+    .study-progress-fill.done {
+        background: linear-gradient(90deg, #4caf50, #66bb6a);
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-book"></use></svg> Учёба</h1>
 <div class="subtitle">Грамматика, глаголы, диалоги — всё в одном месте</div>
 
-{# МАППИНГ ЭМОДЗИ → ИКОНКАМ ГРАММАТИКИ (новые уникальные id) #}
+{# МАППИНГ ЭМОДЗИ → ИКОНКАМ (пока старые ID, потом заменим) #}
 {% set lesson_icons = {
     "🕐": "icon-grammar-present-simple",
     "⏪": "icon-grammar-past-simple",
@@ -27,33 +102,40 @@
     "🗣️": "icon-grammar-reported"
 } %}
 
-<div class="cards">
+<div class="study-list">
     {% for l in lessons %}
-    <a href="/study/grammar/{{ l.id }}" class="card">
-        <div>
-            <svg class="card-icon" style="width: 42px; height: 42px;"><use href="#{{ lesson_icons.get(l.emoji, 'icon-book') }}"></use></svg>
-            <div class="card-title">{{ l.title }}</div>
-            <div class="card-count">
-                {{ l.level }}
-                {% if l.done %} • <svg class="icon icon-sm" style="color: #4caf50; vertical-align: -0.2em;"><use href="#icon-check"></use></svg> {{ l.score }}/{{ l.total }}{% endif %}
+    <a href="/study/grammar/{{ l.id }}" class="study-item">
+        <div class="study-icon-wrap">
+            <svg><use href="#{{ lesson_icons.get(l.emoji, 'icon-book') }}"></use></svg>
+        </div>
+        <div class="study-content">
+            <div class="study-title">{{ l.title }}</div>
+            <div class="study-meta">
+                <span>{{ l.level }}</span>
+                <span>{% if l.done %}Пройдено{% else %}В процессе{% endif %}</span>
+            </div>
+            <div class="study-progress-bar">
+                {% set percent = (l.score / l.total * 100) if l.total > 0 and l.done else 0 %}
+                <div class="study-progress-fill {% if l.done %}done{% endif %}" style="width: {{ percent }}%;"></div>
             </div>
         </div>
     </a>
     {% endfor %}
 
-    <a href="/study/irregular" class="card">
-        <div>
-            <svg class="card-icon"><use href="#icon-pencil"></use></svg>
-            <div class="card-title">Неправильные глаголы</div>
-            <div class="card-count">60 самых важных</div>
+    <!-- Отдельные пункты для глаголов и диалогов -->
+    <a href="/study/irregular" class="study-item">
+        <div class="study-icon-wrap"><svg><use href="#icon-pencil"></use></svg></div>
+        <div class="study-content">
+            <div class="study-title">Неправильные глаголы</div>
+            <div class="study-meta"><span>60 самых важных</span></div>
         </div>
     </a>
 
-    <a href="/dialogues" class="card">
-        <div>
-            <svg class="card-icon"><use href="#icon-dialogue"></use></svg>
-            <div class="card-title">Диалоги</div>
-            <div class="card-count">10 жизненных ситуаций</div>
+    <a href="/dialogues" class="study-item">
+        <div class="study-icon-wrap"><svg><use href="#icon-dialogue"></use></svg></div>
+        <div class="study-content">
+            <div class="study-title">Диалоги</div>
+            <div class="study-meta"><span>10 жизненных ситуаций</span></div>
         </div>
     </a>
 </div>
