@@ -3,154 +3,105 @@
 {% block styles %}
 <style>
     .lesson-container {
-        max-width: 800px; margin: 0 auto; background: #2a2a2a;
-        border: 1px solid #b71c1c; border-radius: 16px; padding: 30px; margin-bottom: 50px;
+        max-width: 900px; margin: 0 auto; padding: 20px 0 50px 0;
     }
-    .lesson-title { color: #ff5252; font-size: 28px; margin-bottom: 10px; border-bottom: 2px solid #b71c1c; padding-bottom: 10px; }
+    .tabs {
+        display: flex; gap: 10px; margin-bottom: 20px;
+        border-bottom: 2px solid #444; padding-bottom: 10px;
+    }
+    .tab-btn {
+        background: transparent; color: #aaa; border: 2px solid transparent;
+        padding: 10px 20px; border-radius: 10px; font-weight: 700;
+        cursor: pointer; transition: 0.2s; font-size: 16px;
+    }
+    .tab-btn:hover { color: #fff; background: #2a2a2a; }
+    .tab-btn.active { color: #fff; background: #b71c1c; border-color: #ff5252; }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Стили для теории */
+    .theory-text { font-size: 18px; line-height: 1.6; color: #ddd; margin-bottom: 30px; }
+    .theory-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; background: #2a2a2a; border-radius: 12px; overflow: hidden; }
+    .theory-table th, .theory-table td { padding: 15px; border: 1px solid #444; text-align: center; }
+    .theory-table th { background: #1a1a1a; color: #ff5252; font-size: 18px; }
+    .theory-table td { font-size: 24px; color: #fff; }
     
-    /* Стили для теории (таблицы, параграфы) - оставляем как было */
-    .block-paragraph { font-size: 18px; line-height: 1.6; margin-bottom: 20px; color: #ddd; }
-    .block-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-    .block-table th, .block-table td { border: 1px solid #444; padding: 12px; text-align: center; font-size: 20px; }
-    .block-table th { background: #333; color: #ff5252; }
-    .callout { padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; font-size: 16px; line-height: 1.5; }
-    .callout.tip { border-left: 4px solid #4caf50; background: #1a2a1a; color: #a5d6a7; }
-    .callout.mnemonic { border-left: 4px solid #ffca28; background: #2a2a1a; color: #ffe082; }
-    
-    /* Стили для интерактивной прописи */
-    .practice-zone {
-        background: #1a1a1a; border: 2px solid #b71c1c; border-radius: 16px;
-        padding: 30px; text-align: center; margin-top: 20px;
+    /* Стили для упражнений (пока заглушка) */
+    .exercise-placeholder {
+        background: #2a2a2a; border: 2px dashed #b71c1c; border-radius: 16px;
+        padding: 40px; text-align: center; color: #aaa; font-size: 18px;
     }
-    .practice-target { font-size: 80px; color: #ff5252; margin-bottom: 20px; }
-    .practice-area {
-        width: 300px; height: 300px; background: #fff; margin: 0 auto;
-        position: relative; border-radius: 12px; overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-    .stats-bar {
-        margin-top: 20px; display: flex; justify-content: center; gap: 30px;
-        color: #fff; font-size: 18px; font-weight: 700;
-    }
-    .stat-item span { color: #ff5252; font-size: 24px; }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="lesson-container">
-    <h1 class="lesson-title">{{ unit.title.ru }}</h1>
     
-    <!-- РЕНДЕР ТЕОРИИ -->
-    {% for lesson in unit.lessons %}
-        {% for block in lesson.blocks %}
-            {% if block.type == 'paragraph' %}
-                <p class="block-paragraph">{{ block.text.ru }}</p>
-            {% elif block.type == 'table' %}
-                <table class="block-table">
-                    <thead><tr>{% for h in block.headers %}<th>{{ h.ru }}</th>{% endfor %}</tr></thead>
-                    <tbody>
-                        {% for row in block.rows %}
-                            <tr>{% for cell in row %}<td>{{ cell.ru }}</td>{% endfor %}</tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% elif block.type == 'callout' %}
-                <div class="callout {{ block.kind }}">{{ block.text.ru }}</div>
-            {% endif %}
-        {% endfor %}
-    {% endfor %}
+    <!-- ЗАГОЛОВОК УРОКА -->
+    <h1 style="color: #ff5252; font-size: 32px; margin-bottom: 20px; border-bottom: 1px solid #444; padding-bottom: 10px;">
+        {{ unit.title.ru }}
+    </h1>
 
-    <!-- ИНТЕРАКТИВНАЯ ПРАКТИКА (Пропись) -->
-    <div class="practice-zone">
-        <h2 style="color: #ff5252; margin-bottom: 10px;">Тренажер написания</h2>
-        <p style="color: #aaa; margin-bottom: 20px;">Напиши символ <b style="color: #fff; font-size: 20px;">あ</b> правильно 5 раз, чтобы завершить урок.</p>
-        
-        <div class="practice-area" id="character-target"></div>
-        
-        <div class="stats-bar">
-            <div class="stat-item">Прописано: <span id="write-count">0</span> / 5</div>
-            <div class="stat-item">Ошибок: <span id="error-count" style="color: #f44336;">0</span></div>
-        </div>
-        
-        <button onclick="resetPractice()" style="margin-top: 20px; padding: 10px 20px; background: #444; color: #fff; border: none; border-radius: 8px; cursor: pointer;">
-            Сбросить прогресс
-        </button>
+    <!-- ВКЛАДКИ -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'theory')">📖 Теория</button>
+        {% if unit.type != 'theory' %}
+            <button class="tab-btn" onclick="openTab(event, 'exercises')">📝 Упражнения</button>
+        {% endif %}
     </div>
+
+    <!-- СОДЕРЖИМОЕ ВКЛАДКИ: ТЕОРИЯ -->
+    <div id="theory" class="tab-content active">
+        {% if unit.type == 'theory' %}
+            <p class="theory-text">{{ unit.content.text }}</p>
+            <table class="theory-table">
+                <thead><tr><th>Ряд</th><th>Символы</th></tr></thead>
+                <tbody>
+                    {% for row in unit.content.table %}
+                        <tr>
+                            <td style="font-weight: bold; color: #ff5252;">{{ row.row }}</td>
+                            <td>
+                                {% for sym in row.symbols %}
+                                    <span style="display: inline-block; margin: 5px 10px;">{{ sym }}</span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="theory-text">{{ unit.theory }}</p>
+        {% endif %}
+    </div>
+
+    <!-- СОДЕРЖИМОЕ ВКЛАДКИ: УПРАЖНЕНИЯ -->
+    {% if unit.type != 'theory' %}
+    <div id="exercises" class="tab-content">
+        <div class="exercise-placeholder">
+            <h3>Тут будут упражнения</h3>
+            <p>Нейронка-архитектор скоро добавит сюда тесты и прописи.</p>
+        </div>
+    </div>
+    {% endif %}
+
 </div>
 
-<!-- Подключаем локальную библиотеку -->
-<script src="/static/hanzi-writer.min.js"></script>
 <script>
-    // Ждем, пока страница загрузится
-    document.addEventListener('DOMContentLoaded', function() {
-        let writeCount = 0;
-        let errorCount = 0;
-        const targetCount = 5;
-
-        // Инициализируем писатель
-        const writer = HanziWriter.create('character-target', 'あ', {
-            width: 300,
-            height: 300,
-            padding: 10,
-            showOutline: true,
-            strokeAnimationSpeed: 1,
-            delayBetweenStrokes: 200,
-            strokeColor: '#b71c1c',
-            outlineColor: '#ddd',
-            highlightOnMistake: true,
-            highlightColor: '#f44336',
-            
-            // ГОВОРИМ БИБЛИОТЕКЕ БРАТЬ ДАННЫЕ ИЗ ИНТЕРНЕТА (CDN)
-            charDataLoader: function(char, onComplete, onError) {
-                // Ссылка на официальный сервер с данными
-                const url = `https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/${char}.json`;
-                
-                fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
-                        onComplete(data);
-                        // Запускаем анимацию, только когда данные загрузились
-                        writer.animateCharacter();
-                        // Включаем режим проверки
-                        startQuiz();
-                    })
-                    .catch(error => {
-                        console.error('Ошибка загрузки данных:', error);
-                        if (onError) onError(error);
-                        document.getElementById('character-target').innerHTML = '<p style="color:red; padding:20px;">Ошибка загрузки данных</p>';
-                    });
-            }
-        });
-
-        // Функция для запуска проверки
-        function startQuiz() {
-            writer.quiz({
-                onMistake: function(strokeData) {
-                    errorCount++;
-                    document.getElementById('error-count').innerText = errorCount;
-                },
-                onComplete: function(summaryData) {
-                    writeCount++;
-                    document.getElementById('write-count').innerText = writeCount;
-                    
-                    if (writeCount >= targetCount) {
-                        alert('🎉 Урок пройден! Ты написал символ 5 раз.');
-                    } else {
-                        setTimeout(() => writer.quiz(), 1000);
-                    }
-                }
-            });
+    function openTab(evt, tabName) {
+        // Убираем active у всех кнопок и блоков
+        const tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
         }
-
-        // Кнопка сброса
-        document.getElementById('reset-btn').addEventListener('click', function() {
-            writeCount = 0;
-            errorCount = 0;
-            document.getElementById('write-count').innerText = 0;
-            document.getElementById('error-count').innerText = 0;
-            writer.cancelQuiz();
-            writer.quiz();
-        });
-    });
+        const tabBtns = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].classList.remove("active");
+        }
+        
+        // Добавляем active текущей кнопке и блоку
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
 </script>
 {% endblock %}
