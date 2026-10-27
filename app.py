@@ -1841,6 +1841,8 @@ def study_page():
     grammar_progress = progress.get("grammar", {})
 
     lessons_data = []
+    
+    # 1. Берем реальные уроки из базы
     for lesson in GRAMMAR_LESSONS:
         lid = lesson["id"]
         done = grammar_progress.get(lid, {}).get("done", False)
@@ -1851,12 +1853,46 @@ def study_page():
             "title": lesson["title"],
             "emoji": lesson["emoji"],
             "level": lesson["level"],
+            "module": lesson.get("module", "B1"), # Дефолтный модуль
             "done": done,
             "score": score,
             "total": total,
+            "is_placeholder": False
         })
 
-    return render_template("study.html", lessons=lessons_data)
+    # 2. Добавляем заглушки (которых еще нет в базе)
+    # Пока просто жестко пропишем список, чтобы ты видел структуру
+    PLACEHOLDERS = [
+        {"id": "ph_to_be", "title": "Глагол to be (am/is/are)", "emoji": "🆕", "level": "A1", "module": "A1"},
+        {"id": "ph_pronouns", "title": "Местоимения", "emoji": "🆕", "level": "A1", "module": "A1"},
+        {"id": "ph_plural", "title": "Множественное число", "emoji": "🆕", "level": "A1", "module": "A1"},
+        {"id": "ph_will_going", "title": "Will vs Going to", "emoji": "🆕", "level": "A2", "module": "A2"},
+        {"id": "ph_some_any", "title": "Some / Any / No", "emoji": "🆕", "level": "A2", "module": "A2"},
+        {"id": "ph_past_perfect_cont", "title": "Past Perfect Continuous", "emoji": "🆕", "level": "B2", "module": "B2"},
+    ]
+
+    existing_ids = {l["id"] for l in lessons_data}
+    for p in PLACEHOLDERS:
+        if p["id"] not in existing_ids:
+            lessons_data.append({
+                **p,
+                "done": False,
+                "score": 0,
+                "total": 0,
+                "is_placeholder": True
+            })
+
+    # Сортируем внутри каждого модуля по сложности (пока по ID, потом можно добавить поле order)
+    lessons_data.sort(key=lambda x: (x["module"], x["id"]))
+
+    # Ищем первый непройденный (для кнопки Продолжить)
+    continue_lesson = None
+    for l in lessons_data:
+        if not l["done"] and not l["is_placeholder"]:
+            continue_lesson = l
+            break
+
+    return render_template("study.html", lessons=lessons_data, continue_lesson=continue_lesson)
 
 
 @app.route("/study/irregular")
