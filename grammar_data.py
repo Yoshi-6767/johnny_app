@@ -8,6 +8,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "present_simple",
+        "module": "A1"
         "title": "Present Simple",
         "emoji": "🕐",
         "level": "A1-A2",
@@ -112,6 +113,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "past_simple",
+        "module": "A2"
         "title": "Past Simple",
         "emoji": "⏪",
         "level": "A1-A2",
@@ -232,6 +234,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "present_continuous",
+        "module": "A2"
         "title": "Present Continuous",
         "emoji": "🎬",
         "level": "A1-A2",
@@ -345,6 +348,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "future_simple",
+        "module": "A2"
         "title": "Future Simple",
         "emoji": "🔮",
         "level": "A1-A2",
@@ -448,6 +452,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "articles",
+        "module": "A1"
         "title": "Артикли (a / an / the)",
         "emoji": "🔤",
         "level": "A1-A2",
@@ -561,6 +566,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "prepositions",
+        "module": "A1"
         "title": "Предлоги (in / on / at)",
         "emoji": "📍",
         "level": "A1-A2",
@@ -661,6 +667,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "there_is_are",
+        "module": "A1"
         "title": "There is / There are",
         "emoji": "🏠",
         "level": "A1-A2",
@@ -764,6 +771,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "modal_verbs",
+        "module": "A1"
         "title": "Модальные глаголы (can / must / should)",
         "emoji": "💪",
         "level": "A1-A2",
@@ -863,6 +871,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "comparatives",
+        "module": "A2"
         "title": "Степени сравнения",
         "emoji": "📊",
         "level": "A1-A2",
@@ -966,6 +975,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "gerund_infinitive",
+        "module": "B1"
         "title": "Герундий vs Инфинитив",
         "emoji": "🎭",
         "level": "B1",
@@ -1075,6 +1085,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "countable_uncountable",
+        "module": "A1"
         "title": "Считаемые / Несчитаемые",
         "emoji": "🔢",
         "level": "A1-A2",
@@ -1191,6 +1202,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "numbers_time",
+        "module": "A1"
         "title": "Numbers & Time",
         "emoji": "🕐",
         "level": "A1-A2",
@@ -1311,6 +1323,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "present_perfect",
+        "module": "B1"
         "title": "Present Perfect",
         "emoji": "✨",
         "level": "B1",
@@ -1479,6 +1492,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "past_continuous",
+        "module": "B1"
         "title": "Past Continuous",
         "emoji": "⏳",
         "level": "B1",
@@ -1634,6 +1648,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "past_perfect",
+        "module": "B1"
         "title": "Past Perfect",
         "emoji": "⏮️",
         "level": "B1",
@@ -1790,6 +1805,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "present_perfect_continuous",
+        "module": "B1"
         "title": "Present Perfect Continuous",
         "emoji": "🔄",
         "level": "B1",
@@ -1943,6 +1959,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "conditionals",
+        "module": "B1"
         "title": "Условные предложения",
         "emoji": "🔀",
         "level": "B1",
@@ -2093,6 +2110,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "passive_voice",
+        "module": "B1"
         "title": "Пассивный залог",
         "emoji": "🎭",
         "level": "B1",
@@ -2251,6 +2269,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "reported_speech",
+        "module": "B1"
         "title": "Косвенная речь",
         "emoji": "💬",
         "level": "B1",
