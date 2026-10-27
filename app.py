@@ -1898,8 +1898,50 @@ def study_page():
                 "is_placeholder": True
             })
 
-    # Сортируем внутри каждого модуля по сложности (пока по ID, потом можно добавить поле order)
-    lessons_data.sort(key=lambda x: (x["module"], x["id"]))
+        # Задаем жесткий порядок для тем внутри каждого модуля
+    ORDER = {
+        "intro_english": 1,
+        "to_be": 2,
+        "pronouns": 3,
+        "plural_nouns": 4,
+        "demonstratives": 5,
+        "articles": 6,
+        "there_is_are": 7,
+        "present_simple": 8,
+        "numbers_time": 9,
+        "countable_uncountable": 10,
+        "prepositions": 11,
+        "modal_verbs": 12,
+        
+        "past_simple": 20,
+        "present_continuous": 21,
+        "future_simple": 22,
+        "comparatives": 23,
+        "will_vs_going": 24,
+        "some_any": 25,
+        "past_simple_vs_cont": 26,
+        "used_to": 27,
+        
+        "present_perfect": 30,
+        "past_continuous": 31,
+        "gerund_infinitive": 32,
+        "conditionals": 33,
+        "passive_voice": 34,
+        "reported_speech": 35,
+        "question_tags": 36,
+        "relative_clauses": 37,
+        
+        "past_perfect": 40,
+        "present_perfect_continuous": 41,
+        "past_perfect_cont": 42,
+        "future_cont_perfect": 43,
+        "wish_if_only": 44,
+        "modals_deduction": 45,
+        "inversion": 46,
+    }
+    
+    # Сортируем: сначала по модулю, потом по нашему ORDER, потом по ID (если нет в ORDER)
+    lessons_data.sort(key=lambda x: (x["module"], ORDER.get(x["id"], 99), x["id"]))
 
     # Ищем первый непройденный (для кнопки Продолжить)
     continue_lesson = None
