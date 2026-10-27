@@ -8,7 +8,7 @@ GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
     {
         "id": "present_simple",
-        "module": "A1"
+        "module": "A1",
         "title": "Present Simple",
         "emoji": "🕐",
         "level": "A1-A2",
