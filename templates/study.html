@@ -4,11 +4,62 @@
 
 {% block styles %}
 <style>
+    .study-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    .continue-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--accent);
+        color: #fff;
+        padding: 14px 28px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 16px;
+        box-shadow: 0 4px 15px var(--accent-shadow);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .continue-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px var(--accent-shadow);
+    }
+    .continue-btn .icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .module-section {
+        margin-bottom: 40px;
+    }
+    .module-title {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--text);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .module-title::before {
+        content: '';
+        display: block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+    }
+
     .study-list {
         display: flex;
         flex-direction: column;
         gap: 15px;
-        margin-top: 20px;
     }
     .study-item {
         display: flex;
@@ -27,6 +78,11 @@
         transform: translateY(-3px);
         border-color: var(--accent);
         box-shadow: 0 8px 20px var(--accent-shadow);
+    }
+    .study-item.disabled {
+        opacity: 0.6;
+        pointer-events: none;
+        background: var(--bg-subtle);
     }
     .study-icon-wrap {
         width: 60px;
@@ -74,14 +130,30 @@
     .study-progress-fill.done {
         background: linear-gradient(90deg, #4caf50, #66bb6a);
     }
+    .status-badge {
+        font-weight: 700;
+    }
+    .status-badge.done { color: #4caf50; }
+    .status-badge.process { color: var(--accent); }
+    .status-badge.plans { color: var(--text-sub); }
 </style>
 {% endblock %}
 
 {% block content %}
-<h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-book"></use></svg> Учёба</h1>
-<div class="subtitle">Грамматика, глаголы, диалоги — всё в одном месте</div>
+<div class="study-header">
+    <div>
+        <h1><svg class="icon icon-lg" style="width: 32px; height: 32px; vertical-align: -0.15em; margin-right: 8px;"><use href="#icon-book"></use></svg> Учёба</h1>
+        <div class="subtitle">Грамматика, глаголы, диалоги — всё в одном месте</div>
+    </div>
+    {% if continue_lesson %}
+    <a href="/study/grammar/{{ continue_lesson.id }}" class="continue-btn">
+        <svg class="icon"><use href="#icon-play"></use></svg>
+        Продолжить: {{ continue_lesson.title }}
+    </a>
+    {% endif %}
+</div>
 
-{# МАППИНГ ЭМОДЗИ → ИКОНКАМ (пока старые ID, потом заменим) #}
+{# МАППИНГ ЭМОДЗИ → ИКОНКАМ #}
 {% set lesson_icons = {
     "🕐": "icon-grammar-present-simple",
     "⏪": "icon-grammar-past-simple",
@@ -99,44 +171,70 @@
     "⏮️": "icon-grammar-past-perfect",
     "🔄": "icon-grammar-ppc",
     "🔀": "icon-grammar-conditionals",
-    "🗣️": "icon-grammar-reported"
+    "🗣️": "icon-grammar-reported",
+    "🆕": "icon-grammar-default"
 } %}
 
-<div class="study-list">
-    {% for l in lessons %}
-    <a href="/study/grammar/{{ l.id }}" class="study-item">
-        <div class="study-icon-wrap">
-            <svg><use href="#{{ lesson_icons.get(l.emoji, 'icon-book') }}"></use></svg>
-        </div>
-        <div class="study-content">
-            <div class="study-title">{{ l.title }}</div>
-            <div class="study-meta">
-                <span>{{ l.level }}</span>
-                <span>{% if l.done %}Пройдено{% else %}В процессе{% endif %}</span>
-            </div>
-            <div class="study-progress-bar">
-                {% set percent = (l.score / l.total * 100) if l.total > 0 and l.done else 0 %}
-                <div class="study-progress-fill {% if l.done %}done{% endif %}" style="width: {{ percent }}%;"></div>
-            </div>
-        </div>
-    </a>
-    {% endfor %}
+{% set modules = {
+    "A1": "A1 — База (Начальный)",
+    "A2": "A2 — Расширение (Базовый)",
+    "B1": "B1 — Углубление (Средний)",
+    "B2": "B2 — Продвинутый"
+} %}
 
-    <!-- Отдельные пункты для глаголов и диалогов -->
-    <a href="/study/irregular" class="study-item">
-        <div class="study-icon-wrap"><svg><use href="#icon-pencil"></use></svg></div>
-        <div class="study-content">
-            <div class="study-title">Неправильные глаголы</div>
-            <div class="study-meta"><span>60 самых важных</span></div>
+{% for mod_key, mod_name in modules.items() %}
+    {% set mod_lessons = lessons | selectattr("module", "equalto", mod_key) | list %}
+    {% if mod_lessons %}
+    <div class="module-section">
+        <div class="module-title">{{ mod_name }}</div>
+        <div class="study-list">
+            {% for l in mod_lessons %}
+                {% set is_placeholder = l.is_placeholder | default(false) %}
+                <a href="{% if is_placeholder %}#{% else %}/study/grammar/{{ l.id }}{% endif %}" class="study-item {% if is_placeholder %}disabled{% endif %}">
+                    <div class="study-icon-wrap">
+                        <svg><use href="#{{ lesson_icons.get(l.emoji, 'icon-book') }}"></use></svg>
+                    </div>
+                    <div class="study-content">
+                        <div class="study-title">{{ l.title }}</div>
+                        <div class="study-meta">
+                            <span>{{ l.level }}</span>
+                            {% if is_placeholder %}
+                                <span class="status-badge plans">В планах</span>
+                            {% elif l.done %}
+                                <span class="status-badge done">Пройдено</span>
+                            {% else %}
+                                <span class="status-badge process">В процессе</span>
+                            {% endif %}
+                        </div>
+                        <div class="study-progress-bar">
+                            {% set percent = (l.score / l.total * 100) if l.total > 0 and l.done else 0 %}
+                            <div class="study-progress-fill {% if l.done %}done{% endif %}" style="width: {{ percent }}%;"></div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
         </div>
-    </a>
+    </div>
+    {% endif %}
+{% endfor %}
 
-    <a href="/dialogues" class="study-item">
-        <div class="study-icon-wrap"><svg><use href="#icon-dialogue"></use></svg></div>
-        <div class="study-content">
-            <div class="study-title">Диалоги</div>
-            <div class="study-meta"><span>10 жизненных ситуаций</span></div>
-        </div>
-    </a>
+<div class="module-section">
+    <div class="module-title">Дополнительно</div>
+    <div class="study-list">
+        <a href="/study/irregular" class="study-item">
+            <div class="study-icon-wrap"><svg><use href="#icon-grammar-irregular"></use></svg></div>
+            <div class="study-content">
+                <div class="study-title">Неправильные глаголы</div>
+                <div class="study-meta"><span>60 самых важных</span></div>
+            </div>
+        </a>
+        <a href="/dialogues" class="study-item">
+            <div class="study-icon-wrap"><svg><use href="#icon-grammar-dialogue"></use></svg></div>
+            <div class="study-content">
+                <div class="study-title">Диалоги</div>
+                <div class="study-meta"><span>10 жизненных ситуаций</span></div>
+            </div>
+        </a>
+    </div>
 </div>
 {% endblock %}
