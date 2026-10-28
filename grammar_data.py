@@ -1672,6 +1672,263 @@ GRAMMAR_LESSONS = [
         ]
     },
 
+        # ═══════════════════════════════════════════
+    # УРОК — NUMBERS & TIME
+    # ═══════════════════════════════════════════
+    {
+        "id": "numbers_time",
+        "title": "Numbers & Time",
+        "emoji": "⏰",
+        "level": "A1",
+        "module": "A1",
+        "intro": "Числа и время — это то, без чего невозможно представить повседневную жизнь. Ты называешь цену в магазине, спрашиваешь время у прохожего, называешь дату рождения или номер телефона. В английском есть свои особенности: время можно сказать двумя способами, а числительные меняются, когда мы говорим о датах.",
+        
+        "why": "Представь, что ты приехал в Лондон и тебе нужно купить билет на поезд, который отправляется в 15:30. Если ты не знаешь, как сказать время по-английски, ты опоздаешь. Или ты хочешь назвать свой номер телефона, но не знаешь, как правильно произносить цифры. В этой теме мы разберем все: от базового счета до того, как сказать «половина третьего» и «двадцать пятое декабря». Эти знания нужны каждый день. Освоив числа и время, ты перестанешь бояться цифр в английском и сможешь ориентироваться в любой ситуации.",
+
+        "rules": [
+            {"h": "Числа от 1 до 20", "text": "База любого счета — это числа от 1 до 12. Их нужно просто выучить: one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve. Дальше идут числа от 13 до 19. Здесь есть правило: к базовому числу добавляется окончание -teen (кроме 13, 15 и 18, которые немного меняются): thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen. Двадцать — это twenty. Эти числа — фундамент, без них ты не сможешь считать дальше."},
+            
+            {"h": "Десятки и составные числа", "text": "После двадцати идут десятки: thirty (30), forty (40), fifty (50), sixty (60), seventy (70), eighty (80), ninety (90). Обрати внимание на слово forty — оно пишется без буквы 'u', в отличие от four. Для чисел от 21 до 99 действует простое правило: сначала называем десяток, потом единицу, и между ними ставим дефис. Например: twenty-one (21), forty-five (45), ninety-nine (99). А вот с сотнями и тысячами сложнее: после hundred и thousand в английском НЕ добавляется окончание -s (в отличие от русского «двести», «пять тысяч»). Мы говорим two hundred (200), five thousand (5000), one million (1 000 000)."},
+            
+            {"h": "Время — простой способ (Американский)", "text": "Самый простой способ назвать время — просто прочитать цифры. Сначала часы, потом минуты. Например: 3:15 = three fifteen. 5:30 = five thirty. 8:45 = eight forty-five. Если минут меньше 10, мы добавляем 'oh' (ноль) для ясности. Например: 4:05 = four oh five. Этот способ используется в США и в расписаниях поездов. Если время ровное, мы говорим 'o'clock': 3:00 = three o'clock. Если время после полудня, добавляем pm (после 12 дня), а до полудня — am."},
+            
+            {"h": "Время — британский способ (Past / To)", "text": "В Великобритании часто используют более сложный, но красивый способ. Если минут от 1 до 30, мы используем предлог past (после): 3:15 = quarter past three (четверть после трех). 3:20 = twenty past three. 3:30 = half past three (половина после трех). Если минут от 31 до 59, мы используем предлог to (до): 3:45 = quarter to four (без четверти четыре). 3:50 = ten to four (без десяти четыре). Обрати внимание: когда мы используем to, мы называем следующий час. Например, 3:45 — это 'to four', а не 'to three'. Quarter (четверть) и half (половина) — это ключевые слова для этого способа."},
+            
+            {"h": "Даты и порядковые числительные", "text": "В датах мы используем не количественные, а порядковые числительные. То есть не 'один', а 'первый'. Для большинства чисел мы добавляем -th: fourth (4-й), tenth (10-й). Но есть исключения: first (1-й), second (2-й), third (3-й). Также запомни: fifth (5-й), twelfth (12-й), twentieth (20-й). В американском формате сначала идет месяц, потом день: December 25th (25 декабря). В британском — сначала день, потом месяц: 25th December. При чтении мы говорим: 'the twenty-fifth of December' (британский) или 'December twenty-fifth' (американский)."},
+            
+            {"h": "Возраст и телефонные номера", "text": "Когда мы говорим о возрасте, мы используем глагол to be: I am 20 (Я 20-летний). Нельзя сказать 'I have 20 years'. В номерах телефонов мы не читаем числа целиком (как 'двадцать три'), а называем каждую цифру отдельно. Например: 23-45-67 = two three, four five, six seven. Если цифра повторяется, используем слово double: 88 = double eight. Цифра 0 в номерах читается как 'oh', а в математике — как 'zero'. Это важно знать для повседневного общения."},
+            
+            {"h": "Сколько тебе лет? (How old are you?)", "text": "Этот вопрос использует составную конструкцию с How. В ответ мы всегда используем to be. Например: How old are you? — I am 25. How old is she? — She is 30. Если мы говорим о возрасте младше года, используем 'months': He is 6 months old. Обрати внимание, что в английском слово 'year' в возрасте не используется, если мы говорим просто число. Но если добавляем 'years old', то ставим его после цифры: 25 years old."},
+            
+            {"h": "Дроби и проценты", "text": "Простые дроби (половина, треть, четверть) в английском имеют свои названия. 1/2 = a half. 1/3 = a third. 1/4 = a quarter. Все остальные дроби образуются с помощью количественного числительного (числитель) и порядкового (знаменатель): 2/3 = two thirds (две трети). 3/4 = three quarters (три четверти). Если мы говорим о десятичных дробях (десятичная точка), мы используем 'point': 1.5 = one point five. Для процентов используем слово 'percent': 50% = fifty percent."}
+        ],
+
+        "tables": [
+            {
+                "title": "Числа от 1 до 20",
+                "headers": ["Число", "Английский", "Число", "Английский"],
+                "rows": [
+                    ["1", "one", "11", "eleven"],
+                    ["2", "two", "12", "twelve"],
+                    ["3", "three", "13", "thirteen"],
+                    ["4", "four", "14", "fourteen"],
+                    ["5", "five", "15", "fifteen"],
+                    ["6", "six", "16", "sixteen"],
+                    ["7", "seven", "17", "seventeen"],
+                    ["8", "eight", "18", "eighteen"],
+                    ["9", "nine", "19", "nineteen"],
+                    ["10", "ten", "20", "twenty"]
+                ]
+            },
+            {
+                "title": "Время — два способа",
+                "headers": ["Время", "Простой (US)", "Британский (UK)"],
+                "rows": [
+                    ["3:00", "three o'clock", "three o'clock"],
+                    ["3:15", "three fifteen", "quarter past three"],
+                    ["3:30", "three thirty", "half past three"],
+                    ["3:45", "three forty-five", "quarter to four"],
+                    ["3:50", "three fifty", "ten to four"],
+                    ["4:05", "four oh five", "five past four"]
+                ]
+            },
+            {
+                "title": "Порядковые числительные (для дат)",
+                "headers": ["1-й", "first (1st)", "11-й", "eleventh (11th)"],
+                "rows": [
+                    ["2-й", "second (2nd)", "12-й", "twelfth (12th)"],
+                    ["3-й", "third (3rd)", "13-й", "thirteenth (13th)"],
+                    ["4-й", "fourth (4th)", "20-й", "twentieth (20th)"],
+                    ["5-й", "fifth (5th)", "21-й", "twenty-first (21st)"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "It's three hour.", "right": "It's three o'clock.", "why": "Ровный час требует o'clock, а не hour."},
+            {"wrong": "Two hundreds dollars.", "right": "Two hundred dollars.", "why": "После числительного hundred/thousand/million не добавляем -s."},
+            {"wrong": "3:15 = three past fifteen.", "right": "3:15 = three fifteen (US) / quarter past three (UK).", "why": "Минуты не идут первыми в простом способе."},
+            {"wrong": "I was born in 5 May.", "right": "I was born on 5th May.", "why": "Даты обозначаются предлогом on, а не in, и с порядковым числительным."},
+            {"wrong": "My birthday is in May 5.", "right": "My birthday is on May 5th.", "why": "В датах мы используем on и порядковое числительное."},
+            {"wrong": "It's half to three (для 3:30).", "right": "It's half past three.", "why": "30 минут — это past, не to."}
+        ],
+
+        "lifehacks": [
+            "Числа от 21 до 99 пишутся через дефис: twenty-one, forty-five, ninety-nine.",
+            "После hundred / thousand / million НЕ добавляем -s. Two hundred, five thousand.",
+            "Время в США — просто читай цифры: 3:15 = three fifteen. Работает всегда.",
+            "В UK — до 30 минут past, после 30 — to. 3:45 = quarter to FOUR (не three).",
+            "Даты: 'on + день + of + месяц' (британский) или 'месяц + день' (американский)."
+        ],
+
+        "text": {
+            "title": "My Special Day",
+            "paragraphs": [
+                "My name is Maria. I was born on the fifteenth of June, 1999. My birthday is my favourite day of the year. Every year I celebrate it with my family and friends. My mother always cooks a big cake with twenty candles.",
+                "My best friend's birthday is on March 2nd. Her name is Anna. She is two years older than me. We always celebrate our birthdays together — on the twentieth of June every summer.",
+                "I have an exam on the tenth of December at 9:30 am. I need to arrive at 9 o'clock. In the evening I usually finish my work at half past six. My train leaves at 7:45 pm. It's a busy day!"
+            ]
+        },
+
+        "text_questions": [
+            {"q": "When was Maria born?", "options": ["On 15th June 1999", "On 15th July 1999", "On 5th June 1999", "On 15th June 2000"], "correct": "On 15th June 1999"},
+            {"q": "How many candles does the mother put on the cake?", "options": ["Fifteen", "Twenty", "Twenty-five", "Ten"], "correct": "Twenty"},
+            {"q": "When is Anna's birthday?", "options": ["On March 2nd", "On March 5th", "On May 2nd", "On 2nd June"], "correct": "On March 2nd"},
+            {"q": "How much older is Anna than Maria?", "options": ["One year", "Two years", "Three years", "Same age"], "correct": "Two years"},
+            {"q": "When do they celebrate their birthdays together?", "options": ["On the 20th of June", "On the 15th of June", "On the 10th of July", "In winter"], "correct": "On the 20th of June"},
+            {"q": "When is the exam?", "options": ["10th December at 9:30 am", "10th November at 9 am", "1st December at 9 am", "15th December"], "correct": "10th December at 9:30 am"},
+            {"q": "What time does the person finish work in the evening?", "options": ["At 6:00", "At 6:30", "At 7:00", "At 5:30"], "correct": "At 6:30"},
+            {"q": "What time does the train leave?", "options": ["At 7:30", "At 7:45", "At 7:15", "At 8:00"], "correct": "At 7:45"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "It's three ___ (ровный час).", "options": ["o'clock", "hour", "past", "to"], "correct": "o'clock"},
+            {"type": "choice", "q": "3:15 — это...", "options": ["quarter past three", "quarter to three", "quarter three", "three quarter"], "correct": "quarter past three"},
+            {"type": "choice", "q": "3:45 — это...", "options": ["quarter past four", "quarter to four", "quarter three", "three forty"], "correct": "quarter to four"},
+            {"type": "choice", "q": "3:30 — это...", "options": ["half to three", "half past three", "half three", "thirty three"], "correct": "half past three"},
+            {"type": "choice", "q": "1000 — это...", "options": ["one hundred", "one thousand", "ten hundred", "one million"], "correct": "one thousand"},
+            {"type": "fill", "q": "Напиши 25 прописью:", "answer": "twenty-five"},
+            {"type": "fill", "q": "Напиши 100 прописью:", "answer": "one hundred"},
+            {"type": "fill", "q": "3:15 = ___ (британский способ)", "answer": "quarter past three"},
+            {"type": "fill", "q": "Мой день рождения ___ 5 мая. (предлог)", "answer": "on"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["Two hundreds dollars", "Two hundred dollars", "Two hundred of dollars", "Two hundred dollar"], "correct": "Two hundred dollars"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["It's three o'clock", "It's three oclock", "It's three hour", "It's three hours"], "correct": "It's three o'clock"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I was born in 5 May", "I was born on 5th May", "I was born at 5 May", "I was born 5 May"], "correct": "I was born on 5th May"},
+            {"type": "translate", "q": "Переведи: Сейчас полтретьего (2:30).", "answer": "It's half past two"},
+            {"type": "translate", "q": "Переведи: Я родился 5 мая 1999.", "answer": "I was born on 5th May 1999"},
+            {"type": "translate", "q": "Переведи: 2500 — это...", "answer": "two thousand five hundred"},
+            {"type": "translate", "q": "Переведи: Встреча в 3:15.", "answer": "The meeting is at quarter past three"},
+            {"type": "write", "q": "Напиши 3-5 предложений о своем расписании на завтра (во сколько встаешь, во сколько встреча, во сколько ложишься).", "sample": "I wake up at 7:00. I have a meeting at 10:15. I have lunch at half past twelve. I finish work at 6:00 pm. I go to bed at 11:00."}
+        ]
+    },
+
+        # ═══════════════════════════════════════════
+    # УРОК — СЧИТАЕМЫЕ / НЕСЧИТАЕМЫЕ
+    # ═══════════════════════════════════════════
+    {
+        "id": "countable_uncountable",
+        "title": "Считаемые / Несчитаемые",
+        "emoji": "🔢",
+        "level": "A1",
+        "module": "A1",
+        "intro": "В русском языке мы говорим «много воды» и «много книг» одинаково. В английском так нельзя. Там все существительные делятся на две группы: те, которые можно посчитать (яблоки, машины, люди) и те, которые нельзя (вода, молоко, время, деньги). От этого зависит, какие слова использовать: much или many, a few или a little.",
+        
+        "why": "Представь, что ты пришел в кафе и хочешь заказать воду. Если ты скажешь 'Give me a water', официант подумает, что ты инопланетянин. В английском языке нельзя сказать 'одна вода' или 'две воды'. Мы говорим 'some water' (немного воды) или 'a glass of water' (стакан воды). Также, если ты хочешь спросить 'Сколько у тебя денег?', ты должен использовать 'How much money?', а не 'How many money?'. Понимание этой разницы — это признак того, что ты реально знаешь язык, а не просто переводишь слова со словарем. Освоив эту тему, ты перестанешь делать самые заметные ошибки в речи.",
+
+        "rules": [
+            {"h": "Что такое исчисляемые и неисчисляемые существительные?", "text": "Исчисляемые (Countable) — это предметы, которые можно посчитать поштучно: one book, two books, three books. У них есть единственное и множественное число. Неисчисляемые (Uncountable) — это то, что нельзя посчитать поштучно: вода, молоко, хлеб, время, деньги, информация. Мы не говорим 'one water' или 'two waters'. Эти слова существуют как бы в едином объеме. Но мы можем их измерить: стакан воды, кусок хлеба, немного времени. В английском неисчисляемые существительные не имеют формы множественного числа (нельзя сказать 'informations' или 'moneys')."},
+            
+            {"h": "Слова Many и Much (Много)", "text": "Чтобы сказать 'много', мы используем два разных слова. Many используется с исчисляемыми существительными (много книг, много людей). Much используется с неисчисляемыми (много воды, много времени, много денег). Например: 'I have many friends' (У меня много друзей). 'I don't have much time' (У меня нет много времени). В современном английском Much в утвердительных предложениях используется редко (звучит книжно). Вместо него чаще говорят 'a lot of', которое работает с любыми существительными: 'I have a lot of books' и 'I have a lot of time'."},
+            
+            {"h": "Слова Some и Any (Немного, несколько)", "text": "Some и Any используются, когда мы говорим о неопределенном количестве. Some используется в утверждениях: 'I have some water' (У меня есть немного воды), 'I have some apples' (У меня есть несколько яблок). Any используется в вопросах и отрицаниях: 'Do you have any water?' (У тебя есть вода?), 'I don't have any apples' (У меня нет яблок). Some и Any могут использоваться как с исчисляемыми, так и с неисчисляемыми существительными во множественном числе (или в единственном для неисчисляемых)."},
+            
+            {"h": "Слова A few и A little (Немного)", "text": "A few используется с исчисляемыми (несколько): 'I have a few apples' (У меня есть несколько яблок). A little используется с неисчисляемыми (немного): 'I have a little water' (У меня есть немного воды). Если убрать артикль A, смысл меняется на негативный. Few (мало) значит 'недостаточно': 'I have few friends' (У меня мало друзей — и это грустно). Little (мало) значит 'недостаточно': 'I have little time' (У меня мало времени — я не успеваю). A few и A little — это позитивно (немного, но достаточно)."},
+            
+            {"h": "Как измерять неисчисляемые", "text": "Так как мы не можем сказать 'две воды', мы используем контейнеры или части. Например: a glass of water (стакан воды), a cup of tea (чашка чая), a piece of cake (кусок торта), a slice of bread (ломтик хлеба), a bottle of milk (бутылка молока), a kilo of meat (килограмм мяса), a bar of chocolate (плитка шоколада). В таких конструкциях слово, которое мы считаем, — это контейнер (glass, piece, bottle), и именно оно может быть во множественном числе: two glasses of water, three pieces of cake."},
+            
+            {"h": "Слова, которые нельзя посчитать", "text": "Запомни список самых частых неисчисляемых существительных: water (вода), milk (молоко), coffee (кофе), tea (чай), bread (хлеб), cheese (сыр), meat (мясо), money (деньги), time (время), information (информация), advice (совет), news (новости), furniture (мебель), weather (погода), work (работа), homework (домашняя работа). Эти слова всегда используются с глаголом в единственном числе: 'The news is good' (Новости хорошие — в английском news считается единственным числом)."},
+            
+            {"h": "Глаголы с неисчисляемыми", "text": "С неисчисляемыми существительными мы используем глагол в единственном числе. Например: 'The water is cold' (Вода холодная), а не 'The water are cold'. 'This information is useful' (Эта информация полезная). 'My money is on the table' (Мои деньги на столе). Запомни, что даже если по-русски мы говорим «деньги лежат», в английском money — это 'оно', и глагол будет 'is'."}
+        ],
+
+        "tables": [
+            {
+                "title": "Исчисляемые vs Неисчисляемые",
+                "headers": ["Исчисляемые", "Неисчисляемые"],
+                "rows": [
+                    ["book (книга)", "water (вода)"],
+                    ["apple (яблоко)", "milk (молоко)"],
+                    ["car (машина)", "bread (хлеб)"],
+                    ["friend (друг)", "money (деньги)"],
+                    ["time (разы)", "time (время)"]
+                ]
+            },
+            {
+                "title": "Слова для количества",
+                "headers": ["Слово", "Перевод", "С чем используется"],
+                "rows": [
+                    ["many", "много", "С исчисляемыми"],
+                    ["much", "много", "С неисчисляемыми"],
+                    ["a lot of", "много", "С любыми"],
+                    ["a few", "немного", "С исчисляемыми"],
+                    ["a little", "немного", "С неисчисляемыми"],
+                    ["few", "мало (недостаточно)", "С исчисляемыми"],
+                    ["little", "мало (недостаточно)", "С неисчисляемыми"]
+                ]
+            },
+            {
+                "title": "Как измерить неисчисляемое",
+                "headers": ["Неисчисляемое", "Через что", "Пример"],
+                "rows": [
+                    ["water", "a glass / a bottle of", "a glass of water"],
+                    ["bread", "a loaf / a slice of", "a slice of bread"],
+                    ["cake", "a piece of", "a piece of cake"],
+                    ["chocolate", "a bar of", "a bar of chocolate"],
+                    ["milk", "a carton / a glass of", "a glass of milk"],
+                    ["meat", "a kilo of", "a kilo of meat"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I have much books.", "right": "I have many books.", "why": "Books — исчисляемое, нужно many."},
+            {"wrong": "I don't have many money.", "right": "I don't have much money.", "why": "Money — неисчисляемое, нужно much."},
+            {"wrong": "I have a water.", "right": "I have some water.", "why": "Water неисчисляемое — нельзя использовать артикль 'a'."},
+            {"wrong": "How many money?", "right": "How much money?", "why": "Money — неисчисляемое, нужно how much."},
+            {"wrong": "I have informations.", "right": "I have information.", "why": "Information — неисчисляемое, без -s."},
+            {"wrong": "Can I have a bread?", "right": "Can I have a slice of bread?", "why": "Bread неисчисляемое — через 'a slice of'."},
+            {"wrong": "The water are cold.", "right": "The water is cold.", "why": "Неисчисляемые существительные требуют глагол в единственном числе."}
+        ],
+
+        "lifehacks": [
+            "Проверка на исчисляемость: могу ли я сказать 'two'? Если да — исчисляемое (two books). Если нет — неисчисляемое (нельзя two waters).",
+            "Если не знаешь, какое слово использовать — бери 'a lot of'. Оно работает везде.",
+            "Неисчисляемое не имеет множественного числа. Никогда не говори 'informations', 'advices', 'moneys'.",
+            "Чтобы посчитать неисчисляемое, используй контейнер: a glass of water, a piece of cake, a slice of bread.",
+            "A few (несколько) — для тех, что считаешь. A little (немного) — для тех, что не считаешь."
+        ],
+
+        "text": {
+            "title": "Shopping for a Party",
+            "paragraphs": [
+                "Yesterday I went shopping for a party. I had a long list. I bought a lot of food and drinks. I bought some bread, some cheese and a few apples. I also bought a bottle of water and a carton of milk.",
+                "For dessert I bought a bar of chocolate and a piece of cake. I wanted to buy a little ice cream, but there was no ice cream in the shop. I also bought some juice and a few oranges.",
+                "There were not many people in the shop, so I finished quickly. I didn't have much money with me, but I managed to buy everything I needed. Now I'm ready for the party!"
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What did the author buy?", "options": ["A book", "Food and drinks for a party", "Clothes", "A car"], "correct": "Food and drinks for a party"},
+            {"q": "How many apples did the author buy?", "options": ["Many", "A few", "None", "A lot"], "correct": "A few"},
+            {"q": "What did the author buy in a bottle?", "options": ["Milk", "Water", "Juice", "Coke"], "correct": "Water"},
+            {"q": "What did the author buy in a carton?", "options": ["Water", "Juice", "Milk", "Tea"], "correct": "Milk"},
+            {"q": "What did the author want to buy for dessert?", "options": ["Cake", "Ice cream", "Chocolate", "Fruit"], "correct": "Ice cream"},
+            {"q": "Why didn't the author buy ice cream?", "options": ["It was expensive", "There was no ice cream", "Didn't want", "Forgot"], "correct": "There was no ice cream"},
+            {"q": "Were there many people in the shop?", "options": ["Yes, a lot", "No, not many", "There were no people", "Only children"], "correct": "No, not many"},
+            {"q": "How much money did the author have?", "options": ["A lot", "Not much", "None", "All money in the world"], "correct": "Not much"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "How ___ books do you have?", "options": ["many", "much", "a lot", "few"], "correct": "many"},
+            {"type": "choice", "q": "How ___ money do you have?", "options": ["many", "much", "a lot", "few"], "correct": "much"},
+            {"type": "choice", "q": "I have ___ friends in Moscow.", "options": ["much", "a lot", "many", "a little"], "correct": "many"},
+            {"type": "choice", "q": "I don't have ___ time today.", "options": ["many", "much", "a lot", "few"], "correct": "much"},
+            {"type": "choice", "q": "Can I have ___ water, please?", "options": ["a", "some", "many", "few"], "correct": "some"},
+            {"type": "fill", "q": "How ___ (many/much) water do you drink?", "answer": "much"},
+            {"type": "fill", "q": "How ___ (many/much) people are here?", "answer": "many"},
+            {"type": "fill", "q": "I have ___ (a few / a little) money. (немного)", "answer": "a little"},
+            {"type": "fill", "q": "I have ___ (a few / a little) books. (немного)", "answer": "a few"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I have much books", "I have many books", "I have a lot of books", "I have a few books"], "correct": "I have many books"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I have a water", "I have some water", "I have a glass of water", "I have water"], "correct": "I have some water"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["How many money?", "How much money?", "How a lot money?", "How few money?"], "correct": "How much money?"},
+            {"type": "translate", "q": "Переведи: Сколько у тебя книг?", "answer": "How many books do you have"},
+            {"type": "translate", "q": "Переведи: Сколько у тебя времени?", "answer": "How much time do you have"},
+            {"type": "translate", "q": "Переведи: У меня мало друзей.", "answer": "I have few friends"},
+            {"type": "translate", "q": "Переведи: Можно немного воды?", "answer": "Can I have some water"},
+            {"type": "write", "q": "Напиши 5 предложений о том, что у тебя есть дома (используй much, many, a few, a little).", "sample": "I have many books. I have a little water in the fridge. I don't have much time today. I have a few apples. I have a lot of clothes."}
+        ]
+    },
+
     # ═══════════════════════════════════════════
     # УРОК 2 — PAST SIMPLE
     # ═══════════════════════════════════════════
@@ -2222,244 +2479,6 @@ GRAMMAR_LESSONS = [
             {"type": "translate", "q": "Переведи: Я хочу поехать домой.", "answer": "I want to go home"},
             {"type": "translate", "q": "Переведи: Она наслаждается танцами.", "answer": "She enjoys dancing"},
             {"type": "translate", "q": "Переведи: Спасибо за помощь.", "answer": "Thank you for helping"}
-        ]
-    },
-
-    # ═══════════════════════════════════════════
-    # УРОК 11 — COUNTABLE / UNCOUNTABLE
-    # ═══════════════════════════════════════════
-    {
-        "id": "countable_uncountable",
-        "module": "A1",
-        "title": "Считаемые / Несчитаемые",
-        "emoji": "🔢",
-        "level": "A1-A2",
-        "intro": "Some / any / much / many / a lot of / few / little. Как правильно говорить о количестве.",
-        "why": "В русском языке мы говорим «много воды» и «много книг» одинаково. В английском — по-разному: much water (неисчисляемое) vs many books (исчисляемое). Это правило нужно понимать, чтобы правильно говорить о количестве. Ошибки тут очень заметны для носителей, так что стоит освоить. Плюс — это одно из самых частых правил в повседневной речи.",
-
-        "rules": [
-            {"h": "Исчисляемые / неисчисляемые", "text": "Исчисляемые — можно посчитать: a book, two books, three books. Неисчисляемые — нельзя посчитать: water, milk, bread, money, time, information, advice. Их нельзя сказать 'a water' — только 'some water' или 'a glass of water'."},
-            {"h": "some / any — немного, несколько", "text": "Some — в утверждениях (I have some books. I have some money.) Any — в вопросах и отрицаниях (Do you have any books? I don't have any money.)"},
-            {"h": "much / many — много", "text": "Many — с исчисляемыми (many books, many people). Much — с неисчисляемыми (much water, much time). Much обычно в вопросах и отрицаниях: How much? Not much."},
-            {"h": "a lot of — много (для всех)", "text": "a lot of = много. Работает и с исчисляемыми, и с неисчисляемыми: a lot of books, a lot of water. Самый универсальный вариант."},
-            {"h": "few / a few — с исчисляемыми", "text": "few = мало (недостаточно): I have few friends (мало, плохо). a few = немного (нормально): I have a few friends (несколько, хорошо)."},
-            {"h": "little / a little — с неисчисляемыми", "text": "little = мало (недостаточно): I have little time (мало, плохо). a little = немного (нормально): I have a little time (немного, хорошо)."},
-            {"h": "Как посчитать неисчисляемое", "text": "Через контейнер: a glass of water, a cup of tea, a piece of cake, a bottle of milk, a kilo of meat, a slice of bread. Плюс: a bar of chocolate, a loaf of bread, a can of coke."},
-            {"h": "Только единственное число", "text": "Неисчисляемые не имеют множественного: news, information, advice, money, bread, water. НЕ 'informations', НЕ 'advices', НЕ 'moneys'. Глагол в единственном числе: The news IS good."}
-        ],
-
-        "tables": [
-            {
-                "title": "Much/Many/Little/Few",
-                "headers": ["Слово", "С чем", "Значение"],
-                "rows": [
-                    ["many", "Исчисляемые", "много"],
-                    ["much", "Неисчисляемые", "много"],
-                    ["a lot of", "Любые", "много (универсально)"],
-                    ["few", "Исчисляемые", "мало (недостаток)"],
-                    ["a few", "Исчисляемые", "немного (нормально)"],
-                    ["little", "Неисчисляемые", "мало (недостаток)"],
-                    ["a little", "Неисчисляемые", "немного (нормально)"]
-                ]
-            },
-            {
-                "title": "Как посчитать неисчисляемое",
-                "headers": ["Неисчисляемое", "Через что", "Пример"],
-                "rows": [
-                    ["water", "a glass / a bottle of", "a glass of water"],
-                    ["bread", "a loaf / a slice of", "a slice of bread"],
-                    ["cake", "a piece of", "a piece of cake"],
-                    ["chocolate", "a bar of", "a bar of chocolate"],
-                    ["milk", "a carton / a glass of", "a glass of milk"],
-                    ["meat", "a kilo of", "a kilo of meat"]
-                ]
-            },
-            {
-                "title": "Some / Any",
-                "headers": ["Слово", "Когда", "Пример"],
-                "rows": [
-                    ["some", "Утверждение", "I have some books"],
-                    ["any", "Вопрос", "Do you have any books?"],
-                    ["any", "Отрицание", "I don't have any books"]
-                ]
-            }
-        ],
-
-        "mistakes": [
-            {"wrong": "I have much books.", "right": "I have many books.", "why": "Books — исчисляемое → many"},
-            {"wrong": "I don't have many money.", "right": "I don't have much money.", "why": "Money — неисчисляемое → much"},
-            {"wrong": "I have a water.", "right": "I have some water.", "why": "Water неисчисляемое — нельзя 'a'"},
-            {"wrong": "How many money?", "right": "How much money?", "why": "Money — неисчисляемое → how much"},
-            {"wrong": "I have informations.", "right": "I have information.", "why": "Information — неисчисляемое, без -s"},
-            {"wrong": "Can I have a bread?", "right": "Can I have a slice of bread?", "why": "Bread неисчисляемое — через 'a slice of'"}
-        ],
-
-        "lifehacks": [
-            "Считаешь → many. Не считаешь (вода, время, деньги) → much. Единый тест: могу ли я сказать 'two'? Если да — many. Если нет — much.",
-            "a lot of — универсальное слово. Не ошибешься.",
-            "a few / a little — позитивно ('немного есть'). few / little — негативно ('мало, не хватает').",
-            "Неисчисляемое = нет множественного. Никогда не говори 'informations', 'advices', 'moneys'.",
-            "Хочешь посчитать — используй контейнер: a glass of, a piece of, a slice of."
-        ],
-
-        "text": {
-            "title": "Shopping for a Party",
-            "paragraphs": [
-                "Yesterday I went shopping for a party. I had a long list. I bought a lot of food and drinks. I bought some bread, some cheese and a few apples. I also bought a bottle of water and a carton of milk.",
-                "For dessert I bought a bar of chocolate and a piece of cake. I wanted to buy a little ice cream, but there was no ice cream in the shop. I also bought some juice and a few oranges.",
-                "There were not many people in the shop, so I finished quickly. I didn't have much money with me, but I managed to buy everything I needed. Now I'm ready for the party!"
-            ]
-        },
-
-        "text_questions": [
-            {"q": "What did the author buy?", "options": ["A book", "Food and drinks for a party", "Clothes", "A car"], "correct": "Food and drinks for a party"},
-            {"q": "How many apples did the author buy?", "options": ["Many", "A few", "None", "A lot"], "correct": "A few"},
-            {"q": "What did the author buy in a bottle?", "options": ["Milk", "Water", "Juice", "Coke"], "correct": "Water"},
-            {"q": "What did the author buy in a carton?", "options": ["Water", "Juice", "Milk", "Tea"], "correct": "Milk"},
-            {"q": "What did the author want to buy for dessert?", "options": ["Cake", "Ice cream", "Chocolate", "Fruit"], "correct": "Ice cream"},
-            {"q": "Why didn't the author buy ice cream?", "options": ["It was expensive", "There was no ice cream", "Didn't want", "Forgot"], "correct": "There was no ice cream"},
-            {"q": "Were there many people in the shop?", "options": ["Yes, a lot", "No, not many", "There were no people", "Only children"], "correct": "No, not many"},
-            {"q": "How much money did the author have?", "options": ["A lot", "Not much", "None", "All money in the world"], "correct": "Not much"}
-        ],
-
-        "test": [
-            {"type": "choice", "q": "How ___ books do you have?", "options": ["many", "much", "a lot", "few"], "correct": "many"},
-            {"type": "choice", "q": "How ___ money do you have?", "options": ["many", "much", "a lot", "few"], "correct": "much"},
-            {"type": "choice", "q": "I have ___ friends in Moscow.", "options": ["much", "a lot", "many", "a little"], "correct": "many"},
-            {"type": "choice", "q": "I don't have ___ time today.", "options": ["many", "much", "a lot", "few"], "correct": "much"},
-            {"type": "choice", "q": "Can I have ___ water, please?", "options": ["a", "some", "many", "few"], "correct": "some"},
-            {"type": "fill", "q": "How ___ (many/much) water do you drink?", "answer": "much"},
-            {"type": "fill", "q": "How ___ (many/much) people are here?", "answer": "many"},
-            {"type": "fill", "q": "I have ___ (a few / a little) money. (немного)", "answer": "a little"},
-            {"type": "fill", "q": "I have ___ (a few / a little) books. (немного)", "answer": "a few"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["I have much books", "I have many books", "I have a lot of books", "I have a few books"], "correct": "I have many books"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["I have a water", "I have some water", "I have a glass of water", "I have water"], "correct": "I have some water"},
-            {"type": "error", "q": "Найди правильное:", "options": ["How many money?", "How much money?", "How a lot money?", "How few money?"], "correct": "How much money?"},
-            {"type": "translate", "q": "Переведи: Сколько у тебя книг?", "answer": "How many books do you have"},
-            {"type": "translate", "q": "Переведи: Сколько у тебя времени?", "answer": "How much time do you have"},
-            {"type": "translate", "q": "Переведи: У меня мало друзей.", "answer": "I have few friends"},
-            {"type": "translate", "q": "Переведи: Можно немного воды?", "answer": "Can I have some water"}
-        ]
-    },
-
-    # ═══════════════════════════════════════════
-    # УРОК 12 — NUMBERS & TIME
-    # ═══════════════════════════════════════════
-    {
-        "id": "numbers_time",
-        "module": "A1",
-        "title": "Numbers & Time",
-        "emoji": "⏰",
-        "level": "A1-A2",
-        "intro": "Числа, время, даты. Как сказать 'полтретьего', 'без пятнадцати', 'тысяча двести'.",
-        "why": "Числа и время — то, что нужно каждый день. Ты называешь время встречи, цену в магазине, дату рождения, номер телефона. Если ты не умеешь говорить время по-английски, ты как будто без часов. Это простой, но очень практичный урок. Выучишь один раз — и пользуешься всю жизнь.",
-
-        "rules": [
-            {"h": "Числа 1-20", "text": "one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen, twenty."},
-            {"h": "Десятки", "text": "twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety. Для 21-99: двадцать один = twenty-one (через дефис). 45 = forty-five. 99 = ninety-nine."},
-            {"h": "Сотни, тысячи, миллионы", "text": "100 = a hundred / one hundred. 200 = two hundred (без -s!). 1000 = a thousand. 2500 = two thousand five hundred. 1 000 000 = a million. 1 500 000 = one million five hundred thousand."},
-            {"h": "Время — простой способ", "text": "Сначала часы, потом минуты: 3:15 = three fifteen. 5:30 = five thirty. 8:45 = eight forty-five. Самый простой и распространённый в США."},
-            {"h": "Время — британский способ", "text": "past — после (1-30 минут): 3:15 = quarter past three. 3:20 = twenty past three. 3:30 = half past three. to — до (31-59 минут): 3:45 = quarter to four. 3:50 = ten to four. o'clock — только для ровного часа: 3:00 = three o'clock."},
-            {"h": "Даты — американский формат", "text": "Месяц / день / год: December 25th, 2026 (или 12/25/2026). Читается: December twenty-fifth, twenty twenty-six."},
-            {"h": "Даты — британский формат", "text": "День / месяц / год: 25th December 2026 (или 25/12/2026). Читается: the twenty-fifth of December, twenty twenty-six."},
-            {"h": "Порядковые числительные", "text": "first (1st), second (2nd), third (3rd), fourth (4th), fifth (5th), sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth, twentieth, twenty-first, thirtieth, thirty-first. Остальные — + th: fourth, tenth."}
-        ],
-
-        "tables": [
-            {
-                "title": "Числа 1-20",
-                "headers": ["Число", "Английский", "Число", "Английский"],
-                "rows": [
-                    ["1", "one", "11", "eleven"],
-                    ["2", "two", "12", "twelve"],
-                    ["3", "three", "13", "thirteen"],
-                    ["4", "four", "14", "fourteen"],
-                    ["5", "five", "15", "fifteen"],
-                    ["6", "six", "16", "sixteen"],
-                    ["7", "seven", "17", "seventeen"],
-                    ["8", "eight", "18", "eighteen"],
-                    ["9", "nine", "19", "nineteen"],
-                    ["10", "ten", "20", "twenty"]
-                ]
-            },
-            {
-                "title": "Время — два способа",
-                "headers": ["Время", "Простой (US)", "Британский (UK)"],
-                "rows": [
-                    ["3:00", "three o'clock", "three o'clock"],
-                    ["3:15", "three fifteen", "quarter past three"],
-                    ["3:30", "three thirty", "half past three"],
-                    ["3:45", "three forty-five", "quarter to four"],
-                    ["3:50", "three fifty", "ten to four"],
-                    ["4:05", "four oh five", "five past four"]
-                ]
-            },
-            {
-                "title": "Порядковые числительные",
-                "headers": ["1-й", "first (1st)", "11-й", "eleventh (11th)"],
-                "rows": [
-                    ["2-й", "second (2nd)", "12-й", "twelfth (12th)"],
-                    ["3-й", "third (3rd)", "13-й", "thirteenth (13th)"],
-                    ["4-й", "fourth (4th)", "20-й", "twentieth (20th)"],
-                    ["5-й", "fifth (5th)", "21-й", "twenty-first (21st)"]
-                ]
-            }
-        ],
-
-        "mistakes": [
-            {"wrong": "It's three hour.", "right": "It's three o'clock.", "why": "Ровный час — o'clock"},
-            {"wrong": "Two hundreds dollars.", "right": "Two hundred dollars.", "why": "После числительного hundred/thousand без -s"},
-            {"wrong": "3:15 = three past fifteen.", "right": "3:15 = three fifteen (US) / quarter past three (UK).", "why": "Минуты не идут первыми в простом способе"},
-            {"wrong": "I was born in 5 May.", "right": "I was born on 5th May.", "why": "Даты — с on"},
-            {"wrong": "My birthday is in May 5.", "right": "My birthday is on May 5th.", "why": "Даты — с on"},
-            {"wrong": "It's half to three (для 3:30).", "right": "It's half past three.", "why": "30 минут — это past, не to"}
-        ],
-
-        "lifehacks": [
-            "Числа от 21 до 99 пишутся через дефис: twenty-one, forty-five, ninety-nine.",
-            "После hundred / thousand / million НЕ добавляем -s. Two hundred, five thousand.",
-            "Время в США — просто читай цифры: 3:15 = three fifteen. Работает всегда.",
-            "В UK — до 30 минут past, после 30 — to. 3:45 = quarter to FOUR (не three).",
-            "Даты: 'on + день + of + месяц' (британский) или 'месяц + день' (американский)."
-        ],
-
-        "text": {
-            "title": "My Special Day",
-            "paragraphs": [
-                "My name is Maria. I was born on the fifteenth of June, 1999. My birthday is my favourite day of the year. Every year I celebrate it with my family and friends. My mother always cooks a big cake with twenty candles.",
-                "My best friend's birthday is on March 2nd. Her name is Anna. She is two years older than me. We always celebrate our birthdays together — on the twentieth of June every summer.",
-                "I have an exam on the tenth of December at 9:30 am. I need to arrive at 9 o'clock. In the evening I usually finish my work at half past six. My train leaves at 7:45 pm. It's a busy day!"
-            ]
-        },
-
-        "text_questions": [
-            {"q": "When was Maria born?", "options": ["On 15th June 1999", "On 15th July 1999", "On 5th June 1999", "On 15th June 2000"], "correct": "On 15th June 1999"},
-            {"q": "How many candles does the mother put on the cake?", "options": ["Fifteen", "Twenty", "Twenty-five", "Ten"], "correct": "Twenty"},
-            {"q": "When is Anna's birthday?", "options": ["On March 2nd", "On March 5th", "On May 2nd", "On 2nd June"], "correct": "On March 2nd"},
-            {"q": "How much older is Anna than Maria?", "options": ["One year", "Two years", "Three years", "Same age"], "correct": "Two years"},
-            {"q": "When do they celebrate their birthdays together?", "options": ["On the 20th of June", "On the 15th of June", "On the 10th of July", "In winter"], "correct": "On the 20th of June"},
-            {"q": "When is the exam?", "options": ["10th December at 9:30 am", "10th November at 9 am", "1st December at 9 am", "15th December"], "correct": "10th December at 9:30 am"},
-            {"q": "What time does the person finish work in the evening?", "options": ["At 6:00", "At 6:30", "At 7:00", "At 5:30"], "correct": "At 6:30"},
-            {"q": "What time does the train leave?", "options": ["At 7:30", "At 7:45", "At 7:15", "At 8:00"], "correct": "At 7:45"}
-        ],
-
-        "test": [
-            {"type": "choice", "q": "It's three ___ (ровный час).", "options": ["o'clock", "hour", "past", "to"], "correct": "o'clock"},
-            {"type": "choice", "q": "3:15 — это...", "options": ["quarter past three", "quarter to three", "quarter three", "three quarter"], "correct": "quarter past three"},
-            {"type": "choice", "q": "3:45 — это...", "options": ["quarter past four", "quarter to four", "quarter three", "three forty"], "correct": "quarter to four"},
-            {"type": "choice", "q": "3:30 — это...", "options": ["half to three", "half past three", "half three", "thirty three"], "correct": "half past three"},
-            {"type": "choice", "q": "1000 — это...", "options": ["one hundred", "one thousand", "ten hundred", "one million"], "correct": "one thousand"},
-            {"type": "fill", "q": "Напиши 25 прописью:", "answer": "twenty-five"},
-            {"type": "fill", "q": "Напиши 100 прописью:", "answer": "one hundred"},
-            {"type": "fill", "q": "3:15 = ___ (британский способ)", "answer": "quarter past three"},
-            {"type": "fill", "q": "Мой день рождения ___ 5 мая. (предлог)", "answer": "on"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["Two hundreds dollars", "Two hundred dollars", "Two hundred of dollars", "Two hundred dollar"], "correct": "Two hundred dollars"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["It's three o'clock", "It's three oclock", "It's three hour", "It's three hours"], "correct": "It's three o'clock"},
-            {"type": "error", "q": "Найди правильное:", "options": ["I was born in 5 May", "I was born on 5th May", "I was born at 5 May", "I was born 5 May"], "correct": "I was born on 5th May"},
-            {"type": "translate", "q": "Переведи: Сейчас полтретьего (2:30).", "answer": "It's half past two"},
-            {"type": "translate", "q": "Переведи: Я родился 5 мая 1999.", "answer": "I was born on 5th May 1999"},
-            {"type": "translate", "q": "Переведи: 2500 — это...", "answer": "two thousand five hundred"},
-            {"type": "translate", "q": "Переведи: Встреча в 3:15.", "answer": "The meeting is at quarter past three"}
         ]
     },
 
