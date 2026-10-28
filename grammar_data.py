@@ -4,6 +4,133 @@
 
 GRAMMAR_LESSONS = [
     # ═══════════════════════════════════════════
+    # УРОК — ГЛАГОЛ TO BE (AM / IS / ARE)
+    # ═══════════════════════════════════════════
+    {
+        "id": "to_be",
+        "title": "Глагол to be (am / is / are)",
+        "emoji": "🪪",
+        "level": "A1",
+        "module": "A1",
+        "intro": "Глагол to be — это фундамент английского. В русском мы говорим «Я студент», «Она красивая», «Мы дома». В английском в этих предложениях ОБЯЗАТЕЛЬНО нужен глагол to be (am / is / are). Без него английское предложение просто не построится.",
+        "why": "Без to be ты не сможешь сказать о себе ничего: ни кто ты, ни откуда ты, ни сколько тебе лет. В английском нельзя сказать 'I a student' или 'She beautiful' — это грубая ошибка. To be — это 'клей', который соединяет подлежащее и то, что о нём говорится. В английском to be используется в 30% всех предложений. Изучи его один раз — и ты сразу сможешь представиться, описать себя, других людей и предметы.",
+
+        "rules": [
+            {"h": "Что такое to be?", "text": "To be переводится как «быть», «являться», «находиться». В русском мы часто его опускаем («Я дома», «Он врач»), но в английском он обязателен. Формы: am, is, are. В настоящем времени они означают «есть»."},
+            {"h": "Три формы в настоящем", "text": "I → am. You / We / They → are. He / She / It → is. Запомни: I am, He is, She is, It is, You are, We are, They are. Никаких исключений!"},
+            {"h": "Как образуется утверждение", "text": "Подлежащее + am/is/are + остальная часть. I am a student. He is a doctor. They are at home. В английском подлежащее ВСЕГДА должно быть. Нельзя сказать 'Am a student' — нужно 'I am a student'."},
+            {"h": "Отрицание", "text": "Чтобы сказать «не», добавляем not после am/is/are. I am not a teacher. He is not (isn't) here. They are not (aren't) ready. Сокращения: I'm not, isn't, aren't. В отрицании нельзя использовать don't/doesn't — только am not / isn't / aren't."},
+            {"h": "Вопрос", "text": "Чтобы задать вопрос, меняем подлежащее и am/is/are местами. Am I late? Is he a student? Are they from Russia? Ответы: Yes, I am. No, I'm not. Yes, he is. No, he isn't."},
+            {"h": "Когда использовать to be", "text": "1) Профессия/кто ты: I am a doctor. 2) Состояние/характеристика: She is tired. 3) Возраст: I am 20. 4) Местоположение: We are in Moscow. 5) Национальность: He is Russian. 6) Чувства: They are happy."},
+            {"h": "Краткие ответы", "text": "На вопрос 'Are you a student?' нельзя ответить просто 'Yes' или 'I am a student'. Правильно: Yes, I am. / No, I'm not. На вопрос 'Is she here?' — Yes, she is. / No, she isn't. На 'Are they ready?' — Yes, they are. / No, they aren't."},
+            {"h": "Почему русским это сложно", "text": "В русском мы не говорим «Я есть студент». Поэтому новички часто пропускают am/is/are. Но в английском порядок слов строгий: подлежащее + to be + дополнение. Если пропустишь глагол, предложение будет неполным."}
+        ],
+
+        "tables": [
+            {
+                "title": "Спряжение to be в утверждении",
+                "headers": ["Местоимение", "Форма", "Сокращение", "Пример"],
+                "rows": [
+                    ["I", "am", "I'm", "I am a student."],
+                    ["You", "are", "You're", "You are my friend."],
+                    ["He", "is", "He's", "He is a doctor."],
+                    ["She", "is", "She's", "She is beautiful."],
+                    ["It", "is", "It's", "It is a cat."],
+                    ["We", "are", "We're", "We are ready."],
+                    ["They", "are", "They're", "They are here."]
+                ]
+            },
+            {
+                "title": "Отрицание",
+                "headers": ["Местоимение", "Полная форма", "Сокращение", "Пример"],
+                "rows": [
+                    ["I", "am not", "I'm not", "I am not late."],
+                    ["You / We / They", "are not", "aren't", "They aren't here."],
+                    ["He / She / It", "is not", "isn't", "He isn't a doctor."]
+                ]
+            },
+            {
+                "title": "Вопрос",
+                "headers": ["Вопрос", "Краткий ответ (Да)", "Краткий ответ (Нет)"],
+                "rows": [
+                    ["Am I late?", "Yes, I am.", "No, I'm not."],
+                    ["Are you a student?", "Yes, you are.", "No, you aren't."],
+                    ["Is he a doctor?", "Yes, he is.", "No, he isn't."],
+                    ["Are they ready?", "Yes, they are.", "No, they aren't."]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I student.", "right": "I am a student.", "why": "Пропущен am и артикль a."},
+            {"wrong": "He are a doctor.", "right": "He is a doctor.", "why": "Для he/she/it используется is, а не are."},
+            {"wrong": "They is at home.", "right": "They are at home.", "why": "Для they используется are, а не is."},
+            {"wrong": "I am not a student?", "right": "Am I not a student? / Aren't I a student?", "why": "В вопросе am/is/are выходит на первое место."},
+            {"wrong": "She not is here.", "right": "She is not here.", "why": "Not ставится ПОСЛЕ am/is/are."},
+            {"wrong": "I am 20 years.", "right": "I am 20 / I am 20 years old.", "why": "По-английски возраст: I am 20 (или 20 years old)."},
+            {"wrong": "Are you a student? — Yes, I'm.", "right": "Yes, I am.", "why": "В кратком утвердительном ответе сокращение 'I'm' не используется, только 'I am'."},
+            {"wrong": "Do you be a student?", "right": "Are you a student?", "why": "Для to be не нужны do/does. Он сам образует вопрос."}
+        ],
+
+        "lifehacks": [
+            "Запомни рифму: 'I am, you are, he is, she is, it is, we are, they are'. Повторяй её, пока не запомнишь.",
+            "Если подлежащее — это I, используй am. Если he/she/it — is. Всё остальное — are.",
+            "В английском нельзя сказать «Я есть», но можно сказать «Я am». В голове переводи: «Я есть студент» → I am a student.",
+            "Если сомневаешься в вопросе, просто поменяй местами I и am: I am late → Am I late?",
+            "В отрицании не нужно два раза писать 'not': I am not, а не I not am."
+        ],
+
+        "text": {
+            "title": "My First Day at University",
+            "paragraphs": [
+                "My name is Alex. I am 19 years old. I am a student at a university. I am from Rostov-on-Don, but now I am in Moscow. My university is very big and beautiful.",
+                "My new friends are also students. They are from different cities. We are all in the same group. Our teacher is a kind woman. She is 40 years old. She is very smart.",
+                "Today is my first day. I am a little nervous. But I am happy. My parents are at home. They are proud of me. I am here to study and learn new things."
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What is the student's name?", "options": ["Alex", "Mike", "John", "Sam"], "correct": "Alex"},
+            {"q": "How old is Alex?", "options": ["18", "19", "20", "21"], "correct": "19"},
+            {"q": "Where is Alex from?", "options": ["Moscow", "Rostov-on-Don", "Saint Petersburg", "Kazan"], "correct": "Rostov-on-Don"},
+            {"q": "Where is Alex now?", "options": ["Rostov-on-Don", "Moscow", "Sochi", "Home"], "correct": "Moscow"},
+            {"q": "Are Alex's friends also students?", "options": ["Yes, they are", "No, they aren't", "Some of them", "We don't know"], "correct": "Yes, they are"},
+            {"q": "Is the teacher kind?", "options": ["Yes, she is", "No, she isn't", "Sometimes", "We don't know"], "correct": "Yes, she is"},
+            {"q": "How old is the teacher?", "options": ["30", "35", "40", "45"], "correct": "40"},
+            {"q": "How does Alex feel today?", "options": ["Sad", "Angry", "Nervous but happy", "Tired"], "correct": "Nervous but happy"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "I ___ a student.", "options": ["am", "is", "are", "be"], "correct": "am"},
+            {"type": "choice", "q": "She ___ my sister.", "options": ["am", "is", "are", "be"], "correct": "is"},
+            {"type": "choice", "q": "They ___ at home.", "options": ["am", "is", "are", "be"], "correct": "are"},
+            {"type": "choice", "q": "He ___ a doctor.", "options": ["am", "is", "are", "be"], "correct": "is"},
+            {"type": "choice", "q": "We ___ ready.", "options": ["am", "is", "are", "be"], "correct": "are"},
+            {"type": "choice", "q": "It ___ a cat.", "options": ["am", "is", "are", "be"], "correct": "is"},
+            {"type": "choice", "q": "You ___ my friend.", "options": ["am", "is", "are", "be"], "correct": "are"},
+            {"type": "choice", "q": "___ you a student?", "options": ["Am", "Is", "Are", "Be"], "correct": "Are"},
+            {"type": "choice", "q": "___ he from Russia?", "options": ["Am", "Is", "Are", "Be"], "correct": "Is"},
+            {"type": "choice", "q": "I ___ not a teacher.", "options": ["am", "is", "are", "be"], "correct": "am"},
+            {"type": "fill", "q": "I ___ (be) a student.", "answer": "am"},
+            {"type": "fill", "q": "He ___ (be) a doctor.", "answer": "is"},
+            {"type": "fill", "q": "They ___ (be) from London.", "answer": "are"},
+            {"type": "fill", "q": "She ___ (not / be) here.", "answer": "isn't"},
+            {"type": "fill", "q": "We ___ (not / be) ready.", "answer": "aren't"},
+            {"type": "fill", "q": "___ (be) you a student?", "answer": "Are"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I am a student", "I is a student", "I are a student", "I be a student"], "correct": "I am a student"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["He are a doctor", "He is a doctor", "He am a doctor", "He be a doctor"], "correct": "He is a doctor"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["They is at home", "They are at home", "They am at home", "They be at home"], "correct": "They are at home"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I not am a student", "I am not a student", "I amn't a student", "I no am a student"], "correct": "I am not a student"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["Is you a student?", "Are you a student?", "Am you a student?", "Be you a student?"], "correct": "Are you a student?"},
+            {"type": "translate", "q": "Переведи: Я студент.", "answer": "I am a student"},
+            {"type": "translate", "q": "Переведи: Она красивая.", "answer": "She is beautiful"},
+            {"type": "translate", "q": "Переведи: Они дома.", "answer": "They are at home"},
+            {"type": "translate", "q": "Переведи: Он не врач.", "answer": "He is not a doctor"},
+            {"type": "translate", "q": "Переведи: Ты готов?", "answer": "Are you ready"},
+            {"type": "write", "q": "Напиши 3-5 предложений о себе (кто ты, сколько тебе лет, откуда ты, кто твои друзья).", "sample": "I am Alex. I am 20 years old. I am a student. My friends are also students. We are from Russia."}
+        ]
+    },
+    # ═══════════════════════════════════════════
     # УРОК 1 — PRESENT SIMPLE
     # ═══════════════════════════════════════════
     {
