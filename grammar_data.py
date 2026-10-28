@@ -1284,6 +1284,126 @@ GRAMMAR_LESSONS = [
         ]
     },
 
+        # ═══════════════════════════════════════════
+    # УРОК — МОДАЛЬНЫЕ ГЛАГОЛЫ (CAN / MUST / SHOULD)
+    # ═══════════════════════════════════════════
+    {
+        "id": "modal_verbs",
+        "title": "Модальные глаголы (can / must / should)",
+        "emoji": "💪",
+        "level": "A1",
+        "module": "A1",
+        "intro": "Модальные глаголы — это «краски» английского. Они показывают отношение говорящего к действию: могу ли я это сделать, должен ли, или мне просто стоит. Три главных: can (уметь), must (быть должным), should (стоить).",
+        
+        "why": "Представь, что ты в другой стране и тебе нужно спросить разрешение: 'Можно мне войти?' или сказать о своих навыках: 'Я умею говорить по-английски'. Без модальных глаголов ты не сможешь этого сделать. В русском языке мы используем слова «могу», «должен», «нужно», «стоит». В английском для этого есть специальные глаголы, которые работают по своим правилам. Они не меняются по лицам, после них никогда не ставится 'to', и они сами образуют вопросы и отрицания. Если ты не освоишь их, ты не сможешь выразить просьбу, совет или запрет. Это базовый инструмент для любого разговора.",
+
+        "rules": [
+            {"h": "Что такое модальные глаголы и почему они особенные?", "text": "Модальные глаголы — это небольшая группа глаголов, которые не обозначают действие, а показывают отношение к действию (возможность, необходимость, совет). В английском их несколько, но на уровне A1 самые важные — это can, must, should. У них есть три железных правила: 1) После них глагол ВСЕГДА идет в базовой форме, без частицы 'to' (кроме ought to, но мы его пока не трогаем). 2) Они НИКОГДА не получают окончание -s в третьем лице (он может — he can, а не he cans). 3) Вопросы и отрицания образуются без вспомогательных глаголов do/does, просто перестановкой или добавлением 'not'. Запомнив эти три правила, ты перестанешь делать 90% ошибок."},
+            
+            {"h": "Глагол CAN (Мочь, уметь)", "text": "Can используется для выражения физической или умственной способности, а также для разрешения. Например: 'I can swim' (Я умею плавать). 'She can speak French' (Она умеет говорить по-французски). 'Can I open the window?' (Можно я открою окно?). В отрицании can превращается в cannot или can't: 'I can't come today' (Я не могу прийти сегодня). В вопросах can выходит на первое место: 'Can you help me?' (Ты можешь мне помочь?). Обрати внимание, что в прошедшем времени can превращается в could (мог)."},
+            
+            {"h": "Глагол MUST (Должен, обязан)", "text": "Must используется, когда мы говорим о сильной необходимости или строгом правиле, которое исходит от самого говорящего или от закона. Например: 'I must go now' (Я должен идти сейчас — я сам так решил). 'You must wear a seatbelt' (Ты должен пристегнуться — это закон). Отрицание mustn't (must not) означает строгий запрет: 'You mustn't smoke here' (Здесь нельзя курить). Важно не путать mustn't (нельзя) с don't have to (не нужно, нет необходимости). Mustn't — это запрет, а don't have to — это свобода выбора."},
+            
+            {"h": "Глагол SHOULD (Стоит, следует)", "text": "Should используется для мягкого совета или рекомендации. Когда ты говоришь кому-то, что ему стоит сделать, но не заставляешь его. Например: 'You should sleep more' (Тебе стоит больше спать). 'You shouldn't eat so much sugar' (Тебе не стоит есть так много сахара). Should не такой строгий, как must. Если must — это «ты обязан под угрозой расстрела», то should — это «я бы на твоем месте так сделал, но решать тебе». В вопросах should выходит на первое место: 'Should I call her?' (Мне стоит ей позвонить?)."},
+            
+            {"h": "Как строить отрицания и вопросы", "text": "С модальными глаголами всё проще, чем с обычными. Тебе не нужны do или does. Отрицание строится добавлением 'not': can not (can't), must not (mustn't), should not (shouldn't). Например: 'He can't swim', 'You mustn't go', 'She shouldn't eat that'. Вопрос строится путем перестановки модального глагола на первое место: 'Can you help?', 'Must I go?', 'Should we call him?'. Ответы краткие: Yes, I can / No, I can't. Yes, you must / No, you mustn't. Yes, she should / No, she shouldn't."},
+            
+            {"h": "Разница между MUST и HAVE TO", "text": "Очень часто новички путают must и have to. Оба переводятся как «должен», но есть разница. Must — это внутренняя необходимость, ты сам так решил ('I must study' — я сам решил учиться). Have to — это внешняя необходимость, правило, которое пришло извне ('I have to wear a uniform' — это правило компании). В разговорной речи в 90% случаев носители используют have to вместо must, потому что это звучит менее категорично. Но must ты обязан знать, потому что он часто встречается в тестах."},
+            
+            {"h": "Модальные глаголы в прошедшем и будущем времени", "text": "У модальных глаголов нет обычных форм прошедшего или будущего времени. Вместо них используются эквиваленты. Can в прошедшем — could (мог). Can в будущем — will be able to (смогу). Must в прошедшем — had to (должен был). Must в будущем — will have to (должен буду). Should не имеет прошедшего и будущего времени, он используется только для настоящего или будущего совета. Например: 'I could swim when I was 5' (Я умел плавать в 5 лет). 'I will be able to help you tomorrow' (Я смогу помочь тебе завтра)."}
+        ],
+
+        "tables": [
+            {
+                "title": "Три главных модальных глагола",
+                "headers": ["Глагол", "Значение", "Пример", "Отрицание"],
+                "rows": [
+                    ["can", "Уметь / мочь", "I can swim.", "can't / cannot"],
+                    ["must", "Должен (сильно)", "I must go.", "mustn't (запрет)"],
+                    ["should", "Стоит (совет)", "You should rest.", "shouldn't"]
+                ]
+            },
+            {
+                "title": "Must vs Have to",
+                "headers": ["must", "have to"],
+                "rows": [
+                    ["Личное решение (я сам решил)", "Внешнее правило (закон, работа)"],
+                    ["I must study.", "I have to wear a uniform."],
+                    ["Субъективное", "Объективное"]
+                ]
+            },
+            {
+                "title": "Can в разных временах",
+                "headers": ["Время", "Форма", "Пример"],
+                "rows": [
+                    ["Настоящее", "can", "I can swim."],
+                    ["Прошедшее", "could", "I could swim when I was 5."],
+                    ["Будущее", "will be able to", "I will be able to help."]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I can to swim.", "right": "I can swim.", "why": "После модальных глаголов НЕ ставится частица to."},
+            {"wrong": "She cans swim.", "right": "She can swim.", "why": "Модальные глаголы не меняются по лицам, -s не добавляется."},
+            {"wrong": "You must to go.", "right": "You must go.", "why": "После must НЕ ставится to."},
+            {"wrong": "I should to call her.", "right": "I should call her.", "why": "После should НЕ ставится to."},
+            {"wrong": "He musts work.", "right": "He must work.", "why": "Must не получает окончание -s."},
+            {"wrong": "I can not swim.", "right": "I cannot swim. / I can't swim.", "why": "Cannot пишется слитно, can't — с апострофом."},
+            {"wrong": "Do you can help me?", "right": "Can you help me?", "why": "В вопросах с модальными глаголами do не нужен."},
+            {"wrong": "You don't must go.", "right": "You mustn't go.", "why": "Отрицание строится через mustn't, а не don't must."}
+        ],
+
+        "lifehacks": [
+            "Запомни: can, must, should — это «командиры». После них глагол всегда в базовой форме, без to и без -s.",
+            "Can = умею. Must = должен (я сам решил или правило). Should = стоит (совет).",
+            "Can't — не могу. Mustn't — нельзя. Shouldn't — не советую. Запомни разницу между ними.",
+            "Если сомневаешься, ставь ли 'to' — не ставь. После модальных глаголов его нет.",
+            "В вопросах просто меняй местами модальный глагол и подлежащее: Can you...? Must I...? Should we...?"
+        ],
+
+        "text": {
+            "title": "Rules at My Work",
+            "paragraphs": [
+                "I work in a big company. There are many rules here. I must arrive at 9 am. I mustn't be late. I can take a break every two hours. I should wear smart clothes, but I can wear jeans on Fridays.",
+                "My boss says I must finish my projects on time. I can ask for help if I need it. I should check my email every hour. I mustn't use my phone during meetings. I can work from home one day a week.",
+                "What about you? Can you work from home? Must you wear a uniform? Should you talk to your boss more often? Every job has its own rules."
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What time must the person arrive at work?", "options": ["At 8 am", "At 9 am", "At 10 am", "At 11 am"], "correct": "At 9 am"},
+            {"q": "How often can the person take a break?", "options": ["Every hour", "Every two hours", "Every three hours", "Once a day"], "correct": "Every two hours"},
+            {"q": "What should the person wear?", "options": ["Jeans only", "Smart clothes", "Sport clothes", "Anything they want"], "correct": "Smart clothes"},
+            {"q": "What can the person wear on Fridays?", "options": ["A suit", "Jeans", "A dress", "A uniform"], "correct": "Jeans"},
+            {"q": "When must the person finish projects?", "options": ["Whenever they want", "On time", "Next week", "At midnight"], "correct": "On time"},
+            {"q": "What should the person check every hour?", "options": ["Their watch", "Their email", "Their car", "Their desk"], "correct": "Their email"},
+            {"q": "What mustn't the person do during meetings?", "options": ["Talk", "Listen", "Use phone", "Take notes"], "correct": "Use phone"},
+            {"q": "How often can the person work from home?", "options": ["Every day", "Never", "One day a week", "Once a month"], "correct": "One day a week"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "I ___ swim very well.", "options": ["can", "cans", "can to", "am can"], "correct": "can"},
+            {"type": "choice", "q": "You ___ wear a seatbelt. (закон)", "options": ["must", "should", "can", "may"], "correct": "must"},
+            {"type": "choice", "q": "You ___ see a doctor. (совет)", "options": ["must", "should", "can", "will"], "correct": "should"},
+            {"type": "choice", "q": "She ___ speak three languages.", "options": ["can", "cans", "can to", "is can"], "correct": "can"},
+            {"type": "choice", "q": "You ___ smoke here. (запрет)", "options": ["mustn't", "shouldn't", "can't", "don't have to"], "correct": "mustn't"},
+            {"type": "fill", "q": "She ___ (can) speak French.", "answer": "can"},
+            {"type": "fill", "q": "They ___ (must) go now.", "answer": "must"},
+            {"type": "fill", "q": "You ___ (should) sleep more.", "answer": "should"},
+            {"type": "fill", "q": "I ___ (can not) come today.", "answer": "can't"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I can to swim", "I can swim", "I cans swim", "I am can swim"], "correct": "I can swim"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["She cans swim", "She can swim", "She can to swim", "She can swims"], "correct": "She can swim"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["You must to go", "You must go", "You must go to", "You musts go"], "correct": "You must go"},
+            {"type": "translate", "q": "Переведи: Я умею плавать.", "answer": "I can swim"},
+            {"type": "translate", "q": "Переведи: Ты должен пристегнуться.", "answer": "You must wear a seatbelt"},
+            {"type": "translate", "q": "Переведи: Тебе стоит больше спать.", "answer": "You should sleep more"},
+            {"type": "translate", "q": "Переведи: Здесь нельзя курить.", "answer": "You mustn't smoke here"},
+            {"type": "translate", "q": "Переведи: Я не могу прийти сегодня.", "answer": "I can't come today"},
+            {"type": "write", "q": "Напиши 3-5 предложений о том, что ты умеешь делать, что тебе стоит делать и что ты должен делать на работе/учебе.", "sample": "I can play the guitar. I should sleep more. I must go to work every day. I can't speak Japanese. I shouldn't eat fast food."}
+        ]
+    },
+
     # ═══════════════════════════════════════════
     # УРОК 2 — PAST SIMPLE
     # ═══════════════════════════════════════════
@@ -1620,106 +1740,6 @@ GRAMMAR_LESSONS = [
             {"type": "translate", "q": "Переведи: Она не придёт.", "answer": "She won't come"},
             {"type": "translate", "q": "Переведи: Ты мне поможешь?", "answer": "Will you help me"},
             {"type": "translate", "q": "Переведи: Будет дождь.", "answer": "It will rain"}
-        ]
-    },
-
-    # ═══════════════════════════════════════════
-    # УРОК 8 — МОДАЛЬНЫЕ ГЛАГОЛЫ (CAN / MUST / SHOULD)
-    # ═══════════════════════════════════════════
-    {
-        "id": "modal_verbs",
-        "module": "A1",
-        "title": "Модальные глаголы (can / must / should)",
-        "emoji": "💪",
-        "level": "A1-A2",
-        "intro": "Модальные глаголы выражают возможность, необходимость, совет. Три главных: can, must, should.",
-        "why": "Модальные глаголы — это «краски» английского. Без них ты не сможешь сказать «я умею», «ты должен», «тебе стоит». Они добавляют оттенки: возможность, запрет, совет, разрешение, вероятность. В русском языке мы выражаем это словами «могу», «должен», «стоит» — а в английском для этого есть специальные глаголы. Три самых важных: can (уметь), must (должен), should (стоит).",
-
-        "rules": [
-            {"h": "can — уметь / мочь", "text": "I can swim. (Я умею плавать.) Can you help me? (Можешь помочь?) Отрицание: cannot / can't. Отрицание: I can't come today."},
-            {"h": "must — должен (сильная необходимость)", "text": "I must go. (Я должен идти.) You must not smoke here. (Нельзя курить здесь — запрет.) Must выражает личное решение или строгое правило."},
-            {"h": "should — совет (стоит / не стоит)", "text": "You should sleep more. (Тебе стоит больше спать.) You shouldn't eat so much. (Не стоит так много есть.) Should — мягкий совет, рекомендация."},
-            {"h": "Особенность модальных", "text": "После модальных — глагол БЕЗ to и БЕЗ -s: He can swim (не swims), She must go (не goes). Никаких окончаний!"},
-            {"h": "Отрицания", "text": "can't / cannot (не могу). mustn't (нельзя — запрет). shouldn't (не советую). don't have to (не нужно — нет необходимости)."},
-            {"h": "Разница must и have to", "text": "must — личное решение (I must study — сам решил). have to — внешнее правило (I have to wear a uniform — правило компании)."},
-            {"h": "Вопросы", "text": "Can + подлежащее + глагол: Can you swim? Must + подлежащее + глагол: Must I go? Should + подлежащее + глагол: Should I call her?"},
-            {"h": "Модальные в разных временах", "text": "Прошедшее: could (мог), had to (должен был), should have + V3 (следовало бы). Будущее: will be able to (смогу), will have to (должен буду)."}
-        ],
-
-        "tables": [
-            {
-                "title": "Три главных модальных",
-                "headers": ["Глагол", "Значение", "Пример", "Отрицание"],
-                "rows": [
-                    ["can", "Уметь / мочь", "I can swim.", "can't / cannot"],
-                    ["must", "Должен (сильно)", "I must go.", "mustn't (запрет)"],
-                    ["should", "Стоит (совет)", "You should rest.", "shouldn't"]
-                ]
-            },
-            {
-                "title": "must vs have to",
-                "headers": ["must", "have to"],
-                "rows": [
-                    ["Личное решение", "Внешнее правило"],
-                    ["I must study. (сам решил)", "I have to wear a uniform. (правило)"],
-                    ["Субъективное", "Объективное"]
-                ]
-            }
-        ],
-
-        "mistakes": [
-            {"wrong": "I can to swim.", "right": "I can swim.", "why": "После модальных — без to"},
-            {"wrong": "She cans swim.", "right": "She can swim.", "why": "can не меняется — никакой -s"},
-            {"wrong": "You must to go.", "right": "You must go.", "why": "После must — без to"},
-            {"wrong": "I should to call her.", "right": "I should call her.", "why": "После should — без to"},
-            {"wrong": "He musts work.", "right": "He must work.", "why": "must не меняется"},
-            {"wrong": "I can not swim.", "right": "I cannot swim. / I can't swim.", "why": "Пишется слитно или с апострофом"}
-        ],
-
-        "lifehacks": [
-            "can, must, should — это 'командиры'. После них глагол всегда в базовой форме, без to и без -s.",
-            "Can = умею. Must = должен (я сам решил или правило). Should = стоит (совет).",
-            "can't — не могу. mustn't — нельзя. shouldn't — не советую. Запомни разницу.",
-            "По-русски 'могу' — модальный глагол. По-английски can — тоже. Только can не меняется."
-        ],
-
-        "text": {
-            "title": "Rules at My Work",
-            "paragraphs": [
-                "I work in a big company. There are many rules here. I must arrive at 9 am. I mustn't be late. I can take a break every two hours. I should wear smart clothes, but I can wear jeans on Fridays.",
-                "My boss says I must finish my projects on time. I can ask for help if I need it. I should check my email every hour. I mustn't use my phone during meetings. I can work from home one day a week.",
-                "What about you? Can you work from home? Must you wear a uniform? Should you talk to your boss more often? Every job has its own rules."
-            ]
-        },
-
-        "text_questions": [
-            {"q": "What time must the person arrive at work?", "options": ["At 8 am", "At 9 am", "At 10 am", "At 11 am"], "correct": "At 9 am"},
-            {"q": "How often can the person take a break?", "options": ["Every hour", "Every two hours", "Every three hours", "Once a day"], "correct": "Every two hours"},
-            {"q": "What should the person wear?", "options": ["Jeans only", "Smart clothes", "Sport clothes", "Anything they want"], "correct": "Smart clothes"},
-            {"q": "What can the person wear on Fridays?", "options": ["A suit", "Jeans", "A dress", "A uniform"], "correct": "Jeans"},
-            {"q": "When must the person finish projects?", "options": ["Whenever they want", "On time", "Next week", "At midnight"], "correct": "On time"},
-            {"q": "What should the person check every hour?", "options": ["Their watch", "Their email", "Their car", "Their desk"], "correct": "Their email"},
-            {"q": "What mustn't the person do during meetings?", "options": ["Talk", "Listen", "Use phone", "Take notes"], "correct": "Use phone"},
-            {"q": "How often can the person work from home?", "options": ["Every day", "Never", "One day a week", "Once a month"], "correct": "One day a week"}
-        ],
-
-        "test": [
-            {"type": "choice", "q": "I ___ swim very well.", "options": ["can", "cans", "can to", "am can"], "correct": "can"},
-            {"type": "choice", "q": "You ___ wear a seatbelt. (закон)", "options": ["must", "should", "can", "may"], "correct": "must"},
-            {"type": "choice", "q": "You ___ see a doctor. (совет)", "options": ["must", "should", "can", "will"], "correct": "should"},
-            {"type": "choice", "q": "She ___ speak three languages.", "options": ["can", "cans", "can to", "is can"], "correct": "can"},
-            {"type": "choice", "q": "You ___ smoke here. (запрет)", "options": ["mustn't", "shouldn't", "can't", "don't have to"], "correct": "mustn't"},
-            {"type": "fill", "q": "She ___ (can) speak French.", "answer": "can"},
-            {"type": "fill", "q": "They ___ (must) go now.", "answer": "must"},
-            {"type": "fill", "q": "You ___ (should) sleep more.", "answer": "should"},
-            {"type": "fill", "q": "I ___ (can not) come today.", "answer": "can't"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["I can to swim", "I can swim", "I cans swim", "I am can swim"], "correct": "I can swim"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["She cans swim", "She can swim", "She can to swim", "She can swims"], "correct": "She can swim"},
-            {"type": "error", "q": "Найди правильное:", "options": ["You must to go", "You must go", "You must go to", "You musts go"], "correct": "You must go"},
-            {"type": "translate", "q": "Переведи: Я умею плавать.", "answer": "I can swim"},
-            {"type": "translate", "q": "Переведи: Ты должен пристегнуться.", "answer": "You must wear a seatbelt"},
-            {"type": "translate", "q": "Переведи: Тебе стоит больше спать.", "answer": "You should sleep more"},
-            {"type": "translate", "q": "Переведи: Здесь нельзя курить.", "answer": "You mustn't smoke here"}
         ]
     },
 
