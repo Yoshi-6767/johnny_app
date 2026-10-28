@@ -228,12 +228,12 @@
     <h2>
         👋 Привет, {{ current_user.username }}!
     </h2>
-    <div class="today-stats">
+        <div class="today-stats">
         <div class="today-stat">
             <div class="stat-info">
                 <div class="num">
                     {{ streak }}
-                    <svg class="icon"><use href="#icon-fire"></use></svg>
+                    <svg class="icon" style="width: 32px; height: 32px; margin-left: 5px;"><use href="#icon-stat-fire"></use></svg>
                 </div>
                 <div class="label">Дней подряд</div>
             </div>
@@ -242,7 +242,7 @@
             <div class="stat-info">
                 <div class="num">
                     {{ today_correct }}
-                    <svg class="icon"><use href="#icon-check"></use></svg>
+                    <svg class="icon" style="width: 32px; height: 32px; margin-left: 5px;"><use href="#icon-stat-check"></use></svg>
                 </div>
                 <div class="label">Правильно сегодня</div>
             </div>
@@ -251,7 +251,7 @@
             <div class="stat-info">
                 <div class="num">
                     {{ weak_list|length }}
-                    <svg class="icon"><use href="#icon-target"></use></svg>
+                    <svg class="icon" style="width: 32px; height: 32px; margin-left: 5px;"><use href="#icon-stat-target"></use></svg>
                 </div>
                 <div class="label">Слабых слов</div>
             </div>
