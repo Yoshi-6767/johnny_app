@@ -1864,7 +1864,6 @@ def study_page():
         PLACEHOLDERS = [
         # --- A1 БАЗА ---
         {"id": "intro_english", "title": "Введение в английский", "emoji": "👋", "level": "A1", "module": "A1"},
-        {"id": "adverbs_frequency", "title": "Наречия частоты", "emoji": "🔁", "level": "A1", "module": "A1"},
         {"id": "wh_questions", "title": "Вопросительные слова", "emoji": "❓", "level": "A1", "module": "A1"},
         {"id": "imperative", "title": "Повелительное наклонение", "emoji": "🛑", "level": "A1", "module": "A1"},
 
