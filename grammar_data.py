@@ -137,6 +137,147 @@ GRAMMAR_LESSONS = [
             {"type": "write", "q": "Напиши 3-5 предложений о себе (кто ты, сколько тебе лет, откуда ты, кто твои друзья).", "sample": "I am Alex. I am 20 years old. I am a student. My friends are also students. We are from Russia."}
         ]
     },
+
+    # ═══════════════════════════════════════════
+    # УРОК — МНОЖЕСТВЕННОЕ ЧИСЛО
+    # ═══════════════════════════════════════════
+    {
+        "id": "plural_nouns",
+        "title": "Множественное число",
+        "emoji": "👨‍👩‍👧‍👦",
+        "level": "A1",
+        "module": "A1",
+        "intro": "В русском мы говорим «книга — книги», «стол — столы». В английском тоже есть множественное число, но правила другие. Иногда добавляем -s, иногда -es, а иногда вообще меняем слово до неузнаваемости (man → men). Без этого никуда: ты не сможешь сказать «два друга», «много яблок» или «мои родители».",
+        
+        "why": "Представь, что ты пришел в магазин и хочешь купить не одну ручку, а пять. Или рассказываешь другу, что у тебя две сестры. Если ты не знаешь множественного числа, ты скажешь 'I have two sister' — и это сразу выдаст в тебе новичка. Английский язык очень чувствителен к количеству: если предметов больше одного, слово ОБЯЗАТЕЛЬНО должно измениться. Это касается абсолютно всего: людей, животных, предметов, городов и даже абстрактных понятий. В этом уроке мы разберем, как из одного предмета сделать много, почему в английском так много правил и как запомнить исключения, которые ломают всю логику.",
+
+        "rules": [
+            {"h": "Зачем вообще нужно множественное число?", "text": "В английском языке, как и в русском, предметы могут быть в единственном числе (один) и во множественном (много). Но если в русском мы меняем окончания как захотим (стол — столы, книга — книги), то в английском есть четкая система. Если ты говоришь о двух и более предметах, ты обязан поставить слово во множественное число. Это касается исчисляемых существительных — тех, которые можно посчитать (яблоко, машина, человек). Если ты не поставишь слово во множественное число, предложение будет звучать неправильно, даже если тебя поймут. В английском это как закон: есть много — меняй слово."},
+            
+            {"h": "Самое главное правило — просто добавь -s", "text": "В 80% случаев множественное число образуется очень просто: берем слово и добавляем на конце букву -s. Это работает для большинства слов. Например: book (книга) → books (книги). Car (машина) → cars (машины). Pen (ручка) → pens (ручки). Cat (кот) → cats (коты). Если у тебя есть сомнения, как поставить слово во множественное число — просто добавь -s, и скорее всего, ты не ошибешься. Это правило работает как часы для огромного количества слов, и именно с него надо начинать."},
+            
+            {"h": "Когда добавляем -es вместо -s", "text": "Есть особая группа слов, где просто -s не прокатит — там добавляется -es. Это слова, которые заканчиваются на шипящие и свистящие звуки: -s, -sh, -ch, -x, -z. Почему так? Потому что если добавить просто -s к слову, заканчивающемуся на 's' или 'ch', это будет невозможно произнести (например, 'boxs' звучит как 'бокссс'). Поэтому для удобства произношения мы добавляем -es: box (коробка) → boxes (коробки). Watch (часы) → watches (часы). Bus (автобус) → buses (автобусы). Dish (тарелка) → dishes (тарелки). Запомни этот список, он пригодится в жизни."},
+            
+            {"h": "Слова на -y: тут есть ловушка", "text": "Если слово заканчивается на букву -y, то правило зависит от того, какая буква стоит перед ней. Если перед -y стоит гласная (a, e, i, o, u) — мы просто добавляем -s: boy (мальчик) → boys (мальчики), day (день) → days (дни), toy (игрушка) → toys (игрушки). А вот если перед -y стоит согласная — мы меняем -y на -i и добавляем -es: city (город) → cities (города), baby (ребенок) → babies (дети), story (история) → stories (истории), country (страна) → countries (страны). Это одна из самых частых ошибок, поэтому обрати на это особое внимание."},
+            
+            {"h": "Слова на -f и -fe: меняем на -ves", "text": "Некоторые слова, которые заканчиваются на -f или -fe, во множественном числе меняют эти буквы на -ves. Например: leaf (лист) → leaves (листья), knife (нож) → knives (ножи), wife (жена) → wives (жены), life (жизнь) → lives (жизни). Но это правило работает не для всех слов. Есть исключения: roof (крыша) → roofs (крыши), chief (начальник) → chiefs (начальники). Такие слова лучше просто запомнить, их не так много, и они часто встречаются в жизни."},
+            
+            {"h": "Исключения, которые нужно выучить", "text": "Есть слова, которые вообще не подчиняются правилам и меняются полностью. Это самые старые и самые важные слова в языке, поэтому их надо выучить наизусть. Man (мужчина) → men (мужчины). Woman (женщина) → women (женщины). Child (ребенок) → children (дети). Foot (ступня) → feet (ступни). Tooth (зуб) → teeth (зубы). Mouse (мышь) → mice (мыши). Person (человек) → people (люди). Запомни их как исключения, потому что они очень часто используются в речи."},
+            
+            {"h": "Слова, которые не меняются вообще", "text": "Есть небольшая группа слов, которые во множественном числе выглядят точно так же, как и в единственном. Это названия животных (sheep — овца/овцы, deer — олень/олени, fish — рыба/рыбы), а также некоторые другие слова (means — способ/способы, series — серия/серии). Их нужно просто запомнить, потому что логики тут нет. Но их не так много, и ты быстро привыкнешь."},
+            
+            {"h": "Неисчисляемые существительные", "text": "Важно помнить: не все слова можно поставить во множественное число! В английском есть слова, которые нельзя посчитать (вода, молоко, время, деньги, информация). Они называются неисчисляемыми. Мы не говорим 'waters' или 'informations'. Мы говорим 'some water' (немного воды) или 'a glass of water' (стакан воды). И глагол с ними всегда стоит в единственном числе: 'The water is cold' (Вода холодная), а не 'The water are cold'. Это правило отличает хороший английский от плохого."}
+        ],
+
+        "tables": [
+            {
+                "title": "Основные правила образования",
+                "headers": ["Окончание", "Что делаем", "Пример"],
+                "rows": [
+                    ["Обычно", "+ s", "book → books"],
+                    ["-s, -sh, -ch, -x, -z", "+ es", "box → boxes, watch → watches"],
+                    ["Согласная + y", "y → i + es", "city → cities, baby → babies"],
+                    ["Гласная + y", "+ s", "boy → boys, day → days"],
+                    ["-f, -fe", "f → ves", "leaf → leaves, knife → knives"],
+                    ["Исключения", "Меняются полностью", "man → men, child → children"]
+                ]
+            },
+            {
+                "title": "Самые важные исключения",
+                "headers": ["Единственное", "Множественное", "Перевод"],
+                "rows": [
+                    ["man", "men", "мужчина"],
+                    ["woman", "women", "женщина"],
+                    ["child", "children", "ребенок"],
+                    ["foot", "feet", "ступня"],
+                    ["tooth", "teeth", "зуб"],
+                    ["person", "people", "человек"],
+                    ["mouse", "mice", "мышь"]
+                ]
+            },
+            {
+                "title": "Слова, которые не меняются",
+                "headers": ["Слово", "Перевод"],
+                "rows": [
+                    ["sheep", "овца / овцы"],
+                    ["fish", "рыба / рыбы"],
+                    ["deer", "олень / олени"],
+                    ["series", "серия / серии"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I have two sister.", "right": "I have two sisters.", "why": "Два и больше — обязательна -s на конце."},
+            {"wrong": "He has three boxs.", "right": "He has three boxes.", "why": "После -x добавляем -es."},
+            {"wrong": "There are many citys.", "right": "There are many cities.", "why": "Согласная + y → y меняется на i + es."},
+            {"wrong": "I see two mans.", "right": "I see two men.", "why": "Man — исключение, множественное число men."},
+            {"wrong": "She has two childs.", "right": "She has two children.", "why": "Child — исключение, множественное число children."},
+            {"wrong": "I drink two waters.", "right": "I drink two glasses of water.", "why": "Water неисчисляемое, нельзя поставить во множественное число."},
+            {"wrong": "The people is here.", "right": "The people are here.", "why": "People — множественное число, поэтому are."},
+            {"wrong": "I have two wifes.", "right": "I have two wives.", "why": "Wife → wives (f меняется на ves)."}
+        ],
+
+        "lifehacks": [
+            "Если не знаешь, как образовать множественное число — просто добавь -s. Это работает в 80% случаев, и ты не ошибешься.",
+            "Запомни шипящие и свистящие (-s, -sh, -ch, -x, -z): для них добавляем -es, потому что иначе язык сломаешь.",
+            "Слова на -y: если перед ней гласная — просто -s (boy → boys). Если согласная — меняем на -i и добавляем -es (baby → babies).",
+            "Исключения (man, woman, child, foot, tooth, person) учи сразу, это самые важные слова в языке.",
+            "Перед тем как сказать, что чего-то много, спроси себя: это можно посчитать? Если нет (вода, молоко, время) — множественное число не нужно."
+        ],
+
+        "text": {
+            "title": "My Friends and I",
+            "paragraphs": [
+                "My name is Alex. I have many friends. We are students. There are five boys and three girls in our group. My best friends are Tom and Kate. They are very good people.",
+                "Tom has two brothers and one sister. His brothers are older than him. They work in a big company. Kate has three children. They are very young. Her children love to play with toys. They have two dogs and one cat.",
+                "We often go to the park together. There are many trees and flowers in the park. We play football and ride bicycles. We see dogs and cats walking with their owners. We also see birds and fish in the pond.",
+                "I have many books at home. I read stories about animals: foxes, wolves, and deer. My favorite books are about people and their lives. I love my family and friends. They are the best people in the world."
+            ]
+        },
+
+        "text_questions": [
+            {"q": "How many boys are in the group?", "options": ["Three", "Five", "Eight", "Two"], "correct": "Five"},
+            {"q": "How many girls are in the group?", "options": ["Three", "Five", "Two", "One"], "correct": "Three"},
+            {"q": "Who are Alex's best friends?", "options": ["Tom and Kate", "John and Mike", "Anna and Lily", "Max and Sam"], "correct": "Tom and Kate"},
+            {"q": "How many brothers does Tom have?", "options": ["One", "Two", "Three", "Four"], "correct": "Two"},
+            {"q": "How many children does Kate have?", "options": ["One", "Two", "Three", "Four"], "correct": "Three"},
+            {"q": "What animals do they see in the park?", "options": ["Dogs and cats", "Lions and tigers", "Elephants", "Horses"], "correct": "Dogs and cats"},
+            {"q": "What do the children love to play with?", "options": ["Books", "Toys", "Computers", "Balls"], "correct": "Toys"},
+            {"q": "What stories does Alex read?", "options": ["About animals", "About cars", "About computers", "About space"], "correct": "About animals"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "I have two ___.", "options": ["book", "books", "bookes", "bookies"], "correct": "books"},
+            {"type": "choice", "q": "There are many ___ in the city.", "options": ["car", "cars", "cares", "caries"], "correct": "cars"},
+            {"type": "choice", "q": "She has three ___.", "options": ["box", "boxs", "boxes", "boxies"], "correct": "boxes"},
+            {"type": "choice", "q": "I see two ___ in the park.", "options": ["child", "childs", "children", "childrens"], "correct": "children"},
+            {"type": "choice", "q": "There are many ___ in Russia.", "options": ["city", "citys", "cities", "cityes"], "correct": "cities"},
+            {"type": "choice", "q": "I have two ___ .", "options": ["man", "mans", "men", "mens"], "correct": "men"},
+            {"type": "choice", "q": "She has three ___.", "options": ["watch", "watchs", "watches", "watchies"], "correct": "watches"},
+            {"type": "choice", "q": "There are many ___ in the sky.", "options": ["bird", "birds", "birdes", "birdies"], "correct": "birds"},
+            {"type": "choice", "q": "I have two ___.", "options": ["knife", "knifes", "knives", "knifies"], "correct": "knives"},
+            {"type": "choice", "q": "There are many ___ here.", "options": ["person", "persons", "people", "peoples"], "correct": "people"},
+            {"type": "fill", "q": "I have two ___ (cat).", "answer": "cats"},
+            {"type": "fill", "q": "There are many ___ (box).", "answer": "boxes"},
+            {"type": "fill", "q": "She has three ___ (child).", "answer": "children"},
+            {"type": "fill", "q": "I see many ___ (city).", "answer": "cities"},
+            {"type": "fill", "q": "They have two ___ (man).", "answer": "men"},
+            {"type": "fill", "q": "There are many ___ (leaf) in the garden.", "answer": "leaves"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I have two sister", "I have two sisters", "I have two sisteres", "I have two sisteries"], "correct": "I have two sisters"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["There are many boxs", "There are many boxes", "There are many boxies", "There are many box"], "correct": "There are many boxes"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I see two mans", "I see two men", "I see two mens", "I see two man"], "correct": "I see two men"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["She has two childs", "She has two children", "She has two childrens", "She has two child"], "correct": "She has two children"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I drink two waters", "I drink two water", "I drink two glasses of water", "I drink two waters glasses"], "correct": "I drink two glasses of water"},
+            {"type": "translate", "q": "Переведи: У меня две кошки.", "answer": "I have two cats"},
+            {"type": "translate", "q": "Переведи: В комнате три коробки.", "answer": "There are three boxes in the room"},
+            {"type": "translate", "q": "Переведи: У неё двое детей.", "answer": "She has two children"},
+            {"type": "translate", "q": "Переведи: Я вижу много городов.", "answer": "I see many cities"},
+            {"type": "translate", "q": "Переведи: Тут два мужчины.", "answer": "There are two men here"},
+            {"type": "write", "q": "Напиши 3-5 предложений о том, что у тебя есть (сколько книг, друзей, животных), и что ты видишь вокруг.", "sample": "I have two cats and three dogs. My friends are students. There are many books in my room. I see two boys and three girls in the park. They have many toys."}
+        ]
+    },
+    
     # ═══════════════════════════════════════════
     # УРОК 1 — PRESENT SIMPLE
     # ═══════════════════════════════════════════
