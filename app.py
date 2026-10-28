@@ -1861,26 +1861,65 @@ def study_page():
         })
 
         # 2. Добавляем заглушки (которых еще нет в базе)
-        PLACEHOLDERS = [
+            PLACEHOLDERS = [
         # --- A1 БАЗА ---
         {"id": "intro_english", "title": "Введение в английский", "emoji": "👋", "level": "A1", "module": "A1"},
+        {"id": "to_be", "title": "Глагол to be (am / is / are)", "emoji": "🪪", "level": "A1", "module": "A1"},
+        {"id": "pronouns", "title": "Личные местоимения", "emoji": "👥", "level": "A1", "module": "A1"},
+        {"id": "plural_nouns", "title": "Множественное число", "emoji": "👨‍👩‍👧‍👦", "level": "A1", "module": "A1"},
+        {"id": "demonstratives", "title": "This / That / These / Those", "emoji": "👉", "level": "A1", "module": "A1"},
+        {"id": "possessive_s", "title": "Притяжательный падеж ('s)", "emoji": "🔑", "level": "A1", "module": "A1"},
+        {"id": "articles", "title": "Артикли (a / an / the)", "emoji": "🔤", "level": "A1", "module": "A1"},
+        {"id": "there_is_are", "title": "There is / There are", "emoji": "🏠", "level": "A1", "module": "A1"},
+        {"id": "prepositions_place", "title": "Предлоги места (in/on/at)", "emoji": "📍", "level": "A1", "module": "A1"},
+        {"id": "present_simple", "title": "Present Simple", "emoji": "🕐", "level": "A1", "module": "A1"},
+        {"id": "adverbs_frequency", "title": "Наречия частоты", "emoji": "🔁", "level": "A1", "module": "A1"},
+        {"id": "modal_verbs_1", "title": "Модальные (can / must)", "emoji": "💪", "level": "A1", "module": "A1"},
+        {"id": "wh_questions", "title": "Вопросительные слова", "emoji": "❓", "level": "A1", "module": "A1"},
+        {"id": "imperative", "title": "Повелительное наклонение", "emoji": "🛑", "level": "A1", "module": "A1"},
+        {"id": "numbers_time", "title": "Числа и время", "emoji": "⏰", "level": "A1", "module": "A1"},
+        {"id": "countable_uncountable", "title": "Считаемые / Несчитаемые", "emoji": "🔢", "level": "A1", "module": "A1"},
 
         # --- A2 РАСШИРЕНИЕ ---
+        {"id": "past_simple", "title": "Past Simple", "emoji": "⏪", "level": "A2", "module": "A2"},
+        {"id": "past_continuous", "title": "Past Continuous", "emoji": "⌛", "level": "A2", "module": "A2"},
+        {"id": "present_continuous", "title": "Present Continuous", "emoji": "🎬", "level": "A2", "module": "A2"},
+        {"id": "future_simple", "title": "Future Simple", "emoji": "🔮", "level": "A2", "module": "A2"},
         {"id": "will_vs_going", "title": "Will vs Going to", "emoji": "🛣️", "level": "A2", "module": "A2"},
-        {"id": "some_any", "title": "Some / Any / No", "emoji": "❓", "level": "A2", "module": "A2"},
-        {"id": "past_simple_vs_cont", "title": "Past Simple vs Past Continuous", "emoji": "⏳", "level": "A2", "module": "A2"},
-        {"id": "used_to", "title": "Конструкция Used to", "emoji": "⏪", "level": "A2", "module": "A2"},
+        {"id": "comparatives", "title": "Степени сравнения", "emoji": "📊", "level": "A2", "module": "A2"},
+        {"id": "some_any", "title": "Some / Any / No", "emoji": "🥛", "level": "A2", "module": "A2"},
+        {"id": "much_many", "title": "Much / Many / A lot of", "emoji": "📦", "level": "A2", "module": "A2"},
+        {"id": "prepositions_time", "title": "Предлоги времени (in/on/at)", "emoji": "🕰️", "level": "A2", "module": "A2"},
+        {"id": "past_simple_vs_cont", "title": "Past Simple vs Past Continuous", "emoji": "🎞️", "level": "A2", "module": "A2"},
+        {"id": "used_to", "title": "Конструкция Used to", "emoji": "👴", "level": "A2", "module": "A2"},
+        {"id": "question_tags", "title": "Разделительные вопросы (Tag questions)", "emoji": "🏷️", "level": "A2", "module": "A2"},
 
         # --- B1 СРЕДНИЙ ---
-        {"id": "question_tags", "title": "Разделительные вопросы (Tag questions)", "emoji": "🏷️", "level": "B1", "module": "B1"},
-        {"id": "relative_clauses", "title": "Относительные местоимения (who / which)", "emoji": "🔗", "level": "B1", "module": "B1"},
+        {"id": "present_perfect", "title": "Present Perfect", "emoji": "✨", "level": "B1", "module": "B1"},
+        {"id": "present_perfect_continuous", "title": "Present Perfect Continuous", "emoji": "🔄", "level": "B1", "module": "B1"},
+        {"id": "past_perfect", "title": "Past Perfect", "emoji": "⏮️", "level": "B1", "module": "B1"},
+        {"id": "gerund_infinitive", "title": "Герундий vs Инфинитив", "emoji": "🎭", "level": "B1", "module": "B1"},
+        {"id": "conditionals_1_2", "title": "Условные предложения (0,1,2 тип)", "emoji": "🔀", "level": "B1", "module": "B1"},
+        {"id": "passive_voice", "title": "Пассивный залог", "emoji": "🧙‍♂️", "level": "B1", "module": "B1"},
+        {"id": "reported_speech", "title": "Косвенная речь", "emoji": "🗣️", "level": "B1", "module": "B1"},
+        {"id": "relative_clauses", "title": "Относительные местоимения (who/which)", "emoji": "🔗", "level": "B1", "module": "B1"},
+        {"id": "modals_deduction", "title": "Модальные глаголы вероятности", "emoji": "🎱", "level": "B1", "module": "B1"},
 
         # --- B2 ПРОДВИНУТЫЙ ---
-        {"id": "past_perfect_cont", "title": "Past Perfect Continuous", "emoji": "🕰️", "level": "B2", "module": "B2"},
+        {"id": "past_perfect_cont", "title": "Past Perfect Continuous", "emoji": "⏳", "level": "B2", "module": "B2"},
         {"id": "future_cont_perfect", "title": "Future Continuous / Perfect", "emoji": "🚀", "level": "B2", "module": "B2"},
+        {"id": "conditionals_3", "title": "Условные предложения (3 тип)", "emoji": "🎲", "level": "B2", "module": "B2"},
         {"id": "wish_if_only", "title": "Конструкции I wish / If only", "emoji": "🌟", "level": "B2", "module": "B2"},
-        {"id": "modals_deduction", "title": "Модальные глаголы вероятности", "emoji": "🎱", "level": "B2", "module": "B2"},
+        {"id": "passive_advanced", "title": "Пассивный залог (продвинутый)", "emoji": "🕵️‍♂️", "level": "B2", "module": "B2"},
+        {"id": "reported_speech_2", "title": "Косвенная речь (продвинутая)", "emoji": "📣", "level": "B2", "module": "B2"},
         {"id": "inversion", "title": "Инверсия (Inversion)", "emoji": "🙃", "level": "B2", "module": "B2"},
+
+        # --- C1 ПРОФЕССИОНАЛЬНЫЙ ---
+        {"id": "mixed_conditionals", "title": "Смешанные условные предложения", "emoji": "🔀", "level": "C1", "module": "C1"},
+        {"id": "modal_perfects", "title": "Модальные глаголы в прошлом", "emoji": "🕰️", "level": "C1", "module": "C1"},
+        {"id": "cleft_sentences", "title": "Cleft sentences (It is... that)", "emoji": "📐", "level": "C1", "module": "C1"},
+        {"id": "participles", "title": "Причастия (Participle clauses)", "emoji": "🪓", "level": "C1", "module": "C1"},
+        {"id": "ellipsis", "title": "Эллипсис (Пропуск слов)", "emoji": "✂️", "level": "C1", "module": "C1"},
     ]
 
     existing_ids = {l["id"] for l in lessons_data}
