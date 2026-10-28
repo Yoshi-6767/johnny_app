@@ -1549,6 +1549,129 @@ GRAMMAR_LESSONS = [
         ]
     },
 
+        # ═══════════════════════════════════════════
+    # УРОК — ПОВЕЛИТЕЛЬНОЕ НАКЛОНЕНИЕ (IMPERATIVE)
+    # ═══════════════════════════════════════════
+    {
+        "id": "imperative",
+        "title": "Повелительное наклонение",
+        "emoji": "🛑",
+        "level": "A1",
+        "module": "A1",
+        "intro": "Повелительное наклонение используется, когда мы отдаем команды, даем инструкции или просим что-то сделать. В английском оно строится очень просто: мы просто берем глагол и убираем подлежащее (ты, вы, мы).",
+        
+        "why": "Представь, что ты объясняешь другу, как пройти к метро, или просишь коллегу закрыть окно. Если ты не знаешь повелительного наклонения, ты не сможешь дать четкую инструкцию. В русском языке мы говорим «Закрой дверь», «Иди сюда». В английском для этого есть специальная форма, которая не требует местоимений. Она используется повсюду: в рецептах, инструкциях к технике, навигаторах, в тренировках и просто в быту. Если ты не освоишь эту тему, ты не сможешь попросить о помощи или дать совет в прямой форме. Это базовый навык для любого общения.",
+
+        "rules": [
+            {"h": "Что такое повелительное наклонение и как оно работает?", "text": "Повелительное наклонение (Imperative) — это когда мы говорим кому-то сделать что-то. Главное отличие от русского языка: в английском мы НЕ используем подлежащее (you, we, they). Мы просто ставим глагол в базовой форме на первое место. Например: 'Open the door' (Открой дверь). 'Sit down' (Сядь). 'Come here' (Иди сюда). Обрати внимание, что мы не говорим 'You open the door' (это будет звучать как утверждение, а не команда). Формула простая: Глагол + дополнение."},
+            
+            {"h": "Как сделать запрет (Don't)", "text": "Чтобы сказать 'Не делай что-то', мы ставим перед глаголом частицу 'Don't' (do not). Например: 'Don't open the door' (Не открывай дверь). 'Don't be late' (Не опаздывай). 'Don't touch it' (Не трогай это). Это очень важная часть повелительного наклонения, потому что мы часто говорим людям, чего делать НЕ надо. Для вежливости можно добавить 'please' в конец или в начало: 'Please, don't smoke here' (Пожалуйста, не кури здесь)."},
+            
+            {"h": "Как сделать просьбу вежливой", "text": "Повелительное наклонение может звучать грубо, если его не смягчить. В английском есть три способа сделать команду вежливой: 1) Добавить 'please' (пожалуйста). Например: 'Close the window, please' (Закрой окно, пожалуйста). 2) Использовать 'Could you...?' (Не мог бы ты...?). Это уже не прямое повеление, а вопрос-просьба. 'Could you close the window?' (Не мог бы ты закрыть окно?). 3) Использовать 'Would you mind...?' (Ты не против...?). Это самый вежливый вариант."},
+            
+            {"h": "Как усилить команду (Do)", "text": "Иногда нам нужно сделать команду более настойчивой, чтобы человек точно ее выполнил. В английском для этого используется вспомогательный глагол 'Do' перед смысловым глаголом. Например: 'Do sit down' (Да сядь же ты). 'Do be quiet' (Да успокойся). Это звучит более эмоционально и настойчиво. В отрицании Do не используется, только Don't."},
+            
+            {"h": "Даем инструкции для группы (Let's)", "text": "Если мы хотим сделать что-то вместе с кем-то (включая себя), мы используем конструкцию 'Let's' (Let us). Например: 'Let's go' (Пошли). 'Let's start' (Давай начнем). 'Let's watch a film' (Давай посмотрим фильм). Это тоже повелительное наклонение, но оно подразумевает совместное действие. Отрицание строится так: 'Let's not go' (Давай не пойдем)."},
+            
+            {"h": "Повелительное наклонение в реальной жизни", "text": "Ты будешь встречать повелительное наклонение постоянно. В навигаторе тебе скажут: 'Turn left' (Поверни налево). В рецепте напишут: 'Mix the eggs and sugar' (Смешайте яйца и сахар). Тренер скажет: 'Run faster' (Беги быстрее). Учитель скажет: 'Open your books' (Откройте книги). В фильмах герои кричат: 'Run!' (Беги!) или 'Stop!' (Стой!). Это универсальная форма для прямого обращения."},
+            
+            {"h": "Отрицание и вопросы в повелительном наклонении", "text": "В повелительном наклонении нет вопросов, потому что это не вопрос, а приказ или просьба. Но есть отрицание (Don't). Также можно использовать повелительное наклонение с наречиями. Например: 'Always be careful' (Всегда будь осторожен). 'Never give up' (Никогда не сдавайся). Обрати внимание, что в отрицании с 'never' мы не используем 'don't', потому что never уже отрицательное слово."},
+            
+            {"h": "Мягкое повелительное наклонение (Would you mind...)", "text": "Если ты хочешь попросить о чем-то очень вежливо, в английском используется конструкция 'Would you mind + глагол с -ing'. Например: 'Would you mind opening the window?' (Ты не против открыть окно?). 'Would you mind helping me?' (Ты не против помочь мне?). Это не прямой приказ, а вежливая просьба. Такая форма часто используется в формальном общении и в офисах."}
+        ],
+
+        "tables": [
+            {
+                "title": "Утверждение и Отрицание",
+                "headers": ["Тип", "Формула", "Пример"],
+                "rows": [
+                    ["Утверждение", "Глагол + ...", "Open the door."],
+                    ["Отрицание", "Don't + Глагол", "Don't open the door."],
+                    ["Совместное действие", "Let's + Глагол", "Let's go."],
+                    ["Отрицание совместного", "Let's not + Глагол", "Let's not go."]
+                ]
+            },
+            {
+                "title": "Способы сделать вежливо",
+                "headers": ["Фраза", "Уровень вежливости", "Пример"],
+                "rows": [
+                    ["Close the door, please", "Обычная просьба", "Close the door, please."],
+                    ["Could you close the door?", "Вежливо", "Could you close the door?"],
+                    ["Would you mind closing the door?", "Очень вежливо", "Would you mind closing the door?"]
+                ]
+            },
+            {
+                "title": "Частые фразы в жизни",
+                "headers": ["Английский", "Перевод", "Ситуация"],
+                "rows": [
+                    ["Stand up / Sit down", "Встань / Сядь", "В классе"],
+                    ["Turn left / right", "Поверни налево / направо", "Навигатор"],
+                    ["Open your books", "Откройте книги", "Урок"],
+                    ["Don't worry", "Не волнуйся", "Утешение"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "You open the door.", "right": "Open the door.", "why": "В повелительном наклонении подлежащее (you) не используется."},
+            {"wrong": "Not open the door.", "right": "Don't open the door.", "why": "Отрицание строится через Don't, а не через Not."},
+            {"wrong": "Don't to open the door.", "right": "Don't open the door.", "why": "После Don't глагол в базовой форме, без to."},
+            {"wrong": "Open you the door.", "right": "Open the door.", "why": "В повелительном наклонении нет подлежащего."},
+            {"wrong": "Don't be late, please?", "right": "Don't be late, please.", "why": "Повелительное наклонение не образует вопросов, даже с please."},
+            {"wrong": "Let's to go.", "right": "Let's go.", "why": "После Let's глагол без to."},
+            {"wrong": "Would you mind to open the window?", "right": "Would you mind opening the window?", "why": "После Would you mind используется глагол с -ing."}
+        ],
+
+        "lifehacks": [
+            "Главное правило: просто возьми глагол и скажи его. Никаких 'you', никаких 'to'.",
+            "Для запрета используй 'Don't': Don't touch, Don't go, Don't stop.",
+            "Для вежливости добавь 'please' в конец предложения. Это работает всегда.",
+            "Чтобы позвать кого-то что-то сделать вместе, используй 'Let's': Let's go, Let's eat.",
+            "Если хочешь звучать как носитель, используй 'Could you...?' вместо прямого приказа."
+        ],
+
+        "text": {
+            "title": "Rules for the Gym",
+            "paragraphs": [
+                "Welcome to our gym! Please read these rules carefully. First, always warm up before training. Don't start with heavy weights. Drink water during your workout. Don't forget to bring a towel.",
+                "Use the equipment correctly. Don't drop the weights on the floor. Wipe the machines after use. Don't leave your things in the locker room overnight.",
+                "Listen to your body. Stop if you feel pain. Don't push yourself too hard. Ask a trainer if you need help. Enjoy your workout!"
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What should you do before training?", "options": ["Drink water", "Warm up", "Run", "Take a towel"], "correct": "Warm up"},
+            {"q": "What should you NOT start with?", "options": ["Light weights", "Heavy weights", "Running", "Stretching"], "correct": "Heavy weights"},
+            {"q": "What should you bring?", "options": ["Food", "A towel", "A book", "A phone"], "correct": "A towel"},
+            {"q": "What should you NOT do with the weights?", "options": ["Use them", "Drop them", "Lift them", "Wipe them"], "correct": "Drop them"},
+            {"q": "What should you do after using the machines?", "options": ["Leave them", "Wipe them", "Clean them with water", "Hide them"], "correct": "Wipe them"},
+            {"q": "What should you do if you feel pain?", "options": ["Continue", "Stop", "Run", "Ignore it"], "correct": "Stop"},
+            {"q": "Who should you ask for help?", "options": ["A friend", "A trainer", "A doctor", "A manager"], "correct": "A trainer"},
+            {"q": "What should you do if you need help?", "options": ["Ask a trainer", "Leave", "Call 911", "Do nothing"], "correct": "Ask a trainer"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "___ the door, please.", "options": ["Open", "You open", "To open", "Opening"], "correct": "Open"},
+            {"type": "choice", "q": "___ touch the wire!", "options": ["Not", "Don't", "No", "Doesn't"], "correct": "Don't"},
+            {"type": "choice", "q": "___ go to the park!", "options": ["Let's", "Let's to", "Let us to", "Lets"], "correct": "Let's"},
+            {"type": "choice", "q": "___ be late!", "options": ["Don't", "Not", "No", "Doesn't"], "correct": "Don't"},
+            {"type": "choice", "q": "___ sit down!", "options": ["Please", "You", "To", "Not"], "correct": "Please"},
+            {"type": "fill", "q": "___ (Сядь) down, please.", "answer": "Sit"},
+            {"type": "fill", "q": "___ (Не трогай) it!", "answer": "Don't touch"},
+            {"type": "fill", "q": "___ (Пойдем) to the cinema.", "answer": "Let's go"},
+            {"type": "fill", "q": "___ (Открой) the window.", "answer": "Open"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["You open the door", "Open the door", "To open the door", "Opening the door"], "correct": "Open the door"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["Not open the door", "Don't open the door", "No open the door", "Doesn't open the door"], "correct": "Don't open the door"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["Don't to open the door", "Don't open the door", "Don't opening the door", "Don't opened the door"], "correct": "Don't open the door"},
+            {"type": "translate", "q": "Переведи: Открой дверь.", "answer": "Open the door"},
+            {"type": "translate", "q": "Переведи: Не трогай это.", "answer": "Don't touch it"},
+            {"type": "translate", "q": "Переведи: Пойдем в кино.", "answer": "Let's go to the cinema"},
+            {"type": "translate", "q": "Переведи: Пожалуйста, сядь.", "answer": "Sit down, please"},
+            {"type": "translate", "q": "Переведи: Не опаздывай.", "answer": "Don't be late"},
+            {"type": "write", "q": "Напиши 5 инструкций для своего друга, как пройти к твоему дому (используй повелительное наклонение).", "sample": "Go straight. Turn left at the park. Walk for 5 minutes. Don't cross the road here. My house is on the right."}
+        ]
+    },
+
     # ═══════════════════════════════════════════
     # УРОК 2 — PAST SIMPLE
     # ═══════════════════════════════════════════
