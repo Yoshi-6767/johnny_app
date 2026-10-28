@@ -1861,30 +1861,30 @@ def study_page():
         })
 
         # 2. Добавляем заглушки (которых еще нет в базе)
-    PLACEHOLDERS = [
+        PLACEHOLDERS = [
         # --- A1 БАЗА ---
         {"id": "intro_english", "title": "Введение в английский", "emoji": "👋", "level": "A1", "module": "A1"},
-        {"id": "to_be", "title": "Глагол to be (am / is / are)", "emoji": "🆕", "level": "A1", "module": "A1"},
-        {"id": "pronouns", "title": "Местоимения (I, my, me)", "emoji": "🆕", "level": "A1", "module": "A1"},
-        {"id": "plural_nouns", "title": "Множественное число", "emoji": "🆕", "level": "A1", "module": "A1"},
-        {"id": "demonstratives", "title": "This / That / These / Those", "emoji": "🆕", "level": "A1", "module": "A1"},
+        {"id": "to_be", "title": "Глагол to be (am / is / are)", "emoji": "🪪", "level": "A1", "module": "A1"},
+        {"id": "pronouns", "title": "Местоимения (I, my, me)", "emoji": "👥", "level": "A1", "module": "A1"},
+        {"id": "plural_nouns", "title": "Множественное число", "emoji": "👨‍👩‍👧‍👦", "level": "A1", "module": "A1"},
+        {"id": "demonstratives", "title": "This / That / These / Those", "emoji": "👉", "level": "A1", "module": "A1"},
 
         # --- A2 РАСШИРЕНИЕ ---
-        {"id": "will_vs_going", "title": "Will vs Going to", "emoji": "🆕", "level": "A2", "module": "A2"},
-        {"id": "some_any", "title": "Some / Any / No", "emoji": "🆕", "level": "A2", "module": "A2"},
-        {"id": "past_simple_vs_cont", "title": "Past Simple vs Past Continuous", "emoji": "🆕", "level": "A2", "module": "A2"},
-        {"id": "used_to", "title": "Конструкция Used to", "emoji": "🆕", "level": "A2", "module": "A2"},
+        {"id": "will_vs_going", "title": "Will vs Going to", "emoji": "🛣️", "level": "A2", "module": "A2"},
+        {"id": "some_any", "title": "Some / Any / No", "emoji": "❓", "level": "A2", "module": "A2"},
+        {"id": "past_simple_vs_cont", "title": "Past Simple vs Past Continuous", "emoji": "⏳", "level": "A2", "module": "A2"},
+        {"id": "used_to", "title": "Конструкция Used to", "emoji": "⏪", "level": "A2", "module": "A2"},
 
         # --- B1 СРЕДНИЙ ---
-        {"id": "question_tags", "title": "Разделительные вопросы (Tag questions)", "emoji": "🆕", "level": "B1", "module": "B1"},
-        {"id": "relative_clauses", "title": "Относительные местоимения (who / which)", "emoji": "🆕", "level": "B1", "module": "B1"},
+        {"id": "question_tags", "title": "Разделительные вопросы (Tag questions)", "emoji": "🏷️", "level": "B1", "module": "B1"},
+        {"id": "relative_clauses", "title": "Относительные местоимения (who / which)", "emoji": "🔗", "level": "B1", "module": "B1"},
 
         # --- B2 ПРОДВИНУТЫЙ ---
-        {"id": "past_perfect_cont", "title": "Past Perfect Continuous", "emoji": "🆕", "level": "B2", "module": "B2"},
-        {"id": "future_cont_perfect", "title": "Future Continuous / Perfect", "emoji": "🆕", "level": "B2", "module": "B2"},
-        {"id": "wish_if_only", "title": "Конструкции I wish / If only", "emoji": "🆕", "level": "B2", "module": "B2"},
-        {"id": "modals_deduction", "title": "Модальные глаголы вероятности", "emoji": "🆕", "level": "B2", "module": "B2"},
-        {"id": "inversion", "title": "Инверсия (Inversion)", "emoji": "🆕", "level": "B2", "module": "B2"},
+        {"id": "past_perfect_cont", "title": "Past Perfect Continuous", "emoji": "🕰️", "level": "B2", "module": "B2"},
+        {"id": "future_cont_perfect", "title": "Future Continuous / Perfect", "emoji": "🚀", "level": "B2", "module": "B2"},
+        {"id": "wish_if_only", "title": "Конструкции I wish / If only", "emoji": "🌟", "level": "B2", "module": "B2"},
+        {"id": "modals_deduction", "title": "Модальные глаголы вероятности", "emoji": "🎱", "level": "B2", "module": "B2"},
+        {"id": "inversion", "title": "Инверсия (Inversion)", "emoji": "🙃", "level": "B2", "module": "B2"},
     ]
 
     existing_ids = {l["id"] for l in lessons_data}
