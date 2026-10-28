@@ -546,6 +546,126 @@ GRAMMAR_LESSONS = [
             {"type": "write", "q": "Напиши 3-5 предложений о том, что ты видишь вокруг себя прямо сейчас (используй this/these для близких предметов и that/those для далеких).", "sample": "This is my phone. These are my books on the table. That is a window far from me. Those are trees outside. This room is very nice."}
         ]
     },
+
+        # ═══════════════════════════════════════════
+    # УРОК — ПРИТЯЖАТЕЛЬНЫЙ ПАДЕЖ ('S)
+    # ═══════════════════════════════════════════
+    {
+        "id": "possessive_s",
+        "title": "Притяжательный падеж ('s)",
+        "emoji": "🔑",
+        "level": "A1",
+        "module": "A1",
+        "intro": "В русском мы говорим «машина брата», «книга мамы». В английском для этого есть специальная конструкция с апострофом и буквой S. Это самый простой способ сказать, кому что принадлежит.",
+        
+        "why": "Представь, что ты в офисе и тебе нужно найти стол начальника. Если ты не знаешь притяжательного падежа, ты скажешь 'the table of boss' (что звучит странно) или просто 'boss table' (что неправильно). Английский язык очень любит краткость. Вместо длинных конструкций с предлогами мы просто добавляем 's к тому, кто владеет предметом. Это правило ты будешь использовать каждый день: когда говоришь о членах семьи, друзьях, коллегах, домашних животных или даже о странах. Без него твоя речь будет звучать как у робота. Освоив этот урок, ты научишься моментально определять, кому что принадлежит, и делать это естественно, как носитель.",
+
+        "rules": [
+            {"h": "Что такое притяжательный падеж и зачем он нужен?", "text": "Притяжательный падеж показывает, кому принадлежит предмет. В русском языке мы для этого меняем окончания (мама — мамы, брат — брата) или используем предлог «у» (у меня есть). В английском есть два способа: через предлог 'of' (the car of my father) или через апостроф и букву 's' (my father's car). Второй способ используется гораздо чаще, особенно когда речь идет о людях и животных. Логика простая: мы берем того, кому принадлежит предмет, добавляем 's, и ставим рядом сам предмет. Например, Tom's car (машина Тома)."},
+            
+            {"h": "Как образуется для одного человека", "text": "Если владелец один (человек или животное), мы просто добавляем апостроф и букву S ('s) к его имени или существительному. Формула: Владелец + 's + Предмет. Например: my mother's bag (сумка моей мамы), John's house (дом Джона), the dog's tail (хвост собаки). Важно: буква 's' здесь не означает множественное число! Это просто грамматический маркер принадлежности. Обрати внимание, что артикль или притяжательное местоимение (my, his) ставится перед владельцем, а не перед предметом. Правильно: my friend's book. Неправильно: friend's my book."},
+            
+            {"h": "Как образуется для нескольких владельцев", "text": "Если владельцев несколько (два и больше), правило меняется. Мы ставим апостроф ПОСЛЕ буквы S, которая уже есть на конце слова. Формула: Владелец (множественное число) + ' + Предмет. Например: my parents' house (дом моих родителей), the students' books (книги студентов), the dogs' tails (хвосты собак). Если слово во множественном числе не заканчивается на -s (например, children, men, women), то мы добавляем 's как обычно: children's toys (игрушки детей), men's room (мужская комната)."},
+            
+            {"h": "Сложные случаи: несколько владельцев и один предмет", "text": "А что если предмет принадлежит сразу двум людям? В английском есть тонкость. Если предмет принадлежит им обоим совместно, мы добавляем 's только к последнему имени. Например: Tom and Mary's house (дом Тома и Мэри — они живут вместе). Если же у них разные дома, то 's добавляется к каждому: Tom's and Mary's houses (дом Тома и дом Мэри). Эта тонкость часто встречается в тестах, но в повседневной речи, если ты ошибёшься, тебя всё равно поймут."},
+            
+            {"h": "Когда использовать предлог OF", "text": "Притяжательный падеж с 's идеально подходит для людей, животных и организаций. Но для неодушевленных предметов чаще используется предлог 'of'. Например, мы не скажем 'the table's leg', мы скажем 'the leg of the table' (ножка стола). Или 'the roof of the house' (крыша дома). Однако есть исключения: время и расстояния. Мы говорим 'today's news' (сегодняшние новости), 'a week's holiday' (недельный отпуск), 'a kilometer's distance' (расстояние в километр). Также 's используется для стран и городов: 'Russia's capital' (столица России)."},
+            
+            {"h": "Притяжательный падеж для времени и денег", "text": "В английском есть устойчивые выражения, где 's используется с неодушевленными понятиями. Это время, деньги и расстояния. Например: an hour's walk (часовая прогулка), a day's work (дневная работа), a dollar's worth (на доллар). В таких случаях 's показывает не принадлежность в прямом смысле, а длительность или стоимость. Это нужно просто запомнить, потому что логика здесь историческая, а не грамматическая."},
+            
+            {"h": "Как задать вопрос с 's", "text": "Чтобы спросить «Чья это машина?», мы используем вопросительное слово 'Whose'. Например: Whose car is this? (Чья это машина?). Ответ: It is Tom's car (Это машина Тома). Или можно ответить кратко: It's Tom's. Обрати внимание, что 'Whose' ставится перед предметом, а не перед владельцем. Нельзя сказать 'Whose Tom's car?'. Также можно спросить 'Whose is this car?', но первый вариант более распространен."},
+            
+            {"h": "Тонкость с артиклями", "text": "Когда мы используем притяжательный падеж, артикль (a/an/the) или другое притяжательное местоимение (my, his) ставится перед владельцем, а не перед предметом. Например: the boy's ball (мяч мальчика), a dog's bone (кость собаки). Нельзя сказать 'boy's the ball'. Важно помнить, что существительное, обозначающее предмет, не получает артикля, если перед владельцем уже стоит 'the'. Это правило экономии слов, которое часто встречается в английском."}
+        ],
+
+        "tables": [
+            {
+                "title": "Один владелец vs Много владельцев",
+                "headers": ["Ситуация", "Правило", "Пример"],
+                "rows": [
+                    ["Один человек / животное", "+ 's", "Tom's car (машина Тома)"],
+                    ["Много владельцев (слово на -s)", "+ '", "my parents' house (дом родителей)"],
+                    ["Много владельцев (исключения: children, men)", "+ 's", "children's toys (игрушки детей)"],
+                    ["Два владельца, один предмет", "+ 's к последнему", "Tom and Mary's house"],
+                    ["Два владельца, два предмета", "+ 's к каждому", "Tom's and Mary's houses"]
+                ]
+            },
+            {
+                "title": "'s vs OF",
+                "headers": ["Кому принадлежит", "Что используем", "Пример"],
+                "rows": [
+                    ["Люди, животные", "'s", "the girl's bag"],
+                    ["Организации, страны, города", "'s", "Russia's capital"],
+                    ["Неодушевленные предметы", "of", "the leg of the table"],
+                    ["Время, расстояние, деньги", "'s", "an hour's walk, a day's work"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "My mothers bag.", "right": "My mother's bag.", "why": "Забыли апостроф. Без него слово 'mothers' означает множественное число (мамы)."},
+            {"wrong": "My parents's house.", "right": "My parents' house.", "why": "Parents заканчивается на -s, поэтому добавляем только апостроф, без второй 's'."},
+            {"wrong": "The car of Tom.", "right": "Tom's car.", "why": "Для людей используем 's, а не предлог of."},
+            {"wrong": "The table's leg.", "right": "The leg of the table.", "why": "Для неодушевленных предметов обычно используем of."},
+            {"wrong": "The childrens' toys.", "right": "The children's toys.", "why": "Children — уже множественное число, но не заканчивается на -s, поэтому добавляем 's."},
+            {"wrong": "Tom's and Mary's house (если дом общий).", "right": "Tom and Mary's house.", "why": "Если предмет общий, 's ставится только к последнему имени."},
+            {"wrong": "I like this boy's the ball.", "right": "I like this boy's ball.", "why": "Артикль the не ставится перед предметом, если уже есть 's."}
+        ],
+
+        "lifehacks": [
+            "Запомни главное: владелец + 's + предмет. Кто владеет, тот получает 's.",
+            "Один владелец — 's. Много владельцев — просто апостроф (') после S.",
+            "Если предмет неживой (стол, дом, книга) — чаще используй of, а не 's.",
+            "Whose — это вопрос про владельца. Whose car? = Чья машина?",
+            "С временем и расстоянием тоже работает: an hour's walk (часовая прогулка)."
+        ],
+
+        "text": {
+            "title": "My Family and Their Things",
+            "paragraphs": [
+                "My name is Alex. I have a big family. My father's name is John. My mother's name is Mary. My sister's name is Kate. We live in my parents' house. It is a big house with a beautiful garden.",
+                "My father's car is blue. My mother's car is red. My sister's bike is small. My brother's computer is new. My parents' room is on the second floor. My room is on the first floor.",
+                "Yesterday my friend's dog ran into our garden. My mother's flowers were in danger! My friend's dog is very fast. We ran after it. Finally, my father's dog caught it. It was a funny day.",
+                "We love our family. Our parents' love is the most important thing in the world. My sister's smile and my brother's laugh make me happy. My family is the best!"
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What is the author's name?", "options": ["John", "Alex", "Mary", "Kate"], "correct": "Alex"},
+            {"q": "What is the father's name?", "options": ["Alex", "John", "Kate", "Mary"], "correct": "John"},
+            {"q": "What color is the father's car?", "options": ["Red", "Blue", "Green", "Black"], "correct": "Blue"},
+            {"q": "What color is the mother's car?", "options": ["Red", "Blue", "Green", "Black"], "correct": "Red"},
+            {"q": "Whose dog ran into the garden?", "options": ["The father's", "The mother's", "The friend's", "The sister's"], "correct": "The friend's"},
+            {"q": "Whose flowers were in danger?", "options": ["The mother's", "The father's", "The sister's", "The brother's"], "correct": "The mother's"},
+            {"q": "Whose dog caught the friend's dog?", "options": ["The mother's", "The sister's", "The father's", "The brother's"], "correct": "The father's"},
+            {"q": "What is the most important thing in the world for the author?", "options": ["Cars", "Flowers", "Parents' love", "Dogs"], "correct": "Parents' love"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "This is ___ car. (машина Тома)", "options": ["Tom's", "Toms", "Toms'", "Tom"], "correct": "Tom's"},
+            {"type": "choice", "q": "This is ___ house. (дом родителей)", "options": ["my parents's", "my parent's", "my parents'", "my parents"], "correct": "my parents'"},
+            {"type": "choice", "q": "This is ___ toy. (игрушка детей)", "options": ["childrens", "children's", "childrens'", "children"], "correct": "children's"},
+            {"type": "choice", "q": "The ___ leg is broken. (ножка стола)", "options": ["table's", "tables", "table of", "of table"], "correct": "table's"},
+            {"type": "choice", "q": "I like ___ bag. (сумка Марии)", "options": ["Mary's", "Marys", "Marys'", "Mary"], "correct": "Mary's"},
+            {"type": "choice", "q": "This is the ___ room. (комната мальчиков)", "options": ["boys", "boy's", "boys'", "boys's"], "correct": "boys'"},
+            {"type": "choice", "q": "Whose car is this? — It's ___.", "options": ["my father's", "my fathers", "my father", "my fathers'"], "correct": "my father's"},
+            {"type": "fill", "q": "This is ___ (Tom) book.", "answer": "Tom's"},
+            {"type": "fill", "q": "This is ___ (my parents) house.", "answer": "my parents'"},
+            {"type": "fill", "q": "This is ___ (children) room.", "answer": "children's"},
+            {"type": "fill", "q": "The ___ (dog) tail is long.", "answer": "dog's"},
+            {"type": "fill", "q": "___ (Whose / Who) car is this?", "answer": "Whose"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["My mothers bag", "My mother's bag", "My mothers' bag", "My mother bag"], "correct": "My mother's bag"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["My parents's house", "My parents' house", "My parent's house", "My parents house"], "correct": "My parents' house"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["The car of Tom", "Tom's car", "Toms car", "Toms' car"], "correct": "Tom's car"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["The childrens toys", "The children's toys", "The childrens' toys", "The children toys"], "correct": "The children's toys"},
+            {"type": "translate", "q": "Переведи: Это машина моего отца.", "answer": "This is my father's car"},
+            {"type": "translate", "q": "Переведи: Дом моих родителей большой.", "answer": "My parents' house is big"},
+            {"type": "translate", "q": "Переведи: Игрушки детей в комнате.", "answer": "The children's toys are in the room"},
+            {"type": "translate", "q": "Переведи: Чья это книга? — Это книга Мэри.", "answer": "Whose book is this? — It's Mary's book"},
+            {"type": "translate", "q": "Переведи: Ножка стола сломана.", "answer": "The leg of the table is broken"},
+            {"type": "write", "q": "Напиши 3-5 предложений о вещах своей семьи, используя притяжательный падеж ('s).", "sample": "My father's car is black. My mother's bag is red. My sister's room is small. My parents' house is big. My friend's dog is very friendly."}
+        ]
+    },
     
     # ═══════════════════════════════════════════
     # УРОК 1 — PRESENT SIMPLE
