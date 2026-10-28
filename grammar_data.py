@@ -1404,6 +1404,151 @@ GRAMMAR_LESSONS = [
         ]
     },
 
+        # ═══════════════════════════════════════════
+    # УРОК — ВОПРОСИТЕЛЬНЫЕ СЛОВА (WH-QUESTIONS)
+    # ═══════════════════════════════════════════
+    {
+        "id": "wh_questions",
+        "title": "Вопросительные слова",
+        "emoji": "❓",
+        "level": "A1",
+        "module": "A1",
+        "intro": "В английском языке нельзя просто сказать 'Ты живешь?' и поднять интонацию, чтобы получился вопрос. Нужны специальные вопросительные слова: What, Where, When, Why, Who, Whose, Which, How. Без них ты не сможешь узнать нужную информацию.",
+        
+        "why": "Представь, что ты в чужом городе и тебе нужно найти банк. Как ты спросишь прохожего? 'Where is the bank?' (Где находится банк?). Если ты не знаешь вопросительных слов, ты не сможешь спросить ни время, ни цену, ни имя человека. В русском языке мы часто просто меняем интонацию: «Ты дома?». В английском для простых вопросов (да/нет) мы меняем порядок слов, а для вопросов с вопросительным словом (где, когда, почему) мы ставим это слово в самое начало. Если ты не освоишь эти слова, ты не сможешь вести диалог, потому что диалог — это обмен вопросами и ответами.",
+
+        "rules": [
+            {"h": "Что такое Wh-questions и зачем они нужны?", "text": "Wh-questions — это вопросы, которые начинаются с вопросительного слова (большинство из них начинаются на 'wh', поэтому их так называют). Они нужны, чтобы получить конкретную информацию, а не просто ответ 'да' или 'нет'. Например, вопрос 'Do you live in Moscow?' требует ответа 'Yes' или 'No'. А вопрос 'Where do you live?' требует конкретного места (I live in Moscow). В английском языке есть 8 основных вопросительных слов, которые покрывают 90% всех вопросов в жизни."},
+            
+            {"h": "Восемь главных вопросительных слов", "text": "Запомни эти слова: 1) What — что? (What is this?). 2) Where — где? куда? (Where do you live?). 3) When — когда? (When do you wake up?). 4) Why — почему? (Why are you sad?). 5) Who — кто? (Who is he?). 6) Whose — чей? (Whose car is this?). 7) Which — который? какой из? (Which color do you like?). 8) How — как? (How are you?). Есть также составные вопросы: How much (сколько для неисчисляемых), How many (сколько для исчисляемых), How old (сколько лет), How long (как долго)."},
+            
+            {"h": "Порядок слов в вопросе (Главное правило)", "text": "В английском языке строгий порядок слов в вопросах. Формула такая: Вопросительное слово + вспомогательный глагол (do/does/did/am/is/are) + подлежащее + смысловой глагол. Например: 'Where do you live?' (Where — do — you — live). 'Why is he late?' (Why — is — he — late). Вопросительное слово всегда стоит на первом месте. Если ты забудешь вспомогательный глагол, вопрос будет неправильным. Например: 'Where you live?' — это ошибка, нужно 'Where do you live?'."},
+            
+            {"h": "Вопросы к подлежащему (Who / What)", "text": "Есть исключение из правила. Когда мы задаем вопрос к подлежащему (кто делает действие?), мы НЕ используем вспомогательные глаголы do/does. Мы просто ставим Who или What на первое место, а глагол идет в 3-м лице единственного числа. Например: 'Who likes coffee?' (Кто любит кофе?). 'Who works here?' (Кто здесь работает?). 'What happens next?' (Что случится дальше?). Обрати внимание, что здесь глагол получает окончание -s, потому что мы не знаем, кто это, и предполагаем третье лицо."},
+            
+            {"h": "Разница между What и Which", "text": "What (что? какой?) используется, когда выбор неограничен (много вариантов). Which (который? какой из?) используется, когда выбор ограничен (например, два или три варианта). Пример: 'What car do you like?' — тебе нравятся машины в целом, любые. 'Which car do you like, the red one or the blue one?' — ты выбираешь из двух конкретных машин. Если ты видишь перед собой несколько предметов, используй Which, если выбор абстрактный — What."},
+            
+            {"h": "Вопросы с How (Как?)", "text": "How само по себе означает 'как' (How are you? — Как дела?). Но оно часто используется в связке с другими словами. How old — сколько лет ('How old are you?'). How much — сколько (для неисчисляемых: How much water? How much money?). How many — сколько (для исчисляемых: How many books?). How long — как долго ('How long have you been waiting?'). How often — как часто ('How often do you go to the gym?'). Эти фразы очень часто используются в повседневной жизни."},
+            
+            {"h": "Вопросы с Who и Whose", "text": "Who (кто) используется для одушевленных предметов (людей). 'Who is this man?' (Кто этот человек?). Whose (чей) используется для принадлежности. 'Whose phone is this?' (Чей это телефон?). Не путай их. Who спрашивает про личность (Кто он?), а Whose спрашивает про владельца (Чье это?). В вопросах с Who глагол обычно стоит в единственном числе, если мы не знаем ответа. В вопросах с Whose мы часто даем краткий ответ с притяжательным падежом: It's Tom's."},
+            
+            {"h": "Как отвечать на Wh-вопросы", "text": "На Wh-вопросы нельзя ответить просто 'да' или 'нет'. Ты должен дать конкретную информацию. Например: Where do you live? — I live in Moscow. When do you wake up? — At 7 am. Why are you late? — Because I missed the bus. Как видишь, ответ обычно начинается с подлежащего и глагола, а информация, которую спрашивали, стоит в конце. Старайся отвечать полными предложениями, чтобы тренировать речь."}
+        ],
+
+        "tables": [
+            {
+                "title": "Восемь главных слов",
+                "headers": ["Слово", "Перевод", "Пример"],
+                "rows": [
+                    ["What", "Что? Какой?", "What is this?"],
+                    ["Where", "Где? Куда?", "Where are you?"],
+                    ["When", "Когда?", "When is your birthday?"],
+                    ["Why", "Почему?", "Why are you sad?"],
+                    ["Who", "Кто?", "Who is it?"],
+                    ["Whose", "Чей?", "Whose bag is this?"],
+                    ["Which", "Который? Какой из?", "Which one do you want?"],
+                    ["How", "Как?", "How are you?"]
+                ]
+            },
+            {
+                "title": "Порядок слов с do/does",
+                "headers": ["Вопросительное слово", "Вспомогательный глагол", "Подлежащее", "Смысловой глагол"],
+                "rows": [
+                    ["Where", "do", "you", "live?"],
+                    ["What", "does", "he", "do?"],
+                    ["When", "do", "they", "come?"],
+                    ["Why", "does", "she", "cry?"]
+                ]
+            },
+            {
+                "title": "Составные вопросы с How",
+                "headers": ["Слово", "Перевод", "С чем используется"],
+                "rows": [
+                    ["How old", "Сколько лет", "Возраст"],
+                    ["How much", "Сколько", "Неисчисляемые"],
+                    ["How many", "Сколько", "Исчисляемые"],
+                    ["How long", "Как долго", "Время"],
+                    ["How often", "Как часто", "Частота"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "Where you live?", "right": "Where do you live?", "why": "В вопросах с вопросительным словом нужен вспомогательный глагол do/does."},
+            {"wrong": "What you are doing?", "right": "What are you doing?", "why": "Вопросительное слово ставится первым, затем глагол, затем подлежащее."},
+            {"wrong": "How much books?", "right": "How many books?", "why": "Books — исчисляемое, нужно How many."},
+            {"wrong": "Who does like coffee?", "right": "Who likes coffee?", "why": "Вопрос к подлежащему не требует does."},
+            {"wrong": "Whose is this car? (если хочешь спросить чья)", "right": "Whose car is this?", "why": "Whose ставится перед существительным."},
+            {"wrong": "Which do you like books?", "right": "Which books do you like?", "why": "Which ставится перед существительным, если есть выбор."},
+            {"wrong": "When you will come?", "right": "When will you come?", "why": "Вспомогательный глагол (will) ставится перед подлежащим."}
+        ],
+
+        "lifehacks": [
+            "Запомни рифму: What, Where, When, Why, Who, Whose, Which, How. Это 8 главных слов для любого вопроса.",
+            "Вопросительное слово всегда стоит на первом месте. Если сомневаешься — ставь его в начало.",
+            "После вопросительного слова почти всегда идет вспомогательный глагол (do, does, did, am, is, are, will, can).",
+            "Если спрашиваешь про человека (Кто это сделал?) — используй Who и не ставь do/does.",
+            "How much — для того, что нельзя посчитать (вода, деньги). How many — для того, что можно (книги, яблоки)."
+        ],
+
+        "text": {
+            "title": "A Job Interview",
+            "paragraphs": [
+                "Interviewer: Good morning! What is your name?",
+                "Candidate: My name is Alex.",
+                "Interviewer: Where are you from?",
+                "Candidate: I am from Moscow.",
+                "Interviewer: When did you finish university?",
+                "Candidate: I finished university last year.",
+                "Interviewer: Why do you want to work here?",
+                "Candidate: Because I like your company and I want to grow.",
+                "Interviewer: How old are you?",
+                "Candidate: I am 23 years old.",
+                "Interviewer: How many languages do you speak?",
+                "Candidate: I speak English and a little French.",
+                "Interviewer: Who is your favourite teacher?",
+                "Candidate: My favourite teacher is Mr. Smith.",
+                "Interviewer: Thank you for your time!"
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What is the candidate's name?", "options": ["John", "Alex", "Mike", "Tom"], "correct": "Alex"},
+            {"q": "Where is the candidate from?", "options": ["London", "Moscow", "Paris", "Berlin"], "correct": "Moscow"},
+            {"q": "When did the candidate finish university?", "options": ["Last year", "Two years ago", "This year", "Never"], "correct": "Last year"},
+            {"q": "Why does the candidate want to work there?", "options": ["Good salary", "Like the company", "Close to home", "Friends work there"], "correct": "Like the company"},
+            {"q": "How old is the candidate?", "options": ["20", "21", "23", "25"], "correct": "23"},
+            {"q": "How many languages does the candidate speak?", "options": ["One", "Two", "Three", "Four"], "correct": "Two"},
+            {"q": "Who is the candidate's favourite teacher?", "options": ["Mr. Smith", "Mr. Johnson", "Mrs. Brown", "Mr. Davis"], "correct": "Mr. Smith"},
+            {"q": "What is the candidate's level of French?", "options": ["Fluent", "A little", "None", "Native"], "correct": "A little"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "___ is your name?", "options": ["What", "Where", "When", "Who"], "correct": "What"},
+            {"type": "choice", "q": "___ do you live?", "options": ["What", "Where", "When", "Who"], "correct": "Where"},
+            {"type": "choice", "q": "___ are you late?", "options": ["What", "Where", "When", "Why"], "correct": "Why"},
+            {"type": "choice", "q": "___ is your birthday?", "options": ["What", "Where", "When", "Who"], "correct": "When"},
+            {"type": "choice", "q": "___ is that man?", "options": ["What", "Where", "When", "Who"], "correct": "Who"},
+            {"type": "choice", "q": "___ bag is this?", "options": ["What", "Where", "Whose", "Who"], "correct": "Whose"},
+            {"type": "choice", "q": "___ book do you want, the red or the blue?", "options": ["What", "Which", "Whose", "Who"], "correct": "Which"},
+            {"type": "choice", "q": "___ old are you?", "options": ["What", "Where", "How", "Who"], "correct": "How"},
+            {"type": "fill", "q": "___ (Где) do you live?", "answer": "Where"},
+            {"type": "fill", "q": "___ (Почему) are you crying?", "answer": "Why"},
+            {"type": "fill", "q": "___ (Кто) is your favourite actor?", "answer": "Who"},
+            {"type": "fill", "q": "___ (Когда) is your birthday?", "answer": "When"},
+            {"type": "fill", "q": "___ (Чей) phone is this?", "answer": "Whose"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["Where you live?", "Where do you live?", "Where does you live?", "Where are you live?"], "correct": "Where do you live?"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["What you are doing?", "What are you doing?", "What do you doing?", "What is you doing?"], "correct": "What are you doing?"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["How much books?", "How many books?", "How books many?", "How many book?"], "correct": "How many books?"},
+            {"type": "translate", "q": "Переведи: Где ты живешь?", "answer": "Where do you live"},
+            {"type": "translate", "q": "Переведи: Почему ты опоздал?", "answer": "Why are you late"},
+            {"type": "translate", "q": "Переведи: Кто это?", "answer": "Who is it"},
+            {"type": "translate", "q": "Переведи: Сколько тебе лет?", "answer": "How old are you"},
+            {"type": "translate", "q": "Переведи: Чья это сумка?", "answer": "Whose bag is this"},
+            {"type": "write", "q": "Напиши 5 вопросов, которые ты хотел бы задать новому знакомому (используй What, Where, When, Why, How).", "sample": "What is your name? Where are you from? When is your birthday? Why do you learn English? How old are you?"}
+        ]
+    },
+
     # ═══════════════════════════════════════════
     # УРОК 2 — PAST SIMPLE
     # ═══════════════════════════════════════════
