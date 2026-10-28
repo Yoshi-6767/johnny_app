@@ -1865,7 +1865,6 @@ def study_page():
         # --- A1 БАЗА ---
         {"id": "intro_english", "title": "Введение в английский", "emoji": "👋", "level": "A1", "module": "A1"},
         {"id": "possessive_s", "title": "Притяжательный падеж ('s)", "emoji": "🔑", "level": "A1", "module": "A1"},
-        {"id": "prepositions_place", "title": "Предлоги места (in/on/at)", "emoji": "📍", "level": "A1", "module": "A1"},
         {"id": "adverbs_frequency", "title": "Наречия частоты", "emoji": "🔁", "level": "A1", "module": "A1"},
         {"id": "wh_questions", "title": "Вопросительные слова", "emoji": "❓", "level": "A1", "module": "A1"},
         {"id": "imperative", "title": "Повелительное наклонение", "emoji": "🛑", "level": "A1", "module": "A1"},
