@@ -1864,7 +1864,6 @@ def study_page():
         PLACEHOLDERS = [
         # --- A1 БАЗА ---
         {"id": "intro_english", "title": "Введение в английский", "emoji": "👋", "level": "A1", "module": "A1"},
-        {"id": "demonstratives", "title": "This / That / These / Those", "emoji": "👉", "level": "A1", "module": "A1"},
 
         # --- A2 РАСШИРЕНИЕ ---
         {"id": "will_vs_going", "title": "Will vs Going to", "emoji": "🛣️", "level": "A2", "module": "A2"},
