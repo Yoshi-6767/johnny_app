@@ -666,6 +666,254 @@ GRAMMAR_LESSONS = [
             {"type": "write", "q": "Напиши 3-5 предложений о вещах своей семьи, используя притяжательный падеж ('s).", "sample": "My father's car is black. My mother's bag is red. My sister's room is small. My parents' house is big. My friend's dog is very friendly."}
         ]
     },
+
+        # ═══════════════════════════════════════════
+    # УРОК — АРТИКЛИ (A / AN / THE)
+    # ═══════════════════════════════════════════
+    {
+        "id": "articles",
+        "title": "Артикли (a / an / the)",
+        "emoji": "🔤",
+        "level": "A1",
+        "module": "A1",
+        "intro": "Артикли — это самая большая головная боль для русскоговорящих. В русском языке их нет, поэтому нам кажется, что это бесполезные слова. Но в английском артикль — это указатель. Он говорит слушателю: «Я говорю о какой-то одной вещи» или «Я говорю о той самой вещи, о которой мы уже знаем». Если не использовать артикли, речь будет звучать как у инопланетянина.",
+        
+        "why": "Представь, что ты пришел в магазин и говоришь продавцу: 'Give me pen'. Он не поймет: тебе нужна любая ручка или та конкретная, на которую ты показываешь? В английском за это отвечают артикли. 'Give me a pen' означает «дай мне какую-нибудь ручку». 'Give me the pen' означает «дай мне ту самую ручку». Без артиклей ты не сможешь правильно сказать ни одно существительное в единственном числе. Английский язык без них просто не работает. В этом уроке мы разберем не просто правила, а саму логику мышления англичан: как они делят мир на «какой-то» и «тот самый».",
+
+        "rules": [
+            {"h": "Зачем вообще нужны артикли?", "text": "В русском языке мы понимаем, о чем речь, из контекста или с помощью падежей. В английском контекст работает не так хорошо, поэтому нужны специальные маркеры. Артикль — это как маркер-выделитель. Он всегда стоит перед существительным. Если ты ставишь 'a' или 'an', ты говоришь: 'Я имею в виду один предмет из многих, неважно какой'. Если ты ставишь 'the', ты говоришь: 'Я имею в виду конкретный предмет, о котором мы оба знаем'. Если артикля нет вообще, значит, ты говоришь о чем-то абстрактном или во множественном числе."},
+            
+            {"h": "Неопределенный артикль A / AN", "text": "A и AN используются только с исчисляемыми существительными в единственном числе (то есть то, что можно посчитать: одна книга, одна машина). Когда мы используем a/an, мы говорим о предмете ВПЕРВЫЕ. Слушатель еще не знает, о каком именно предмете идет речь. Например: 'I have a cat' (У меня есть какая-то кошка). 'I want to buy a car' (Я хочу купить какую-нибудь машину). Разница между A и AN зависит от ЗВУКА, а не от буквы. Если слово начинается с согласного звука, ставим A (a book, a car). Если с гласного звука, ставим AN (an apple, an elephant). Запомни: a university (звук 'ю' — согласный), но an hour (звук 'а' — гласный, потому что 'h' не читается)."},
+            
+            {"h": "Определенный артикль THE", "text": "THE используется, когда предмет уже известен. Это самый частый артикль. Мы ставим THE в следующих случаях: 1) Предмет уже упоминался ранее ('I have a cat. The cat is black' — сначала 'какая-то кошка', потом 'та самая кошка'). 2) Предмет единственный в своем роде ('the sun', 'the moon', 'the sky' — потому что их больше нет). 3) С превосходной степенью ('the best', 'the biggest'). 4) С порядковыми числами ('the first', 'the second'). 5) Когда мы уточняем, о ком речь, с помощью предлога 'of' ('the capital of Russia'). THE может использоваться и с единственным, и с множественным числом (the books, the car)."},
+            
+            {"h": "Когда артикль НЕ нужен (Zero Article)", "text": "Есть случаи, когда артикль не ставится вообще. Это называется нулевой артикль. 1) С именами и городами/странами (Anna, Moscow, Russia) — хотя есть исключения типа the USA, the UK. 2) С множественным числом, если мы говорим о них в общем ('I like apples' — яблоки вообще). 3) С неисчисляемыми существительными в общем смысле ('Water is good' — вода вообще). 4) С притяжательными местоимениями (my book, his car) — нельзя сказать 'my a book'. 5) В устойчивых выражениях: go to bed (спать), go to school (учиться), go to work (работать), at home (дома). В этих случаях артикль не нужен, потому что речь идет о процессе, а не о здании."},
+            
+            {"h": "Правило первого и второго упоминания", "text": "Самая простая схема для понимания артиклей: когда ты вводишь новый предмет в разговор, используй a/an. Когда предмет уже в контексте, используй the. Пример: 'I saw a dog in the park. The dog was very big.' (Я увидел какую-то собаку в парке. Та собака была очень большой). В первом предложении мы вводим собаку в историю (a dog), во втором мы уже знаем, о ком речь (the dog). Это правило работает в 80% случаев. Если ты сомневаешься, спроси себя: 'Слушатель уже знает, о каком именно предмете я говорю?' Если да — the. Если нет — a/an."},
+            
+            {"h": "Артикли с профессиями", "text": "С названиями профессий в английском всегда используется артикль a/an. Даже если ты говоришь о себе впервые. Мы говорим: 'I am a doctor' (Я врач), 'She is an engineer' (Она инженер). Нельзя сказать 'I am doctor' — это ошибка. Артикль показывает, что ты принадлежишь к группе людей этой профессии. То же самое с национальностями: 'I am a Russian' (Я русский). Но если ты говоришь о языке, артикль не нужен: 'I speak Russian'."},
+            
+            {"h": "Артикли в устойчивых выражениях", "text": "В английском есть куча фраз, где артикль либо нужен, либо нет, и это нужно просто запомнить. Например: go to bed (спать), go to school (учиться), go to work (работать) — БЕЗ артикля, потому что это процесс. Но go to THE cinema (в кино), go to THE bank (в банк) — С артиклем, потому что это здания. At home — дома (без артикля), at THE office — в офисе (с артиклем). In the morning — утром (с артиклем), at night — ночью (без артикля, это исключение). Эти фразы лучше просто запомнить, они часто встречаются."},
+            
+            {"h": "Географические названия и артикли", "text": "Страны и города обычно используются без артикля (Russia, France, Moscow, London). Но есть исключения: The USA, The UK, The Netherlands, The Philippines (потому что это союзы или множественное число). Океаны, моря и реки ВСЕГДА с артиклем the (the Pacific Ocean, the Black Sea, the Volga). Горы: если это горная цепь (the Alps, the Urals) — с артиклем, если отдельная вершина (Everest, Elbrus) — без артикля. Это правило нужно просто выучить, оно часто спрашивается на экзаменах."}
+        ],
+
+        "tables": [
+            {
+                "title": "A vs AN (по звуку)",
+                "headers": ["Артикль", "Когда используем", "Примеры"],
+                "rows": [
+                    ["A", "Перед согласным звуком", "a book, a car, a university (звук 'ю')"],
+                    ["AN", "Перед гласным звуком", "an apple, an egg, an hour (звук 'а')"]
+                ]
+            },
+            {
+                "title": "Когда нужен THE",
+                "headers": ["Ситуация", "Пример"],
+                "rows": [
+                    ["Уже упоминали", "I bought a book. The book is interesting."],
+                    ["Единственный в своем роде", "the sun, the moon, the sky"],
+                    ["Превосходная степень", "the best, the biggest"],
+                    ["Порядковые числительные", "the first, the last"],
+                    ["С уточнением 'of'", "the capital of Russia"],
+                    ["Океаны, моря, реки", "the Pacific, the Black Sea"]
+                ]
+            },
+            {
+                "title": "Когда артикль НЕ нужен",
+                "headers": ["Ситуация", "Пример"],
+                "rows": [
+                    ["Имена, города, страны", "Anna, Moscow, Russia"],
+                    ["Множественное число в общем", "I like apples."],
+                    ["Неисчисляемые в общем", "Water is good for you."],
+                    ["С притяжательными", "my book, his car"],
+                    ["Устойчивые фразы (процесс)", "go to bed, at home, go to work"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I have cat.", "right": "I have a cat.", "why": "Исчисляемое в единственном числе всегда требует артикль (a/an)."},
+            {"wrong": "I saw a elephant.", "right": "I saw an elephant.", "why": "Слово начинается с гласного звука, значит нужен AN."},
+            {"wrong": "I like the apples.", "right": "I like apples.", "why": "Если говорим о яблоках в общем (все яблоки мира), артикль не нужен."},
+            {"wrong": "She is doctor.", "right": "She is a doctor.", "why": "С профессиями всегда используется a/an."},
+            {"wrong": "I live in the Moscow.", "right": "I live in Moscow.", "why": "С городами артикль не используется."},
+            {"wrong": "I am going to the bed.", "right": "I am going to bed.", "why": "Go to bed (спать) — устойчивое выражение, без артикля."},
+            {"wrong": "This is a my book.", "right": "This is my book.", "why": "Если есть притяжательное местоимение (my, his), артикль не нужен."},
+            {"wrong": "The sun is a star.", "right": "The sun is a star.", "why": "Здесь всё правильно, но если сказать 'A sun is a star' — это ошибка, потому что солнце одно."}
+        ],
+
+        "lifehacks": [
+            "Самая простая схема: Первый раз упомянул — a/an. Второй раз — the. Работает в 80% случаев.",
+            "Правило звука: A + согласный звук, AN + гласный звук. university = 'ю' (согласный), hour = 'а' (гласный).",
+            "С профессией — всегда a/an. I am a student. He is a driver.",
+            "Если перед существительным стоит my/your/his/this — артикль НЕ нужен.",
+            "The sun, the moon, the sky — потому что они единственные в мире.",
+            "Go to bed, go to school, at home — без артикля, потому что это процесс, а не место."
+        ],
+
+        "text": {
+            "title": "A Trip to the Zoo",
+            "paragraphs": [
+                "Yesterday I went to a zoo with my sister. We saw a lot of interesting animals there. First we visited an elephant. The elephant was huge and grey. Then we went to see a lion. The lion was sleeping and we couldn't wake him up.",
+                "My sister liked a monkey most of all. The monkey was jumping and playing with a ball. It was very funny. We also saw a giraffe, a zebra, and a bear. The bear was eating honey.",
+                "After the zoo we went to a café. I ordered a coffee and my sister ordered a tea. We talked about the animals we saw. It was the best day of the week. The zoo is my favourite place in the city."
+            ]
+        },
+
+        "text_questions": [
+            {"q": "Where did they go yesterday?", "options": ["To a park", "To a zoo", "To a museum", "To a cinema"], "correct": "To a zoo"},
+            {"q": "What was the elephant like?", "options": ["Small and green", "Huge and grey", "Fast and angry", "Old and sad"], "correct": "Huge and grey"},
+            {"q": "What was the lion doing?", "options": ["Eating", "Sleeping", "Running", "Roaring"], "correct": "Sleeping"},
+            {"q": "What animal did the sister like most?", "options": ["An elephant", "A monkey", "A giraffe", "A bear"], "correct": "A monkey"},
+            {"q": "What was the monkey doing?", "options": ["Sleeping", "Eating bananas", "Jumping and playing with a ball", "Climbing a tree"], "correct": "Jumping and playing with a ball"},
+            {"q": "What was the bear eating?", "options": ["Fish", "Honey", "Bread", "Apples"], "correct": "Honey"},
+            {"q": "What did they order at the café?", "options": ["Two coffees", "A coffee and a tea", "Two teas", "Juice and water"], "correct": "A coffee and a tea"},
+            {"q": "What does the author think about the zoo?", "options": ["It's boring", "It's the best day of the week", "It's too small", "It's scary"], "correct": "It's the best day of the week"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "I saw ___ elephant at the zoo.", "options": ["a", "an", "the", "—"], "correct": "an"},
+            {"type": "choice", "q": "___ sun rises in the east.", "options": ["A", "An", "The", "—"], "correct": "The"},
+            {"type": "choice", "q": "I like ___ apples.", "options": ["a", "an", "the", "—"], "correct": "—"},
+            {"type": "choice", "q": "She is ___ doctor.", "options": ["a", "an", "the", "—"], "correct": "a"},
+            {"type": "choice", "q": "I bought ___ book yesterday. ___ book is interesting.", "options": ["a / A", "a / The", "the / A", "an / The"], "correct": "a / The"},
+            {"type": "choice", "q": "We went to ___ school to pick up the kids.", "options": ["a", "an", "the", "—"], "correct": "the"},
+            {"type": "fill", "q": "She has ___ dog. (введи только артикль)", "answer": "a"},
+            {"type": "fill", "q": "___ moon is beautiful tonight. (введи только артикль)", "answer": "the"},
+            {"type": "fill", "q": "I am ___ engineer. (введи только артикль)", "answer": "an"},
+            {"type": "fill", "q": "I like ___ music. (введи '—' если артикль не нужен)", "answer": "—"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I have cat", "I have a cat", "I have the cat", "I have an cat"], "correct": "I have a cat"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I saw a elephant", "I saw an elephant", "I saw the elephant", "I saw elephant"], "correct": "I saw an elephant"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["She is doctor", "She is a doctor", "She is the doctor", "She is an doctor"], "correct": "She is a doctor"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I live in the Moscow", "I live in Moscow", "I live in a Moscow", "I live in an Moscow"], "correct": "I live in Moscow"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I go to the bed", "I go to bed", "I go to a bed", "I go to an bed"], "correct": "I go to bed"},
+            {"type": "translate", "q": "Переведи: У меня есть кошка.", "answer": "I have a cat"},
+            {"type": "translate", "q": "Переведи: Солнце яркое.", "answer": "The sun is bright"},
+            {"type": "translate", "q": "Переведи: Я люблю музыку.", "answer": "I like music"},
+            {"type": "translate", "q": "Переведи: Она инженер.", "answer": "She is an engineer"},
+            {"type": "translate", "q": "Переведи: Я иду спать.", "answer": "I am going to bed"},
+            {"type": "write", "q": "Опиши свою комнату или квартиру, используя артикли (a/an/the) и существительные (стол, стул, окно, кровать).", "sample": "There is a table in my room. The table is near the window. I have a bed and a chair. The bed is big and comfortable. There is also a computer on the table. I like my room."}
+        ]
+    },
+
+        # ═══════════════════════════════════════════
+    # УРОК — THERE IS / THERE ARE
+    # ═══════════════════════════════════════════
+    {
+        "id": "there_is_are",
+        "title": "There is / There are",
+        "emoji": "🏠",
+        "level": "A1",
+        "module": "A1",
+        "intro": "Конструкция There is / There are — это один из способов сказать «есть» или «находится». В русском мы говорим «В комнате есть кошка», а по-английски — «There is a cat in the room». Это не просто «есть», а «существует где-то». Без этой конструкции ты не сможешь описать комнату, город, квартиру или любое место.",
+        
+        "why": "Представь, что ты приехал в новый город и хочешь спросить, есть ли здесь банк. Если ты не знаешь конструкцию There is / There are, ты не сможешь задать этот вопрос. Или ты хочешь рассказать другу, что в твоей новой квартире есть балкон и два окна. Без этой конструкции твоя речь будет звучать как набор слов. В английском языке есть четкое правило: если ты сообщаешь о наличии чего-то (что что-то существует), ты ОБЯЗАН использовать There is или There are. Нельзя просто сказать 'A cat in the room'. Нужно 'There is a cat in the room'. Эта конструкция используется постоянно: в описаниях, объявлениях, рассказах о путешествиях. Освоив её, ты научишься описывать мир вокруг себя.",
+
+        "rules": [
+            {"h": "Что такое There is / There are?", "text": "Конструкция There is / There are переводится как «есть», «находится», «существует». Она используется, когда мы говорим о наличии чего-то в определенном месте. В русском языке мы часто говорим просто «В комнате кошка» или «На столе книга», опуская глагол «есть». В английском так нельзя. Английское предложение должно иметь глагол, поэтому мы используем There is (для одного предмета) или There are (для многих). Формула: There is/are + предмет + место. Например: There is a book on the table (На столе есть книга). There are books on the table (На столе есть книги)."},
+            
+            {"h": "There is — для одного предмета", "text": "There is используется, когда речь идет об ОДНОМ предмете (исчисляемом) или о неисчисляемом существительном (например, вода, молоко, время). Примеры: There is a cat in the room (В комнате есть кошка). There is a bank near here (Здесь рядом есть банк). There is some milk in the fridge (В холодильнике есть немного молока). Важно: после There is всегда ставится артикль a/an или some, если предмет исчисляемый. Мы не говорим 'There is cat' — нужно 'There is a cat'."},
+            
+            {"h": "There are — для многих предметов", "text": "There are используется, когда предметов ДВА и больше (множественное число). Примеры: There are two cats in the room (В комнате две кошки). There are many people here (Здесь много людей). There are some books on the shelf (На полке есть несколько книг). После There are мы обычно не ставим артикль a/an (потому что это единственное число), но можем ставить some, many, few или просто называть количество (two, three, five)."},
+            
+            {"h": "Отрицание: There isn't / There aren't", "text": "Чтобы сказать, что чего-то НЕТ, мы добавляем частицу not после is или are. There is not (isn't) a cat in the room (В комнате нет кошки). There are not (aren't) any chairs in the room (В комнате нет стульев). В отрицаниях с множественным числом и неисчисляемыми мы обычно используем слово 'any'. Нельзя сказать 'There aren't some chairs' — только 'There aren't any chairs'. Это правило очень важно, его часто спрашивают в тестах."},
+            
+            {"h": "Вопрос: Is there? / Are there?", "text": "Чтобы задать вопрос, мы меняем местами There и глагол is/are. Is there a bank near here? (Здесь рядом есть банк?). Are there any chairs in the room? (В комнате есть стулья?). В вопросах с множественным числом и неисчисляемыми тоже используется 'any'. Ответы на такие вопросы краткие: Yes, there is. / No, there isn't. Yes, there are. / No, there aren't. Нельзя отвечать просто 'Yes' или 'No' — это невежливо и грамматически неправильно."},
+            
+            {"h": "Прошедшее время: There was / There were", "text": "В прошедшем времени There is превращается в There was (для одного предмета), а There are — в There were (для многих). There was a cat in the room (В комнате была кошка). There were many people at the party (На вечеринке было много людей). Отрицания: There wasn't / There weren't. Вопросы: Was there? / Were there? Это работает точно так же, как в настоящем времени, только меняется глагол."},
+            
+            {"h": "Будущее время: There will be", "text": "В будущем времени мы используем There will be для всех случаев (и для одного, и для многих). There will be a meeting tomorrow (Завтра будет собрание). There will be many people at the party (На вечеринке будет много людей). Отрицание: There won't be. Вопрос: Will there be? Это самая простая форма, потому что не нужно думать о единственном или множественном числе."},
+            
+            {"h": "Разница с It is / They are", "text": "Очень важно не путать There is с It is. There is a cat in the room — мы сообщаем, что кошка существует где-то (есть). It is a cat — мы уточняем, что это именно кошка (а не собака). There are books on the table — сообщаем, что книги есть. They are books — уточняем, что это книги. There is используется для введения новой информации (что что-то существует). It is / They are используются, когда мы уже знаем о предмете и просто уточняем его характеристики."},
+            
+            {"h": "Порядок слов", "text": "В утвердительном предложении порядок слов такой: There is/are + предмет + место. Место (где находится предмет) ставится в конце предложения. Например: There is a cat (предмет) in the room (место). There are books (предмет) on the table (место). Если нужно уточнить количество, оно ставится перед предметом: There are three books on the table. В вопросах порядок меняется: Is there a cat in the room? Are there books on the table?"}
+        ],
+
+        "tables": [
+            {
+                "title": "Все формы There is/are",
+                "headers": ["Время", "Один / Неисчисл.", "Много"],
+                "rows": [
+                    ["Настоящее", "There is a...", "There are ..."],
+                    ["Отрицание сейчас", "There isn't any...", "There aren't any..."],
+                    ["Вопрос сейчас", "Is there a...?", "Are there any...?"],
+                    ["Прошедшее", "There was a...", "There were ..."],
+                    ["Будущее", "There will be a...", "There will be ..."]
+                ]
+            },
+            {
+                "title": "There is / are vs It is / They are",
+                "headers": ["Конструкция", "Когда используем", "Пример"],
+                "rows": [
+                    ["There is/are", "Сообщаем о наличии (впервые)", "There is a cat in the room."],
+                    ["It is", "Уточняем что это (уже знаем)", "It is my cat."],
+                    ["There are", "Сообщаем о наличии (много)", "There are 3 cats."],
+                    ["They are", "Уточняем кто они", "They are my cats."]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "There is 3 books.", "right": "There are 3 books.", "why": "Если предметов много (3), нужно There are."},
+            {"wrong": "There are a cat.", "right": "There is a cat.", "why": "Один предмет — There is."},
+            {"wrong": "There has a cat.", "right": "There is a cat.", "why": "Используем There is, а не There has (это разные конструкции)."},
+            {"wrong": "There are a lot of peoples.", "right": "There are a lot of people.", "why": "People — уже множественное число, буква s не нужна."},
+            {"wrong": "There is many students.", "right": "There are many students.", "why": "Many означает много (множественное), поэтому There are."},
+            {"wrong": "Is there any milk? — Yes, there is any.", "right": "Is there any milk? — Yes, there is.", "why": "В кратком ответе 'any' не повторяем."},
+            {"wrong": "There isn't some chairs.", "right": "There aren't any chairs.", "why": "В отрицаниях с множественным числом используем any, а не some."}
+        ],
+
+        "lifehacks": [
+            "Один предмет (или неисчисляемое) — There IS. Много предметов — There ARE. Запомни это как таблицу умножения.",
+            "There is = 'есть' в первый раз. It is = 'это' когда уже знаем о чем речь.",
+            "В отрицаниях и вопросах с множественным числом используй 'any': There aren't any chairs, Are there any books?",
+            "В прошедшем — was/were (как обычно). В будущем — только will be (не важно, один или много).",
+            "Краткие ответы: Yes, there is / No, there isn't / Yes, there are / No, there aren't. Не отвечай просто 'Yes'."
+        ],
+
+        "text": {
+            "title": "My Flat",
+            "paragraphs": [
+                "I live in a small flat in the city centre. There are three rooms in my flat: a living room, a bedroom and a kitchen. There is also a bathroom and a small hall. The flat is on the fifth floor.",
+                "In the living room there is a big sofa, a TV and a table. There are two armchairs near the window. On the walls there are some pictures. There isn't a fireplace, but I want one.",
+                "In my bedroom there is a bed and a wardrobe. There are some books on the shelf. There isn't a desk, but I usually work at the kitchen table. In the kitchen there is a fridge, a cooker and a small table.",
+                "There isn't a balcony, but there are big windows with a nice view. Is there a lift in my building? Yes, there is! It's very convenient."
+            ]
+        },
+
+        "text_questions": [
+            {"q": "How many rooms are there in the flat?", "options": ["Two", "Three", "Four", "Five"], "correct": "Three"},
+            {"q": "What floor is the flat on?", "options": ["First", "Third", "Fifth", "Tenth"], "correct": "Fifth"},
+            {"q": "What is there in the living room?", "options": ["A bed", "A sofa, a TV and a table", "A fridge", "A desk"], "correct": "A sofa, a TV and a table"},
+            {"q": "What is there on the walls?", "options": ["Nothing", "Some pictures", "A clock", "A mirror"], "correct": "Some pictures"},
+            {"q": "What is there in the bedroom?", "options": ["A bed and a wardrobe", "A sofa", "A fridge", "A cooker"], "correct": "A bed and a wardrobe"},
+            {"q": "What is there on the shelf?", "options": ["Some books", "Some cups", "Some toys", "Nothing"], "correct": "Some books"},
+            {"q": "What is there in the kitchen?", "options": ["Only a table", "A fridge, a cooker and a small table", "A bed", "A sofa"], "correct": "A fridge, a cooker and a small table"},
+            {"q": "Is there a lift in the building?", "options": ["No", "Yes", "Only one", "I don't know"], "correct": "Yes"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "___ a book on the table.", "options": ["There is", "There are", "It is", "They are"], "correct": "There is"},
+            {"type": "choice", "q": "___ many students in the class.", "options": ["There is", "There are", "It is", "They are"], "correct": "There are"},
+            {"type": "choice", "q": "___ any milk in the fridge?", "options": ["Is there", "Are there", "It is", "There is"], "correct": "Is there"},
+            {"type": "choice", "q": "___ a cat and two dogs in the yard.", "options": ["There is", "There are", "It is", "They are"], "correct": "There are"},
+            {"type": "choice", "q": "___ no people in the street.", "options": ["There is", "There are", "It is", "They are"], "correct": "There are"},
+            {"type": "fill", "q": "___ a cat in the garden. (введи There is или There are)", "answer": "There is"},
+            {"type": "fill", "q": "___ 3 cars on the street. (введи There is или There are)", "answer": "There are"},
+            {"type": "fill", "q": "___ any chairs in the room? (введи Is there или Are there)", "answer": "Are there"},
+            {"type": "fill", "q": "___ a bank near here? (введи Is there или Are there)", "answer": "Is there"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["There is 3 books", "There are 3 books", "There have 3 books", "There has 3 books"], "correct": "There are 3 books"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["There are a cat", "There is a cat", "There have a cat", "There has a cat"], "correct": "There is a cat"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["There is many students", "There are many students", "There have many students", "There has many students"], "correct": "There are many students"},
+            {"type": "translate", "q": "Переведи: В комнате есть кошка.", "answer": "There is a cat in the room"},
+            {"type": "translate", "q": "Переведи: На столе 3 книги.", "answer": "There are 3 books on the table"},
+            {"type": "translate", "q": "Переведи: Здесь есть банк?", "answer": "Is there a bank here"},
+            {"type": "translate", "q": "Переведи: В комнате нет стульев.", "answer": "There aren't any chairs in the room"},
+            {"type": "translate", "q": "Переведи: В парке было много людей.", "answer": "There were many people in the park"},
+            {"type": "write", "q": "Опиши свою комнату или квартиру, используя There is / There are (не менее 4 предложений).", "sample": "In my room there is a bed, a table and a computer. There are two chairs near the table. There is a big window on the wall. There are some books on the shelf."}
+        ]
+    },
     
     # ═══════════════════════════════════════════
     # УРОК 1 — PRESENT SIMPLE
@@ -1112,120 +1360,6 @@ GRAMMAR_LESSONS = [
     },
 
     # ═══════════════════════════════════════════
-    # УРОК 5 — АРТИКЛИ (A / AN / THE)
-    # ═══════════════════════════════════════════
-    {
-        "id": "articles",
-        "module": "A1",
-        "title": "Артикли (a / an / the)",
-        "emoji": "🔤",
-        "level": "A1-A2",
-        "intro": "Артикли — самая сложная тема для русскоязычных. В русском их нет, поэтому нужно понять логику с нуля.",
-        "why": "Артикли — это головная боль всех русскоязычных. В русском языке нет артиклей, поэтому 'a', 'an', 'the' кажутся ненужными. Но в английском они несут смысл: 'a' = какой-то один (неважно какой), 'the' = конкретный (тот самый). Если ты не используешь артикли, тебя поймут, но звучать это будет как речь иностранца. С артиклями ты будешь звучать естественно. Изучи это один раз — и пользуйся всю жизнь.",
-
-        "rules": [
-            {"h": "a / an — неопределённый артикль", "text": "Используется с ИСЧИСЛЯЕМЫМИ существительными в ЕДИНСТВЕННОМ числе, когда предмет упоминается ВПЕРВЫЕ. a + согласная: a book, a car, a university (звук 'ю'). an + гласная: an apple, an egg, an hour (звук гласный, потому что 'h' не читается)."},
-            {"h": "the — определённый артикль", "text": "Используется, когда предмет УЖЕ ИЗВЕСТЕН или КОНКРЕТЕН. Ситуации: 1) уже упоминали: I have a cat. The cat is black. 2) единственный в своём роде: the sun, the moon, the sky. 3) с превосходной степенью: the best, the biggest. 4) с порядковыми: the first, the second."},
-            {"h": "Когда артикль НЕ нужен", "text": "1) С множественным числом в общем: I like apples (яблоки вообще). 2) С именами: Anna, Moscow, Russia. 3) С неисчисляемыми в общем: Water is good for you. 4) С 'go to school / bed / work' (учиться, спать, работать — как деятельность). 5) Перед притяжательными: my book, his car."},
-            {"h": "Устойчивые фразы", "text": "БЕЗ артикля: go to bed (спать), go to school (учиться), go to work (работать), at home, at work, in bed, on foot. С артиклем: go to THE school (именно в ту школу), at THE office, on THE bus."},
-            {"h": "Географические названия", "text": "БЕЗ артикля: страны (Russia, France), города (Moscow, London), улицы, озёра. С артиклем THE: USA, UK, Netherlands, Philippines, океаны, моря, реки (the Volga, the Black Sea, the Pacific Ocean), горные массивы (the Alps)."},
-            {"h": "Артикль с профессиями", "text": "С профессиями используем a/an: I am a doctor. She is an engineer. Даже если это первое предложение, но профессия указывает на принадлежность к группе — артикль нужен."},
-            {"h": "Указатели вместо артикля", "text": "Если есть this / that / my / your / some / any / no — артикль НЕ нужен. Нельзя 'my a book', нужно 'my book'. Нельзя 'this the cat', нужно 'this cat'."},
-            {"h": "Артикль с исчисляемыми и неисчисляемыми", "text": "Исчисляемые в единственном числе — ВСЕГДА с артиклем (a/the) или указателем (this/my). Нельзя 'I have cat'. Надо 'I have a cat' или 'I have the cat'. Неисчисляемые (water, money, time) — могут быть без артикля в общем смысле."}
-        ],
-
-        "tables": [
-            {
-                "title": "a vs an — правило звука",
-                "headers": ["Артикль", "Когда", "Примеры"],
-                "rows": [
-                    ["a", "Перед согласным ЗВУКОМ", "a book, a car, a university (ю), a European (ю)"],
-                    ["an", "Перед гласным ЗВУКОМ", "an apple, an egg, an hour (h не читается), an honest man"]
-                ]
-            },
-            {
-                "title": "Когда нужен the",
-                "headers": ["Ситуация", "Пример"],
-                "rows": [
-                    ["Уже упоминали", "I bought a book. The book was interesting."],
-                    ["Единственный в своём роде", "the sun, the moon, the sky"],
-                    ["Превосходная степень", "the best, the most beautiful"],
-                    ["Порядковые числительные", "the first, the second, the last"],
-                    ["Океаны, реки, моря", "the Pacific, the Volga, the Black Sea"]
-                ]
-            },
-            {
-                "title": "Когда артикль НЕ нужен",
-                "headers": ["Ситуация", "Пример"],
-                "rows": [
-                    ["Множественное в общем", "I like apples."],
-                    ["Имена, города, страны", "Anna, Moscow, Russia"],
-                    ["Неисчисляемые в общем", "Water is good for you."],
-                    ["Устойчивые выражения", "go to bed, at home, at work"],
-                    ["С притяжательными", "my book, his car"]
-                ]
-            }
-        ],
-
-        "mistakes": [
-            {"wrong": "I have cat.", "right": "I have a cat.", "why": "Исчисляемое в ед. числе — обязательно с артиклем"},
-            {"wrong": "I saw a elephant.", "right": "I saw an elephant.", "why": "Перед гласным звуком — an"},
-            {"wrong": "The sun is a star.", "right": "The sun is a star.", "why": "Здесь всё правильно — sun и star с разными артиклями"},
-            {"wrong": "I like the apples.", "right": "I like apples.", "why": "Множественное в общем смысле — без the"},
-            {"wrong": "She is doctor.", "right": "She is a doctor.", "why": "С профессией нужен a/an"},
-            {"wrong": "I live in the Moscow.", "right": "I live in Moscow.", "why": "С городами — без артикля"}
-        ],
-
-        "lifehacks": [
-            "Правило звука: a + согласный, an + гласный. Не буква, а ЗВУК. university = 'юниверсити' → a. hour = 'ауэр' → an.",
-            "Первое упоминание — a/an. Второе — the. I have a cat. The cat is black.",
-            "С профессией — всегда a/an. I am a doctor. She is a teacher.",
-            "Если есть притяжательное (my, your, his) — артикль НЕ нужен. Никогда.",
-            "Единственный в мире — the: the sun, the moon, the Earth, the sky."
-        ],
-
-        "text": {
-            "title": "A Trip to the Zoo",
-            "paragraphs": [
-                "Yesterday I went to a zoo with my sister. We saw a lot of interesting animals there. First we visited an elephant. The elephant was huge and grey. Then we went to see a lion. The lion was sleeping and we couldn't wake him up.",
-                "My sister liked a monkey most of all. The monkey was jumping and playing with a ball. It was very funny. We also saw a giraffe, a zebra, and a bear. The bear was eating honey.",
-                "After the zoo we went to a café. I ordered a coffee and my sister ordered a tea. We talked about the animals we saw. It was the best day of the week. The zoo is my favourite place in the city."
-            ]
-        },
-
-        "text_questions": [
-            {"q": "Where did they go yesterday?", "options": ["To a park", "To a zoo", "To a museum", "To a cinema"], "correct": "To a zoo"},
-            {"q": "What was the elephant like?", "options": ["Small and green", "Huge and grey", "Fast and angry", "Old and sad"], "correct": "Huge and grey"},
-            {"q": "What was the lion doing?", "options": ["Eating", "Sleeping", "Running", "Roaring"], "correct": "Sleeping"},
-            {"q": "What animal did the sister like most?", "options": ["An elephant", "A monkey", "A giraffe", "A bear"], "correct": "A monkey"},
-            {"q": "What was the monkey doing?", "options": ["Sleeping", "Eating bananas", "Jumping and playing with a ball", "Climbing a tree"], "correct": "Jumping and playing with a ball"},
-            {"q": "What was the bear eating?", "options": ["Fish", "Honey", "Bread", "Apples"], "correct": "Honey"},
-            {"q": "What did they order at the café?", "options": ["Two coffees", "A coffee and a tea", "Two teas", "Juice and water"], "correct": "A coffee and a tea"},
-            {"q": "What does the author think about the zoo?", "options": ["It's boring", "It's the best day of the week", "It's too small", "It's scary"], "correct": "It's the best day of the week"}
-        ],
-
-        "test": [
-            {"type": "choice", "q": "I saw ___ elephant at the zoo.", "options": ["a", "an", "the", "—"], "correct": "an"},
-            {"type": "choice", "q": "___ sun rises in the east.", "options": ["A", "An", "The", "—"], "correct": "The"},
-            {"type": "choice", "q": "I like ___ apples.", "options": ["a", "an", "the", "—"], "correct": "—"},
-            {"type": "choice", "q": "She is ___ doctor.", "options": ["a", "an", "the", "—"], "correct": "a"},
-            {"type": "choice", "q": "I bought ___ book yesterday. ___ book is interesting.", "options": ["a / A", "a / The", "the / A", "an / The"], "correct": "a / The"},
-            {"type": "choice", "q": "We went to ___ school to pick up the kids.", "options": ["a", "an", "the", "—"], "correct": "the"},
-            {"type": "fill", "q": "She has ___ dog. (введи только артикль)", "answer": "a"},
-            {"type": "fill", "q": "___ moon is beautiful tonight. (введи только артикль)", "answer": "the"},
-            {"type": "fill", "q": "I am ___ engineer. (введи только артикль)", "answer": "an"},
-            {"type": "fill", "q": "I like ___ music. (введи '—' если артикль не нужен)", "answer": "—"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["I have cat", "I have a cat", "I have the cat", "I have an cat"], "correct": "I have a cat"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["I saw a elephant", "I saw an elephant", "I saw the elephant", "I saw elephant"], "correct": "I saw an elephant"},
-            {"type": "error", "q": "Найди правильное:", "options": ["She is doctor", "She is a doctor", "She is the doctor", "She is an doctor"], "correct": "She is a doctor"},
-            {"type": "translate", "q": "Переведи: У меня есть кошка.", "answer": "I have a cat"},
-            {"type": "translate", "q": "Переведи: Солнце яркое.", "answer": "The sun is bright"},
-            {"type": "translate", "q": "Переведи: Я люблю музыку.", "answer": "I like music"},
-            {"type": "translate", "q": "Переведи: Она инженер.", "answer": "She is an engineer"}
-        ]
-    },
-
-    # ═══════════════════════════════════════════
     # УРОК 6 — ПРЕДЛОГИ (IN / ON / AT)
     # ═══════════════════════════════════════════
     {
@@ -1323,110 +1457,6 @@ GRAMMAR_LESSONS = [
             {"type": "translate", "q": "Переведи: Встретимся в понедельник.", "answer": "See you on Monday"},
             {"type": "translate", "q": "Переведи: Встреча в 3 часа.", "answer": "The meeting is at 3 o'clock"},
                         {"type": "translate", "q": "Переведи: Книга на столе.", "answer": "The book is on the table"}
-        ]
-    },
-
-    # ═══════════════════════════════════════════
-    # УРОК 7 — THERE IS / THERE ARE
-    # ═══════════════════════════════════════════
-    {
-        "id": "there_is_are",
-        "module": "A1",
-        "title": "There is / There are",
-        "emoji": "🏠",
-        "level": "A1-A2",
-        "intro": "Конструкция «есть / находится». Используем, когда говорим о наличии чего-то впервые.",
-        "why": "Конструкция There is / There are — это один из способов сказать «есть» или «находится». По-русски мы говорим «В комнате есть кошка», а по-английски — «There is a cat in the room». Это не просто «есть», а «существует где-то». Без этой конструкции ты не сможешь описать комнату, город, квартиру или любое место. Она используется очень часто — в описаниях, рассказах, объявлениях.",
-
-        "rules": [
-            {"h": "There is — для одного", "text": "There is a book on the table. (На столе (есть) книга.) There is a cat in the room. (В комнате (есть) кошка.) Всегда с исчисляемым в единственном числе или с неисчисляемым."},
-            {"h": "There are — для многих", "text": "There are 3 books on the table. (На столе 3 книги.) There are many people here. (Здесь много людей.) Всегда с множественным числом."},
-            {"h": "Отрицание", "text": "There isn't / There aren't: There isn't any milk. (Молока нет.) There aren't any chairs. (Стульев нет.) С неисчисляемыми и множественными используем 'any'."},
-            {"h": "Вопрос", "text": "Is there...? Are there...?: Is there a bank near here? (Есть ли здесь банк?) Are there any shops? (Есть ли какие-нибудь магазины?) Ответы: Yes, there is. No, there isn't."},
-            {"h": "Прошедшее время", "text": "There was — для одного (в прошлом). There were — для многих. There was a cat here yesterday. There were many people at the party."},
-            {"h": "Будущее время", "text": "There will be — для всех. There will be a meeting tomorrow. There will be many people."},
-            {"h": "Разница с 'it is / they are'", "text": "There is a cat — сообщаем, что кошка существует. It is a cat — уточняем, что это именно кошка (не собака). There are books — сообщаем, что книги есть. They are books — уточняем, что это книги."},
-            {"h": "Порядок слов", "text": "There is / There are + предмет + место. There is a cat IN THE ROOM. There are books ON THE TABLE. Место в конце предложения."}
-        ],
-
-        "tables": [
-            {
-                "title": "Все формы There is/are",
-                "headers": ["Время", "Один / Неисчисл.", "Много"],
-                "rows": [
-                    ["Настоящее", "There is a...", "There are ..."],
-                    ["Отрицание сейчас", "There isn't any...", "There aren't any..."],
-                    ["Вопрос сейчас", "Is there a...?", "Are there any...?"],
-                    ["Прошедшее", "There was a...", "There were ..."],
-                    ["Будущее", "There will be a...", "There will be ..."]
-                ]
-            },
-            {
-                "title": "There is / are vs It is / They are",
-                "headers": ["Конструкция", "Когда", "Пример"],
-                "rows": [
-                    ["There is/are", "Сообщаем о наличии (впервые)", "There is a cat in the room."],
-                    ["It is", "Уточняем что это (уже знаем)", "It is my cat."],
-                    ["There are", "Сообщаем о наличии (много)", "There are 3 cats."],
-                    ["They are", "Уточняем кто они", "They are my cats."]
-                ]
-            }
-        ],
-
-        "mistakes": [
-            {"wrong": "There is 3 books.", "right": "There are 3 books.", "why": "Множественное — there are"},
-            {"wrong": "There are a cat.", "right": "There is a cat.", "why": "Один — there is"},
-            {"wrong": "Is there any milk?", "right": "Is there any milk?", "why": "Всё правильно — milk неисчисляемое, is"},
-            {"wrong": "There has a cat.", "right": "There is a cat.", "why": "There is, а не there has"},
-            {"wrong": "There are a lot of peoples.", "right": "There are a lot of people.", "why": "People — уже множественное"},
-            {"wrong": "There is many students.", "right": "There are many students.", "why": "Many + множественное → there are"}
-        ],
-
-        "lifehacks": [
-            "Один предмет / неисчисляемое → there IS. Много → there ARE.",
-            "There is = 'есть' в первый раз. It is = 'это' когда уже знаем о чём речь.",
-            "С 'any' — в отрицаниях и вопросах: there isn't any, are there any.",
-            "В прошедшем — was / were (как обычно). В будущем — only will be."
-        ],
-
-        "text": {
-            "title": "My Flat",
-            "paragraphs": [
-                "I live in a small flat in the city centre. There are three rooms in my flat: a living room, a bedroom and a kitchen. There is also a bathroom and a small hall. The flat is on the fifth floor.",
-                "In the living room there is a big sofa, a TV and a table. There are two armchairs near the window. On the walls there are some pictures. There isn't a fireplace, but I want one.",
-                "In my bedroom there is a bed and a wardrobe. There are some books on the shelf. There isn't a desk, but I usually work at the kitchen table. In the kitchen there is a fridge, a cooker and a small table.",
-                "There isn't a balcony, but there are big windows with a nice view. Is there a lift in my building? Yes, there is! It's very convenient."
-            ]
-        },
-
-        "text_questions": [
-            {"q": "How many rooms are there in the flat?", "options": ["Two", "Three", "Four", "Five"], "correct": "Three"},
-            {"q": "What floor is the flat on?", "options": ["First", "Third", "Fifth", "Tenth"], "correct": "Fifth"},
-            {"q": "What is there in the living room?", "options": ["A bed", "A sofa, a TV and a table", "A fridge", "A desk"], "correct": "A sofa, a TV and a table"},
-            {"q": "What is there on the walls?", "options": ["Nothing", "Some pictures", "A clock", "A mirror"], "correct": "Some pictures"},
-            {"q": "What is there in the bedroom?", "options": ["A bed and a wardrobe", "A sofa", "A fridge", "A cooker"], "correct": "A bed and a wardrobe"},
-            {"q": "What is there on the shelf?", "options": ["Some books", "Some cups", "Some toys", "Nothing"], "correct": "Some books"},
-            {"q": "What is there in the kitchen?", "options": ["Only a table", "A fridge, a cooker and a small table", "A bed", "A sofa"], "correct": "A fridge, a cooker and a small table"},
-            {"q": "Is there a lift in the building?", "options": ["No", "Yes", "Only one", "I don't know"], "correct": "Yes"}
-        ],
-
-        "test": [
-            {"type": "choice", "q": "___ a book on the table.", "options": ["There is", "There are", "It is", "They are"], "correct": "There is"},
-            {"type": "choice", "q": "___ many students in the class.", "options": ["There is", "There are", "It is", "They are"], "correct": "There are"},
-            {"type": "choice", "q": "___ any milk in the fridge?", "options": ["Is there", "Are there", "It is", "There is"], "correct": "Is there"},
-            {"type": "choice", "q": "___ a cat and two dogs in the yard.", "options": ["There is", "There are", "It is", "They are"], "correct": "There are"},
-            {"type": "choice", "q": "___ no people in the street.", "options": ["There is", "There are", "It is", "They are"], "correct": "There are"},
-            {"type": "fill", "q": "___ a cat in the garden. (введи There is или There are)", "answer": "There is"},
-            {"type": "fill", "q": "___ 3 cars on the street. (введи There is или There are)", "answer": "There are"},
-            {"type": "fill", "q": "___ any chairs in the room? (введи Is there или Are there)", "answer": "Are there"},
-            {"type": "fill", "q": "___ a bank near here? (введи Is there или Are there)", "answer": "Is there"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["There is 3 books", "There are 3 books", "There have 3 books", "There has 3 books"], "correct": "There are 3 books"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["There are a cat", "There is a cat", "There have a cat", "There has a cat"], "correct": "There is a cat"},
-            {"type": "error", "q": "Найди правильное:", "options": ["There is many students", "There are many students", "There have many students", "There has many students"], "correct": "There are many students"},
-            {"type": "translate", "q": "Переведи: В комнате есть кошка.", "answer": "There is a cat in the room"},
-            {"type": "translate", "q": "Переведи: На столе 3 книги.", "answer": "There are 3 books on the table"},
-            {"type": "translate", "q": "Переведи: Здесь есть банк?", "answer": "Is there a bank here"},
-            {"type": "translate", "q": "Переведи: В комнате нет стульев.", "answer": "There aren't any chairs in the room"}
         ]
     },
 
