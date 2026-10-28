@@ -421,6 +421,131 @@ GRAMMAR_LESSONS = [
             {"type": "write", "q": "Напиши 3-5 предложений о том, что у тебя есть (сколько книг, друзей, животных), и что ты видишь вокруг.", "sample": "I have two cats and three dogs. My friends are students. There are many books in my room. I see two boys and three girls in the park. They have many toys."}
         ]
     },
+
+        # ═══════════════════════════════════════════
+    # УРОК — УКАЗАТЕЛЬНЫЕ МЕСТОИМЕНИЯ
+    # ═══════════════════════════════════════════
+    {
+        "id": "demonstratives",
+        "title": "This / That / These / Those",
+        "emoji": "👉",
+        "level": "A1",
+        "module": "A1",
+        "intro": "В русском мы говорим «это» и «то» без разницы, сколько предметов и на каком они расстоянии. В английском всё строго: если предмет рядом и он один — this. Если рядом и их много — these. Если далеко и один — that. Если далеко и много — those. Перепутать их — как показать пальцем не туда.",
+        
+        "why": "Ты часто будешь говорить «Это моя книга», «Тот дом красивый», «Эти люди мои друзья». Без указательных местоимений ты не сможешь выделить предмет среди других. В английском они используются постоянно: когда ты что-то показываешь, выбираешь в магазине, сравниваешь или просто обращаешь внимание собеседника. Особенно важно не путать единственное и множественное число, потому что «это» (один) и «эти» (много) в английском — разные слова. Если ты скажешь 'This books are mine', это будет звучать как ошибка. Этот урок научит тебя моментально выбирать правильное слово в зависимости от расстояния и количества.",
+
+        "rules": [
+            {"h": "Два главных вопроса для выбора", "text": "Чтобы выбрать правильное слово, задай себе два вопроса: 1) Сколько предметов? Один или много? 2) Где они? Рядом со мной (близко) или далеко? В зависимости от ответов ты получишь одно из четырех слов: this, that, these, those. Это как таблица 2х2. Если ты поймешь эту логику, то больше никогда не перепутаешь."},
+            
+            {"h": "This — один предмет, близко", "text": "This используется, когда предмет находится рядом с тобой (в руке, на столе перед тобой) и он в единственном числе. Это аналог русского «этот» или «эта». Пример: ты берешь ручку и говоришь: 'This is my pen' (Это моя ручка). Или показываешь на телефон в своей руке: 'This phone is new' (Этот телефон новый). This всегда сопровождается глаголом в единственном числе (is). Если предмет рядом, но ты показываешь на него пальцем, тоже используй this."},
+            
+            {"h": "These — много предметов, близко", "text": "These используется, когда предметов много и они находятся рядом с тобой. Это аналог русского «эти». Пример: ты показываешь на книги на своем столе: 'These books are mine' (Эти книги мои). Или на людей рядом: 'These people are my friends' (Эти люди — мои друзья). These всегда сопровождается глаголом во множественном числе (are). Запомни: если ты видишь много предметов рядом — это these."},
+            
+            {"h": "That — один предмет, далеко", "text": "That используется, когда предмет находится далеко от тебя (на другой стороне комнаты, на улице, в соседнем доме) и он в единственном числе. Это аналог русского «тот» или «та». Пример: ты показываешь на дом вдалеке: 'That house is big' (Тот дом большой). Или на машину на другой стороне дороги: 'That car is red' (Та машина красная). That также используется с глаголом в единственном числе (is). Если ты видишь предмет, но не можешь до него дотянуться — это that."},
+            
+            {"h": "Those — много предметов, далеко", "text": "Those используется, когда предметов много и они находятся далеко. Это аналог русского «те». Пример: ты смотришь на горы вдалеке: 'Those mountains are beautiful' (Те горы красивы). Или на людей на другой стороне улицы: 'Those people are waiting for a bus' (Те люди ждут автобус). Those всегда с глаголом во множественном числе (are). Если предметов много и они далеко — это those."},
+            
+            {"h": "Как это работает в диалоге", "text": "Представь, что ты в магазине. Ты берешь футболку в руки и спрашиваешь продавца: 'How much is this?' (Сколько стоит эта?). Продавец показывает на футболку в витрине (далеко) и говорит: 'That one is cheaper' (Та дешевле). Ты видишь несколько футболок рядом с собой и спрашиваешь: 'Are these on sale?' (Эти на распродаже?). А продавец показывает на другие футболки на другом конце зала: 'Those are new arrivals' (Те — новинки). Видишь? Расстояние и количество решают всё."},
+            
+            {"h": "Слово-обманка: 'This is' в значении 'Это'", "text": "Когда ты представляешь кого-то или что-то в первый раз, ты говоришь 'This is...'. Например: 'This is my friend Tom' (Это мой друг Том). Даже если Том стоит рядом, ты используешь this. Или когда ты берешь телефон и говоришь в трубку: 'Hi, this is Alex' (Привет, это Алекс). В этих случаях this используется не как указание на расстояние, а как способ представить что-то. Это надо просто запомнить."},
+            
+            {"h": "Частая ошибка: путают число", "text": "Самая большая ошибка новичков — говорить 'This books' или 'These book'. Запомни: this и that — только для одного предмета. these и those — только для многих. Если ты говоришь 'This books', это значит, что ты показываешь на много книг и говоришь 'это', что неправильно. Нужно 'These books'. Проверяй себя: если слово заканчивается на -s или обозначает много предметов, используй these или those."},
+            
+            {"h": "Когда 'that' — это не расстояние, а 'то, что'", "text": "Иногда that используется не как указательное местоимение, а как союз или относительное местоимение. Например: 'I know that you are right' (Я знаю, что ты прав). Здесь that не указывает на расстояние, это просто связка. Или 'The book that I read' (Книга, которую я читал). Это другая роль that, которую мы будем разбирать позже (в Relative Clauses). Но сейчас, когда ты видишь that перед существительным ('that car'), это указательное местоимение, и оно означает 'та машина'."}
+        ],
+
+        "tables": [
+            {
+                "title": "Таблица выбора",
+                "headers": ["Расстояние", "Один предмет", "Много предметов"],
+                "rows": [
+                    ["Близко (рядом)", "This", "These"],
+                    ["Далеко", "That", "Those"]
+                ]
+            },
+            {
+                "title": "Примеры с глаголом",
+                "headers": ["Слово", "Глагол", "Пример"],
+                "rows": [
+                    ["This", "is", "This is my book."],
+                    ["These", "are", "These are my books."],
+                    ["That", "is", "That is your car."],
+                    ["Those", "are", "Those are your cars."]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "This books are mine.", "right": "These books are mine.", "why": "Books — множественное число, нужно these."},
+            {"wrong": "These book is mine.", "right": "This book is mine.", "why": "Book — единственное число, нужно this."},
+            {"wrong": "That are my friends.", "right": "Those are my friends.", "why": "Friends — множественное число, нужно those."},
+            {"wrong": "Those is a house.", "right": "That is a house.", "why": "House — единственное число, нужно that."},
+            {"wrong": "This is my books.", "right": "These are my books.", "why": "Если книг много, нужны these и are."},
+            {"wrong": "I like this cars.", "right": "I like these cars.", "why": "Cars — множественное число, значит these."},
+            {"wrong": "Look at that people.", "right": "Look at those people.", "why": "People — множественное число, значит those."},
+            {"wrong": "These is my phone.", "right": "This is my phone.", "why": "Phone — единственное, значит this и is."}
+        ],
+
+        "lifehacks": [
+            "Запомни таблицу 2х2: Близко один — This. Близко много — These. Далеко один — That. Далеко много — Those.",
+            "Если сомневаешься, просто потянись рукой к предмету. Если достаешь — this/these. Если нет — that/those.",
+            "This и that всегда дружат с is. These и those всегда дружат с are. Это железное правило.",
+            "Слово 'people' (люди) — это множественное число. Поэтому всегда 'these people' или 'those people', а не 'this people'.",
+            "Когда представляешь кого-то ('Это мой друг'), всегда используй this is. Даже если друг стоит далеко."
+        ],
+
+        "text": {
+            "title": "At the Market",
+            "paragraphs": [
+                "I am at the market with my friend. We are looking at different things. I pick up an apple and ask: 'How much is this apple?' The seller says: 'This apple is 50 rubles.' Then I point to apples in a big box far away: 'And how much are those apples?' The seller says: 'Those apples are 100 rubles for a kilo.'",
+                "My friend sees a beautiful bag near her. She says: 'I like this bag.' She points to a bag on a high shelf far away and says: 'But I like that bag more.' She asks the seller: 'Can I see those bags on the top shelf?' The seller brings them down.",
+                "We also see many people at the market. 'These people are buying vegetables,' I say. 'And those people are selling fruit.' My friend laughs: 'This is a very busy market.' I agree: 'Yes, that is true. These markets are always busy.'",
+                "I buy this apple and those apples. My friend buys that bag. We are happy with our purchases. 'This was a good day,' I say. 'Yes, that was fun,' she agrees."
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What does the person ask about the apple in their hand?", "options": ["How much is this apple?", "How much is that apple?", "How much are these apples?", "How much are those apples?"], "correct": "How much is this apple?"},
+            {"q": "Where are the apples that the seller says are 100 rubles?", "options": ["In the person's hand", "In a big box far away", "On the top shelf", "Behind the seller"], "correct": "In a big box far away"},
+            {"q": "What does the friend like near her?", "options": ["A bag", "An apple", "A book", "A dress"], "correct": "A bag"},
+            {"q": "What does the friend ask to see?", "options": ["Those bags on the top shelf", "This bag", "That apple", "These people"], "correct": "Those bags on the top shelf"},
+            {"q": "What are 'these people' doing?", "options": ["Buying vegetables", "Selling fruit", "Waiting", "Walking"], "correct": "Buying vegetables"},
+            {"q": "What are 'those people' doing?", "options": ["Buying vegetables", "Selling fruit", "Waiting", "Walking"], "correct": "Selling fruit"},
+            {"q": "What did the person buy?", "options": ["Only this apple", "This apple and those apples", "A bag", "Nothing"], "correct": "This apple and those apples"},
+            {"q": "What did the friend buy?", "options": ["This bag", "That bag", "Those bags", "Nothing"], "correct": "That bag"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "___ is my book. (близко, одна)", "options": ["This", "That", "These", "Those"], "correct": "This"},
+            {"type": "choice", "q": "___ are my books. (близко, много)", "options": ["This", "That", "These", "Those"], "correct": "These"},
+            {"type": "choice", "q": "___ is your car. (далеко, одна)", "options": ["This", "That", "These", "Those"], "correct": "That"},
+            {"type": "choice", "q": "___ are your cars. (далеко, много)", "options": ["This", "That", "These", "Those"], "correct": "Those"},
+            {"type": "choice", "q": "___ is a cat. (близко, один)", "options": ["This", "That", "These", "Those"], "correct": "This"},
+            {"type": "choice", "q": "___ are cats. (далеко, много)", "options": ["This", "That", "These", "Those"], "correct": "Those"},
+            {"type": "choice", "q": "Look at ___ people. (далеко)", "options": ["this", "that", "these", "those"], "correct": "those"},
+            {"type": "choice", "q": "I like ___ bag. (близко, одна)", "options": ["this", "that", "these", "those"], "correct": "this"},
+            {"type": "choice", "q": "___ house is big. (далеко, один)", "options": ["This", "That", "These", "Those"], "correct": "That"},
+            {"type": "choice", "q": "___ books are new. (близко, много)", "options": ["This", "That", "These", "Those"], "correct": "These"},
+            {"type": "fill", "q": "___ is my pen. (близко, одна)", "answer": "This"},
+            {"type": "fill", "q": "___ are my pens. (близко, много)", "answer": "These"},
+            {"type": "fill", "q": "___ is his car. (далеко, одна)", "answer": "That"},
+            {"type": "fill", "q": "___ are his cars. (далеко, много)", "answer": "Those"},
+            {"type": "fill", "q": "Look at ___ bird. (далеко, одна)", "answer": "that"},
+            {"type": "fill", "q": "Look at ___ birds. (близко, много)", "answer": "these"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["This books are mine", "These books are mine", "This book are mine", "These book is mine"], "correct": "These books are mine"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["That is my friends", "Those are my friends", "That are my friends", "Those is my friends"], "correct": "Those are my friends"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["This is a good day", "These is a good day", "That are a good day", "Those is a good day"], "correct": "This is a good day"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I like this cars", "I like these cars", "I like that cars", "I like those car"], "correct": "I like these cars"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["Look at those people", "Look at that people", "Look at this people", "Look at these people (если далеко)"], "correct": "Look at those people"},
+            {"type": "translate", "q": "Переведи: Это моя книга. (близко, одна)", "answer": "This is my book"},
+            {"type": "translate", "q": "Переведи: Те книги мои. (далеко, много)", "answer": "Those books are mine"},
+            {"type": "translate", "q": "Переведи: Этот дом большой.", "answer": "This house is big"},
+            {"type": "translate", "q": "Переведи: Эти люди мои друзья.", "answer": "These people are my friends"},
+            {"type": "translate", "q": "Переведи: Посмотри на ту машину.", "answer": "Look at that car"},
+            {"type": "write", "q": "Напиши 3-5 предложений о том, что ты видишь вокруг себя прямо сейчас (используй this/these для близких предметов и that/those для далеких).", "sample": "This is my phone. These are my books on the table. That is a window far from me. Those are trees outside. This room is very nice."}
+        ]
+    },
     
     # ═══════════════════════════════════════════
     # УРОК 1 — PRESENT SIMPLE
