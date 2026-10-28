@@ -1861,7 +1861,7 @@ def study_page():
         })
 
         # 2. Добавляем заглушки (которых еще нет в базе)
-            PLACEHOLDERS = [
+        PLACEHOLDERS = [
         # --- A1 БАЗА ---
         {"id": "intro_english", "title": "Введение в английский", "emoji": "👋", "level": "A1", "module": "A1"},
         {"id": "to_be", "title": "Глагол to be (am / is / are)", "emoji": "🪪", "level": "A1", "module": "A1"},
