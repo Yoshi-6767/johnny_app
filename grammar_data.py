@@ -915,69 +915,98 @@ GRAMMAR_LESSONS = [
         ]
     },
     
-    # ═══════════════════════════════════════════
-    # УРОК 1 — PRESENT SIMPLE
+       # ═══════════════════════════════════════════
+    # УРОК — PRESENT SIMPLE
     # ═══════════════════════════════════════════
     {
         "id": "present_simple",
-        "module": "A1",
         "title": "Present Simple",
         "emoji": "🕐",
-        "level": "A1-A2",
-        "intro": "Простое настоящее время — самое базовое в английском. Используется для фактов, привычек и повторяющихся действий.",
-        "why": "Present Simple — это «фундамент» английского. Без него не обходится ни один разговор: ты рассказываешь о себе, о работе, о том, что любишь, что делаешь каждый день. Если ты не освоишь Present Simple, дальше двигаться будет очень сложно. Он используется в 30-40% всех предложений на английском. Изучи его как следует — и половина языка будет у тебя в кармане.",
+        "level": "A1",
+        "module": "A1",
+        "intro": "Простое настоящее время — это фундамент английского. Если ты не знаешь Present Simple, ты не сможешь сказать о себе ничего: ни где ты живешь, ни где работаешь, ни что любишь. Это время используется в 30-40% всех разговоров на английском.",
+        
+        "why": "Представь, что ты знакомишься с иностранцем. Он спрашивает: 'What do you do?' (Чем занимаешься?). Если ты не знаешь Present Simple, ты не сможешь ответить. Ты не сможешь рассказать о своей семье, о своих увлечениях, о том, что ты делаешь каждое утро. В русском языке мы говорим «Я работаю», «Она учится» — и это прошедшее время, но оно обозначает привычку. В английском для привычек и фактов есть отдельное время. Без него ты не сможешь сказать ни одно предложение о своей повседневной жизни. Это самое важное время в языке. Освой его — и ты уже сможешь общаться на базовые темы.",
 
         "rules": [
-            {"h": "Когда использовать", "text": "1) Факты: I live in Russia. The Earth is round. 2) Привычки: I wake up at 7 every day. 3) Расписания: The train leaves at 9. 4) Постоянные состояния: She works in a bank."},
-            {"h": "Как образуется (утверждение)", "text": "Для I / you / we / they — глагол в базовой форме: I work, you play, we study, they live. Для he / she / it — добавляем -s или -es: he works, she plays, it goes. Правило: 3-е лицо единственное число — всегда с окончанием."},
-            {"h": "Правило -s / -es", "text": "Обычно просто -s: work → works. Если глагол кончается на -s, -sh, -ch, -x, -o: добавляем -es (go → goes, watch → watches, finish → finishes). Если кончается на согласную + y: y меняется на i + es (study → studies, fly → flies)."},
-            {"h": "Отрицание", "text": "Для I / you / we / they — do not (don't) + глагол: I don't work, you don't play. Для he / she / it — does not (doesn't) + глагол в базовой форме: he doesn't work, she doesn't play. ВАЖНО: после doesn't глагол БЕЗ -s: не 'he doesn't works', а 'he doesn't work'."},
-            {"h": "Вопрос", "text": "Do / Does + подлежащее + глагол: Do you work? Does he work? Ответы: Yes, I do. No, I don't. Yes, he does. No, he doesn't."},
-            {"h": "Маркеры времени", "text": "always (всегда), usually (обычно), often (часто), sometimes (иногда), rarely (редко), never (никогда), every day / week / month (каждый день / неделю / месяц), on Mondays (по понедельникам)."},
-            {"h": "Порядок слов", "text": "Прямой порядок: подлежащее + глагол + дополнение. I like coffee. She reads books. НЕ наоборот! В английском фиксированный порядок слов — в отличие от русского."},
-            {"h": "Наречия частоты", "text": "always, usually, often, sometimes, rarely, never — стоят ПЕРЕД смысловым глаголом, но ПОСЛЕ глагола to be: I always drink coffee. She is never late. НЕ 'I drink always coffee'."}
+            {"h": "Когда использовать Present Simple?", "text": "Present Simple используется в нескольких случаях: 1) Факты и общеизвестные истины: The Earth is round (Земля круглая). Water boils at 100°C (Вода кипит при 100 градусах). 2) Привычки и регулярные действия: I wake up at 7 every day (Я просыпаюсь в 7 каждый день). She goes to the gym on Mondays (Она ходит в спортзал по понедельникам). 3) Расписания и графики: The train leaves at 9 (Поезд отправляется в 9). The movie starts at 8 (Фильм начинается в 8). 4) Постоянные состояния: I live in Moscow (Я живу в Москве). She works in a bank (Она работает в банке). Во всех этих случаях действие не происходит прямо сейчас, оно происходит регулярно или является фактом."},
+            
+            {"h": "Как образуется утверждение (I / You / We / They)", "text": "Для местоимений I, You, We, They мы просто используем глагол в его базовой форме (той, которая в словаре). Например: I work (Я работаю). You play (Ты играешь). We study (Мы учимся). They live (Они живут). Здесь нет никаких окончаний, глагол не меняется. Это самая простая часть. Если ты видишь в предложении I, You, We, They — просто ставь глагол в начальной форме, и всё будет правильно."},
+            
+            {"h": "Как образуется утверждение (He / She / It)", "text": "Для местоимений He, She, It (третье лицо единственное число) мы добавляем к глаголу окончание -s или -es. Это правило очень важно запомнить, потому что это самая частая ошибка новичков. He works (Он работает). She plays (Она играет). It rains (Идет дождь). Если глагол заканчивается на -s, -sh, -ch, -x, -o, мы добавляем -es: he goes (он ходит), she watches (она смотрит), it finishes (это заканчивается). Если глагол заканчивается на согласную + y, мы меняем y на i и добавляем es: study → he studies (он учится). Если гласная + y, просто + s: play → he plays."},
+            
+            {"h": "Отрицание (I / You / We / They)", "text": "Чтобы сказать, что действие НЕ происходит, мы используем вспомогательный глагол do + not (don't) + глагол в базовой форме. Для I, You, We, They: I don't work (Я не работаю). You don't play (Ты не играешь). We don't study (Мы не учимся). They don't live here (Они здесь не живут). Важно: после don't глагол всегда в базовой форме, без -s. Нельзя сказать 'I don't works'. Правильно: I don't work."},
+            
+            {"h": "Отрицание (He / She / It)", "text": "Для He, She, It мы используем does + not (doesn't) + глагол в базовой форме. He doesn't work (Он не работает). She doesn't play (Она не играет). It doesn't matter (Это не имеет значения). ВАЖНО: после doesn't глагол теряет окончание -s! Нельзя сказать 'He doesn't works'. Правильно: He doesn't work. Почему? Потому что окончание -s уже перешло к does. Мы не можем сказать 'He doesn't works', потому что тогда -s будет два раза."},
+            
+            {"h": "Вопрос (I / You / We / They)", "text": "Чтобы задать вопрос, мы ставим Do перед подлежащим: Do you work? (Ты работаешь?). Do they live here? (Они здесь живут?). Do we study? (Мы учимся?). После do глагол в базовой форме. Ответы: Yes, I do. No, I don't. Yes, they do. No, they don't."},
+            
+            {"h": "Вопрос (He / She / It)", "text": "Для He, She, It используем Does перед подлежащим: Does he work? (Он работает?). Does she play? (Она играет?). Does it matter? (Это имеет значение?). После does глагол в базовой форме (без -s). Ответы: Yes, he does. No, he doesn't. Yes, she does. No, she doesn't."},
+            
+            {"h": "Специальные вопросы (Wh-questions)", "text": "Когда мы задаем вопрос с вопросительным словом (What, Where, When, Why, How), мы ставим это слово в начало, затем do/does, затем подлежащее, затем глагол. Например: Where do you live? (Где ты живешь?). What does he do? (Что он делает?). When do they come? (Когда они приходят?). Why does she cry? (Почему она плачет?). Обрати внимание на порядок слов: вопросительное слово + do/does + подлежащее + глагол."},
+            
+            {"h": "Наречия частоты (always, usually, never)", "text": "В Present Simple мы часто используем наречия частоты: always (всегда), usually (обычно), often (часто), sometimes (иногда), rarely (редко), never (никогда). Они ставятся ПЕРЕД смысловым глаголом, но ПОСЛЕ глагола to be. Например: I always drink coffee in the morning (Я всегда пью кофе утром). She is never late (Она никогда не опаздывает). Нельзя сказать 'I drink always coffee' — это ошибка. Наречие должно быть перед глаголом."},
+            
+            {"h": "Маркеры времени Present Simple", "text": "Чтобы понять, что перед нами Present Simple, ищи в предложении следующие маркеры: every day/week/month/year (каждый день/неделю/месяц/год), on Mondays (по понедельникам), always (всегда), usually (обычно), often (часто), sometimes (иногда), rarely (редко), never (никогда), as a rule (как правило). Если ты видишь эти слова, смело используй Present Simple. Например: I go to the gym every Monday. She usually wakes up early."},
+            
+            {"h": "Глаголы, которые не используются в Continuous", "text": "В Present Simple мы используем глаголы состояния (state verbs), которые не могут быть в длительном времени (Continuous). Это такие глаголы, как like (нравиться), love (любить), hate (ненавидеть), want (хотеть), need (нуждаться), know (знать), understand (понимать), believe (верить). Мы говорим 'I like pizza', а не 'I am liking pizza'. 'I know him', а не 'I am knowing him'. Это правило важно запомнить, потому что оно работает во всех временах."}
         ],
 
         "tables": [
             {
-                "title": "Спряжение глагола work",
-                "headers": ["Местоимение", "Утверждение", "Отрицание", "Вопрос"],
+                "title": "Спряжение глагола work (утверждение)",
+                "headers": ["Местоимение", "Форма", "Пример"],
                 "rows": [
-                    ["I", "work", "don't work", "Do I work?"],
-                    ["You", "work", "don't work", "Do you work?"],
-                    ["He", "works", "doesn't work", "Does he work?"],
-                    ["She", "works", "doesn't work", "Does she work?"],
-                    ["It", "works", "doesn't work", "Does it work?"],
-                    ["We", "work", "don't work", "Do we work?"],
-                    ["They", "work", "don't work", "Do they work?"]
+                    ["I", "work", "I work every day."],
+                    ["You", "work", "You work hard."],
+                    ["He", "works", "He works in a bank."],
+                    ["She", "works", "She works at home."],
+                    ["It", "works", "It works well."],
+                    ["We", "work", "We work together."],
+                    ["They", "work", "They work here."]
                 ]
             },
             {
-                "title": "Правило -s / -es в 3-м лице",
+                "title": "Отрицание и Вопрос",
+                "headers": ["Местоимение", "Отрицание", "Вопрос"],
+                "rows": [
+                    ["I", "don't work", "Do I work?"],
+                    ["You", "don't work", "Do you work?"],
+                    ["He", "doesn't work", "Does he work?"],
+                    ["She", "doesn't work", "Does she work?"],
+                    ["We", "don't work", "Do we work?"],
+                    ["They", "don't work", "Do they work?"]
+                ]
+            },
+            {
+                "title": "Правило -s / -es",
                 "headers": ["Окончание глагола", "Что делаем", "Пример"],
                 "rows": [
-                    ["Любой", "Просто + s", "work → works"],
+                    ["Обычно", "+ s", "work → works"],
                     ["-s, -sh, -ch, -x, -o", "+ es", "go → goes, watch → watches"],
-                    ["согласная + y", "y → i + es", "study → studies"],
-                    ["гласная + y", "+ s", "play → plays"]
+                    ["Согласная + y", "y → i + es", "study → studies"],
+                    ["Гласная + y", "+ s", "play → plays"]
                 ]
             }
         ],
 
         "mistakes": [
-            {"wrong": "He go to school every day.", "right": "He goes to school every day.", "why": "3-е лицо единственное — обязательно -es/-s"},
-            {"wrong": "She doesn't likes coffee.", "right": "She doesn't like coffee.", "why": "После doesn't глагол в базовой форме (без -s)"},
-            {"wrong": "Does he works here?", "right": "Does he work here?", "why": "После does глагол без -s"},
-            {"wrong": "I no like football.", "right": "I don't like football.", "why": "Отрицание через don't, а не через no"},
-            {"wrong": "She always is late.", "right": "She is always late.", "why": "Наречие always идёт после is/am/are"},
-            {"wrong": "I drink always coffee.", "right": "I always drink coffee.", "why": "Наречие always перед смысловым глаголом"}
+            {"wrong": "He go to school every day.", "right": "He goes to school every day.", "why": "Для he/she/it нужно добавлять -s к глаголу."},
+            {"wrong": "She doesn't likes coffee.", "right": "She doesn't like coffee.", "why": "После doesn't глагол в базовой форме (без -s)."},
+            {"wrong": "Does he works here?", "right": "Does he work here?", "why": "После does глагол без -s."},
+            {"wrong": "I no like football.", "right": "I don't like football.", "why": "Отрицание строится через don't, а не через no."},
+            {"wrong": "She always is late.", "right": "She is always late.", "why": "Наречие always идет после глагола to be (is)."},
+            {"wrong": "I drink always coffee.", "right": "I always drink coffee.", "why": "Наречие always стоит перед смысловым глаголом."},
+            {"wrong": "They doesn't work here.", "right": "They don't work here.", "why": "Для they используем don't, а не doesn't."},
+            {"wrong": "Do he live here?", "right": "Does he live here?", "why": "Для he/she/it в вопросе используем does."}
         ],
 
         "lifehacks": [
             "Запомни: он/она/оно — всегда с 's' на конце глагола. Как будто ты уважаешь его и добавляешь ему 's'.",
             "Правило третьего лица: he/she/it → работает только с глаголом -s. Это как зарплата — он получает своё 's'.",
-            "В отрицании и вопросе всегда используешь базовый глагол — do/does 'забирают' на себя роль 'главного'.",
-            "Если сомневаешься — подставь 'does' и посмотри: после него всегда БЕЗ -s."
+            "В отрицании и вопросе всегда используешь базовый глагол — do/does 'забирают' на себя роль 'главного'. После них никогда не ставь -s.",
+            "Если сомневаешься — подставь 'does' и посмотри: после него всегда БЕЗ -s.",
+            "Наречия частоты (always, never) — перед глаголом, но после to be. I always drink coffee. She is always late."
         ],
 
         "text": {
@@ -1010,13 +1039,132 @@ GRAMMAR_LESSONS = [
             {"type": "fill", "q": "He ___ (play) guitar.", "answer": "plays"},
             {"type": "fill", "q": "We ___ (not / like) rainy weather.", "answer": "don't like"},
             {"type": "fill", "q": "___ you ___ (speak) English?", "answer": "Do speak"},
-            {"type": "error", "q": "Найди ошибку в предложении:", "options": ["He go to school", "He goes to school", "He is go to school", "He going to school"], "correct": "He goes to school"},
-            {"type": "error", "q": "Найди ошибку в предложении:", "options": ["She doesn't likes coffee", "She doesn't like coffee", "She not like coffee", "She no like coffee"], "correct": "She doesn't like coffee"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["He go to school", "He goes to school", "He is go to school", "He going to school"], "correct": "He goes to school"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["She doesn't likes coffee", "She doesn't like coffee", "She not like coffee", "She no like coffee"], "correct": "She doesn't like coffee"},
             {"type": "error", "q": "Найди правильное предложение:", "options": ["Does he works here?", "Does he work here?", "Do he work here?", "Is he work here?"], "correct": "Does he work here?"},
             {"type": "translate", "q": "Переведи на английский: Я живу в Москве.", "answer": "I live in Moscow"},
             {"type": "translate", "q": "Переведи на английский: Она любит кофе.", "answer": "She likes coffee"},
             {"type": "translate", "q": "Переведи на английский: Они не говорят по-английски.", "answer": "They don't speak English"},
-            {"type": "translate", "q": "Переведи на английский: Ты играешь в футбол?", "answer": "Do you play football"}
+            {"type": "translate", "q": "Переведи на английский: Ты играешь в футбол?", "answer": "Do you play football"},
+            {"type": "translate", "q": "Переведи на английский: Он ходит в спортзал по понедельникам.", "answer": "He goes to the gym on Mondays"},
+            {"type": "translate", "q": "Переведи на английский: Мы обычно ужинаем в 7.", "answer": "We usually have dinner at 7"},
+            {"type": "write", "q": "Напиши 5 предложений о своей повседневной рутине (что ты делаешь утром, днем, вечером).", "sample": "I wake up at 8 am. I have breakfast and drink coffee. Then I go to work. In the evening I cook dinner and watch TV. I always go to bed at 11 pm."}
+        ]
+    },
+
+        # ═══════════════════════════════════════════
+    # УРОК — НАРЕЧИЯ ЧАСТОТЫ
+    # ═══════════════════════════════════════════
+    {
+        "id": "adverbs_frequency",
+        "title": "Наречия частоты",
+        "emoji": "🔁",
+        "level": "A1",
+        "module": "A1",
+        "intro": "Как сказать, как часто ты что-то делаешь? Всегда, обычно, иногда или никогда? В английском для этого есть специальные слова, и у них есть строгое место в предложении. Если поставить их не туда — смысл не потеряется, но для носителя это будет звучать как «Я всегда пью утром кофе» вместо «Я всегда пью утром кофе».",
+        
+        "why": "В русском языке мы можем сказать «Я всегда опаздываю» или «Я опаздываю всегда» — и это будет звучать нормально. В английском так нельзя. Если ты скажешь 'I drink always coffee', это будет грубая ошибка. Англичане очень трепетно относятся к порядку слов, особенно с наречиями частоты. Эти слова (always, usually, never) используются в каждом втором предложении, когда мы говорим о привычках. Если ты не знаешь, куда их ставить, твоя речь будет резать слух. В этом уроке мы разберем не просто значение слов, а жесткие правила их места в предложении, чтобы ты мог говорить о своих привычках правильно и естественно.",
+
+        "rules": [
+            {"h": "Что такое наречия частоты и какие они бывают?", "text": "Наречия частоты (Adverbs of Frequency) показывают, как часто происходит действие. Основные из них: always (всегда), usually (обычно), often (часто), sometimes (иногда), rarely / seldom (редко), never (никогда). Они выстраиваются в шкалу от 100% (always) до 0% (never). Также к ним относятся фразы: every day (каждый день), once a week (раз в неделю), twice a month (дважды в месяц), но они обычно ставятся в конец предложения."},
+            
+            {"h": "Где ставить наречия? (Правило для обычных глаголов)", "text": "Это самое важное правило. Наречия частоты (always, usually, often, sometimes, rarely, never) ставятся ПЕРЕД смысловым глаголом. То есть перед тем глаголом, который показывает действие. Например: I always drink coffee (Я всегда пью кофе). She usually goes to school (Она обычно ходит в школу). They never play football (Они никогда не играют в футбол). Запомни: подлежащее → наречие → глагол → остальное. Нельзя сказать 'I drink always coffee'."},
+            
+            {"h": "Где ставить наречия? (Правило для глагола to be)", "text": "Если в предложении есть глагол to be (am / is / are / was / were), то наречие частоты ставится ПОСЛЕ него. Например: I am always late (Я всегда опаздываю). She is usually busy (Она обычно занята). They are never here (Их здесь никогда нет). Это исключение из общего правила, потому что to be — это не смысловой глагол, а связка. Запомни: am/is/are → наречие. Нельзя сказать 'I always am late' (это ошибка)."},
+            
+            {"h": "Где ставить наречия? (Вспомогательные глаголы)", "text": "Если в предложении есть вспомогательный глагол (do, does, did, have, has, will, can, must), то наречие ставится ПЕРЕД основным глаголом, но ПОСЛЕ вспомогательного. Например: I have always loved you (Я всегда любил тебя). She can usually help (Она обычно может помочь). They will never come (Они никогда не придут). В этом случае наречие как бы 'застревает' между вспомогательным и основным глаголом."},
+            
+            {"h": "Слово Never (Никогда) и отрицание", "text": "Слово never (никогда) уже содержит в себе отрицание. Поэтому в английском нельзя говорить 'I don't never go there' (это двойное отрицание, как в русском 'я никогда не хожу'). Правильно: 'I never go there' (Я никогда не хожу туда). В Present Simple, если ты используешь never, ты не ставишь don't/doesn't. Never сам делает предложение отрицательным. Это правило часто путают, но оно очень важное."},
+            
+            {"h": "Наречия частоты в вопросах", "text": "В вопросах наречия частоты ставятся перед смысловым глаголом, но после подлежащего. Например: Do you always wake up early? (Ты всегда просыпаешься рано?). Does she usually work on Saturdays? (Она обычно работает по субботам?). Обрати внимание, что в вопросах с do/does наречие стоит после подлежащего, но перед глаголом. Исключение: если в вопросе есть to be, наречие стоит после него: Are you always late?"},
+            
+            {"h": "Наречия частоты в отрицаниях", "text": "В отрицаниях наречие ставится перед смысловым глаголом, но после don't/doesn't. Например: I don't always drink coffee (Я не всегда пью кофе). She doesn't usually come late (Она обычно не приходит поздно). В этом случае наречие стоит между вспомогательным глаголом и смысловым. Если ты используешь never, то don't/doesn't не нужны: I never drink coffee."},
+            
+            {"h": "Степень частоты (Как отвечать на 'How often?')", "text": "Когда тебя спрашивают 'How often do you...?' (Как часто ты...?), ты можешь ответить с помощью наречия или фразы. Например: How often do you go to the gym? — I usually go twice a week (Я обычно хожу дважды в неделю). Или: How often does she call? — She always calls on Sundays. Фразы типа 'twice a week', 'once a month', 'every day' ставятся в конец предложения."}
+        ],
+
+        "tables": [
+            {
+                "title": "Шкала частоты",
+                "headers": ["Наречие", "Перевод", "Частота"],
+                "rows": [
+                    ["always", "всегда", "100%"],
+                    ["usually", "обычно", "80-90%"],
+                    ["often", "часто", "60-70%"],
+                    ["sometimes", "иногда", "30-50%"],
+                    ["rarely / seldom", "редко", "10-20%"],
+                    ["never", "никогда", "0%"]
+                ]
+            },
+            {
+                "title": "Место в предложении",
+                "headers": ["Ситуация", "Где стоит наречие", "Пример"],
+                "rows": [
+                    ["С обычным глаголом", "Перед глаголом", "I always drink coffee."],
+                    ["С глаголом to be", "После am/is/are", "She is always late."],
+                    ["С вспомогательным глаголом", "После вспомогательного", "I have always loved you."],
+                    ["В вопросе", "После подлежащего", "Do you always wake up early?"],
+                    ["В отрицании с never", "Перед глаголом (без don't)", "I never drink coffee."]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I drink always coffee.", "right": "I always drink coffee.", "why": "Наречие стоит перед смысловым глаголом."},
+            {"wrong": "She is usually late. (если хотел сказать обычно)", "right": "She is usually late. (это правильно)", "why": "Тут ошибки нет, но если сказать 'She usually is late' — тоже можно, но реже."},
+            {"wrong": "I don't never go there.", "right": "I never go there.", "why": "Never уже содержит отрицание, don't не нужен."},
+            {"wrong": "Do you always are late?", "right": "Are you always late?", "why": "С глаголом to be вопрос строится без do, а наречие стоит после are."},
+            {"wrong": "He usually doesn't work on Sunday.", "right": "He doesn't usually work on Sunday.", "why": "В отрицании наречие стоит после doesn't, но перед глаголом."},
+            {"wrong": "I always am happy.", "right": "I am always happy.", "why": "С to be наречие ставится после него."}
+        ],
+
+        "lifehacks": [
+            "Запомни главное: наречие частоты стоит между подлежащим и глаголом. I always drink coffee.",
+            "Если видишь глагол to be (am/is/are) — наречие идет после него. She is always late.",
+            "Слово never не требует don't. Оно само делает предложение отрицательным.",
+            "В вопросах с do/does наречие ставится после подлежащего: Do you often go there?",
+            "Фразы типа every day, once a week ставятся в конец предложения."
+        ],
+
+        "text": {
+            "title": "My Weekly Routine",
+            "paragraphs": [
+                "My name is Alex. I usually wake up at 7 am. I always drink a cup of coffee in the morning. I often go to the gym after work. I sometimes play football with my friends on Saturdays.",
+                "My sister is always late for school. She usually runs to the bus stop. My mother is never angry with her. My father often helps her with homework. They sometimes go to the cinema together.",
+                "On Sundays, we always have dinner at my grandmother's house. She usually cooks a big cake. We never leave without eating it. I love my family, and we are always happy together."
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What time does Alex usually wake up?", "options": ["At 6 am", "At 7 am", "At 8 am", "At 9 am"], "correct": "At 7 am"},
+            {"q": "What does Alex always drink in the morning?", "options": ["Tea", "Water", "Coffee", "Juice"], "correct": "Coffee"},
+            {"q": "When does Alex often go to the gym?", "options": ["In the morning", "After work", "On Sundays", "Never"], "correct": "After work"},
+            {"q": "Who is always late for school?", "options": ["Alex", "His sister", "His mother", "His father"], "correct": "His sister"},
+            {"q": "Is his mother ever angry with his sister?", "options": ["Always", "Often", "Sometimes", "Never"], "correct": "Never"},
+            {"q": "Where do they always have dinner on Sundays?", "options": ["At home", "At a restaurant", "At grandmother's house", "At the cinema"], "correct": "At grandmother's house"},
+            {"q": "What does grandmother usually cook?", "options": ["Soup", "Pizza", "A big cake", "Salad"], "correct": "A big cake"},
+            {"q": "Do they ever leave without eating the cake?", "options": ["Yes, always", "Sometimes", "No, never", "We don't know"], "correct": "No, never"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "I ___ drink coffee in the morning.", "options": ["always", "am always", "always am", "always drink"], "correct": "always"},
+            {"type": "choice", "q": "She is ___ late.", "options": ["never", "always", "usually", "often"], "correct": "never"},
+            {"type": "choice", "q": "They ___ go to the park.", "options": ["sometimes", "are sometimes", "sometimes are", "sometimes go"], "correct": "sometimes"},
+            {"type": "choice", "q": "Do you ___ wake up early?", "options": ["always", "are always", "always are", "always wake"], "correct": "always"},
+            {"type": "choice", "q": "I don't ___ eat meat.", "options": ["never", "usually", "always", "sometimes"], "correct": "usually"},
+            {"type": "fill", "q": "He ___ (usually) goes to the gym.", "answer": "usually"},
+            {"type": "fill", "q": "They ___ (never) eat meat.", "answer": "never"},
+            {"type": "fill", "q": "I ___ (always) am happy.", "answer": "am always"},
+            {"type": "fill", "q": "She ___ (often) is late.", "answer": "is often"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I drink always coffee", "I always drink coffee", "I am always drink coffee", "I always am drink coffee"], "correct": "I always drink coffee"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["She is always late", "She always is late", "She always late", "She is late always"], "correct": "She is always late"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I don't never go there", "I never go there", "I not never go there", "I don't go never there"], "correct": "I never go there"},
+            {"type": "translate", "q": "Переведи: Я всегда пью кофе.", "answer": "I always drink coffee"},
+            {"type": "translate", "q": "Переведи: Она обычно ходит в спортзал.", "answer": "She usually goes to the gym"},
+            {"type": "translate", "q": "Переведи: Они никогда не опаздывают.", "answer": "They are never late"},
+            {"type": "translate", "q": "Переведи: Ты часто играешь в футбол?", "answer": "Do you often play football"},
+            {"type": "translate", "q": "Переведи: Я иногда готовлю ужин.", "answer": "I sometimes cook dinner"},
+            {"type": "write", "q": "Напиши 5 предложений о своих привычках, используя наречия частоты (always, usually, sometimes, never).", "sample": "I always wake up at 7 am. I usually drink coffee for breakfast. I sometimes play computer games in the evening. I never eat fast food. I often go to the gym after work."}
         ]
     },
 
