@@ -914,6 +914,122 @@ GRAMMAR_LESSONS = [
             {"type": "write", "q": "Опиши свою комнату или квартиру, используя There is / There are (не менее 4 предложений).", "sample": "In my room there is a bed, a table and a computer. There are two chairs near the table. There is a big window on the wall. There are some books on the shelf."}
         ]
     },
+
+        # ═══════════════════════════════════════════
+    # УРОК — ПРЕДЛОГИ МЕСТА (IN / ON / AT)
+    # ═══════════════════════════════════════════
+    {
+        "id": "prepositions",
+        "title": "Предлоги места (in / on / at)",
+        "emoji": "📍",
+        "level": "A1",
+        "module": "A1",
+        "intro": "Предлоги места — это слова, которые говорят, ГДЕ находится предмет. В русском языке мы используем падежи (в столе, на столе, у стола), а в английском для этого есть три главных волшебных слова: in, on, at. Если перепутать их, предложение будет звучать странно, но тебя поймут. Однако чтобы говорить красиво, нужно выучить их четкую логику.",
+        
+        "why": "Представь, что ты ищешь свои ключи. Ты спрашиваешь: 'Где мои ключи?'. И тебе нужно ответить: они в сумке, на столе или у двери. Без предлогов места ты не сможешь описать, где находится хоть что-то. Ты не скажешь 'Книга на полке', 'Кошка в коробке' или 'Встретимся у банка'. Это базовые слова, которые используются в каждом втором предложении. Если ты не освоишь разницу между in, on и at, твоя речь будет путаной. В этом уроке мы разберем самую простую и понятную логику: in — это внутри, on — это на поверхности, at — это в конкретной точке. Запомнив эту схему, ты перестанешь путаться.",
+
+        "rules": [
+            {"h": "Логика предлогов: Внутри, На, В точке", "text": "Чтобы не зубрить правила, запомни три простые картинки: IN — это когда предмет находится ВНУТРИ чего-то (в коробке, в комнате, в городе). ON — это когда предмет находится НА ПОВЕРХНОСТИ (на столе, на стене, на полу). AT — это когда предмет находится В КОНКРЕТНОЙ ТОЧКЕ (у двери, у автобусной остановки, на светофоре). Это главное правило, из которого вытекают все остальные. Если ты видишь, что предмет помещен внутрь чего-то, смело используй IN."},
+            
+            {"h": "Предлог IN (Внутри)", "text": "IN используется, когда объект находится внутри чего-то. Например: in the box (в коробке), in the room (в комнате), in the building (в здании). Также IN используется для городов и стран, потому что мы находимся внутри их границ: in Moscow (в Москве), in Russia (в России), in Europe (в Европе). Еще IN используется с жидкостями: in the water (в воде), in the sea (в море). Если предмет окутан чем-то или находится внутри объема — это IN."},
+            
+            {"h": "Предлог ON (На поверхности)", "text": "ON используется, когда предмет находится на какой-то поверхности. Например: on the table (на столе), on the wall (на стене), on the floor (на полу), on the ceiling (на потолке). Также ON используется с транспортом, кроме машин. Мы говорим on the bus (в автобусе), on the train (в поезде), on the plane (в самолете). Почему? Потому что исторически мы стоим на палубе или на платформе. Для автомобилей используем IN (in the car), потому что мы внутри. Также ON используется для улиц: on the street (на улице), on the road (на дороге)."},
+            
+            {"h": "Предлог AT (В точке)", "text": "AT используется, когда предмет находится в конкретной точке или месте, которое мы рассматриваем как точку на карте. Например: at the bus stop (на автобусной остановке), at the door (у двери), at the traffic lights (на светофоре). Также AT используется с устойчивыми выражениями: at home (дома), at work (на работе), at school (в школе), at university (в университете). В этих случаях мы говорим не о здании, а о процессе (ты дома, ты работаешь, ты учишься). Также AT используется на мероприятиях: at the party (на вечеринке), at the concert (на концерте), at the meeting (на встрече)."},
+            
+            {"h": "Исключения и тонкости", "text": "Есть несколько тонких моментов, которые нужно запомнить. 1) in the car (в машине), но on the bus (в автобусе). 2) at the cinema (в кино как на мероприятии), но in the cinema (внутри здания кинотеатра). 3) in bed (в кровати как состояние), но on the bed (на кровати как на поверхности). 4) at the corner (на углу как в точке), но in the corner (в углу комнаты, внутри). Эти исключения часто встречаются в тестах, но их не так много. Главное — запомни базовую логику, а исключения придут с практикой."},
+            
+            {"h": "Предлоги места в вопросах", "text": "Когда ты задаешь вопрос 'Где?', ты используешь вопросительное слово Where. Например: Where is the cat? — The cat is in the box. Where are the keys? — The keys are on the table. Where is the bank? — The bank is at the corner. Обрати внимание, что предлог ставится перед существительным, а не после него. Нельзя сказать 'Where is the box in?'. Нужно: Where is the cat? (Где кошка?) и ответ: It is in the box (Она в коробке)."},
+            
+            {"h": "Предлоги с глаголами движения", "text": "Предлоги in, on и at используются не только для места, но и для направления (куда?). Например: go to the park (идти в парк), go to school (идти в школу). Но если мы говорим о помещении внутрь, мы используем into: go into the room (войти в комнату). Если мы говорим о поверхности, мы используем onto: put it onto the table (положи это на стол). Однако в базовом английском эти тонкости можно опустить, используя просто IN и ON. Главное — не путать предлоги места с предлогами времени (in the morning, on Monday, at 5 o'clock)."}
+        ],
+
+        "tables": [
+            {
+                "title": "Главная логика IN / ON / AT",
+                "headers": ["Предлог", "Логика", "Примеры"],
+                "rows": [
+                    ["IN", "Внутри чего-то", "in the box, in the room, in Moscow"],
+                    ["ON", "На поверхности", "on the table, on the wall, on the bus"],
+                    ["AT", "В конкретной точке", "at the door, at the bus stop, at home"]
+                ]
+            },
+            {
+                "title": "Особые случаи",
+                "headers": ["Ситуация", "Предлог", "Пример"],
+                "rows": [
+                    ["Транспорт (кроме машин)", "ON", "on the bus, on the train"],
+                    ["Машина", "IN", "in the car"],
+                    ["Дом, работа, школа (процесс)", "AT", "at home, at work, at school"],
+                    ["Улица, дорога", "ON", "on the street, on the road"],
+                    ["Мероприятия", "AT", "at the party, at the concert"],
+                    ["Внутри здания", "IN", "in the cinema, in the building"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I am in the bus.", "right": "I am on the bus.", "why": "Для транспорта (автобус, поезд, самолет) используем ON."},
+            {"wrong": "The book is in the table.", "right": "The book is on the table.", "why": "Книга лежит на поверхности, значит ON."},
+            {"wrong": "I am at Moscow.", "right": "I am in Moscow.", "why": "Мы находимся внутри города, значит IN."},
+            {"wrong": "She is in home.", "right": "She is at home.", "why": "At home — устойчивое выражение."},
+            {"wrong": "He is on the room.", "right": "He is in the room.", "why": "Внутри комнаты — IN."},
+            {"wrong": "I meet him on the cinema.", "right": "I meet him at the cinema.", "why": "Мероприятие (кино) — AT."},
+            {"wrong": "The cat is at the box.", "right": "The cat is in the box.", "why": "Внутри коробки — IN."},
+            {"wrong": "I am at the car.", "right": "I am in the car.", "why": "Внутри машины — IN."}
+        ],
+
+        "lifehacks": [
+            "Запомни три картинки: IN — коробка, ON — стол, AT — точка на карте. Это решает 90% проблем.",
+            "Транспорт: автобус, поезд, самолет — ON (потому что мы на платформе). Машина — IN (потому что мы внутри).",
+            "Дом, работа, школа — AT (это не место, а процесс).",
+            "В городах и странах — IN (мы внутри границ).",
+            "Мероприятия (вечеринка, концерт, встреча) — AT."
+        ],
+
+        "text": {
+            "title": "Where is Everything?",
+            "paragraphs": [
+                "My name is Kate. I live in a small flat in Moscow. My flat is on the fifth floor. In my room, there is a big bed and a table. My books are on the shelf. My cat is usually in the box near the window.",
+                "My keys are on the table in the hall. My bag is on the chair. My phone is in my pocket. I always look for my phone, but it is usually in my bag!",
+                "Yesterday I was at the park with my friend. We sat on the bench. My friend's dog was in the lake. It was very funny. Then we went to a café. We were at the café for two hours. I left my umbrella at the café, but I hope I can find it.",
+                "Now I am at home. I am in my room. My cat is on my bed. My books are on the table. Everything is in its place."
+            ]
+        },
+
+        "text_questions": [
+            {"q": "Where does Kate live?", "options": ["In a house", "In a flat in Moscow", "In London", "At school"], "correct": "In a flat in Moscow"},
+            {"q": "What floor is her flat on?", "options": ["First", "Third", "Fifth", "Tenth"], "correct": "Fifth"},
+            {"q": "Where are her books?", "options": ["On the table", "On the shelf", "In the box", "On the bed"], "correct": "On the shelf"},
+            {"q": "Where is her cat usually?", "options": ["On the bed", "In the box", "On the table", "In the bag"], "correct": "In the box"},
+            {"q": "Where are her keys?", "options": ["In the bag", "On the table", "In the pocket", "On the shelf"], "correct": "On the table"},
+            {"q": "Where did she sit in the park?", "options": ["On the bench", "On the grass", "On the table", "In the car"], "correct": "On the bench"},
+            {"q": "Where was the friend's dog?", "options": ["In the park", "In the lake", "On the bench", "At home"], "correct": "In the lake"},
+            {"q": "Where is Kate now?", "options": ["At the park", "At the café", "At home", "At work"], "correct": "At home"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "The book is ___ the table.", "options": ["in", "on", "at", "to"], "correct": "on"},
+            {"type": "choice", "q": "I live ___ Moscow.", "options": ["in", "on", "at", "by"], "correct": "in"},
+            {"type": "choice", "q": "She is ___ home.", "options": ["in", "on", "at", "to"], "correct": "at"},
+            {"type": "choice", "q": "The cat is ___ the box.", "options": ["in", "on", "at", "to"], "correct": "in"},
+            {"type": "choice", "q": "I am ___ the bus.", "options": ["in", "on", "at", "to"], "correct": "on"},
+            {"type": "choice", "q": "He is ___ work.", "options": ["in", "on", "at", "to"], "correct": "at"},
+            {"type": "fill", "q": "The picture is ___ the wall. (на)", "answer": "on"},
+            {"type": "fill", "q": "I am ___ the car. (в)", "answer": "in"},
+            {"type": "fill", "q": "We are ___ the party. (на)", "answer": "at"},
+            {"type": "fill", "q": "The pen is ___ my pocket. (в)", "answer": "in"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I am in the bus", "I am on the bus", "I am at the bus", "I am to the bus"], "correct": "I am on the bus"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["The book is in the table", "The book is on the table", "The book is at the table", "The book is to the table"], "correct": "The book is on the table"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I am at Moscow", "I am in Moscow", "I am on Moscow", "I am to Moscow"], "correct": "I am in Moscow"},
+            {"type": "translate", "q": "Переведи: Книга на столе.", "answer": "The book is on the table"},
+            {"type": "translate", "q": "Переведи: Я в Москве.", "answer": "I am in Moscow"},
+            {"type": "translate", "q": "Переведи: Она дома.", "answer": "She is at home"},
+            {"type": "translate", "q": "Переведи: Кошка в коробке.", "answer": "The cat is in the box"},
+            {"type": "translate", "q": "Переведи: Мы на вечеринке.", "answer": "We are at the party"},
+            {"type": "write", "q": "Опиши, где находятся 5 предметов в твоей комнате (используй in, on, at).", "sample": "The book is on the table. The pen is in my bag. The cat is on the bed. The picture is on the wall. I am at home."}
+        ]
+    },
     
        # ═══════════════════════════════════════════
     # УРОК — PRESENT SIMPLE
@@ -1504,107 +1620,6 @@ GRAMMAR_LESSONS = [
             {"type": "translate", "q": "Переведи: Она не придёт.", "answer": "She won't come"},
             {"type": "translate", "q": "Переведи: Ты мне поможешь?", "answer": "Will you help me"},
             {"type": "translate", "q": "Переведи: Будет дождь.", "answer": "It will rain"}
-        ]
-    },
-
-    # ═══════════════════════════════════════════
-    # УРОК 6 — ПРЕДЛОГИ (IN / ON / AT)
-    # ═══════════════════════════════════════════
-    {
-        "id": "prepositions",
-        "module": "A1",
-        "title": "Предлоги (in / on / at)",
-        "emoji": "📍",
-        "level": "A1-A2",
-        "intro": "Три главных предлога времени и места. in — внутри, on — на поверхности, at — в точке.",
-        "why": "Предлоги — вторая по сложности тема после артиклей. Но у них есть логика! in = что-то внутри большого, on = на поверхности или в конкретный день, at = в конкретной точке или в точное время. Освоив эту логику, ты перестанешь путать 'in Monday' и 'on Monday'. А правильное использование предлогов — признак хорошего английского.",
-
-        "rules": [
-            {"h": "in — время (большие периоды)", "text": "Месяцы: in May, in December. Годы: in 2020, in 1995. Времена года: in summer, in winter. Части дня: in the morning, in the afternoon, in the evening. Длительность: in 2 hours (через 2 часа), in a week (через неделю)."},
-            {"h": "on — время (дни и даты)", "text": "Дни недели: on Monday, on Friday. Даты: on 5th May, on 1st September. Особые дни: on my birthday, on Christmas Day, on New Year's Day. Выходные: on the weekend (амер.) / at the weekend (брит.)."},
-            {"h": "at — время (точки)", "text": "Точное время: at 5 o'clock, at 3:30 pm. Части суток: at night, at noon, at midnight. Праздники (общий период): at Christmas, at Easter, at New Year."},
-            {"h": "in — место (внутри)", "text": "Внутри чего-то: in the box, in the room, in the building. В городах и странах: in Moscow, in Russia, in Europe. В жидкостях: in water, in the sea."},
-            {"h": "on — место (на поверхности)", "text": "На поверхности: on the table, on the wall, on the floor, on the ceiling. На транспорте (кроме машин): on the bus, on the train, on the plane. На улице: on the street, on the road."},
-            {"h": "at — место (в точке)", "text": "В конкретной точке: at the bus stop, at the door, at the traffic lights. Дома, на работе, в школе (как деятельность): at home, at work, at school, at university. На мероприятиях: at the party, at the concert, at the meeting."},
-            {"h": "Особые случаи", "text": "in bed (в кровати как состояние), on the bed (на кровати как поверхность). at the cinema (в кино как событие), in the cinema (внутри здания кинотеатра). in the car (в машине), on the bus (в автобусе)."},
-            {"h": "Запомни ключевые фразы", "text": "in the morning, in the afternoon, in the evening, BUT at night. on Monday morning, on Sunday evening. at the weekend (британский), on the weekend (американский)."}
-        ],
-
-        "tables": [
-            {
-                "title": "in / on / at — время",
-                "headers": ["Предлог", "Когда", "Примеры"],
-                "rows": [
-                    ["in", "Месяцы, годы, сезоны, части дня", "in May, in 2020, in summer, in the morning"],
-                    ["on", "Дни недели, даты, особые дни", "on Monday, on 5th May, on my birthday"],
-                    ["at", "Точное время, at night/noon/midnight", "at 5 o'clock, at night, at Christmas"]
-                ]
-            },
-            {
-                "title": "in / on / at — место",
-                "headers": ["Предлог", "Когда", "Примеры"],
-                "rows": [
-                    ["in", "Внутри, в городах/странах", "in the box, in Moscow, in Russia"],
-                    ["on", "На поверхности, на транспорте", "on the table, on the bus, on the wall"],
-                    ["at", "В точке, дома/на работе/в школе", "at the door, at home, at school"]
-                ]
-            }
-        ],
-
-        "mistakes": [
-            {"wrong": "I was born in 5th May.", "right": "I was born on 5th May.", "why": "Даты — с on"},
-            {"wrong": "See you in Monday.", "right": "See you on Monday.", "why": "Дни недели — с on"},
-            {"wrong": "The meeting is in 3 pm.", "right": "The meeting is at 3 pm.", "why": "Точное время — с at"},
-            {"wrong": "I am at home. (если ты внутри)", "right": "I am at home.", "why": "Тут всё правильно — at home = дома как состояние"},
-            {"wrong": "I am in the bus.", "right": "I am on the bus.", "why": "Транспорт (кроме машин) — с on"},
-            {"wrong": "I was born on 2005.", "right": "I was born in 2005.", "why": "Годы — с in"}
-        ],
-
-        "lifehacks": [
-            "in = большая коробка (месяц, год, страна, город). on = поверхность или конкретный день. at = точка.",
-            "Дни недели — on Monday. Даты — on 5th May. Запомни: ON для дней.",
-            "Точное время — at 5 o'clock. at — это точка. Всё остальное — in the morning, но at night.",
-            "Запомни фразу 'on Monday morning' — тут два предлога, но идёт 'on' (день) → 'in' (часть дня)."
-        ],
-
-        "text": {
-            "title": "A Busy Week",
-            "paragraphs": [
-                "My name is Kate. I have a very busy schedule this week. On Monday morning I have a meeting at 9 o'clock. In the afternoon I usually work in my office. At 5 pm I go to the gym.",
-                "On Tuesday I have a doctor's appointment at 10 am. In the evening I meet my friends at a café. We usually stay there until 8 pm. On Wednesday I work from home and relax in the evening.",
-                "On Thursday my brother comes to visit me. He arrives in the morning and stays until Sunday. On Friday we go to a concert at 7 pm. On Saturday we visit our parents. On Sunday we go to the beach in the morning. What a week!"
-            ]
-        },
-
-        "text_questions": [
-            {"q": "What does Kate have on Monday morning?", "options": ["A gym class", "A meeting", "A doctor's appointment", "A concert"], "correct": "A meeting"},
-            {"q": "What time does Kate's meeting start on Monday?", "options": ["At 8 am", "At 9 am", "At 10 am", "At 11 am"], "correct": "At 9 am"},
-            {"q": "Where does Kate work on Monday afternoon?", "options": ["At home", "In her office", "At a café", "At the gym"], "correct": "In her office"},
-            {"q": "What does Kate do at 5 pm on Monday?", "options": ["Goes to the gym", "Goes home", "Meets friends", "Has a meeting"], "correct": "Goes to the gym"},
-            {"q": "When does Kate have a doctor's appointment?", "options": ["On Monday", "On Tuesday at 10 am", "On Wednesday", "On Thursday"], "correct": "On Tuesday at 10 am"},
-            {"q": "When does Kate's brother arrive?", "options": ["On Monday", "On Wednesday", "On Thursday morning", "On Friday"], "correct": "On Thursday morning"},
-            {"q": "When do they go to the concert?", "options": ["On Monday", "On Wednesday", "On Friday at 7 pm", "On Sunday"], "correct": "On Friday at 7 pm"},
-            {"q": "What do they do on Sunday morning?", "options": ["Visit parents", "Go to the beach", "Go shopping", "Sleep"], "correct": "Go to the beach"}
-        ],
-
-        "test": [
-            {"type": "choice", "q": "I was born ___ 2005.", "options": ["in", "on", "at", "to"], "correct": "in"},
-            {"type": "choice", "q": "See you ___ Monday.", "options": ["in", "on", "at", "by"], "correct": "on"},
-            {"type": "choice", "q": "The meeting is ___ 3 pm.", "options": ["in", "on", "at", "to"], "correct": "at"},
-            {"type": "choice", "q": "I live ___ Moscow.", "options": ["in", "on", "at", "by"], "correct": "in"},
-            {"type": "choice", "q": "I go to work ___ the morning.", "options": ["in", "on", "at", "to"], "correct": "in"},
-            {"type": "choice", "q": "My birthday is ___ 5th May.", "options": ["in", "on", "at", "by"], "correct": "on"},
-            {"type": "fill", "q": "I live ___ Moscow.", "answer": "in"},
-            {"type": "fill", "q": "The book is ___ the table.", "answer": "on"},
-            {"type": "fill", "q": "The meeting is ___ 3 pm.", "answer": "at"},
-            {"type": "fill", "q": "I wake up ___ 7 o'clock.", "answer": "at"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["I was born on 2005", "I was born in 2005", "I was born at 2005", "I was born by 2005"], "correct": "I was born in 2005"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["See you in Monday", "See you on Monday", "See you at Monday", "See you by Monday"], "correct": "See you on Monday"},
-            {"type": "error", "q": "Найди правильное:", "options": ["I am in the bus", "I am on the bus", "I am at the bus", "I am by the bus"], "correct": "I am on the bus"},
-            {"type": "translate", "q": "Переведи: Я родился в 2005 году.", "answer": "I was born in 2005"},
-            {"type": "translate", "q": "Переведи: Встретимся в понедельник.", "answer": "See you on Monday"},
-            {"type": "translate", "q": "Переведи: Встреча в 3 часа.", "answer": "The meeting is at 3 o'clock"},
-                        {"type": "translate", "q": "Переведи: Книга на столе.", "answer": "The book is on the table"}
         ]
     },
 
