@@ -1861,47 +1861,25 @@ def study_page():
         })
 
         # 2. Добавляем заглушки (которых еще нет в базе)
-            PLACEHOLDERS = [
+        PLACEHOLDERS = [
         # --- A1 БАЗА ---
         {"id": "intro_english", "title": "Введение в английский", "emoji": "👋", "level": "A1", "module": "A1"},
-        {"id": "to_be", "title": "Глагол to be (am / is / are)", "emoji": "🪪", "level": "A1", "module": "A1"},
-        {"id": "pronouns", "title": "Личные местоимения", "emoji": "👥", "level": "A1", "module": "A1"},
-        {"id": "plural_nouns", "title": "Множественное число", "emoji": "👨‍👩‍👧‍👦", "level": "A1", "module": "A1"},
-        {"id": "demonstratives", "title": "This / That / These / Those", "emoji": "👉", "level": "A1", "module": "A1"},
         {"id": "possessive_s", "title": "Притяжательный падеж ('s)", "emoji": "🔑", "level": "A1", "module": "A1"},
-        {"id": "articles", "title": "Артикли (a / an / the)", "emoji": "🔤", "level": "A1", "module": "A1"},
-        {"id": "there_is_are", "title": "There is / There are", "emoji": "🏠", "level": "A1", "module": "A1"},
         {"id": "prepositions_place", "title": "Предлоги места (in/on/at)", "emoji": "📍", "level": "A1", "module": "A1"},
-        {"id": "present_simple", "title": "Present Simple", "emoji": "🕐", "level": "A1", "module": "A1"},
         {"id": "adverbs_frequency", "title": "Наречия частоты", "emoji": "🔁", "level": "A1", "module": "A1"},
-        {"id": "modal_verbs_1", "title": "Модальные (can / must)", "emoji": "💪", "level": "A1", "module": "A1"},
         {"id": "wh_questions", "title": "Вопросительные слова", "emoji": "❓", "level": "A1", "module": "A1"},
         {"id": "imperative", "title": "Повелительное наклонение", "emoji": "🛑", "level": "A1", "module": "A1"},
-        {"id": "numbers_time", "title": "Числа и время", "emoji": "⏰", "level": "A1", "module": "A1"},
-        {"id": "countable_uncountable", "title": "Считаемые / Несчитаемые", "emoji": "🔢", "level": "A1", "module": "A1"},
 
         # --- A2 РАСШИРЕНИЕ ---
-        {"id": "past_simple", "title": "Past Simple", "emoji": "⏪", "level": "A2", "module": "A2"},
-        {"id": "past_continuous", "title": "Past Continuous", "emoji": "⌛", "level": "A2", "module": "A2"},
-        {"id": "present_continuous", "title": "Present Continuous", "emoji": "🎬", "level": "A2", "module": "A2"},
-        {"id": "future_simple", "title": "Future Simple", "emoji": "🔮", "level": "A2", "module": "A2"},
         {"id": "will_vs_going", "title": "Will vs Going to", "emoji": "🛣️", "level": "A2", "module": "A2"},
-        {"id": "comparatives", "title": "Степени сравнения", "emoji": "📊", "level": "A2", "module": "A2"},
         {"id": "some_any", "title": "Some / Any / No", "emoji": "🥛", "level": "A2", "module": "A2"},
         {"id": "much_many", "title": "Much / Many / A lot of", "emoji": "📦", "level": "A2", "module": "A2"},
         {"id": "prepositions_time", "title": "Предлоги времени (in/on/at)", "emoji": "🕰️", "level": "A2", "module": "A2"},
         {"id": "past_simple_vs_cont", "title": "Past Simple vs Past Continuous", "emoji": "🎞️", "level": "A2", "module": "A2"},
         {"id": "used_to", "title": "Конструкция Used to", "emoji": "👴", "level": "A2", "module": "A2"},
-        {"id": "question_tags", "title": "Разделительные вопросы (Tag questions)", "emoji": "🏷️", "level": "A2", "module": "A2"},
 
         # --- B1 СРЕДНИЙ ---
-        {"id": "present_perfect", "title": "Present Perfect", "emoji": "✨", "level": "B1", "module": "B1"},
-        {"id": "present_perfect_continuous", "title": "Present Perfect Continuous", "emoji": "🔄", "level": "B1", "module": "B1"},
-        {"id": "past_perfect", "title": "Past Perfect", "emoji": "⏮️", "level": "B1", "module": "B1"},
-        {"id": "gerund_infinitive", "title": "Герундий vs Инфинитив", "emoji": "🎭", "level": "B1", "module": "B1"},
-        {"id": "conditionals_1_2", "title": "Условные предложения (0,1,2 тип)", "emoji": "🔀", "level": "B1", "module": "B1"},
-        {"id": "passive_voice", "title": "Пассивный залог", "emoji": "🧙‍♂️", "level": "B1", "module": "B1"},
-        {"id": "reported_speech", "title": "Косвенная речь", "emoji": "🗣️", "level": "B1", "module": "B1"},
+        {"id": "question_tags", "title": "Разделительные вопросы (Tag questions)", "emoji": "🏷️", "level": "B1", "module": "B1"},
         {"id": "relative_clauses", "title": "Относительные местоимения (who/which)", "emoji": "🔗", "level": "B1", "module": "B1"},
         {"id": "modals_deduction", "title": "Модальные глаголы вероятности", "emoji": "🎱", "level": "B1", "module": "B1"},
 
@@ -1934,45 +1912,68 @@ def study_page():
             })
 
         # Задаем жесткий порядок для тем внутри каждого модуля
-    ORDER = {
+       ORDER = {
+        # A1
         "intro_english": 1,
         "to_be": 2,
         "pronouns": 3,
         "plural_nouns": 4,
         "demonstratives": 5,
-        "articles": 6,
-        "there_is_are": 7,
-        "present_simple": 8,
-        "numbers_time": 9,
-        "countable_uncountable": 10,
-        "prepositions": 11,
-        "modal_verbs": 12,
+        "possessive_s": 6,
+        "articles": 7,
+        "there_is_are": 8,
+        "prepositions_place": 9,
+        "prepositions": 10, # (старый ID для предлогов)
+        "present_simple": 11,
+        "adverbs_frequency": 12,
+        "modal_verbs": 13, # (старый ID)
+        "modal_verbs_1": 14,
+        "wh_questions": 15,
+        "imperative": 16,
+        "numbers_time": 17,
+        "countable_uncountable": 18,
         
+        # A2
         "past_simple": 20,
-        "present_continuous": 21,
-        "future_simple": 22,
-        "comparatives": 23,
+        "past_continuous": 21,
+        "present_continuous": 22,
+        "future_simple": 23,
         "will_vs_going": 24,
-        "some_any": 25,
-        "past_simple_vs_cont": 26,
-        "used_to": 27,
+        "comparatives": 25,
+        "some_any": 26,
+        "much_many": 27,
+        "prepositions_time": 28,
+        "past_simple_vs_cont": 29,
+        "used_to": 30,
         
-        "present_perfect": 30,
-        "past_continuous": 31,
-        "gerund_infinitive": 32,
-        "conditionals": 33,
-        "passive_voice": 34,
-        "reported_speech": 35,
-        "question_tags": 36,
-        "relative_clauses": 37,
-        
-        "past_perfect": 40,
+        # B1
+        "present_perfect": 40,
         "present_perfect_continuous": 41,
-        "past_perfect_cont": 42,
-        "future_cont_perfect": 43,
-        "wish_if_only": 44,
-        "modals_deduction": 45,
-        "inversion": 46,
+        "past_perfect": 42,
+        "gerund_infinitive": 43,
+        "conditionals": 44, # (старый ID)
+        "conditionals_1_2": 45,
+        "passive_voice": 46,
+        "reported_speech": 47,
+        "question_tags": 48,
+        "relative_clauses": 49,
+        "modals_deduction": 50,
+
+        # B2
+        "past_perfect_cont": 60,
+        "future_cont_perfect": 61,
+        "conditionals_3": 62,
+        "wish_if_only": 63,
+        "passive_advanced": 64,
+        "reported_speech_2": 65,
+        "inversion": 66,
+
+        # C1
+        "mixed_conditionals": 70,
+        "modal_perfects": 71,
+        "cleft_sentences": 72,
+        "participles": 73,
+        "ellipsis": 74,
     }
     
     # Сортируем: сначала по модулю, потом по нашему ORDER, потом по ID (если нет в ORDER)
