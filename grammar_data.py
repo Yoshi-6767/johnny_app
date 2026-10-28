@@ -138,6 +138,150 @@ GRAMMAR_LESSONS = [
         ]
     },
 
+        # ═══════════════════════════════════════════
+    # УРОК — МЕСТОИМЕНИЯ (I, MY, ME)
+    # ═══════════════════════════════════════════
+    {
+        "id": "pronouns",
+        "title": "Местоимения (I, my, me)",
+        "emoji": "👥",
+        "level": "A1",
+        "module": "A1",
+        "intro": "Местоимения заменяют имена и названия предметов, чтобы мы не повторялись. В английском они делятся на три главные группы: личные (я, ты, он), притяжательные (мой, твой, его) и объектные (меня, тебя, ему). Если перепутать их — получится каша.",
+        
+        "why": "Представь, что ты рассказываешь о своем друге. Ты не будешь каждый раз называть его по имени: «Мой друг Том. Том — студент. Том любит футбол». Это звучит глупо. Мы используем местоимения, чтобы не повторяться: «Мой друг Том. Он студент. Он любит футбол». В английском языке местоимения работают так же, но у них есть четкое разделение на три группы: личные (кто делает действие), притяжательные (чей предмет) и объектные (кому делают). Если ты перепутаешь группы, получится каша. Без местоимений ты не сможешь сказать «Это мой друг», «Дай мне книгу» или «Он любит её». В русском мы часто путаем падежи, но интуитивно чувствуем разницу. В английском всё строго: у каждого местоимения своя роль. Особенно важно не путать I (я) и my (мой) — это одна из самых частых ошибок новичков.",
+
+        "rules": [
+            {"h": "Зачем нужны местоимения и какие они бывают?", "text": "Представь, что ты рассказываешь о своем друге. Ты не будешь каждый раз называть его по имени: 'Мой друг Том. Том — студент. Том любит футбол'. Это звучит глупо. Мы используем местоимения, чтобы не повторяться: 'Мой друг Том. Он студент. Он любит футбол'. В английском языке местоимения работают так же, но у них есть четкое разделение на три группы: личные (кто делает действие), притяжательные (чей предмет) и объектные (кому делают). Если ты перепутаешь группы, получится каша. Поэтому давай разберем каждую по порядку."},
+            
+            {"h": "Личные местоимения: кто совершает действие?", "text": "Личные местоимения — это те, кто стоит в начале предложения и делает действие. В русском это: я, ты, он, она, оно, мы, они. В английском: I, you, he, she, it, we, they. Например: 'I am a student' (Я студент). 'He is a doctor' (Он врач). 'They are here' (Они здесь). Личные местоимения ВСЕГДА являются подлежащим, то есть главным действующим лицом. Нельзя сказать 'Me am a student' или 'Him is a doctor'. В роли подлежащего — только I, he, she, it, you, we, they."},
+            
+            {"h": "Притяжательные местоимения: чей это предмет?", "text": "Притяжательные местоимения показывают, кому принадлежит предмет. В русском это: мой, твой, его, её, наш, их. В английском: my, your, his, her, its, our, their. Главное правило: притяжательное местоимение ВСЕГДА стоит ПЕРЕД существительным. Например: 'my book' (моя книга), 'his car' (его машина), 'their house' (их дом). Нельзя сказать 'This is mine book'. Нужно сказать 'This is my book'. Запомни: если после местоимения идет существительное — это притяжательное (my, your, his). Если существительного нет, и местоимение стоит само по себе — это другая форма (mine, yours, his, hers, ours, theirs). Например: 'This book is mine' (Эта книга — моя)."},
+            
+            {"h": "Объектные местоимения: кому или кого?", "text": "Объектные местоимения используются после глаголов и предлогов. Они отвечают на вопросы: кому? кого? с кем? В русском это: меня, тебя, его, её, нас, их (а также мне, тебе и т.д.). В английском: me, you, him, her, it, us, them. Пример: 'Give me the book' (Дай мне книгу). Здесь 'me' — это объектное, потому что оно стоит после глагола 'give'. 'I love her' (Я люблю её). 'Look at them' (Посмотри на них). Если ты видишь местоимение после глагола или предлога — это почти всегда объектное местоимение. Нельзя сказать 'I love she' или 'Give he the book'."},
+            
+            {"h": "Как не перепутать все три группы?", "text": "Запомни простую логику: личное местоимение (I, he, she) — это тот, кто ДЕЛАЕТ. Притяжательное (my, his, her) — это тот, ЧЕЙ предмет (стоит перед существительным). Объектное (me, him, her) — это тот, НА КОГО направлено действие (стоит после глагола). Например: 'I love my mother' (Я люблю свою маму). Здесь 'I' — личное (я делаю), 'my' — притяжательное (моя мама, чья?). 'She helps me' (Она помогает мне). 'She' — личное (она делает), 'me' — объектное (помогает кому? мне)."},
+            
+            {"h": "Местоимение it: когда его использовать?", "text": "Местоимение it используется для неодушевленных предметов и животных (если пол не важен). В русском мы говорим «он» или «она» в зависимости от рода слова (стол — он, книга — она). В английском такого нет. Всё, что не человек (и не домашнее животное с известным полом), — это it. Например: 'It is a cat' (Это кот). 'It is cold' (Холодно). 'I like it' (Мне это нравится). Не говори 'He is a cat' или 'She is a book', потому что это звучит странно."},
+            
+            {"h": "Местоимение they: для людей и предметов", "text": "They используется не только для людей (они), но и для предметов (они). Например: 'My friends are here. They are students' (Мои друзья здесь. Они студенты). 'The books are on the table. They are new' (Книги на столе. Они новые). Если предметов много, мы используем they, даже если это неодушевленные предметы."},
+            
+            {"h": "Порядок слов: где что стоит?", "text": "Чтобы не запутаться, запомни порядок: Личное местоимение (I, he, she) — на первом месте в предложении. Притяжательное (my, his, her) — перед существительным. Объектное (me, him, her) — после глагола или предлога. Пример: 'I give my book to him'. I (личное) — дает, my book (притяжательное + существительное) — что дает, to him (объектное) — кому дает. Это базовая структура, которая работает в 90% случаев."},
+            
+            {"h": "Тонкость: I и me в связке с другими людьми", "text": "Когда ты говоришь «Я и мой друг», в английском нельзя ставить 'I' в начало. Воспитанные люди говорят 'My friend and I' (Мой друг и я). В русском мы говорим «Мы с другом», а в английском — 'My friend and I'. Это правило вежливости, и оно часто встречается в тестах. То же самое: 'My parents and I' (Мои родители и я). Если сомневаешься — ставь себя в конец."}
+        ],
+
+        "tables": [
+            {
+                "title": "Личные местоимения (кто?)",
+                "headers": ["Местоимение", "Перевод", "Пример"],
+                "rows": [
+                    ["I", "я", "I am a student."],
+                    ["You", "ты / вы", "You are my friend."],
+                    ["He", "он", "He is a doctor."],
+                    ["She", "она", "She is beautiful."],
+                    ["It", "оно", "It is a cat."],
+                    ["We", "мы", "We are ready."],
+                    ["They", "они", "They are here."]
+                ]
+            },
+            {
+                "title": "Притяжательные местоимения (чей?)",
+                "headers": ["Местоимение", "Перевод", "Пример"],
+                "rows": [
+                    ["my", "мой", "my book"],
+                    ["your", "твой / ваш", "your car"],
+                    ["his", "его", "his house"],
+                    ["her", "её", "her dog"],
+                    ["its", "его / её (для предметов)", "its color"],
+                    ["our", "наш", "our school"],
+                    ["their", "их", "their friends"]
+                ]
+            },
+            {
+                "title": "Объектные местоимения (кому? кого?)",
+                "headers": ["Местоимение", "Перевод", "Пример"],
+                "rows": [
+                    ["me", "меня / мне", "Give me the book."],
+                    ["you", "тебя / тебе", "I love you."],
+                    ["him", "его / ему", "Look at him."],
+                    ["her", "её / ей", "I know her."],
+                    ["it", "его / ей (предмет)", "I like it."],
+                    ["us", "нас / нам", "Help us."],
+                    ["them", "их / им", "I see them."]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "Me am a student.", "right": "I am a student.", "why": "В подлежащем только I, а не me."},
+            {"wrong": "I name is Alex.", "right": "My name is Alex.", "why": "Перед существительным — притяжательное (my), а не личное (I)."},
+            {"wrong": "He loves she.", "right": "He loves her.", "why": "После глагола — объектное местоимение (her), а не личное (she)."},
+            {"wrong": "I give he the book.", "right": "I give him the book.", "why": "Кому? — объектное (him)."},
+            {"wrong": "This is mine book.", "right": "This is my book.", "why": "Mine — самостоятельное, перед существительным — my."},
+            {"wrong": "I am a student. I like my teacher. I like he.", "right": "I like him.", "why": "После глагола — объектное."},
+            {"wrong": "They is my friends.", "right": "They are my friends.", "why": "They — множественное, значит are."},
+            {"wrong": "We house is big.", "right": "Our house is big.", "why": "Перед существительным — притяжательное (our)."}
+        ],
+
+        "lifehacks": [
+            "Запомни три столбика: Личные (кто?) → Притяжательные (чей?) → Объектные (кому?). I → my → me. He → his → him. She → her → her. They → their → them.",
+            "Если нужно сказать «это мой...» — всегда my + существительное. Никогда не ставь I или me перед существительным.",
+            "Если после глагола или предлога стоит местоимение — это объектное. Give me, look at him, help us.",
+            "Its (без апострофа) — это притяжательное 'его/её' для предметов. It's (с апострофом) — это сокращение от 'it is'. Не путай!",
+            "В английском нельзя сказать «Я и мой друг» как 'I and my friend' — воспитанные люди говорят 'My friend and I'. Но это уже тонкости, главное — не путай I и me."
+        ],
+
+        "text": {
+            "title": "My Family",
+            "paragraphs": [
+                "My name is Anna. I am 25 years old. I am a teacher. I have a big family. My husband is a doctor. His name is John. He is 30 years old. We have two children. Their names are Tom and Lily. Tom is 5, and Lily is 3.",
+                "We live in a small house. Our house is near a park. I love my family. My husband helps me a lot. He cooks dinner, and I help him with the children. We are happy together.",
+                "I also have a dog. Its name is Max. It is very friendly. My children love it. They play with it every day. When I come home, it runs to me and wags its tail. I love my family and my dog!"
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What is the woman's name?", "options": ["Anna", "Lily", "Kate", "Maria"], "correct": "Anna"},
+            {"q": "How old is Anna?", "options": ["20", "25", "30", "35"], "correct": "25"},
+            {"q": "What is Anna's job?", "options": ["Doctor", "Teacher", "Engineer", "Driver"], "correct": "Teacher"},
+            {"q": "What is her husband's name?", "options": ["Tom", "John", "Max", "Alex"], "correct": "John"},
+            {"q": "How many children do they have?", "options": ["One", "Two", "Three", "Four"], "correct": "Two"},
+            {"q": "What is the dog's name?", "options": ["Tom", "Max", "Lily", "John"], "correct": "Max"},
+            {"q": "Where is their house?", "options": ["Near a school", "Near a park", "Near a hospital", "In the city centre"], "correct": "Near a park"},
+            {"q": "Who cooks dinner?", "options": ["Anna", "John", "The children", "Max"], "correct": "John"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "___ am a student.", "options": ["I", "Me", "My", "Mine"], "correct": "I"},
+            {"type": "choice", "q": "___ name is Alex.", "options": ["I", "Me", "My", "Mine"], "correct": "My"},
+            {"type": "choice", "q": "He loves ___.", "options": ["she", "her", "hers", "he"], "correct": "her"},
+            {"type": "choice", "q": "Give ___ the book.", "options": ["I", "me", "my", "mine"], "correct": "me"},
+            {"type": "choice", "q": "___ is a doctor.", "options": ["He", "Him", "His", "Her"], "correct": "He"},
+            {"type": "choice", "q": "Look at ___.", "options": ["they", "them", "their", "theirs"], "correct": "them"},
+            {"type": "choice", "q": "We love ___ dog.", "options": ["we", "us", "our", "ours"], "correct": "our"},
+            {"type": "choice", "q": "This is ___ book. (её)", "options": ["her", "she", "hers", "him"], "correct": "her"},
+            {"type": "choice", "q": "___ are my friends.", "options": ["They", "Them", "Their", "Theirs"], "correct": "They"},
+            {"type": "fill", "q": "I love ___ (она).", "answer": "her"},
+            {"type": "fill", "q": "___ (мы) are students.", "answer": "We"},
+            {"type": "fill", "q": "This is ___ (его) car.", "answer": "his"},
+            {"type": "fill", "q": "Give ___ (мне) the pen.", "answer": "me"},
+            {"type": "fill", "q": "___ (они) are from Russia.", "answer": "They"},
+            {"type": "fill", "q": "I like ___ (это).", "answer": "it"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["Me am a student", "I am a student", "My am a student", "Mine am a student"], "correct": "I am a student"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I name is Alex", "My name is Alex", "Me name is Alex", "Mine name is Alex"], "correct": "My name is Alex"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["He loves she", "He loves her", "He loves hers", "He loves he"], "correct": "He loves her"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I give he the book", "I give him the book", "I give his the book", "I give he's the book"], "correct": "I give him the book"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["This is mine book", "This is my book", "This is me book", "This is I book"], "correct": "This is my book"},
+            {"type": "translate", "q": "Переведи: Я люблю её.", "answer": "I love her"},
+            {"type": "translate", "q": "Переведи: Это моя книга.", "answer": "This is my book"},
+            {"type": "translate", "q": "Переведи: Дай мне ручку.", "answer": "Give me the pen"},
+            {"type": "translate", "q": "Переведи: Они наши друзья.", "answer": "They are our friends"},
+            {"type": "translate", "q": "Перевод: Посмотри на него.", "answer": "Look at him"},
+            {"type": "write", "q": "Напиши 3-5 предложений о своей семье или друзьях, используя местоимения (my, his, her, their, us).", "sample": "My name is Alex. My friend is Tom. His sister is Kate. We love our school. They help us a lot."}
+        ]
+    },
+
     # ═══════════════════════════════════════════
     # УРОК — МНОЖЕСТВЕННОЕ ЧИСЛО
     # ═══════════════════════════════════════════
