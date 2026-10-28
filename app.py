@@ -1865,7 +1865,6 @@ def study_page():
         # --- A1 БАЗА ---
         {"id": "intro_english", "title": "Введение в английский", "emoji": "👋", "level": "A1", "module": "A1"},
         {"id": "pronouns", "title": "Местоимения (I, my, me)", "emoji": "👥", "level": "A1", "module": "A1"},
-        {"id": "plural_nouns", "title": "Множественное число", "emoji": "👨‍👩‍👧‍👦", "level": "A1", "module": "A1"},
         {"id": "demonstratives", "title": "This / That / These / Those", "emoji": "👉", "level": "A1", "module": "A1"},
 
         # --- A2 РАСШИРЕНИЕ ---
