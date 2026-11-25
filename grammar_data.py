@@ -2054,50 +2054,47 @@ GRAMMAR_LESSONS = [
         ]
     },
 
-    # ═══════════════════════════════════════════
-    # УРОК 3 — PRESENT CONTINUOUS
+        # ═══════════════════════════════════════════
+    # УРОК — PRESENT CONTINUOUS
     # ═══════════════════════════════════════════
     {
         "id": "present_continuous",
-        "module": "A2",
         "title": "Present Continuous",
         "emoji": "🎬",
-        "level": "A1-A2",
-        "intro": "Настоящее длительное. Для действий, которые происходят прямо сейчас или в этот период.",
-        "why": "Present Continuous описывает то, что происходит в момент речи: 'Я сейчас читаю', 'Он сейчас работает'. Это время добавляет динамику в язык. Оно также используется для временных ситуаций ('Я живу у друга эту неделю') и запланированного будущего ('Я встречаюсь с ним завтра'). Если в предложении есть 'now', 'at the moment', 'look!', 'listen!' — это Present Continuous.",
+        "level": "A2",
+        "module": "A2",
+        "intro": "Настоящее длительное время. Для действий, которые происходят прямо сейчас или в этот период. 'Я сейчас читаю', 'Он работает над проектом', 'Они гуляют'. Это время добавляет динамику в твой английский.",
+        
+        "why": "Представь, что ты звонишь другу, а он не берет трубку. Ты пишешь ему: 'Ты че делаешь?'. Если ты не знаешь Present Continuous, ты не сможешь ответить 'Я работаю' или 'Я гуляю'. Ты скажешь 'I work' или 'I walk', и это будет звучать так, будто ты сообщаешь о своей профессии или привычке, а не о том, что происходит в данный момент. Present Continuous используется постоянно: когда описываешь фотографию ('Смотри, тут я улыбаюсь'), когда говоришь по телефону ('Я еду в метро'), когда заказываешь еду ('Я жду официанта'). Без этого времени ты не сможешь описать то, что происходит здесь и сейчас.",
 
         "rules": [
-            {"h": "Когда использовать", "text": "1) Действие прямо сейчас: I am reading a book (сейчас). 2) Временная ситуация: I am living in Moscow this month. 3) Запланированное будущее: I am meeting him tomorrow. 4) Изменения/тренды: The climate is getting warmer."},
-            {"h": "Как образуется", "text": "am / is / are + глагол с -ing. I am working. She is reading. They are playing. Без глагола to be (am/is/are) конструкция не работает."},
-            {"h": "Правило -ing", "text": "Обычно + ing: work → working, play → playing. Если кончается на -e: убираем e + ing (write → writing, make → making). Если короткий слог и ударение: удваиваем согласную (run → running, sit → sitting). Если на -ie: ie → y + ing (die → dying, lie → lying)."},
-            {"h": "Отрицание", "text": "am not / isn't / aren't + глагол-ing: I am not working, he isn't reading, they aren't playing."},
-            {"h": "Вопрос", "text": "Am / Is / Are + подлежащее + глагол-ing: Are you working? Is she reading? Ответы: Yes, I am. No, I'm not. Yes, she is. No, she isn't."},
-            {"h": "Глаголы-исключения", "text": "Некоторые глаголы НЕ используются в Continuous: like, love, hate, want, need, know, understand, believe, remember. Они обозначают состояние, а не действие. НЕ 'I am knowing', а 'I know'."},
-            {"h": "Разница с Present Simple", "text": "Simple — привычка (I work every day). Continuous — прямо сейчас (I am working now). Маркеры: Simple — always, usually, every day. Continuous — now, at the moment, look!, listen!."},
-            {"h": "Маркеры времени", "text": "now (сейчас), right now (прямо сейчас), at the moment (в данный момент), today (сегодня), this week / month (на этой неделе / в этом месяце), look! (смотри!), listen! (слушай!)"}
+            {"h": "Когда использовать Present Continuous?", "text": "Present Continuous используется в трех основных случаях: 1) Действие происходит прямо сейчас, в момент речи: 'I am reading a book' (Я читаю книгу). 'Look! It is raining' (Смотри! Идет дождь). 2) Временная ситуация (не навсегда): 'I am living with my parents this month' (В этом месяце я живу с родителями). 3) Запланированное будущее (мы обсудим это позже, но знать полезно): 'I am meeting him tomorrow' (Я встречаюсь с ним завтра). На уровне A2 нам важнее всего первый вариант — действие прямо сейчас."},
+            
+            {"h": "Как образуется (Формула)", "text": "Формула очень простая: подлежащее + глагол to be (am / is / are) + смысловой глагол с окончанием -ing. Например: 'I am working' (Я работаю). 'She is reading' (Она читает). 'They are playing' (Они играют). Без глагола to be (am/is/are) конструкция не работает. Нельзя сказать просто 'I working' — это ошибка. Запомни: am для I, is для he/she/it, are для you/we/they."},
+            
+            {"h": "Правило -ing (Как менять глагол)", "text": "Чтобы поставить глагол в форму Present Continuous, нужно добавить к нему -ing. Но есть нюансы: 1) Обычно просто добавляем -ing: work -> working, play -> playing. 2) Если глагол кончается на -e, убираем e и добавляем -ing: write -> writing, make -> making. 3) Если глагол короткий (один слог с ударением) и кончается на согласную, удваиваем согласную: run -> running, sit -> sitting. 4) Если глагол кончается на -ie, меняем ie на y: die -> dying, lie -> lying."},
+            
+            {"h": "Отрицание (I am not / isn't / aren't)", "text": "Чтобы сказать, что действие НЕ происходит, мы добавляем частицу 'not' после глагола to be. Например: 'I am not working' (Я не работаю). 'She isn't reading' (Она не читает). 'They aren't playing' (Они не играют). В разговорной речи мы сокращаем: I'm not, isn't, aren't. Обрати внимание, что мы не используем don't/doesn't. В Present Continuous отрицание строится только через глагол to be."},
+            
+            {"h": "Вопрос (Am I...? Is he...?)", "text": "Чтобы задать вопрос, мы выносим глагол to be (am/is/are) на первое место. Формула: Am/Is/Are + подлежащее + глагол с -ing. Например: 'Are you working?' (Ты работаешь?). 'Is she reading?' (Она читает?). 'Am I doing this right?' (Я правильно это делаю?). Ответы краткие: Yes, I am. / No, I'm not. Yes, she is. / No, she isn't. Ответ нельзя давать просто 'Yes' или 'No'."},
+            
+            {"h": "Разница с Present Simple (Очень важно)", "text": "Это главная головная боль новичков. Present Simple — это привычка, факт, расписание (I work every day). Present Continuous — это процесс прямо сейчас (I am working at the moment). Сравни: 'I usually drink coffee in the morning' (Present Simple — привычка). 'I am drinking coffee right now' (Present Continuous — процесс). Если видишь маркеры 'now', 'at the moment', 'look!', 'listen!' — это Present Continuous."},
+            
+            {"h": "Глаголы-исключения (State Verbs)", "text": "Есть группа глаголов, которые НЕ используются в Present Continuous. Это глаголы состояния: like (нравиться), love (любить), hate (ненавидеть), want (хотеть), need (нуждаться), know (знать), understand (понимать), believe (верить). Мы не говорим 'I am liking pizza' или 'I am knowing him'. Мы говорим 'I like pizza' и 'I know him'. Эти глаголы обозначают не действие, а состояние, поэтому они не могут быть длительными."},
+            
+            {"h": "Маркеры времени", "text": "Чтобы понять, что нужен Present Continuous, ищи в предложении такие слова: now (сейчас), right now (прямо сейчас), at the moment (в данный момент), currently (в настоящее время), look! (смотри!), listen! (слушай!), today (сегодня), this week/month (на этой неделе/в этом месяце). Если видишь эти маркеры, смело используй am/is/are + -ing."}
         ],
 
         "tables": [
             {
-                "title": "Спряжение work (Present Continuous)",
+                "title": "Спряжение глагола work",
                 "headers": ["Местоимение", "Утверждение", "Отрицание", "Вопрос"],
                 "rows": [
                     ["I", "am working", "am not working", "Am I working?"],
                     ["You", "are working", "aren't working", "Are you working?"],
-                    ["He", "is working", "isn't working", "Is he working?"],
-                    ["She", "is working", "isn't working", "Is she working?"],
+                    ["He / She / It", "is working", "isn't working", "Is he working?"],
                     ["We", "are working", "aren't working", "Are we working?"],
                     ["They", "are working", "aren't working", "Are they working?"]
-                ]
-            },
-            {
-                "title": "Правило -ing",
-                "headers": ["Окончание", "Что делаем", "Пример"],
-                "rows": [
-                    ["Обычный", "+ ing", "work → working"],
-                    ["-e", "Убираем e + ing", "write → writing"],
-                    ["1 слог + согласная", "Удваиваем + ing", "run → running"],
-                    ["-ie", "ie → y + ing", "die → dying"]
                 ]
             },
             {
@@ -2108,23 +2105,35 @@ GRAMMAR_LESSONS = [
                     ["Маркеры", "always, usually, every day", "now, at the moment, look!"],
                     ["Пример", "I work every day.", "I am working now."]
                 ]
+            },
+            {
+                "title": "Правило -ing",
+                "headers": ["Окончание", "Что делаем", "Пример"],
+                "rows": [
+                    ["Обычный", "+ ing", "work -> working"],
+                    ["-e", "Убираем e + ing", "write -> writing"],
+                    ["1 слог + согласная", "Удваиваем + ing", "run -> running"],
+                    ["-ie", "ie -> y + ing", "die -> dying"]
+                ]
             }
         ],
 
         "mistakes": [
-            {"wrong": "I working now.", "right": "I am working now.", "why": "Нужен am/is/are перед -ing"},
-            {"wrong": "She is work now.", "right": "She is working now.", "why": "После is глагол в -ing"},
-            {"wrong": "I am knowing him.", "right": "I know him.", "why": "Know — глагол состояния, не используется в Continuous"},
-            {"wrong": "He is runing.", "right": "He is running.", "why": "Удвоение согласной: run → running"},
-            {"wrong": "They are play football.", "right": "They are playing football.", "why": "Глагол должен быть в -ing"},
-            {"wrong": "I am like pizza.", "right": "I like pizza.", "why": "Like — состояние, не действие"}
+            {"wrong": "I working now.", "right": "I am working now.", "why": "Пропущен глагол to be (am)."},
+            {"wrong": "She is work now.", "right": "She is working now.", "why": "После is глагол должен быть с -ing."},
+            {"wrong": "I am knowing him.", "right": "I know him.", "why": "Know — глагол состояния, не используется в Continuous."},
+            {"wrong": "He is runing.", "right": "He is running.", "why": "Удвоение согласной: run -> running."},
+            {"wrong": "They are play football.", "right": "They are playing football.", "why": "Глагол должен быть в -ing."},
+            {"wrong": "I am like pizza.", "right": "I like pizza.", "why": "Like — глагол состояния, не Continuous."},
+            {"wrong": "Do you working?", "right": "Are you working?", "why": "В вопросах Continuous используется to be (are), а не do."}
         ],
 
         "lifehacks": [
-            "Видишь 'now', 'look!', 'listen!' — сразу Continuous.",
+            "Видишь 'now', 'look!', 'listen!' — сразу Present Continuous.",
             "am / is / are — это 'клей' между подлежащим и -ing. Без него не работает.",
             "Глаголы чувств (like, love, hate) и мысли (know, think) — НИКОГДА не в Continuous.",
-            "Одна 'e' в конце → меняется на -ing без неё: write → writing."
+            "Одна 'e' в конце — меняется на -ing без неё: write -> writing.",
+            "В вопросах не нужен do, просто меняй местами am/is/are и подлежащее: Are you playing?"
         ],
 
         "text": {
@@ -2158,48 +2167,56 @@ GRAMMAR_LESSONS = [
             {"type": "fill", "q": "We ___ (study) English now.", "answer": "are studying"},
             {"type": "fill", "q": "She ___ (not / sleep) — she is reading.", "answer": "isn't sleeping"},
             {"type": "fill", "q": "What ___ you ___ (do) right now?", "answer": "are doing"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["I working now", "I am working now", "I is working now", "I be working now"], "correct": "I am working now"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["She is work now", "She is working now", "She working now", "She am working now"], "correct": "She is working now"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["He is runing", "He is running", "He runing", "He am running"], "correct": "He is running"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I working now", "I am working now", "I is working now", "I be working now"], "correct": "I am working now"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["She is work now", "She is working now", "She working now", "She am working now"], "correct": "She is working now"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["He is runing", "He is running", "He runing", "He am running"], "correct": "He is running"},
             {"type": "translate", "q": "Переведи: Я сейчас читаю книгу.", "answer": "I am reading a book now"},
             {"type": "translate", "q": "Переведи: Она готовит ужин.", "answer": "She is cooking dinner"},
             {"type": "translate", "q": "Переведи: Они не смотрят телевизор.", "answer": "They aren't watching TV"},
-            {"type": "translate", "q": "Переведи: Что ты делаешь сейчас?", "answer": "What are you doing now"}
+            {"type": "translate", "q": "Переведи: Что ты делаешь сейчас?", "answer": "What are you doing now"},
+            {"type": "write", "q": "Напиши 5 предложений о том, что сейчас происходит вокруг тебя (используй am/is/are + -ing).", "sample": "I am sitting at my desk. My wife is cooking dinner. My son is playing with toys. The TV is working. I am writing a message."}
         ]
     },
 
-    # ═══════════════════════════════════════════
-    # УРОК 4 — FUTURE SIMPLE
+        # ═══════════════════════════════════════════
+    # УРОК — FUTURE SIMPLE
     # ═══════════════════════════════════════════
     {
         "id": "future_simple",
-        "module": "A2",
         "title": "Future Simple",
         "emoji": "🔮",
-        "level": "A1-A2",
-        "intro": "Простое будущее время. Для решений, предсказаний, обещаний и планов на будущее.",
-        "why": "Future Simple — самое простое будущее время в английском. Оно используется для спонтанных решений («Ладно, я помогу тебе»), предсказаний («Будет дождь»), обещаний («Я позвоню») и планов, которые не очень конкретны. Если ты не уверен, какое будущее время использовать — Future Simple почти всегда сработает. Также оно часто используется с 'I think', 'I hope', 'probably'.",
+        "level": "A2",
+        "module": "A2",
+        "intro": "Простое будущее время. Для решений, предсказаний, обещаний и планов на будущее. 'Я позвоню', 'Будет дождь', 'Я помогу'. Это самое простое время для выражения будущего.",
+        
+        "why": "Представь, что тебе нужно договориться о встрече на завтра, пообещать жене, что ты вымоешь посуду, или предсказать, что твоя любимая команда выиграет матч. Без Future Simple ты не сможешь этого сделать. В английском языке будущее время можно выразить разными способами, но 'will' — это самый базовый и универсальный. Он используется для спонтанных решений (решил прямо сейчас) и обещаний. Если ты не освоишь 'will', ты не сможешь говорить о планах или делать прогнозы. Это твой главный инструмент для разговоров о будущем.",
 
         "rules": [
-            {"h": "Когда использовать", "text": "1) Спонтанные решения: I'll help you! 2) Предсказания: It will rain tomorrow. 3) Обещания: I will call you. 4) Предложения: I'll open the window. 5) С 'I think / I hope': I think she will come."},
-            {"h": "Как образуется", "text": "will + глагол в базовой форме для всех лиц: I will work, you will work, he will work, she will work, we will work, they will work. Форма 'will' одинакова для всех — никаких изменений!"},
-            {"h": "Сокращения", "text": "I will = I'll. You will = you'll. He will = he'll. She will = she'll. We will = we'll. They will = they'll. Это стандарт в разговорной речи."},
-            {"h": "Отрицание", "text": "will not (won't) + глагол: I won't work, he won't come. Сокращение won't — почти всегда используется."},
-            {"h": "Вопрос", "text": "Will + подлежащее + глагол: Will you help me? Will it rain? Ответы: Yes, I will. No, I won't."},
-            {"h": "Маркеры времени", "text": "tomorrow (завтра), next week / month / year (на следующей неделе / в следующем месяце / году), in 2030 (в 2030), soon (скоро), later (позже), in 2 hours (через 2 часа), tonight (сегодня вечером)"},
-            {"h": "С 'I think / I hope / probably'", "text": "I think she will come. I hope it won't rain. He will probably be late. Эти фразы часто используются с Future Simple и показывают неуверенность."},
-            {"h": "Разница с 'going to'", "text": "will — спонтанное решение (I'll make tea). 'be going to' — заранее спланированное (I'm going to visit my grandmother tomorrow). Если у тебя уже есть план — 'going to'. Если решил только что — will."}
+            {"h": "Когда использовать Future Simple (Will)?", "text": "Future Simple используется в нескольких случаях: 1) Спонтанные решения, принятые прямо в момент речи: 'I am cold. I will close the window' (Мне холодно. Я закрою окно — ты решил это только что). 2) Обещания: 'I will help you with your homework' (Я помогу тебе с домашкой). 3) Предсказания (часто с 'I think', 'I hope', 'probably'): 'I think it will rain tomorrow' (Думаю, завтра будет дождь). 4) Предложения помощи: 'I will carry your bag' (Я понесу твою сумку)."},
+            
+            {"h": "Как образуется утверждение", "text": "Это самое простое время! Формула: подлежащее + will + глагол в БАЗОВОЙ форме. Глагол 'will' одинаковый для всех лиц и чисел. Нет никаких окончаний -s или -ed. Например: 'I will work' (Я буду работать), 'He will work' (Он будет работать), 'They will work' (Они будут работать). Обрати внимание: после 'will' НИКОГДА не ставится частица 'to'. Нельзя сказать 'I will to work'. Только 'I will work'."},
+            
+            {"h": "Сокращения (Очень важно для речи)", "text": "В разговорной речи носители почти всегда сокращают 'will'. 'I will' превращается в 'I'll' (айл). 'You will' -> 'You'll', 'He will' -> 'He'll', 'She will' -> 'She'll', 'It will' -> 'It'll', 'We will' -> 'We'll', 'They will' -> 'They'll'. Если ты будешь говорить 'I will' полностью, это не ошибка, но звучит формально, как в новостях. Для обычного общения используй сокращения."},
+            
+            {"h": "Отрицание (Won't)", "text": "Чтобы сказать 'не буду', мы используем 'will not' (won't). И тут есть прикол в написании. 'Will not' сокращается в 'won't' (с апострофом). Это странное исключение, которое нужно просто запомнить (а не 'willn't'). Например: 'I won't go there' (Я не пойду туда). 'She won't tell anyone' (Она никому не скажет). После 'won't' глагол тоже стоит в базовой форме, без 'to'."},
+            
+            {"h": "Вопросы (Will...?)", "text": "Чтобы задать вопрос, мы выносим 'will' на первое место. Формула: Will + подлежащее + глагол в базовой форме. Например: 'Will you help me?' (Ты поможешь мне?). 'Will it rain tomorrow?' (Завтра будет дождь?). Ответы краткие: Yes, I will. / No, I won't. Обрати внимание, что в вопросах мы не используем do/does. 'Will' сам справляется."},
+            
+            {"h": "Разница между Will и Going to", "text": "На уровне A2 это важно знать. 'Will' используется для спонтанных решений (я только что решил: 'I will make tea'). 'Going to' используется для заранее запланированных действий (я планировал это раньше: 'I am going to visit my grandmother tomorrow'). Также 'going to' используется для предсказаний, основанных на том, что мы видим сейчас ('Look at those clouds! It is going to rain'), а 'will' — для предсказаний, основанных на мнении ('I think it will rain')."},
+            
+            {"h": "С 'I think', 'I hope', 'probably'", "text": "Future Simple очень часто используется с фразами, которые показывают неуверенность: 'I think...' (Я думаю), 'I hope...' (Я надеюсь), 'probably' (вероятно), 'maybe' (может быть). Например: 'I think she will come' (Думаю, она придет). 'I hope it won't rain' (Надеюсь, дождя не будет). 'He will probably be late' (Он, вероятно, опоздает)."},
+            
+            {"h": "Маркеры времени", "text": "Чтобы понять, что перед нами Future Simple, ищи в предложении такие слова: tomorrow (завтра), next week/month/year (на следующей неделе/в следующем месяце/году), in 2030 (в 2030 году), soon (скоро), later (позже), in 2 hours (через 2 часа), tonight (сегодня вечером). Если видишь эти слова, смело используй 'will'."}
         ],
 
         "tables": [
             {
-                "title": "Спряжение work в Future Simple",
+                "title": "Спряжение глагола work в Future Simple",
                 "headers": ["Местоимение", "Утверждение", "Отрицание", "Вопрос"],
                 "rows": [
                     ["I", "will work", "won't work", "Will I work?"],
                     ["You", "will work", "won't work", "Will you work?"],
-                    ["He", "will work", "won't work", "Will he work?"],
-                    ["She", "will work", "won't work", "Will she work?"],
+                    ["He / She / It", "will work", "won't work", "Will he work?"],
                     ["We", "will work", "won't work", "Will we work?"],
                     ["They", "will work", "won't work", "Will they work?"]
                 ]
@@ -2213,23 +2230,37 @@ GRAMMAR_LESSONS = [
                     ["Предсказание без оснований", "Предсказание с основанием"],
                     ["I think it will rain.", "Look at clouds! It's going to rain."]
                 ]
+            },
+            {
+                "title": "Маркеры времени",
+                "headers": ["Слово", "Перевод"],
+                "rows": [
+                    ["tomorrow", "завтра"],
+                    ["next week / month / year", "на следующей неделе / в след. месяце / году"],
+                    ["soon", "скоро"],
+                    ["later", "позже"],
+                    ["in 2 hours", "через 2 часа"],
+                    ["tonight", "сегодня вечером"]
+                ]
             }
         ],
 
         "mistakes": [
-            {"wrong": "I will to work tomorrow.", "right": "I will work tomorrow.", "why": "После will — глагол БЕЗ to"},
-            {"wrong": "She wills come.", "right": "She will come.", "why": "will — одинаковый для всех лиц"},
-            {"wrong": "I will can help you.", "right": "I will be able to help you.", "why": "Нельзя два модальных глагола"},
-            {"wrong": "I will go in tomorrow.", "right": "I will go tomorrow.", "why": "С tomorrow не нужен 'in'"},
-            {"wrong": "Will you to help me?", "right": "Will you help me?", "why": "После will — глагол БЕЗ to"},
-            {"wrong": "I'll will go.", "right": "I'll go.", "why": "I'll = I will, нельзя удваивать"}
+            {"wrong": "I will to work tomorrow.", "right": "I will work tomorrow.", "why": "После will глагол БЕЗ частицы to."},
+            {"wrong": "She wills come.", "right": "She will come.", "why": "Will — одинаковый для всех лиц, окончание -s не добавляется."},
+            {"wrong": "I will can help you.", "right": "I will be able to help you.", "why": "Нельзя ставить два модальных глагола (will + can). Используй 'be able to'."},
+            {"wrong": "I will go in tomorrow.", "right": "I will go tomorrow.", "why": "С tomorrow не нужен предлог 'in'."},
+            {"wrong": "Will you to help me?", "right": "Will you help me?", "why": "После will — глагол БЕЗ to."},
+            {"wrong": "I'll will go.", "right": "I'll go.", "why": "I'll = I will, нельзя удваивать will."},
+            {"wrong": "I willn't go.", "right": "I won't go.", "why": "Сокращение от will not — это won't, а не willn't."}
         ],
 
         "lifehacks": [
             "will — это 'стена'. Всегда одинаковый для всех. Запомни — никаких исключений.",
             "После will — глагол в БАЗОВОЙ форме. Всегда.",
             "Сокращение 'I'll' — твой друг. В разговоре так говорят 99% времени.",
-            "Если сомневаешься между will и going to — для разговорного общения will всегда подойдёт."
+            "Если сомневаешься между will и going to — для разговорного общения will всегда подойдет (это лучше, чем вообще ничего не сказать).",
+            "Won't — это will not. Просто запомни, что там буква 'o' вместо 'i'."
         ],
 
         "text": {
@@ -2262,13 +2293,14 @@ GRAMMAR_LESSONS = [
             {"type": "fill", "q": "We ___ (go) to the cinema next week.", "answer": "will go"},
             {"type": "fill", "q": "She ___ (not / come) to the party.", "answer": "won't come"},
             {"type": "fill", "q": "___ you ___ (help) me?", "answer": "Will help"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["I will to work", "I will work", "I wills work", "I will work to"], "correct": "I will work"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["She wills come", "She will come", "She will comes", "She will to come"], "correct": "She will come"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I will to work", "I will work", "I wills work", "I will work to"], "correct": "I will work"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["She wills come", "She will come", "She will comes", "She will to come"], "correct": "She will come"},
             {"type": "error", "q": "Найди правильное предложение:", "options": ["Will you to help me?", "Will you help me?", "Do you will help me?", "Are you will help me?"], "correct": "Will you help me?"},
             {"type": "translate", "q": "Переведи: Я позвоню тебе завтра.", "answer": "I will call you tomorrow"},
             {"type": "translate", "q": "Переведи: Она не придёт.", "answer": "She won't come"},
             {"type": "translate", "q": "Переведи: Ты мне поможешь?", "answer": "Will you help me"},
-            {"type": "translate", "q": "Переведи: Будет дождь.", "answer": "It will rain"}
+            {"type": "translate", "q": "Переведи: Будет дождь.", "answer": "It will rain"},
+            {"type": "write", "q": "Напиши 5 предложений о том, что ты будешь делать завтра (используй will).", "sample": "I will wake up at 8 am. I will go to work. I will eat lunch with my friends. I will come home at 6 pm. I will watch a film in the evening."}
         ]
     },
 
@@ -3429,6 +3461,126 @@ GRAMMAR_LESSONS = [
             {"type": "translate", "q": "Переведи: Дом был построен в 1990.", "answer": "The house was built in 1990"},
             {"type": "translate", "q": "Переведи: Говорят, что он богат.", "answer": "It is said that he is rich"},
             {"type": "write", "q": "Напиши 3-5 предложений на тему «Известное изобретение или открытие» с использованием пассива.", "sample": "The telephone was invented by Alexander Graham Bell in 1876. At first, it was not taken seriously by most people. Years later, it was developed into a device that changed the world. Today, billions of phones are produced every year. It is believed that the telephone is one of the most important inventions in history."}
+        ]
+    },
+
+        # ═══════════════════════════════════════════
+    # УРОК — WILL VS GOING TO
+    # ═══════════════════════════════════════════
+    {
+        "id": "will_vs_going",
+        "title": "Will vs Going to",
+        "emoji": "🛣️",
+        "level": "A2",
+        "module": "A2",
+        "intro": "В английском языке будущее можно выразить по-разному. Два самых главных способа — это 'will' и 'going to'. Они оба переводятся как 'буду', но используются в совершенно разных ситуациях. Если перепутать их, смысл не потеряется, но для носителя это будет звучать так, будто ты не понимаешь контекст.",
+        
+        "why": "Представь, что ты стоишь с другом и видишь, как на небе собираются черные тучи. Ты говоришь: 'Смотри, сейчас пойдет дождь'. В английском для этого используется 'going to', потому что ты видишь доказательство прямо сейчас. А если друг спрашивает тебя: 'Что ты будешь делать завтра?', и ты только что решил, что пойдешь в кино — ты используешь 'will'. Если ты перепутаешь эти два времени, то можешь случайно сказать, что у тебя был четкий план на дождь, или что ты только что спонтанно решил сделать то, что планировал месяцами. Понимание разницы между 'will' и 'going to' — это шаг к тому, чтобы твоя речь стала естественной и понятной.",
+
+        "rules": [
+            {"h": "Главное отличие в двух словах", "text": "Запомни основную логику: 'Will' — это когда ты принимаешь решение ПРЯМО СЕЙЧАС, в момент речи. 'Going to' — когда решение было принято РАНЬШЕ, у тебя уже есть план. Например, если ты сидишь на диване и чувствуешь жажду, ты говоришь: 'I will drink some water' (Я выпью воды). Это спонтанно. Но если ты знаешь, что завтра у тебя встреча с врачом, и ты говоришь об этом, ты используешь: 'I am going to see the doctor tomorrow' (Я собираюсь пойти к врачу завтра)."},
+            
+            {"h": "Will для спонтанных решений", "text": "Will используется, когда ты решаешь что-то сделать в момент разговора. Например, звонит телефон, и ты говоришь: 'I will answer it' (Я отвечу). Ты не планировал это за неделю до звонка. Или официант спрашивает, что ты будешь пить, и ты говоришь: 'I will have tea' (Я буду чай). Ты выбрал это прямо сейчас. Также 'will' используется для обещаний ('I will always love you' — Я всегда буду тебя любить) и для предложений помощи ('I will help you' — Я помогу тебе)."},
+            
+            {"h": "Going to для заранее запланированных действий", "text": "Going to используется, когда ты уже принял решение до момента разговора. У тебя есть намерение. Например, ты говоришь другу: 'I am going to buy a new phone next week' (Я собираюсь купить новый телефон на следующей неделе). Это значит, что ты уже думал об этом, возможно, откладывал деньги. Также 'going to' используется, когда ты видишь, что что-то сейчас произойдет (предсказание на основе того, что видишь): 'Look at those clouds! It is going to rain' (Смотри на эти тучи! Сейчас пойдет дождь). Ты видишь тучи и делаешь вывод, это не твое мнение, а факт."},
+            
+            {"h": "Как образуется Going to", "text": "Конструкция 'going to' состоит из трех частей: глагол to be (am/is/are) + going + to + глагол в базовой форме. Например: 'I am going to study' (Я собираюсь учиться). 'She is going to travel' (Она собирается путешествовать). 'They are going to move' (Они собираются переезжать). Отрицание: 'I am not going to study'. Вопрос: 'Are you going to study?'. Не забывай ставить глагол to be (am/is/are) перед going."},
+            
+            {"h": "Will для предсказаний (мнение)", "text": "Когда мы делаем предсказание, основанное на нашем мнении, а не на фактах, мы используем 'will'. Часто с фразами 'I think' (Я думаю), 'I hope' (Я надеюсь), 'probably' (вероятно). Например: 'I think he will win the game' (Я думаю, он выиграет игру). 'I hope it will be sunny tomorrow' (Я надеюсь, завтра будет солнечно). Это не факт, а твое предположение. Если бы ты увидел, что он уже выигрывает по очкам, ты бы сказал 'He is going to win'."},
+            
+            {"h": "Разница в вопросах", "text": "В вопросах разница тоже есть. Если ты спрашиваешь 'What will you do?' — это нейтральный вопрос о планах, ты не знаешь, есть ли у человека план. Если ты спрашиваешь 'What are you going to do?' — ты предполагаешь, что у человека уже есть какой-то план, и ты хочешь его узнать. Также вопрос 'Are you going to...?' часто используется, чтобы узнать о намерениях: 'Are you going to buy this car?' (Ты собираешься покупать эту машину?)."},
+            
+            {"h": "Особые случаи употребления Will", "text": "Will также используется в формальных ситуациях, в официальных объявлениях и в новостях: 'The president will visit France next week' (Президент посетит Францию на следующей неделе). Также 'will' используется с обещаниями и угрозами: 'I will never speak to you again!' (Я никогда больше не буду с тобой разговаривать!). И в вежливых просьбах: 'Will you close the door, please?' (Не закроешь дверь, пожалуйста?)."},
+            
+            {"h": "Маркеры и практические ситуации", "text": "Если ты слышишь 'I've decided' (Я решил), 'I'm planning' (Я планирую), 'I intend' (Я намереваюсь) — это почти всегда 'going to'. Если ты слышишь 'I think', 'probably', 'maybe' — это скорее 'will'. В магазине, когда продавец спрашивает 'Can I help you?', ты можешь ответить 'I will just look around' (Я просто посмотрю) — это спонтанно. Но если ты идешь в магазин с четкой целью, ты говоришь 'I am going to buy a gift for my wife'."}
+        ],
+
+        "tables": [
+            {
+                "title": "Сравнение Will и Going to",
+                "headers": ["Ситуация", "Will", "Going to"],
+                "rows": [
+                    ["Спонтанное решение", "I will make tea.", "—"],
+                    ["Запланированное действие", "—", "I am going to make tea."],
+                    ["Предсказание (мнение)", "I think it will rain.", "—"],
+                    ["Предсказание (факт)", "—", "Look! It is going to rain."],
+                    ["Обещание", "I will help you.", "—"],
+                    ["Намерение", "—", "I am going to help you."]
+                ]
+            },
+            {
+                "title": "Структура Going to",
+                "headers": ["Тип", "Формула", "Пример"],
+                "rows": [
+                    ["Утверждение", "am/is/are + going to + глагол", "I am going to study."],
+                    ["Отрицание", "am/is/are + not + going to + глагол", "She isn't going to come."],
+                    ["Вопрос", "Am/Is/Are + подлежащее + going to + глагол", "Are you going to travel?"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I will going to the cinema.", "right": "I am going to the cinema. / I will go to the cinema.", "why": "Нельзя смешивать will и going to."},
+            {"wrong": "I am going to study tomorrow (если решил только что).", "right": "I will study tomorrow.", "why": "Если решение спонтанное — используй will."},
+            {"wrong": "Look at the clouds! It will rain.", "right": "Look at the clouds! It is going to rain.", "why": "Предсказание на основе того, что видишь — going to."},
+            {"wrong": "I am going to buy a car (если у тебя нет плана).", "right": "I will buy a car.", "why": "Если это просто мысль, а не план — will."},
+            {"wrong": "I going to study.", "right": "I am going to study.", "why": "Пропущен глагол to be (am)."},
+            {"wrong": "She is going to studies.", "right": "She is going to study.", "why": "После going to глагол в базовой форме."},
+            {"wrong": "I will to go to the cinema.", "right": "I will go to the cinema.", "why": "После will не ставится to."}
+        ],
+
+        "lifehacks": [
+            "Запомни: Will — это здесь и сейчас (спонтанно). Going to — это давно решено (план).",
+            "Если видишь доказательство прямо сейчас (тучи, дым, падение) — используй going to.",
+            "Если говоришь о мнении ('I think', 'probably') — используй will.",
+            "Going to всегда требует am/is/are. Не забывай 'клей'.",
+            "Если сомневаешься, но у тебя есть время подумать — используй going to, это более точный вариант для планов."
+        ],
+
+        "text": {
+            "title": "A Conversation About the Weekend",
+            "paragraphs": [
+                "Tom: What are you going to do this weekend?",
+                "Alex: I am going to visit my parents. I already bought the tickets.",
+                "Tom: That's nice. I don't have any plans yet.",
+                "Alex: Maybe we can go to the cinema on Sunday? I will call you.",
+                "Tom: Sure. Look at the sky! It is going to rain soon.",
+                "Alex: Yes, you're right. I think I will take an umbrella. Do you want one?",
+                "Tom: No, thanks. I will just run to my car.",
+                "Alex: Okay! I am going to call you on Sunday. Have a nice weekend!",
+                "Tom: You too! I will wait for your call."
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What is Alex going to do this weekend?", "options": ["Visit his parents", "Go to the cinema", "Stay at home", "Travel to Moscow"], "correct": "Visit his parents"},
+            {"q": "Did Alex already buy the tickets?", "options": ["Yes, he did", "No, he didn't", "He doesn't know", "We don't know"], "correct": "Yes, he did"},
+            {"q": "Why is it going to rain?", "options": ["Because Tom said so", "Because there are clouds", "Because it is cold", "Because Alex said so"], "correct": "Because there are clouds"},
+            {"q": "What will Alex take?", "options": ["A jacket", "An umbrella", "A bag", "A phone"], "correct": "An umbrella"},
+            {"q": "What is Tom going to do about the rain?", "options": ["Take an umbrella", "Run to his car", "Stay at home", "Call Alex"], "correct": "Run to his car"},
+            {"q": "When is Alex going to call Tom?", "options": ["On Saturday", "On Sunday", "On Monday", "He won't call"], "correct": "On Sunday"},
+            {"q": "Did Tom have any plans for the weekend?", "options": ["Yes, he did", "No, he didn't", "He is not sure", "We don't know"], "correct": "No, he didn't"},
+            {"q": "What is Alex going to do about the weather?", "options": ["Take an umbrella", "Stay at home", "Run to his car", "Cancel the trip"], "correct": "Take an umbrella"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "I am cold. I ___ close the window.", "options": ["will", "am going to", "going to", "will be"], "correct": "will"},
+            {"type": "choice", "q": "I ___ buy a new car next month. I already saved the money.", "options": ["will", "am going to", "will be", "go to"], "correct": "am going to"},
+            {"type": "choice", "q": "Look at those clouds! It ___ rain.", "options": ["will", "is going to", "is raining", "will be"], "correct": "is going to"},
+            {"type": "choice", "q": "I think he ___ win the competition.", "options": ["will", "is going to", "wins", "is winning"], "correct": "will"},
+            {"type": "choice", "q": "I ___ help you with your homework. I promise.", "options": ["will", "am going to", "going to", "will be"], "correct": "will"},
+            {"type": "fill", "q": "I ___ (will / am going to) visit my grandmother tomorrow. I already bought a ticket.", "answer": "am going to"},
+            {"type": "fill", "q": "Oh, you are late. I ___ (will / am going to) call you later.", "answer": "will"},
+            {"type": "fill", "q": "She ___ (will / is going to) study medicine. It's her dream.", "answer": "is going to"},
+            {"type": "fill", "q": "The phone is ringing. I ___ (will / am going to) answer it.", "answer": "will"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I will going to the cinema", "I am going to the cinema", "I will to go to the cinema", "I going to the cinema"], "correct": "I am going to the cinema"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["She is going to studies", "She is going to study", "She going to study", "She is go to study"], "correct": "She is going to study"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I am going to buy a car (when I have no plan)", "I will buy a car (when I have no plan)", "I will buy a car (when I have a plan)", "I am going to buy a car (when I decided just now)"], "correct": "I will buy a car (when I have no plan)"},
+            {"type": "translate", "q": "Переведи: Я собираюсь поехать в Москву в следующем году.", "answer": "I am going to go to Moscow next year"},
+            {"type": "translate", "q": "Переведи: Я позвоню тебе позже.", "answer": "I will call you later"},
+            {"type": "translate", "q": "Переведи: Смотри! Мяч сейчас упадет.", "answer": "Look! The ball is going to fall"},
+            {"type": "translate", "q": "Переведи: Я думаю, она придет.", "answer": "I think she will come"},
+            {"type": "write", "q": "Напиши 5 предложений о своих планах на следующую неделю (используй going to) и 2 спонтанных решения (используй will).", "sample": "I am going to visit my parents next week. I am going to study English. I am going to buy a new phone. I am going to go to the gym. I am going to meet my friends. I will call you later. I will help you with your homework."}
         ]
     },
 
