@@ -1863,13 +1863,6 @@ def study_page():
         # --- A1 БАЗА ---
         {"id": "intro_english", "title": "Введение в английский", "emoji": "👋", "level": "A1", "module": "A1"},
 
-        # --- A2 РАСШИРЕНИЕ ---
-        {"id": "some_any", "title": "Some / Any / No", "emoji": "🥛", "level": "A2", "module": "A2"},
-        {"id": "much_many", "title": "Much / Many / A lot of", "emoji": "📦", "level": "A2", "module": "A2"},
-        {"id": "prepositions_time", "title": "Предлоги времени (in/on/at)", "emoji": "🕰️", "level": "A2", "module": "A2"},
-        {"id": "past_simple_vs_cont", "title": "Past Simple vs Past Continuous", "emoji": "🎞️", "level": "A2", "module": "A2"},
-        {"id": "used_to", "title": "Конструкция Used to", "emoji": "👴", "level": "A2", "module": "A2"},
-
         # --- B1 СРЕДНИЙ ---
         {"id": "question_tags", "title": "Разделительные вопросы (Tag questions)", "emoji": "🏷️", "level": "B1", "module": "B1"},
         {"id": "relative_clauses", "title": "Относительные местоимения (who/which)", "emoji": "🔗", "level": "B1", "module": "B1"},
