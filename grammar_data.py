@@ -1929,84 +1929,87 @@ GRAMMAR_LESSONS = [
         ]
     },
 
-    # ═══════════════════════════════════════════
-    # УРОК 2 — PAST SIMPLE
+        # ═══════════════════════════════════════════
+    # УРОК — PAST SIMPLE
     # ═══════════════════════════════════════════
     {
         "id": "past_simple",
-        "module": "A2",
         "title": "Past Simple",
         "emoji": "⏪",
-        "level": "A1-A2",
-        "intro": "Простое прошедшее время. Для действий, которые произошли и закончились в прошлом.",
-        "why": "Past Simple — второе по важности время после Present Simple. Без него ты не сможешь рассказать, что делал вчера, на выходных, в прошлом году. Это время для историй, воспоминаний, отчётов. В английском есть точные временные маркеры (yesterday, last week, 2 hours ago) — если видишь их, сразу используй Past Simple.",
+        "level": "A2",
+        "module": "A2",
+        "intro": "Простое прошедшее время. Для действий, которые произошли и закончились в прошлом. Если ты можешь ответить на вопрос «когда это было?», значит, тебе нужен Past Simple.",
+        
+        "why": "Представь, что ты вернулся с выходных и хочешь рассказать другу, как ты сходил в кино, что ты ел и во сколько проснулся. Если ты не знаешь Past Simple, ты не сможешь этого сделать. Ты будешь говорить только в настоящем времени, и это будет звучать как бред. Past Simple — второе по важности время после Present Simple. Оно используется в 80% историй, рассказов, отчетов и просто разговоров о том, что уже случилось. В английском есть четкие маркеры (yesterday, last week, 2 hours ago) — если видишь их, сразу используй Past Simple. Это твой главный инструмент для передачи событий в прошлом.",
 
         "rules": [
-            {"h": "Когда использовать", "text": "Когда действие произошло и закончилось в прошлом. Указывается конкретное время: yesterday, last week, 2 hours ago, in 2020, on Monday. Если ты можешь ответить на вопрос «когда?» — это Past Simple."},
-            {"h": "Правильные глаголы", "text": "Добавляем -ed к базовой форме: work → worked, play → played, watch → watched, finish → finished. Работает для большинства глаголов."},
-            {"h": "Правило -ed", "text": "Обычно + ed: work → worked. Если кончается на -e: + d (live → lived). Если кончается на согласную + y: y → i + ed (study → studied). Если короткий слог и ударение на него: удваиваем согласную (stop → stopped)."},
-            {"h": "Неправильные глаголы", "text": "Их надо запомнить. Топ-10: go → went, see → saw, have → had, do → did, come → came, get → got, make → made, take → took, give → gave, say → said. Все — в разделе «Неправильные глаголы»."},
-            {"h": "Отрицание", "text": "did not (didn't) + глагол в базовой форме: I didn't work, he didn't go. ВАЖНО: после didn't — глагол в НАЧАЛЬНОЙ форме, даже для неправильных: I didn't go (не 'went'), she didn't see (не 'saw')."},
-            {"h": "Вопрос", "text": "Did + подлежащее + глагол: Did you work? Did he go? Ответы: Yes, I did. No, I didn't."},
-            {"h": "Глагол to be в Past Simple", "text": "I / he / she / it → was. You / we / they → were. I was at home. They were happy. Отрицание: wasn't / weren't. Вопрос: Was he...? Were they...?"},
-            {"h": "Маркеры времени", "text": "yesterday (вчера), last week / month / year (на прошлой неделе / в прошлом месяце / году), 2 days ago (2 дня назад), in 2020 (в 2020), when I was a child (когда я был ребёнком), on Monday (в понедельник)"}
+            {"h": "Когда использовать Past Simple?", "text": "Past Simple используется, когда действие произошло в прошлом и полностью закончилось. У нас есть точное время (или мы его подразумеваем). Например: 'I watched a film yesterday' (Я смотрел фильм вчера). 'She called me 2 hours ago' (Она позвонила мне 2 часа назад). Если ты можешь ответить на вопрос «Когда?» (вчера, на прошлой неделе, в 2020 году), то это точно Past Simple. Это время для исторических фактов (World War II ended in 1945) и для твоих личных рассказов."},
+            
+            {"h": "Правильные глаголы (Regular Verbs)", "text": "В английском языке большинство глаголов — правильные. Это значит, что мы просто добавляем окончание -ed к базовой форме. Например: work (работать) -> worked (работал). Play (играть) -> played (играл). Finish (заканчивать) -> finished (закончил). Есть правила правописания: если глагол кончается на -e, просто добавляем -d (live -> lived). Если кончается на согласную + y, то меняем y на i (study -> studied). Если короткий слог с ударением, удваиваем согласную (stop -> stopped). Но в целом — просто добавь -ed, и тебя поймут."},
+            
+            {"h": "Неправильные глаголы (Irregular Verbs)", "text": "Есть группа глаголов-бунтарей, которые не подчиняются правилу -ed. Их нужно просто выучить. У них есть три формы: базовая, прошедшее время (Past) и причастие (Past Participle). Для Past Simple нам нужна ВТОРАЯ форма. Самые важные: go -> went, see -> saw, have -> had, do -> did, come -> came, get -> got, make -> made, take -> took, give -> gave, say -> said. Например: 'I went to the cinema' (Я ходил в кино). 'He saw a cat' (Он видел кошку). Список всех неправильных глаголов у тебя есть в разделе «Неправильные глаголы», их нужно знать наизусть."},
+            
+            {"h": "Отрицание (Didn't) — Главное правило", "text": "Чтобы сказать, что действие НЕ произошло, мы используем вспомогательный глагол 'did' + 'not' (didn't). Но вот главный секрет: глагол 'did' уже стоит в прошедшем времени, он как бы "забирает" всё прошлое себе. Поэтому после 'didn't' мы ставим глагол в БАЗОВОЙ форме (инфинитив). Например: 'I didn't work yesterday' (Я не работал вчера). 'She didn't go to school' (Она не пошла в школу — заметь, не 'went', а 'go'). Никогда не говори 'I didn't went' — это грубая ошибка, потому что 'did' уже сделал всё прошедшим."},
+            
+            {"h": "Вопросы (Did...?)", "text": "Вопросы строятся по такому же принципу. Мы выносим 'did' на первое место. Формула: Did + подлежащее + глагол в базовой форме. Например: 'Did you work yesterday?' (Ты работал вчера?). 'Did he go to the cinema?' (Он ходил в кино?). 'Did they see the film?' (Они видели фильм?). Ответы краткие: Yes, I did. No, I didn't. Обрати внимание, что глагол после подлежащего опять стоит в базовой форме, без -ed и без второй формы."},
+            
+            {"h": "Глагол To Be в Past Simple (Was / Were)", "text": "Глагол 'to be' в прошедшем времени имеет две формы: was и were. Was используется для единственного числа (I, he, she, it). Were используется для множественного (you, we, they). Например: 'I was at home yesterday' (Я был дома вчера). 'They were happy' (Они были счастливы). Отрицание: wasn't / weren't ('I wasn't at school'). Вопрос: Was he...? Were they...? Важно: для глагола to be мы НЕ используем did/didn't. Он сам справляется."},
+            
+            {"h": "Маркеры времени Past Simple", "text": "Чтобы понять, что перед нами Past Simple, ищи в предложении такие слова: yesterday (вчера), last week/month/year (на прошлой неделе/в прошлом месяце/году), 2 hours/days ago (2 часа/дня назад), in 2020 (в 2020), when I was a child (когда я был ребенком). Если ты видишь эти маркеры, ты обязан использовать прошедшее время. Например: 'Last week I bought a new phone'."},
+            
+            {"h": "Порядок слов в предложении", "text": "В утверждении: Подлежащее + Глагол во 2-й форме + Дополнение. 'I (подлежащее) watched (глагол) a film (дополнение)'. В отрицании: Подлежащее + didn't + Глагол в базовой форме. 'I didn't watch a film'. В вопросе: Did + Подлежащее + Глагол в базовой форме. 'Did you watch a film?' Все очень строго, никаких перестановок, как в русском языке."}
         ],
 
         "tables": [
             {
-                "title": "Спряжение work (правильный глагол)",
-                "headers": ["Местоимение", "Утверждение", "Отрицание", "Вопрос"],
+                "title": "Правильные vs Неправильные",
+                "headers": ["Base form", "Past Simple (Regular)", "Past Simple (Irregular)"],
                 "rows": [
-                    ["I", "worked", "didn't work", "Did I work?"],
-                    ["You", "worked", "didn't work", "Did you work?"],
-                    ["He", "worked", "didn't work", "Did he work?"],
-                    ["She", "worked", "didn't work", "Did she work?"],
-                    ["We", "worked", "didn't work", "Did we work?"],
-                    ["They", "worked", "didn't work", "Did they work?"]
+                    ["work", "worked", "—"],
+                    ["play", "played", "—"],
+                    ["go", "—", "went"],
+                    ["see", "—", "saw"],
+                    ["have", "—", "had"],
+                    ["make", "—", "made"]
                 ]
             },
             {
-                "title": "Глагол to be в Past Simple",
-                "headers": ["Местоимение", "Утверждение", "Отрицание", "Вопрос"],
+                "title": "Спряжение глагола work (правильный)",
+                "headers": ["Тип", "Пример"],
                 "rows": [
-                    ["I", "was", "wasn't", "Was I...?"],
-                    ["He / She / It", "was", "wasn't", "Was he...?"],
-                    ["You", "were", "weren't", "Were you...?"],
-                    ["We / They", "were", "weren't", "Were they...?"]
+                    ["Утверждение", "I worked yesterday."],
+                    ["Отрицание", "I didn't work yesterday."],
+                    ["Вопрос", "Did you work yesterday?"],
+                    ["Краткий ответ", "Yes, I did. / No, I didn't."]
                 ]
             },
             {
-                "title": "Топ-10 неправильных глаголов",
-                "headers": ["Base", "Past", "Перевод"],
+                "title": "Глагол To Be в Past Simple",
+                "headers": ["Местоимение", "Утверждение", "Отрицание", "Вопрос"],
                 "rows": [
-                    ["go", "went", "идти"],
-                    ["see", "saw", "видеть"],
-                    ["have", "had", "иметь"],
-                    ["do", "did", "делать"],
-                    ["come", "came", "приходить"],
-                    ["get", "got", "получать"],
-                    ["make", "made", "делать"],
-                    ["take", "took", "брать"],
-                    ["give", "gave", "давать"],
-                    ["say", "said", "говорить"]
+                    ["I / He / She / It", "was", "wasn't", "Was I...?"],
+                    ["You / We / They", "were", "weren't", "Were you...?"]
                 ]
             }
         ],
 
         "mistakes": [
-            {"wrong": "I didn't went to school.", "right": "I didn't go to school.", "why": "После didn't — глагол в базовой форме"},
-            {"wrong": "Did you saw him?", "right": "Did you see him?", "why": "После did — глагол в базовой форме"},
-            {"wrong": "I goed to the cinema.", "right": "I went to the cinema.", "why": "go — неправильный глагол, форма went"},
-            {"wrong": "She was go to work.", "right": "She went to work.", "why": "Нельзя два глагола — либо was, либо went"},
-            {"wrong": "They was happy.", "right": "They were happy.", "why": "They — множественное число → were"},
-            {"wrong": "I did went home.", "right": "I went home.", "why": "did не используется в утверждении"}
+            {"wrong": "I didn't went to school.", "right": "I didn't go to school.", "why": "После didn't глагол в базовой форме (go), потому что did уже забрал прошедшее время."},
+            {"wrong": "Did you saw him?", "right": "Did you see him?", "why": "После did глагол в базовой форме (see), а не во второй."},
+            {"wrong": "I goed to the cinema.", "right": "I went to the cinema.", "why": "Go — неправильный глагол, его вторая форма — went, а не goed."},
+            {"wrong": "She was go to work.", "right": "She went to work.", "why": "Нельзя ставить два глагола в прошедшем времени (was + go). Нужно либо was, либо went."},
+            {"wrong": "They was happy.", "right": "They were happy.", "why": "They — множественное число, поэтому используем were, а не was."},
+            {"wrong": "I did went home.", "right": "I went home.", "why": "В утвердительных предложениях did не используется. Только в вопросах и отрицаниях."},
+            {"wrong": "I didn't liked the film.", "right": "I didn't like the film.", "why": "После didn't глагол в базовой форме (like)."},
+            {"wrong": "Did he played football?", "right": "Did he play football?", "why": "После did глагол в базовой форме (play)."}
         ],
 
         "lifehacks": [
             "Видишь yesterday, last week, 2 days ago — сразу Past Simple, даже не думай.",
             "Правило одной 't': did / didn't — глагол после них в начальной форме. Всегда.",
             "was — для одного (I, he, she, it). were — для многих (you, we, they). 'Мы были' = we were.",
-            "Правильные глаголы на -ed — это 70% всех английских глаголов. Если не уверен — просто добавь -ed, скорее всего угадаешь."
+            "Правильные глаголы на -ed — это 70% всех английских глаголов. Если не уверен — просто добавь -ed, скорее всего, угадаешь.",
+            "Если в предложении нет действия (просто описание), используй was/were. Если есть действие — используй вторую форму глагола."
         ],
 
         "text": {
@@ -2040,13 +2043,14 @@ GRAMMAR_LESSONS = [
             {"type": "fill", "q": "Did you ___ (see) him?", "answer": "see"},
             {"type": "fill", "q": "I ___ (not / go) to the party.", "answer": "didn't go"},
             {"type": "fill", "q": "She ___ (be) at home yesterday.", "answer": "was"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["I goed to school", "I went to school", "I go to school yesterday", "I going to school"], "correct": "I went to school"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["I didn't went home", "I didn't go home", "I not went home", "I no go home"], "correct": "I didn't go home"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I goed to school", "I went to school", "I go to school yesterday", "I going to school"], "correct": "I went to school"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I didn't went home", "I didn't go home", "I not went home", "I no go home"], "correct": "I didn't go home"},
             {"type": "error", "q": "Найди правильное предложение:", "options": ["Did you saw him?", "Did you see him?", "Do you saw him?", "Are you see him?"], "correct": "Did you see him?"},
             {"type": "translate", "q": "Переведи: Я был дома вчера.", "answer": "I was at home yesterday"},
             {"type": "translate", "q": "Переведи: Она не пришла на вечеринку.", "answer": "She didn't come to the party"},
             {"type": "translate", "q": "Переведи: Ты смотрел фильм?", "answer": "Did you watch the film"},
-            {"type": "translate", "q": "Переведи: Мы играли в футбол вчера.", "answer": "We played football yesterday"}
+            {"type": "translate", "q": "Переведи: Мы играли в футбол вчера.", "answer": "We played football yesterday"},
+            {"type": "write", "q": "Напиши 5 предложений о том, что ты делал в прошлые выходные (используй правильные и неправильные глаголы).", "sample": "I woke up late on Saturday. I went to the park with my dog. I didn't watch TV. I ate pizza for dinner. I was very happy."}
         ]
     },
 
