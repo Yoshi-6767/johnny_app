@@ -2304,39 +2304,43 @@ GRAMMAR_LESSONS = [
         ]
     },
 
-    # ═══════════════════════════════════════════
-    # УРОК 9 — СТЕПЕНИ СРАВНЕНИЯ
+       # ═══════════════════════════════════════════
+    # УРОК — СТЕПЕНИ СРАВНЕНИЯ
     # ═══════════════════════════════════════════
     {
         "id": "comparatives",
-        "module": "A2",
         "title": "Степени сравнения",
         "emoji": "📊",
-        "level": "A1-A2",
-        "intro": "Как сравнивать предметы: больше, меньше, самый большой. -er / more и -est / the most.",
-        "why": "Степени сравнения — это способ сравнивать предметы и людей. «Этот дом выше», «Она самая умная», «Эта книга интереснее». Без степеней сравнения ты не сможешь описать мир вокруг: что лучше, что хуже, что самое красивое. В английском есть две формы — для коротких слов (bigger, biggest) и для длинных (more interesting, the most interesting). Выучить логику один раз — и пользуешься всю жизнь.",
+        "level": "A2",
+        "module": "A2",
+        "intro": "Как сравнить два предмета или сказать, что один из них самый лучший? В английском для этого есть специальные формы прилагательных. Мы используем -er для сравнения двух вещей и -est, чтобы выделить одну из всех.",
+        
+        "why": "Представь, что ты пришел в магазин выбирать телефон. Тебе нужно сказать продавцу: 'Этот телефон лучше, чем тот' или 'Этот телефон самый дешевый'. Если ты не знаешь степеней сравнения, ты не сможешь объяснить, чего ты хочешь. Ты не скажешь, что твой друг выше тебя, что Москва больше Ростова, а зима холоднее лета. В повседневной жизни мы сравниваем всё вокруг: цены, людей, машины, фильмы. Без этих знаний твоя речь будет плоской, и ты не сможешь выразить свое мнение. В этом уроке мы разберем логику: почему одни слова получают окончание -er, а перед другими мы ставим слово 'more'.",
 
         "rules": [
-            {"h": "Короткие слова (1 слог)", "text": "Добавляем -er (сравнительная) или -est (превосходная): big → bigger → the biggest. tall → taller → the tallest. Если слово кончается на согласную + гласную + согласную (big), согласная удваивается: bigger, biggest."},
-            {"h": "Длинные слова (3+ слога)", "text": "Используем more / the most: beautiful → more beautiful → the most beautiful. interesting → more interesting → the most interesting. comfortable → more comfortable → the most comfortable."},
-            {"h": "Слова на -y", "text": "y → i + er/est: happy → happier → the happiest. busy → busier → the busiest. easy → easier → the easiest."},
-            {"h": "Слова на -e", "text": "Просто добавляем -r / -st: nice → nicer → the nicest. large → larger → the largest."},
-            {"h": "Исключения (запомни!)", "text": "good → better → the best. bad → worse → the worst. far → farther / further → the farthest / the furthest. little → less → the least. many / much → more → the most."},
-            {"h": "Сравнение с 'than'", "text": "He is taller than me. (Он выше меня.) This book is more interesting than that one. Than — обязательное слово в сравнении."},
-            {"h": "Превосходная степень с 'the'", "text": "She is the smartest. (Она самая умная.) This is the most beautiful place. Перед превосходной степенью ВСЕГДА 'the'."},
-            {"h": "as...as — одинаковые", "text": "He is as tall as me. (Он такой же высокий, как я.) not as...as — не такой: She is not as smart as her sister."}
+            {"h": "Сравнительная степень (два предмета)", "text": "Сравнительная степень нужна, когда мы сравниваем ДВА предмета. В русском мы говорим «больше», «быстрее», «интереснее». В английском мы используем два способа. Для коротких слов (1 слог) мы добавляем окончание -er. Например: big (большой) -> bigger (больше). Fast (быстрый) -> faster (быстрее). Для длинных слов (3 слога и больше) мы ставим слово 'more' перед прилагательным. Например: beautiful (красивый) -> more beautiful (более красивый). Interesting (интересный) -> more interesting (более интересный). И не забудь главное слово для сравнения — 'than' (чем). 'He is taller than me' (Он выше меня)."},
+            
+            {"h": "Превосходная степень (самый-самый)", "text": "Превосходная степень нужна, когда мы выделяем ОДИН предмет из группы (всех остальных). В русском мы говорим «самый большой», «самый умный». В английском для коротких слов мы добавляем -est, а перед самим прилагательным обязательно ставим артикль 'the'. Например: big (большой) -> the biggest (самый большой). Fast (быстрый) -> the fastest (самый быстрый). Для длинных слов мы используем 'the most'. Например: beautiful -> the most beautiful (самый красивый). Interesting -> the most interesting (самый интересный). Артикль 'the' обязателен, потому что мы говорим о единственном в своем роде предмете."},
+            
+            {"h": "Правила правописания для -er / -est", "text": "Когда мы добавляем -er или -est, есть несколько нюансов. 1) Если слово заканчивается на -e, мы просто добавляем -r или -st: nice (хороший) -> nicer -> the nicest. 2) Если слово заканчивается на согласную + y, мы меняем y на i: happy (счастливый) -> happier -> the happiest. 3) Если слово короткое (1 слог), заканчивается на согласную и перед ней стоит гласная (как в big, hot, fat), мы удваиваем согласную: big -> bigger -> the biggest. Hot -> hotter -> the hottest."},
+            
+            {"h": "Слова-исключения (Нужно выучить)", "text": "Есть несколько самых важных слов в английском, которые не подчиняются правилам. Их нужно просто запомнить, потому что они используются постоянно. Good (хороший) -> better (лучше) -> the best (самый лучший). Bad (плохой) -> worse (хуже) -> the worst (самый худший). Far (далекий) -> farther/further (дальше) -> the farthest/furthest (самый далекий). Little (маленький) -> less (меньше) -> the least (наименьший). Many/much (много) -> more (больше) -> the most (больше всего)."},
+            
+            {"h": "Сравнение с помощью 'as... as' (Такой же, как)", "text": "Если ты хочешь сказать, что два предмета ОДИНАКОВЫЕ, используй конструкцию 'as + прилагательное + as'. Например: 'He is as tall as his brother' (Он такой же высокий, как его брат). 'This car is as fast as that one' (Эта машина такая же быстрая, как та). В отрицаниях это звучит как 'not as... as' (не такой... как): 'She is not as smart as her sister' (Она не такая умная, как ее сестра)."},
+            
+            {"h": "Двусложные слова (Ловушка)", "text": "Есть слова с двумя слогами (например, clever — умный, simple — простой, quiet — тихий). С ними можно использовать и -er, и more. Но в современном английском чаще говорят 'more clever' и 'the most clever', хотя 'cleverer' тоже допустимо. Если сомневаешься с двусложным словом — используй more / the most. Это точно не будет ошибкой в 90% случаев."}
         ],
 
         "tables": [
             {
-                "title": "Правила образования",
-                "headers": ["Тип слова", "Сравнительная", "Превосходная"],
+                "title": "Как образуются степени сравнения",
+                "headers": ["Тип слова", "Сравнительная (2 предмета)", "Превосходная (самый)"],
                 "rows": [
-                    ["1 слог (tall)", "-er (taller)", "-est (the tallest)"],
-                    ["1 слог + удвоение (big)", "-ger (bigger)", "-gest (the biggest)"],
-                    ["на -e (nice)", "-r (nicer)", "-st (the nicest)"],
-                    ["на -y (happy)", "y→i+er (happier)", "y→i+est (the happiest)"],
-                    ["3+ слога (beautiful)", "more (more beautiful)", "the most (the most beautiful)"]
+                    ["1 слог (tall)", "-er (taller than)", "the -est (the tallest)"],
+                    ["1 слог + удвоение (big)", "-ger (bigger than)", "the -gest (the biggest)"],
+                    ["на -e (nice)", "-r (nicer than)", "the -st (the nicest)"],
+                    ["на -y (happy)", "y->i+er (happier than)", "y->i+est (the happiest)"],
+                    ["3+ слога (beautiful)", "more (more beautiful than)", "the most (the most beautiful)"]
                 ]
             },
             {
@@ -2353,39 +2357,41 @@ GRAMMAR_LESSONS = [
         ],
 
         "mistakes": [
-            {"wrong": "He is more taller than me.", "right": "He is taller than me.", "why": "Нельзя -er + more вместе"},
-            {"wrong": "This is the most big house.", "right": "This is the biggest house.", "why": "Big — короткое, используй -est"},
-            {"wrong": "She is the more beautiful.", "right": "She is the most beautiful.", "why": "Превосходная — the most"},
-            {"wrong": "He is more better.", "right": "He is better.", "why": "Good — неправильный, better без more"},
-            {"wrong": "He is taller that me.", "right": "He is taller than me.", "why": "Than, не that"},
-            {"wrong": "I am the most tall in the class.", "right": "I am the tallest in the class.", "why": "Tall — короткое, -est"}
+            {"wrong": "He is more taller than me.", "right": "He is taller than me.", "why": "Нельзя использовать -er и more одновременно. Только одно из двух."},
+            {"wrong": "This is the most big house.", "right": "This is the biggest house.", "why": "Big — короткое слово, для превосходной степени используем -est, а не most."},
+            {"wrong": "She is the more beautiful.", "right": "She is the most beautiful.", "why": "Для длинных слов в превосходной степени нужен 'the most'."},
+            {"wrong": "He is more better.", "right": "He is better.", "why": "Good — исключение (better). Нельзя добавлять more."},
+            {"wrong": "He is taller that me.", "right": "He is taller than me.", "why": "Для сравнения используется 'than', а не 'that'."},
+            {"wrong": "I am the most tall in the class.", "right": "I am the tallest in the class.", "why": "Tall — короткое слово, -est."},
+            {"wrong": "This book is interestinger.", "right": "This book is more interesting.", "why": "Interesting — длинное слово, используем more."}
         ],
 
         "lifehacks": [
             "Правило слогов: 1 слог → -er/-est. 3+ слога → more/the most. 2 слога — обычно more, но есть исключения.",
             "Good / better / best — как в игре: хороший → лучше → лучший. Запомни как песню.",
             "Сравниваешь — обязательно 'than'. Превосходишь — обязательно 'the'.",
-            "Если сомневаешься — используй more / the most. Для большинства длинных слов это правильно."
+            "Если сомневаешься — используй more / the most. Для большинства длинных слов это правильно.",
+            "Нельзя говорить 'more better' или 'more taller'. Это как сказать 'более лучше'."
         ],
 
         "text": {
-            "title": "My Two Friends",
+            "title": "My Two Brothers",
             "paragraphs": [
-                "I have two best friends: Tom and Kate. Tom is taller than me. He is the tallest person in our group. Kate is shorter than Tom, but she is the smartest of us all.",
-                "Tom is very funny. He is funnier than any of us. He always tells the best jokes. Kate is quieter but she is more hardworking than Tom. She studies the hardest and gets the best marks.",
-                "I am not as tall as Tom and not as smart as Kate. But I think I am the friendliest person in our group. My friends say I am the most loyal. We are all different, and that makes our friendship the best!"
+                "I have two brothers, Tom and Sam. Tom is older than Sam. He is 25 years old, and Sam is 20. Tom is taller and stronger than Sam. But Sam is funnier and more creative than Tom.",
+                "Tom is a very good student. He is the smartest person in our family. He always gets the best marks at university. Sam is not as hardworking as Tom. But Sam is the most popular guy in his group because he has a great sense of humor.",
+                "My brothers are very different, but they are the best friends. Tom is quieter and more serious. Sam is the loudest and most active person I know. But they both are the most important people in my life."
             ]
         },
 
         "text_questions": [
-            {"q": "Who is taller than the author?", "options": ["Kate", "Tom", "Both", "Neither"], "correct": "Tom"},
-            {"q": "Who is the tallest in the group?", "options": ["Author", "Tom", "Kate", "Someone else"], "correct": "Tom"},
-            {"q": "Who is the smartest?", "options": ["Author", "Tom", "Kate", "Tom and Kate"], "correct": "Kate"},
-            {"q": "Who is the funniest?", "options": ["Author", "Tom", "Kate", "Nobody"], "correct": "Tom"},
-            {"q": "Who is more hardworking?", "options": ["Tom", "Kate", "Author", "Everyone"], "correct": "Kate"},
-            {"q": "Who gets the best marks?", "options": ["Tom", "Kate", "Author", "Nobody"], "correct": "Kate"},
-            {"q": "What does the author think about themselves?", "options": ["Tallest", "Smartest", "Friendliest", "Funniest"], "correct": "Friendliest"},
-            {"q": "What do the friends say about the author?", "options": ["Funniest", "Smartest", "Tallest", "Most loyal"], "correct": "Most loyal"}
+            {"q": "Who is older?", "options": ["Tom", "Sam", "They are the same age", "We don't know"], "correct": "Tom"},
+            {"q": "Who is taller?", "options": ["Tom", "Sam", "They are the same height", "We don't know"], "correct": "Tom"},
+            {"q": "Who is funnier?", "options": ["Tom", "Sam", "Both", "Neither"], "correct": "Sam"},
+            {"q": "Who is the smartest in the family?", "options": ["Tom", "Sam", "The author", "The mother"], "correct": "Tom"},
+            {"q": "Who is more creative?", "options": ["Tom", "Sam", "Both", "Neither"], "correct": "Sam"},
+            {"q": "Is Sam as hardworking as Tom?", "options": ["Yes, he is", "No, he isn't", "Sometimes", "We don't know"], "correct": "No, he isn't"},
+            {"q": "Who is the most popular in his group?", "options": ["Tom", "Sam", "Both", "Neither"], "correct": "Sam"},
+            {"q": "Who is quieter?", "options": ["Tom", "Sam", "Both", "Neither"], "correct": "Tom"}
         ],
 
         "test": [
@@ -2398,13 +2404,616 @@ GRAMMAR_LESSONS = [
             {"type": "fill", "q": "big → ___ → the biggest (введи вторую форму)", "answer": "bigger"},
             {"type": "fill", "q": "happy → ___ → the happiest", "answer": "happier"},
             {"type": "fill", "q": "beautiful → more beautiful → ___ (введи третью форму с the)", "answer": "the most beautiful"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["He is more taller than me", "He is taller than me", "He is the tallest", "He is more tall"], "correct": "He is taller than me"},
-            {"type": "error", "q": "Найди ошибку:", "options": ["She is the more beautiful", "She is the most beautiful", "She is more beautiful", "She is beautiful"], "correct": "She is the most beautiful"},
-            {"type": "error", "q": "Найди правильное:", "options": ["He is taller that me", "He is taller than me", "He is more tall than me", "He is tall than me"], "correct": "He is taller than me"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["He is more taller than me", "He is taller than me", "He is the tallest", "He is more tall"], "correct": "He is taller than me"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["She is the more beautiful", "She is the most beautiful", "She is more beautiful", "She is beautiful"], "correct": "She is the most beautiful"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["He is taller that me", "He is taller than me", "He is more tall than me", "He is tall than me"], "correct": "He is taller than me"},
             {"type": "translate", "q": "Переведи: Он выше меня.", "answer": "He is taller than me"},
             {"type": "translate", "q": "Переведи: Она самая умная в классе.", "answer": "She is the smartest in the class"},
             {"type": "translate", "q": "Переведи: Эта книга интереснее.", "answer": "This book is more interesting"},
-                        {"type": "translate", "q": "Переведи: Моя машина лучше твоей.", "answer": "My car is better than yours"}
+            {"type": "translate", "q": "Переведи: Моя машина лучше твоей.", "answer": "My car is better than yours"},
+            {"type": "write", "q": "Напиши 5 предложений, сравнивая двух своих друзей или членов семьи (используй -er, more, than, the -est).", "sample": "My brother is older than me. He is taller than me. My sister is the smartest in our family. My mother is more beautiful than my aunt. My father is the funniest person at home."}
+        ]
+    },
+
+        # ═══════════════════════════════════════════
+    # УРОК — SOME / ANY / NO
+    # ═══════════════════════════════════════════
+    {
+        "id": "some_any",
+        "title": "Some / Any / No",
+        "emoji": "🥛",
+        "level": "A2",
+        "module": "A2",
+        "intro": "В русском языке мы говорим «немного», «несколько» или «никакой» не задумываясь. В английском для этого есть три волшебных слова: some, any и no. Они используются, когда мы не называем точное количество, а говорим о нем абстрактно.",
+        
+        "why": "Представь, что ты пришел в магазин, и тебе нужно купить молоко. Ты не знаешь, есть ли оно там. Ты спрашиваешь: 'У вас есть молоко?'. В английском это звучит как 'Do you have any milk?'. А если ты уже купил молоко, ты скажешь 'I have some milk' (У меня есть немного молока). Если же молока нет вообще, ты скажешь 'I have no milk' (У меня нет молока). Без этих слов ты не сможешь говорить о количестве. Они используются в каждом втором диалоге в кафе, магазине или просто в разговоре о планах. Если ты путаешь some и any, носитель поймет, что ты иностранец, который не чувствует язык. Мы разберем эту логику раз и навсегда.",
+
+        "rules": [
+            {"h": "Что такое Some, Any и No и зачем они нужны?", "text": "Эти три слова используются с неисчисляемыми существительными (вода, время, деньги) или с исчисляемыми во множественном числе (книги, яблоки). Они заменяют артикли a/an, когда мы не можем сказать точное количество. Мы не говорим 'one water' или 'two moneys'. Мы говорим 'some water' (немного воды), 'any money' (какие-нибудь деньги) или 'no money' (никаких денег). Выбор между ними зависит от типа предложения (утверждение, отрицание, вопрос)."},
+            
+            {"h": "Some — Утверждение и позитив", "text": "Some используется в утвердительных предложениях. Оно означает «немного» или «несколько». Например: 'I have some apples' (У меня есть несколько яблок). 'She bought some milk' (Она купила немного молока). Также some используется в вопросах, когда мы предлагаем что-то или просим (ожидая ответа «да»). Например: 'Would you like some tea?' (Хочешь немного чая? — мы предлагаем, ожидаем согласия). 'Can I have some water?' (Можно мне немного воды? — мы просим)."},
+            
+            {"h": "Any — Вопросы и отрицания", "text": "Any используется в вопросах и отрицательных предложениях. В вопросах оно означает «какой-нибудь» или «сколько-нибудь». Например: 'Do you have any questions?' (У тебя есть какие-нибудь вопросы?). 'Is there any milk in the fridge?' (В холодильнике есть молоко?). В отрицаниях any означает «никакой» (вместе с частицей not). Например: 'I don't have any money' (У меня нет денег). 'She didn't buy any apples' (Она не купила никаких яблок)."},
+            
+            {"h": "No — Замена Not Any (Самый сильный отказ)", "text": "Слово No означает «никакой» и используется в утвердительных по форме предложениях, но с отрицательным смыслом. Мы используем No, чтобы заменить 'not any'. Например: 'I have no money' (У меня нет денег) — это то же самое, что 'I don't have any money', но звучит более категорично и формально. 'There is no milk in the fridge' (В холодильнике нет молока). Важно: нельзя использовать два отрицания вместе. Нельзя сказать 'I don't have no money'. Либо not any, либо no."},
+            
+            {"h": "Производные слова (Somebody, Anything, Nowhere)", "text": "Эти правила работают и с производными словами. К some, any и no добавляются окончания -thing (предметы), -body / -one (люди), -where (места). Some- используется в утверждениях: 'Somebody called you' (Кто-то тебе звонил). 'I want something to eat' (Я хочу что-нибудь поесть). Any- в вопросах и отрицаниях: 'Did anybody call?' (Кто-нибудь звонил?). 'I didn't see anything' (Я ничего не видел). No- в утверждениях с отрицательным смыслом: 'Nobody came' (Никто не пришел). 'I have nowhere to go' (Мне некуда идти)."},
+            
+            {"h": "Тонкости использования в вопросах", "text": "Хотя any — это слово для вопросов, есть исключения. Если ты предлагаешь угощение или помощь, мы используем some, даже если это вопрос. 'Would you like some coffee?' (Хочешь кофе?). Если ты ожидаешь положительный ответ, тоже можно использовать some: 'Are you looking for some books?' (Ты ищешь какие-то книги? — я предполагаю, что ты ищешь). Но если это нейтральный вопрос, используй any: 'Do you have any books?' (У тебя есть книги? — я просто спрашиваю)."},
+            
+            {"h": "Употребление с предлогами", "text": "Слова с some, any, no ведут себя как обычные существительные. Если после них стоит глагол, он должен быть в правильной форме. Например: 'Somebody is knocking at the door' (Кто-то стучит в дверь — глагол в единственном числе). 'Everybody knows it' (Все это знают — everybody считается единственным числом). 'Nobody was at home' (Никого не было дома). Это правило часто путают, потому что на русский «все» переводится как множественное число, а в английском это единственное."},
+            
+            {"h": "Some и Any в контексте 'любой'", "text": "Иногда any используется в утверждениях, но переводится как «любой». Например: 'You can take any book' (Ты можешь взять любую книгу). 'Any student can answer this question' (Любой студент может ответить на этот вопрос). Это не «какой-то», а «без разницы какой». В этом случае any используется в утверждении. Это часто встречается в правилах и инструкциях."}
+        ],
+
+        "tables": [
+            {
+                "title": "Основные правила",
+                "headers": ["Слово", "Тип предложения", "Пример"],
+                "rows": [
+                    ["Some", "Утверждение", "I have some money."],
+                    ["Some", "Предложение/Просьба", "Would you like some tea?"],
+                    ["Any", "Вопрос", "Do you have any money?"],
+                    ["Any", "Отрицание", "I don't have any money."],
+                    ["No", "Утверждение с отриц. смыслом", "I have no money."]
+                ]
+            },
+            {
+                "title": "Производные слова",
+                "headers": ["Тип", "Some (+)", "Any (?/-)", "No (отрицание)"],
+                "rows": [
+                    ["Вещи (-thing)", "something (что-то)", "anything (что-нибудь)", "nothing (ничего)"],
+                    ["Люди (-body/-one)", "somebody (кто-то)", "anybody (кто-нибудь)", "nobody (никто)"],
+                    ["Места (-where)", "somewhere (где-то)", "anywhere (где-нибудь)", "nowhere (нигде)"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I don't have no money.", "right": "I don't have any money. / I have no money.", "why": "Двойное отрицание в английском запрещено. Либо don't + any, либо no."},
+            {"wrong": "Do you have some questions?", "right": "Do you have any questions?", "why": "В обычном вопросе используем any."},
+            {"wrong": "I have any apples.", "right": "I have some apples.", "why": "В утверждении используем some."},
+            {"wrong": "I didn't see something.", "right": "I didn't see anything.", "why": "В отрицании используем anything."},
+            {"wrong": "Anybody is at home.", "right": "Nobody is at home. / Somebody is at home.", "why": "Anybody не используется в утверждениях в значении 'кто-то'."},
+            {"wrong": "I want some to eat.", "right": "I want something to eat.", "why": "Нужно использовать производное слово (something), а не просто some."},
+            {"wrong": "Would you like any tea?", "right": "Would you like some tea?", "why": "В предложении угощения используем some."}
+        ],
+
+        "lifehacks": [
+            "Some — это когда всё хорошо и позитивно (утверждение). Any — когда есть сомнение или отрицание.",
+            "Если хочешь сказать 'нет' — используй No. Это самый короткий и сильный способ.",
+            "Слова на -body (somebody, nobody) всегда требуют глагол в единственном числе: Nobody is here.",
+            "В вопросах-угощениях (Would you like...?) всегда используй some.",
+            "Если сомневаешься, что поставить — в 90% случаев в утверждении some, в вопросе/отрицании any."
+        ],
+
+        "text": {
+            "title": "A Trip to the Supermarket",
+            "paragraphs": [
+                "Yesterday I went to the supermarket to buy some food for the weekend. I wanted to make a salad and some pasta. I checked my fridge before leaving, so I knew I had some tomatoes, but I didn't have any cheese.",
+                "When I arrived, I asked a shop assistant: 'Excuse me, do you have any fresh basil?' She said: 'I'm sorry, we don't have any basil today.' Then I asked: 'Do you have any cheese?' She said: 'Yes, we have some Italian cheese.' I bought some cheese and some bread.",
+                "I also wanted to buy something sweet for my children. I looked around but I couldn't find anything they like. There was no chocolate, and there were no candies. I decided to buy some fruit instead.",
+                "When I got home, I made the salad. It was delicious. Nobody complained about the food. I think I did a good job. Next time I will buy something sweet for my kids, but I hope there will be some chocolate in the shop!"
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What did the person want to make?", "options": ["A pizza", "A salad and pasta", "A cake", "A soup"], "correct": "A salad and pasta"},
+            {"q": "What did the person have in the fridge?", "options": ["Tomatoes", "Cheese", "Basil", "Nothing"], "correct": "Tomatoes"},
+            {"q": "Did the shop have any basil?", "options": ["Yes, they did", "No, they didn't", "We don't know", "They had a little"], "correct": "No, they didn't"},
+            {"q": "What did the person buy?", "options": ["Cheese and bread", "Meat and fish", "Vegetables", "Only fruit"], "correct": "Cheese and bread"},
+            {"q": "Did the person find anything sweet for the children?", "options": ["Yes, chocolate", "Yes, candies", "No, they found nothing", "They didn't look"], "correct": "No, they found nothing"},
+            {"q": "What did the person buy instead of sweets?", "options": ["Ice cream", "Fruit", "Cookies", "Nothing"], "correct": "Fruit"},
+            {"q": "Who complained about the food?", "options": ["The children", "The husband", "Nobody", "Everybody"], "correct": "Nobody"},
+            {"q": "What will the person buy next time?", "options": ["Something sweet", "More cheese", "Nothing", "Some basil"], "correct": "Something sweet"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "I have ___ apples.", "options": ["some", "any", "no", "a"], "correct": "some"},
+            {"type": "choice", "q": "Do you have ___ money?", "options": ["some", "any", "no", "a"], "correct": "any"},
+            {"type": "choice", "q": "I don't have ___ time.", "options": ["some", "any", "no", "a"], "correct": "any"},
+            {"type": "choice", "q": "There is ___ milk in the fridge.", "options": ["some", "any", "no", "many"], "correct": "no"},
+            {"type": "choice", "q": "Would you like ___ tea?", "options": ["some", "any", "no", "many"], "correct": "some"},
+            {"type": "choice", "q": "Is there ___ milk in the fridge?", "options": ["some", "any", "no", "many"], "correct": "any"},
+            {"type": "choice", "q": "I didn't see ___ in the room.", "options": ["somebody", "anybody", "nobody", "someone"], "correct": "anybody"},
+            {"type": "choice", "q": "___ came to the party. It was empty.", "options": ["Somebody", "Anybody", "Nobody", "Everyone"], "correct": "Nobody"},
+            {"type": "fill", "q": "I have ___ (немного) water.", "answer": "some"},
+            {"type": "fill", "q": "I don't have ___ (никакой) water.", "answer": "any"},
+            {"type": "fill", "q": "I have ___ (никакой) water. (используй no)", "answer": "no"},
+            {"type": "fill", "q": "Do you have ___ (какие-нибудь) questions?", "answer": "any"},
+            {"type": "fill", "q": "___ (Кто-то) called you yesterday.", "answer": "Somebody"},
+            {"type": "fill", "q": "I have ___ (ничего) to wear.", "answer": "nothing"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I don't have no money", "I don't have any money", "I have any money", "I not have some money"], "correct": "I don't have any money"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["Do you have some questions?", "Do you have any questions?", "Do you have no questions?", "Are you have any questions?"], "correct": "Do you have any questions?"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I want some to eat", "I want something to eat", "I want any to eat", "I want nothing to eat"], "correct": "I want something to eat"},
+            {"type": "translate", "q": "Переведи: У меня есть немного денег.", "answer": "I have some money"},
+            {"type": "translate", "q": "Переведи: У тебя есть какие-нибудь книги?", "answer": "Do you have any books"},
+            {"type": "translate", "q": "Переведи: Я не вижу никаких яблок.", "answer": "I don't see any apples"},
+            {"type": "translate", "q": "Переведи: В холодильнике нет молока. (используй no)", "answer": "There is no milk in the fridge"},
+            {"type": "translate", "q": "Переведи: Кто-то стучит в дверь.", "answer": "Somebody is knocking at the door"},
+            {"type": "write", "q": "Напиши 5 предложений о том, что у тебя есть в холодильнике, а чего нет (используй some, any, no).", "sample": "I have some milk. I have some eggs. I don't have any cheese. I have no butter. I have some apples."}
+        ]
+    },
+
+        # ═══════════════════════════════════════════
+    # УРОК — MUCH / MANY / A LOT OF
+    # ═══════════════════════════════════════════
+    {
+        "id": "much_many",
+        "title": "Much / Many / A lot of",
+        "emoji": "📦",
+        "level": "A2",
+        "module": "A2",
+        "intro": "В русском языке мы используем слово «много» для всего: много воды, много книг, много времени. В английском так нельзя. Нужно смотреть на существительное: если его можно посчитать — одно слово, если нельзя — другое. А есть и универсальный вариант.",
+        
+        "why": "Представь, что ты приехал в новую страну и хочешь спросить у прохожего: «Сколько здесь стоит бутылка воды?» и «Сколько людей живет в этом городе?». Для первого вопроса нужно слово much, для второго — many. Если ты перепутаешь их, тебя, конечно, поймут, но для носителя это будет звучать как «Я имею много вода» или «Сколько человек в бутылке?». Понимание разницы между much, many и a lot of — это базовый уровень грамотности. В этом уроке мы разберем, как перестать путаться и использовать правильные слова для описания количества. И самое главное — узнаем, почему фраза 'a lot of' спасет тебя в любой ситуации.",
+
+        "rules": [
+            {"h": "Many — для того, что можно посчитать", "text": "Слово 'many' (много) используется ТОЛЬКО с исчисляемыми существительными во множественном числе. Это те предметы, которые можно посчитать поштучно: книги, машины, друзья, яблоки. Например: 'I have many books' (У меня много книг). 'There are many people here' (Здесь много людей). Запомни, что после many всегда идет множественное число. Нельзя сказать 'many book' — только 'many books'. И запомни, что в разговорной речи 'many' чаще всего используется в вопросах и отрицаниях, а в утверждениях его заменяет 'a lot of'."},
+            
+            {"h": "Much — для того, что нельзя посчитать", "text": "Слово 'much' (много) используется ТОЛЬКО с неисчисляемыми существительными. Это вода, молоко, время, деньги, информация. Их нельзя посчитать поштучно (нельзя сказать 'две воды' или 'три времени'). Например: 'I don't have much time' (У меня нет много времени). 'How much money do you have?' (Сколько у тебя денег?). В современном английском 'much' почти всегда используется в вопросах и отрицаниях. Если ты скажешь в утверждении 'I have much water', это будет звучать по-книжному, как в учебнике 19 века."},
+            
+            {"h": "A lot of — универсальное слово (Твой спасатель)", "text": "Если ты не знаешь, какое слово использовать, или если ты хочешь сказать 'много' в утвердительном предложении, используй 'a lot of' (или 'lots of'). Это слово работает и с исчисляемыми, и с неисчисляемыми существительными. Например: 'I have a lot of books' (У меня много книг — исчисляемое). 'I have a lot of water' (У меня много воды — неисчисляемое). В разговорной речи носители используют 'a lot of' в 80% случаев. Это самый безопасный и естественный вариант. Не бойся его использовать везде, где хочешь сказать 'много'."},
+            
+            {"h": "Вопросы: How much или How many?", "text": "Когда мы спрашиваем о количестве, мы используем связку 'How much' или 'How many' в начале вопроса. Выбор такой же: 'How many' — для того, что можно посчитать: 'How many books do you have?' (Сколько у тебя книг?). 'How much' — для того, что нельзя посчитать: 'How much water do you drink?' (Сколько воды ты пьешь?). Также 'How much' используется для вопроса о цене: 'How much is this book?' (Сколько стоит эта книга?). Запомни: 'How much' — это не только про количество, но и про деньги."},
+            
+            {"h": "Слишком много: Too much и Too many", "text": "Если ты хочешь сказать, что чего-то СЛИШКОМ много (больше, чем нужно), используй 'too' перед much или many. Правило не меняется: 'too many' для исчисляемых ('I have too many clothes' — у меня слишком много одежды, которая считается поштучно). 'Too much' для неисчисляемых ('I have too much work' — у меня слишком много работы). Это очень полезная конструкция, когда ты жалуешься на жизнь или усталость."},
+            
+            {"h": "Тонкость с Much в утверждениях", "text": "Я уже говорил, что 'much' в утверждениях звучит странно. Но есть исключения. 'Much' используется в формальном стиле или в сочетании с наречиями: 'I have so much work to do' (У меня так много работы — с so). 'He has too much money' (У него слишком много денег — с too). Также 'much' часто используется в письменной речи. Но в обычном разговоре: 'I don't have much time' (отрицание), 'I have a lot of time' (утверждение)."},
+            
+            {"h": "A few и A little (Напоминание)", "text": "Чтобы не путать much и many с другой темой, напомню: 'a few' используется с исчисляемыми (несколько книг — a few books). 'A little' используется с неисчисляемыми (немного воды — a little water). Это не 'много', а 'немного, но достаточно'. Если ты хочешь сказать 'мало, недостаточно', используй 'few' и 'little' без артикля 'a'."}
+        ],
+
+        "tables": [
+            {
+                "title": "Выбор слова",
+                "headers": ["Слово", "С чем используется", "Пример"],
+                "rows": [
+                    ["Many", "Исчисляемые (множественное)", "many books, many friends"],
+                    ["Much", "Неисчисляемые", "much water, much time"],
+                    ["A lot of", "С любыми", "a lot of books, a lot of water"]
+                ]
+            },
+            {
+                "title": "Вопросы о количестве",
+                "headers": ["Вопрос", "С чем используется", "Пример"],
+                "rows": [
+                    ["How many?", "Исчисляемые", "How many apples?"],
+                    ["How much?", "Неисчисляемые", "How much water?"],
+                    ["How much?", "Цена", "How much is it?"]
+                ]
+            },
+            {
+                "title": "Слишком много",
+                "headers": ["Фраза", "С чем используется", "Пример"],
+                "rows": [
+                    ["Too many", "Исчисляемые", "too many cars"],
+                    ["Too much", "Неисчисляемые", "too much noise"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I have much books.", "right": "I have many books. / I have a lot of books.", "why": "Books — исчисляемые, поэтому many (или a lot of)."},
+            {"wrong": "I have many money.", "right": "I have much money. / I have a lot of money.", "why": "Money — неисчисляемое, поэтому much (или a lot of)."},
+            {"wrong": "How much people are here?", "right": "How many people are here?", "why": "People — исчисляемое (множественное), поэтому how many."},
+            {"wrong": "I drink much water every day.", "right": "I drink a lot of water every day.", "why": "В утверждении лучше использовать a lot of, а не much."},
+            {"wrong": "I have too much friends.", "right": "I have too many friends.", "why": "Friends — исчисляемое, поэтому too many."},
+            {"wrong": "She has a lot of book.", "right": "She has a lot of books.", "why": "После a lot of исчисляемое существительное должно быть во множественном числе."},
+            {"wrong": "I don't have many time.", "right": "I don't have much time.", "why": "Time — неисчисляемое, поэтому much."}
+        ],
+
+        "lifehacks": [
+            "Задай себе вопрос: 'Я могу это посчитать поштучно?'. Если да — many. Если нет (вода, время, деньги) — much.",
+            "Если не уверен — используй 'a lot of'. Это никогда не будет ошибкой в утверждении.",
+            "В вопросах и отрицаниях используй much/many. В утверждениях — a lot of.",
+            "How much — это не только 'сколько', но и 'сколько стоит'. How many — только для подсчета предметов.",
+            "Слишком много — too much (неисчисл.) / too many (исчисл.)."
+        ],
+
+        "text": {
+            "title": "Moving to a New Flat",
+            "paragraphs": [
+                "We are moving to a new flat. We have many boxes in our old flat. I didn't know we had so much stuff! We have too many books, and we have too much furniture. We need a big truck.",
+                "We don't have much time. The movers are coming at 5 pm. We need to pack quickly. I have a lot of clothes, but I don't have many shoes. My wife has a lot of shoes, but she doesn't have much space for them in the new flat.",
+                "How much money do we need for the moving truck? How many friends can help us? I have a lot of friends, but they are all busy today. We have a lot of work to do, but we can do it. We have a lot of boxes, but we don't have much energy!"
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What do they have in their old flat?", "options": ["Many boxes", "Many cars", "Many dogs", "Many books only"], "correct": "Many boxes"},
+            {"q": "What do they have too much of?", "options": ["Books", "Furniture", "Shoes", "Friends"], "correct": "Furniture"},
+            {"q": "What time are the movers coming?", "options": ["At 3 pm", "At 4 pm", "At 5 pm", "At 6 pm"], "correct": "At 5 pm"},
+            {"q": "Does the person have many shoes?", "options": ["Yes, he does", "No, he doesn't", "He has a lot of shoes", "We don't know"], "correct": "No, he doesn't"},
+            {"q": "Who has a lot of shoes?", "options": ["The person", "His wife", "His friends", "The movers"], "correct": "His wife"},
+            {"q": "How much money do they need for the truck?", "options": ["They don't know", "A lot", "A little", "We don't know"], "correct": "They don't know"},
+            {"q": "Are their friends helping them?", "options": ["Yes, they are", "No, they are busy", "Some of them", "We don't know"], "correct": "No, they are busy"},
+            {"q": "Do they have much energy?", "options": ["Yes, a lot", "No, they don't have much", "They have a little", "We don't know"], "correct": "No, they don't have much"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "How ___ books do you have?", "options": ["many", "much", "a lot", "few"], "correct": "many"},
+            {"type": "choice", "q": "How ___ money do you have?", "options": ["many", "much", "a lot", "few"], "correct": "much"},
+            {"type": "choice", "q": "I have ___ friends in Moscow.", "options": ["much", "a lot of", "many", "a little"], "correct": "a lot of"},
+            {"type": "choice", "q": "I don't have ___ time today.", "options": ["many", "much", "a lot", "few"], "correct": "much"},
+            {"type": "choice", "q": "There are too ___ people here.", "options": ["much", "many", "a lot", "little"], "correct": "many"},
+            {"type": "choice", "q": "I have too ___ work to do.", "options": ["much", "many", "a lot", "few"], "correct": "much"},
+            {"type": "fill", "q": "How ___ (many/much) water do you drink?", "answer": "much"},
+            {"type": "fill", "q": "How ___ (many/much) people are here?", "answer": "many"},
+            {"type": "fill", "q": "I have ___ (a lot of / much) books.", "answer": "a lot of"},
+            {"type": "fill", "q": "She doesn't have ___ (many/much) money.", "answer": "much"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I have much books", "I have many books", "I have many money", "I have a lot of money"], "correct": "I have many books"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["How much people?", "How many people?", "How a lot people?", "How few people?"], "correct": "How many people?"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I drink much water", "I drink a lot of water", "I drink many water", "I drink few water"], "correct": "I drink a lot of water"},
+            {"type": "translate", "q": "Переведи: Сколько у тебя книг?", "answer": "How many books do you have"},
+            {"type": "translate", "q": "Переведи: Сколько у тебя времени?", "answer": "How much time do you have"},
+            {"type": "translate", "q": "Переведи: У меня много друзей.", "answer": "I have a lot of friends"},
+            {"type": "translate", "q": "Переведи: У меня слишком много работы.", "answer": "I have too much work"},
+            {"type": "translate", "q": "Переведи: Здесь слишком много людей.", "answer": "There are too many people here"},
+            {"type": "write", "q": "Напиши 5 предложений о том, чего у тебя много, а чего мало (используй much, many, a lot of).", "sample": "I have a lot of books. I don't have much time today. I have many friends. I drink a lot of coffee. I don't have much money."}
+        ]
+    },
+
+        # ═══════════════════════════════════════════
+    # УРОК — ПРЕДЛОГИ ВРЕМЕНИ (IN / ON / AT)
+    # ═══════════════════════════════════════════
+    {
+        "id": "prepositions_time",
+        "title": "Предлоги времени (in / on / at)",
+        "emoji": "🕰️",
+        "level": "A2",
+        "module": "A2",
+        "intro": "В русском языке мы часто используем один предлог «в» для всего: в 5 часов, в понедельник, в 2020 году. В английском для этого есть три главных предлога: in, on, at. Если их перепутать, тебя поймут, но это будет звучать как «внутри понедельника» или «на 2020 году».",
+        
+        "why": "Представь, что тебе нужно назначить встречу с иностранцем, забронировать билет на самолет или просто сказать, когда у тебя день рождения. Без предлогов времени ты не сможешь этого сделать. В английском языке есть четкая логика: от самого точного времени до самого широкого. Сначала мы называем точку (at 5 o'clock), потом день (on Monday), потом большой период (in 2020). Если ты не знаешь этой иерархии, ты будешь постоянно путаться и делать ошибки в самых базовых предложениях. В этом уроке мы разберем не просто правила, а саму логику мышления англичан. Освоив её, ты перестанешь задумываться, какой предлог поставить, и будешь делать это на автомате.",
+
+        "rules": [
+            {"h": "Главная логика: От точки к объему", "text": "Чтобы не зубрить списки, запомни пирамиду: AT — это точка (как точка на карте). ON — это поверхность или день (как лист календаря). IN — это объем или коробка (внутри месяца, года, утра). Чем шире период времени, тем больше вероятность, что там будет IN. Чем точнее время, тем больше вероятность, что там будет AT."},
+            
+            {"h": "AT — для точного времени и моментов", "text": "AT используется, когда мы называем конкретную точку во времени: часы, минуты. Например: 'at 5 o'clock' (в 5 часов), 'at 3:30 pm' (в 15:30). Также AT используется в устойчивых выражениях: 'at night' (ночью), 'at noon' (в полдень), 'at midnight' (в полночь), 'at Christmas' (на Рождество — как период), 'at the weekend' (на выходных — британский вариант). AT — это самый узкий и точный предлог."},
+            
+            {"h": "ON — для дней и дат", "text": "ON используется, когда мы говорим о конкретном дне, дате или дне недели. Это лист календаря. Например: 'on Monday' (в понедельник), 'on 5th May' (5 мая), 'on my birthday' (в мой день рождения), 'on New Year's Day' (в Новый год — именно 1 января). Если мы уточняем часть дня, но привязываем ее к конкретному дню, мы используем ON: 'on Monday morning' (в понедельник утром), 'on Sunday evening' (в воскресенье вечером)."},
+            
+            {"h": "IN — для больших периодов", "text": "IN используется для месяцев, годов, веков, времен года и частей дня. Это как коробка, внутри которой мы находимся. Например: 'in May' (в мае), 'in 2020' (в 2020 году), 'in the 21st century' (в 21 веке), 'in summer' (летом), 'in the morning' (утром), 'in the afternoon' (днем), 'in the evening' (вечером). Обрати внимание, что IN не используется, если мы говорим о конкретном дне (on Monday morning)."},
+            
+            {"h": "IN для будущего (Через сколько времени)", "text": "Когда мы говорим, что что-то произойдет через определенное время, мы используем IN. Например: 'in 2 hours' (через 2 часа), 'in a week' (через неделю), 'in 5 minutes' (через 5 минут). В русском мы говорим «через», а в английском в этом случае используется IN. Не путай с 'after', который используется для последовательности событий."},
+            
+            {"h": "Когда предлог НЕ ставится вообще (Zero Preposition)", "text": "Есть случаи, когда предлог времени не нужен вообще. Это происходит, когда перед словом стоят слова: next (следующий), last (прошлый), this (этот), every (каждый). Например: 'I will go next Monday' (я пойду в следующий понедельник). 'I saw him last week' (я видел его на прошлой неделе). 'I wake up early every day' (я просыпаюсь рано каждый день). Нельзя говорить 'in next Monday' или 'on last week'. Это очень частая ошибка."},
+            
+            {"h": "Тонкости с 'in the morning' vs 'at night'", "text": "В английском есть странность: мы говорим 'in the morning', 'in the afternoon', 'in the evening', но 'at night'. Ночью мы используем AT, а не IN. Почему так исторически сложилось — уже никто не помнит, но это нужно запомнить. Также мы говорим 'at noon' и 'at midnight', хотя это тоже часть дня."},
+            
+            {"h": "Сравнение с русским языком", "text": "В русском мы часто используем предлоги по-разному: «в понедельник», «на неделе», «в мае». В английском логика более строгая. Если ты видишь в русском «в», это не значит, что в английском будет IN. Всегда смотри на то, о каком периоде времени идет речь: если это точное время — AT, если день — ON, если большой период — IN."}
+        ],
+
+        "tables": [
+            {
+                "title": "Иерархия предлогов времени",
+                "headers": ["Предлог", "Когда используем", "Пример"],
+                "rows": [
+                    ["AT", "Точное время, точка", "at 5 o'clock, at night, at noon"],
+                    ["ON", "Дни недели, даты, особые дни", "on Monday, on 5th May, on my birthday"],
+                    ["IN", "Месяцы, годы, века, сезоны, части дня", "in May, in 2020, in summer, in the morning"]
+                ]
+            },
+            {
+                "title": "Устойчивые выражения (Запомнить)",
+                "headers": ["Фраза", "Перевод", "Примечание"],
+                "rows": [
+                    ["in the morning", "утром", "Исключение (AT night)"],
+                    ["at night", "ночью", "Всегда AT, не IN"],
+                    ["on Monday morning", "в понедельник утром", "Сначала день (on), потом часть дня"],
+                    ["next week", "на следующей неделе", "БЕЗ предлога"],
+                    ["last year", "в прошлом году", "БЕЗ предлога"],
+                    ["this morning", "сегодня утром", "БЕЗ предлога"]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I was born in 5th May.", "right": "I was born on 5th May.", "why": "Даты (5th May) — это день, поэтому используем ON."},
+            {"wrong": "See you in Monday.", "right": "See you on Monday.", "why": "Дни недели — это конкретный день, поэтому ON."},
+            {"wrong": "The meeting is in 3 pm.", "right": "The meeting is at 3 pm.", "why": "Точное время (3 pm) — это точка, поэтому AT."},
+            {"wrong": "I was born on 2005.", "right": "I was born in 2005.", "why": "Годы — это большой период, поэтому IN."},
+            {"wrong": "I will see you at the morning.", "right": "I will see you in the morning.", "why": "Части дня (утро, вечер) требуют IN (кроме night)."},
+            {"wrong": "We met in last Monday.", "right": "We met last Monday.", "why": "Слово last (прошлый) исключает предлог."},
+            {"wrong": "I will come in next week.", "right": "I will come next week.", "why": "Слово next (следующий) исключает предлог."},
+            {"wrong": "It is very cold on winter.", "right": "It is very cold in winter.", "why": "Времена года требуют IN."}
+        ],
+
+        "lifehacks": [
+            "AT — это точка на часах (at 5 o'clock). ON — это лист календаря (on Monday). IN — это коробка с месяцем или годом (in May).",
+            "Если есть слово next, last, this или every — предлог НЕ ставится.",
+            "Запомни фразу 'on Monday morning' — тут и день (on), и часть дня (in) в одном флаконе.",
+            "AT night — это исключение из правил, никогда не говори in the night (если это не поэзия).",
+            "В будущем 'через' — это IN (in 2 hours). Не путай с after."
+        ],
+
+        "text": {
+            "title": "My Busy Week",
+            "paragraphs": [
+                "My name is Kate. I have a very busy schedule this week. On Monday morning I have a meeting at 9 o'clock. In the afternoon I usually work in my office. At 5 pm I go to the gym.",
+                "On Tuesday I have a doctor's appointment at 10 am. In the evening I meet my friends at a café. We usually stay there until 8 pm. On Wednesday I work from home and relax in the evening.",
+                "On Thursday my brother comes to visit me. He arrives in the morning and stays until Sunday. On Friday we go to a concert at 7 pm. On Saturday we visit our parents. On Sunday we go to the beach in the morning. What a week!"
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What does Kate have on Monday morning?", "options": ["A gym class", "A meeting", "A doctor's appointment", "A concert"], "correct": "A meeting"},
+            {"q": "What time does Kate's meeting start on Monday?", "options": ["At 8 am", "At 9 am", "At 10 am", "At 11 am"], "correct": "At 9 am"},
+            {"q": "Where does Kate work on Monday afternoon?", "options": ["At home", "In her office", "At a café", "At the gym"], "correct": "In her office"},
+            {"q": "What does Kate do at 5 pm on Monday?", "options": ["Goes to the gym", "Goes home", "Meets friends", "Has a meeting"], "correct": "Goes to the gym"},
+            {"q": "When does Kate have a doctor's appointment?", "options": ["On Monday", "On Tuesday at 10 am", "On Wednesday", "On Thursday"], "correct": "On Tuesday at 10 am"},
+            {"q": "When does Kate's brother arrive?", "options": ["On Monday", "On Wednesday", "On Thursday morning", "On Friday"], "correct": "On Thursday morning"},
+            {"q": "When do they go to the concert?", "options": ["On Monday", "On Wednesday", "On Friday at 7 pm", "On Sunday"], "correct": "On Friday at 7 pm"},
+            {"q": "What do they do on Sunday morning?", "options": ["Visit parents", "Go to the beach", "Go shopping", "Sleep"], "correct": "Go to the beach"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "I was born ___ 2005.", "options": ["in", "on", "at", "to"], "correct": "in"},
+            {"type": "choice", "q": "See you ___ Monday.", "options": ["in", "on", "at", "by"], "correct": "on"},
+            {"type": "choice", "q": "The meeting is ___ 3 pm.", "options": ["in", "on", "at", "to"], "correct": "at"},
+            {"type": "choice", "q": "I live ___ Moscow.", "options": ["in", "on", "at", "by"], "correct": "in"},
+            {"type": "choice", "q": "I go to work ___ the morning.", "options": ["in", "on", "at", "to"], "correct": "in"},
+            {"type": "choice", "q": "My birthday is ___ 5th May.", "options": ["in", "on", "at", "by"], "correct": "on"},
+            {"type": "choice", "q": "I will be there ___ 2 hours.", "options": ["in", "on", "at", "by"], "correct": "in"},
+            {"type": "fill", "q": "I live ___ Moscow.", "answer": "in"},
+            {"type": "fill", "q": "The book is ___ the table.", "answer": "on"},
+            {"type": "fill", "q": "The meeting is ___ 3 pm.", "answer": "at"},
+            {"type": "fill", "q": "I wake up ___ 7 o'clock.", "answer": "at"},
+            {"type": "fill", "q": "I will come ___ next week. (вставь '—' если предлог не нужен)", "answer": "—"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I was born on 2005", "I was born in 2005", "I was born at 2005", "I was born by 2005"], "correct": "I was born in 2005"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["See you in Monday", "See you on Monday", "See you at Monday", "See you by Monday"], "correct": "See you on Monday"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I am in the bus", "I am on the bus", "I am at the bus", "I am by the bus"], "correct": "I am on the bus"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I will see you at the morning", "I will see you in the morning", "I will see you on the morning", "I will see you by the morning"], "correct": "I will see you in the morning"},
+            {"type": "translate", "q": "Переведи: Я родился в 2005 году.", "answer": "I was born in 2005"},
+            {"type": "translate", "q": "Переведи: Встретимся в понедельник.", "answer": "See you on Monday"},
+            {"type": "translate", "q": "Переведи: Встреча в 3 часа.", "answer": "The meeting is at 3 o'clock"},
+            {"type": "translate", "q": "Переведи: Книга на столе.", "answer": "The book is on the table"},
+            {"type": "translate", "q": "Переведи: Я приду через 2 часа.", "answer": "I will come in 2 hours"},
+            {"type": "write", "q": "Напиши 5 предложений о своем распорядке дня (используй in, on, at).", "sample": "I wake up at 7 am. I have breakfast in the morning. On Monday I go to the gym. I go to bed at 11 pm. In summer I go to the beach."}
+        ]
+    },
+
+        # ═══════════════════════════════════════════
+    # УРОК — PAST SIMPLE VS PAST CONTINUOUS
+    # ═══════════════════════════════════════════
+    {
+        "id": "past_simple_vs_cont",
+        "title": "Past Simple vs Past Continuous",
+        "emoji": "🎞️",
+        "level": "A2",
+        "module": "A2",
+        "intro": "В русском языке мы говорим «Я читал книгу, когда зазвонил телефон». Тут два глагола, и оба в прошедшем времени. В английском для этих двух действий нужны РАЗНЫЕ времена: одно — фон (Past Continuous), другое — прерывание (Past Simple). Если их перепутать, история будет звучать как бред.",
+        
+        "why": "Представь, что ты рассказываешь другу, как вчера шел по парку, светило солнце, пели птицы (это фон, процесс), и вдруг ты увидел, как кто-то уронил кошелек (это событие, факт). Если ты скажешь 'I walked, the sun shone, birds sang, and I saw...', это будет звучать как список фактов, а не как история. Чтобы передать атмосферу момента и то, как одно действие прервало другое, нужно использовать связку Past Continuous (что происходило) + Past Simple (что случилось). Это основа сторителлинга. Освоив эту связку, ты сможешь рассказывать интересные истории, а не просто перечислять события.",
+
+        "rules": [
+            {"h": "Две главные роли: Фон и Событие", "text": "В английской истории всегда есть фон (что происходило в момент) и событие (что случилось внезапно). Past Continuous (was/were + ing) — это фон. Он рисует картинку: 'I was walking home' (Я шел домой). 'The sun was shining' (Светило солнце). 'They were playing football' (Они играли в футбол). Past Simple — это событие. Оно прерывает фон: 'I saw a cat' (Я увидел кота). 'The phone rang' (Телефон зазвонил). Вместе это звучит как: 'I was walking home when I saw a cat' (Я шел домой, когда увидел кота)."},
+            
+            {"h": "Союз WHEN (Когда)", "text": "Чтобы соединить фон и событие, чаще всего используется союз 'when'. Структура: Past Continuous + WHEN + Past Simple. Например: 'I was cooking dinner when he came home' (Я готовил ужин, когда он пришел домой). Сначала идет длительное действие (фон), потом 'when', потом короткое действие (событие). Никогда не ставь после 'when' Past Continuous, если это короткое событие (нельзя 'When he was coming home')."},
+            
+            {"h": "Союз WHILE (Пока, в то время как)", "text": "Если ты хочешь подчеркнуть длительность фона, используй 'while'. Структура: WHILE + Past Continuous + Past Simple. Например: 'While I was reading, the lights went out' (Пока я читал, свет выключился). 'While' обычно ставится перед Past Continuous. Но если у тебя два одновременных длительных действия, то 'while' может соединять два Past Continuous: 'I was reading while she was cooking' (Я читал, пока она готовила)."},
+            
+            {"h": "Два одновременных действия (Фон + Фон)", "text": "Если оба действия происходили одновременно и ни одно не прервало другое, мы используем Past Continuous для обоих. Например: 'I was listening to music while my brother was playing computer games' (Я слушал музыку, пока мой брат играл в компьютерные игры). Здесь нет прерывания, просто две параллельные линии. В таких случаях 'while' — твой лучший друг."},
+            
+            {"h": "Порядок действий в предложении", "text": "Ты можешь менять местами части предложения. Если Past Continuous стоит первым — между частями ставится запятая: 'I was walking home, when I saw a cat.' Если Past Simple стоит первым, запятая не нужна: 'I saw a cat when I was walking home.' Смысл не меняется, меняется только акцент. Но помни: 'when' в английском обычно вводит короткое действие (Past Simple), а 'while' — длинное (Past Continuous)."},
+            
+            {"h": "Отрицания и вопросы в Past Continuous", "text": "Отрицание: добавляем 'not' после was/were. 'I wasn't sleeping when you called' (Я не спал, когда ты позвонил). Вопрос: выносим was/were на первое место. 'Were you sleeping when I called?' (Ты спал, когда я позвонил?). Ответы: Yes, I was. / No, I wasn't. Для Past Simple вопросы и отрицания строятся через 'did', как мы проходили ранее."},
+            
+            {"h": "Глаголы состояния (State Verbs) — исключение", "text": "Глаголы состояния (know, like, love, want, need, understand) НЕ используются в Past Continuous. Даже если действие длилось долго, мы используем Past Simple. Например: 'I knew him when I was a child' (Я знал его, когда был ребенком). А не 'I was knowing him'. Это важно, потому что новички часто пытаются поставить всё подряд в Continuous."},
+            
+            {"h": "Как избежать ошибок в рассказе", "text": "Когда рассказываешь историю, сначала опиши обстановку (погода, люди, что происходило) через Past Continuous. Потом добавь главные события через Past Simple. Не пытайся всё подряд ставить в Past Continuous, иначе слушатель запутается. Истории всегда строятся на контрасте: длинный фон и короткие действия."}
+        ],
+
+        "tables": [
+            {
+                "title": "Сравнение ролей",
+                "headers": ["Роль", "Время", "Пример", "Перевод"],
+                "rows": [
+                    ["Фон (процесс)", "Past Continuous", "I was cooking", "Я готовил"],
+                    ["Событие (факт)", "Past Simple", "He came", "Он пришел"],
+                    ["Связка", "When / While", "I was cooking when he came", "Я готовил, когда он пришел"]
+                ]
+            },
+            {
+                "title": "When vs While",
+                "headers": ["Союз", "Что ставим после", "Пример"],
+                "rows": [
+                    ["When", "Past Simple (короткое)", "When I saw him..."],
+                    ["While", "Past Continuous (длинное)", "While I was reading..."],
+                    ["While", "Past Continuous + Past Continuous", "While I was cooking, she was reading"]
+                ]
+            },
+            {
+                "title": "Структура предложения",
+                "headers": ["Порядок", "Пример"],
+                "rows": [
+                    ["Continuous + when + Simple", "I was walking when I saw him."],
+                    ["Simple + when + Continuous", "I saw him when I was walking."],
+                    ["While + Continuous + Simple", "While I was walking, I saw him."]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I was read a book when she called.", "right": "I was reading a book when she called.", "why": "После was/were глагол должен быть с -ing."},
+            {"wrong": "When I was seeing him, he was running.", "right": "When I saw him, he was running.", "why": "See — глагол состояния, не используется в Continuous. И это событие, а не фон."},
+            {"wrong": "I was walking when I was seeing a cat.", "right": "I was walking when I saw a cat.", "why": "Второе действие (увидел) — это событие, значит Past Simple."},
+            {"wrong": "While I cooked, she was reading.", "right": "While I was cooking, she was reading.", "why": "После while должно быть длительное действие (Continuous)."},
+            {"wrong": "They was playing football.", "right": "They were playing football.", "why": "They — множественное число, поэтому were."},
+            {"wrong": "I didn't was sleeping.", "right": "I wasn't sleeping.", "why": "Для Past Continuous отрицание строится через wasn't/weren't, а не didn't."},
+            {"wrong": "What you were doing?", "right": "What were you doing?", "why": "В вопросе was/were ставится перед подлежащим."}
+        ],
+
+        "lifehacks": [
+            "Фон — это декорация (Continuous). Событие — это выстрел (Simple).",
+            "Видишь 'when' — жди короткое действие (Simple). Видишь 'while' — жди длинное (Continuous).",
+            "Если два действия длились одновременно, используй два Continuous и союз 'while'.",
+            "Глаголы чувств (know, like, want) не ставь в Continuous, даже в прошлом.",
+            "Запятая перед 'when' нужна только тогда, когда Continuous стоит в начале предложения."
+        ],
+
+        "text": {
+            "title": "A Strange Day at the Park",
+            "paragraphs": [
+                "Yesterday I was walking in the park. The sun was shining, and the birds were singing. It was a beautiful day. I was listening to music and thinking about my plans.",
+                "Suddenly, I saw a man. He was running very fast. He was carrying a big bag. I didn't know what was happening. While I was watching him, a dog started to bark.",
+                "The dog was chasing the man. The man was shouting: 'Help!' I realized that the man was a thief, and the dog was a hero. While the man was running, the dog caught him. The police came quickly.",
+                "When the police arrived, I was standing near the tree. I told them everything I saw. It was a strange day. I will never forget it."
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What was the person doing in the park?", "options": ["Running", "Walking and listening to music", "Reading a book", "Sleeping"], "correct": "Walking and listening to music"},
+            {"q": "What was the weather like?", "options": ["Raining", "The sun was shining", "Cloudy", "Snowing"], "correct": "The sun was shining"},
+            {"q": "Who did the person see?", "options": ["A dog", "A man running with a bag", "A policeman", "A friend"], "correct": "A man running with a bag"},
+            {"q": "What was the dog doing?", "options": ["Sleeping", "Barking and chasing the man", "Playing with the ball", "Eating"], "correct": "Barking and chasing the man"},
+            {"q": "Who was the man?", "options": ["A policeman", "A thief", "A hero", "A dog owner"], "correct": "A thief"},
+            {"q": "Where was the person standing when the police arrived?", "options": ["Near the tree", "In the car", "At the cafe", "On the bench"], "correct": "Near the tree"},
+            {"q": "What did the person tell the police?", "options": ["Nothing", "Everything he saw", "A lie", "He didn't speak"], "correct": "Everything he saw"},
+            {"q": "How did the person feel about the day?", "options": ["Boring", "Strange and unforgettable", "Terrible", "Funny"], "correct": "Strange and unforgettable"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "I ___ TV at 8 pm yesterday.", "options": ["watched", "was watching", "watch", "am watching"], "correct": "was watching"},
+            {"type": "choice", "q": "She ___ when I called her.", "options": ["slept", "was sleeping", "sleeps", "is sleeping"], "correct": "was sleeping"},
+            {"type": "choice", "q": "They ___ football when it started to rain.", "options": ["played", "were playing", "play", "are playing"], "correct": "were playing"},
+            {"type": "choice", "q": "What ___ you ___ at 8 pm?", "options": ["was / doing", "were / doing", "did / do", "are / doing"], "correct": "were / doing"},
+            {"type": "choice", "q": "While I ___ dinner, my sister ___ TV.", "options": ["cooked / watched", "was cooking / was watching", "cooked / was watching", "was cooking / watched"], "correct": "was cooking / was watching"},
+            {"type": "choice", "q": "I ___ home when I ___ my old friend.", "options": ["walked / was seeing", "was walking / saw", "walked / saw", "was walking / was seeing"], "correct": "was walking / saw"},
+            {"type": "choice", "q": "They ___ all morning yesterday.", "options": ["studied", "were studying", "study", "are studying"], "correct": "were studying"},
+            {"type": "fill", "q": "I ___ (read) a book at 8 pm yesterday.", "answer": "was reading"},
+            {"type": "fill", "q": "She ___ (not / sleep) when I called.", "answer": "wasn't sleeping"},
+            {"type": "fill", "q": "They ___ (play) football when it started to rain.", "answer": "were playing"},
+            {"type": "fill", "q": "What ___ you ___ (do) at 5 pm?", "answer": "were doing"},
+            {"type": "fill", "q": "While she ___ (cook), he ___ (watch) TV.", "answer": "was cooking / was watching"},
+            {"type": "fill", "q": "I ___ (walk) home when I ___ (see) him.", "answer": "was walking / saw"},
+            {"type": "fill", "q": "We ___ (not / work) at 10 pm.", "answer": "weren't working"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I was read a book", "I was reading a book", "I were reading a book", "I am reading a book"], "correct": "I was reading a book"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["They was playing", "They were playing", "They are playing", "They is playing"], "correct": "They were playing"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I was knowing him", "I knew him", "I was known him", "I know him yesterday"], "correct": "I knew him"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["While I read, she was cooking", "While I was reading, she was cooking", "While I read, she cooked", "While I reading, she was cooking"], "correct": "While I was reading, she was cooking"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I was reading when she was calling", "I was reading when she called", "I read when she was calling", "I was reading when she calls"], "correct": "I was reading when she called"},
+            {"type": "translate", "q": "Переведи: Я читал книгу в 8 вечера.", "answer": "I was reading a book at 8 pm"},
+            {"type": "translate", "q": "Переведи: Она спала, когда он позвонил.", "answer": "She was sleeping when he called"},
+            {"type": "translate", "q": "Переведи: Что ты делал вчера в 5 часов?", "answer": "What were you doing yesterday at 5"},
+            {"type": "translate", "q": "Переведи: Они играли в футбол, когда начался дождь.", "answer": "They were playing football when it started to rain"},
+            {"type": "translate", "q": "Переведи: Пока я готовил, она смотрела ТВ.", "answer": "While I was cooking, she was watching TV"},
+            {"type": "translate", "q": "Переведи: Я шёл домой, когда увидел друга.", "answer": "I was walking home when I saw a friend"},
+            {"type": "write", "q": "Напиши 3-5 предложений на тему «Что я делал вчера в разное время».", "sample": "Yesterday at 8 am I was having breakfast. At noon I was working. In the evening I was cooking dinner when my friend called. We were talking for an hour."}
+        ]
+    },
+
+        # ═══════════════════════════════════════════
+    # УРОК — КОНСТРУКЦИЯ USED TO
+    # ═══════════════════════════════════════════
+    {
+        "id": "used_to",
+        "title": "Конструкция Used to",
+        "emoji": "👴",
+        "level": "A2",
+        "module": "A2",
+        "intro": "Как сказать, что ты раньше что-то делал, но сейчас уже нет? В английском для этого есть специальная конструкция 'used to'. Она используется для описания старых привычек и состояний, которые остались в прошлом.",
+        
+        "why": "Представь, что ты встретил старого друга, которого не видел 10 лет. Ты хочешь сказать: 'Я раньше курил, но бросил' или 'Она раньше жила в Лондоне'. Если ты не знаешь 'used to', ты не сможешь этого сделать. Ты не сможешь рассказать о том, как изменилась твоя жизнь, какие у тебя были привычки в детстве и что ты делал раньше, но перестал. В русском языке мы используем слово «раньше» и прошедшее время. В английском для этого есть четкая конструкция, которая так и переводится: «раньше делал». Без неё твой рассказ о прошлом будет неполным.",
+
+        "rules": [
+            {"h": "Что такое Used to и зачем он нужен?", "text": "Конструкция 'used to + глагол' используется, чтобы сказать, что действие или состояние было регулярным в прошлом, но сейчас это уже не так. В русском языке мы говорим «раньше делал», «когда-то был», «бывало». Например: 'I used to smoke' (Я раньше курил — сейчас не курю). 'She used to live in Moscow' (Она раньше жила в Москве — сейчас живет в другом месте). Главное правило: 'used to' используется только для прошлого. Нельзя сказать 'I use to smoke' в настоящем времени, если ты куришь сейчас. Для настоящего времени используй Present Simple: 'I smoke'."},
+            
+            {"h": "Как образуется утверждение", "text": "Формула: Подлежащее + used to + глагол в базовой форме. 'Used to' одинаковый для всех лиц и чисел. Не нужно добавлять -s или -ed. Например: 'I used to play football' (Я раньше играл в футбол). 'He used to have long hair' (У него раньше были длинные волосы). 'They used to live in a small flat' (Они раньше жили в маленькой квартире). Обрати внимание, что после 'used to' глагол стоит в базовой форме, без 'to' и без -ing."},
+            
+            {"h": "Отрицание (Didn't use to)", "text": "Отрицание строится через вспомогательный глагол 'didn't' + 'use to' (без буквы -d на конце 'use'). Это важно! В отрицании мы говорим 'didn't use to', а не 'didn't used to'. Например: 'I didn't use to like coffee' (Я раньше не любил кофе). 'She didn't use to go to the gym' (Она раньше не ходила в спортзал). Это правило часто путают, но запомни: в утверждении — used to, в отрицании — didn't use to."},
+            
+            {"h": "Вопрос (Did you use to...?)", "text": "Вопрос строится так: Did + подлежащее + use to + глагол в базовой форме. Например: 'Did you use to play football?' (Ты раньше играл в футбол?). 'Did she use to live in London?' (Она раньше жила в Лондоне?). Ответы: Yes, I did. / No, I didn't. Опять же, обрати внимание, что в вопросе мы используем 'use to', а не 'used to'."},
+            
+            {"h": "Когда использовать Used to (Три случая)", "text": "1) Старые привычки: 'I used to drink coffee every morning' (Раньше я пил кофе каждое утро). 2) Старые состояния (факты, которые изменились): 'I used to be fat' (Раньше я был толстым). 'She used to have a dog' (У неё раньше была собака). 3) Вещи, которые были правдой в прошлом, но сейчас нет: 'There used to be a school here' (Здесь раньше была школа). Во всех этих случаях 'used to' показывает контраст между прошлым и настоящим."},
+            
+            {"h": "Разница между Used to и Be used to", "text": "Это самая частая путаница. 'Used to + глагол' означает «раньше делал, а сейчас нет». 'Be used to + глагол с -ing' означает «привык к чему-то». Например: 'I used to live in Moscow' (Я раньше жил в Москве — сейчас нет). 'I am used to living in Moscow' (Я привык жить в Москве — мне это нормально). Это совершенно разные вещи! 'Be used to' — это про привыкание (к климату, к еде, к графику). 'Used to' — это про старые привычки."},
+            
+            {"h": "Used to vs Past Simple", "text": "В чём разница? Past Simple — это просто факт из прошлого: 'I played football yesterday' (Я играл в футбол вчера — это был один раз). 'Used to' — это регулярная привычка в прошлом, которая больше не повторяется: 'I used to play football every day' (Я раньше играл в футбол каждый день — но сейчас не играю). Если действие было повторяющимся, но ты хочешь подчеркнуть, что оно закончилось, используй 'used to'. Если просто сообщаешь факт — используй Past Simple."},
+            
+            {"h": "Ограничения использования", "text": "Конструкция 'used to' используется только для действий, которые были регулярными (повторялись) или для состояний. Если ты хочешь сказать, что что-то случилось один раз, используй Past Simple. Например: 'I used to go to the cinema every week' (регулярно). Нельзя сказать 'I used to go to the cinema yesterday' (один раз). Для одного раза: 'I went to the cinema yesterday'. Также 'used to' не используется с указанием точного времени (yesterday, last week, in 2020)."}
+        ],
+
+        "tables": [
+            {
+                "title": "Структура Used to",
+                "headers": ["Тип", "Формула", "Пример"],
+                "rows": [
+                    ["Утверждение", "used to + глагол", "I used to play football."],
+                    ["Отрицание", "didn't use to + глагол", "I didn't use to play football."],
+                    ["Вопрос", "Did ... use to + глагол?", "Did you use to play football?"],
+                    ["Краткий ответ", "Yes, I did. / No, I didn't.", "—"]
+                ]
+            },
+            {
+                "title": "Used to vs Be used to",
+                "headers": ["Конструкция", "Значение", "Пример"],
+                "rows": [
+                    ["used to + глагол", "Раньше делал (сейчас нет)", "I used to drink coffee."],
+                    ["be used to + -ing", "Привык к чему-то", "I am used to drinking coffee."]
+                ]
+            }
+        ],
+
+        "mistakes": [
+            {"wrong": "I use to play football.", "right": "I used to play football.", "why": "В утверждении пишется 'used to', с буквой -d на конце."},
+            {"wrong": "I didn't used to play football.", "right": "I didn't use to play football.", "why": "В отрицании 'use to', без -d. Потому что did уже забрал время."},
+            {"wrong": "Did you used to play football?", "right": "Did you use to play football?", "why": "В вопросе тоже 'use to', без -d."},
+            {"wrong": "I am used to live in Moscow.", "right": "I am used to living in Moscow.", "why": "После 'be used to' глагол должен быть с -ing."},
+            {"wrong": "She used to went to school.", "right": "She used to go to school.", "why": "После 'used to' глагол в базовой форме, а не в прошедшем времени."},
+            {"wrong": "I used to go to the cinema yesterday.", "right": "I went to the cinema yesterday.", "why": "С конкретным временем (yesterday) используем Past Simple, а не used to."},
+            {"wrong": "I used to liked coffee.", "right": "I used to like coffee.", "why": "После 'used to' глагол в базовой форме, без -ed."}
+        ],
+
+        "lifehacks": [
+            "Used to — это твой мост в прошлое. Если хочешь сказать «раньше делал, но сейчас нет» — это оно.",
+            "В утверждении — 'used to'. В отрицании и вопросе — 'use to' (потому что did уже есть).",
+            "После 'used to' всегда глагол в базовой форме, без окончаний и без to.",
+            "Не путай 'used to' (раньше делал) с 'be used to' (привык к чему-то).",
+            "С конкретным временем (yesterday, last week) используй Past Simple, а не used to."
+        ],
+
+        "text": {
+            "title": "How My Life Has Changed",
+            "paragraphs": [
+                "When I was a child, I used to play football every day. I used to run in the park with my friends. I didn't use to have a computer, so I spent a lot of time outside. My family used to live in a small house near the river.",
+                "I used to go to school by bus. It used to take 30 minutes. I didn't use to like reading books, but now I love it. I used to watch cartoons every morning. My mother used to cook pancakes on Sundays.",
+                "Now I am an adult. I don't play football every day. I have a computer, and I work a lot. I live in a big city. But I still remember my childhood. It was a happy time."
+            ]
+        },
+
+        "text_questions": [
+            {"q": "What did the person use to do when they were a child?", "options": ["Play computer games", "Play football every day", "Read books", "Watch TV"], "correct": "Play football every day"},
+            {"q": "Did the person use to have a computer?", "options": ["Yes, they did", "No, they didn't", "They had a computer", "We don't know"], "correct": "No, they didn't"},
+            {"q": "Where did the family use to live?", "options": ["In a big city", "In a small house near the river", "In a flat", "In another country"], "correct": "In a small house near the river"},
+            {"q": "How did the person use to go to school?", "options": ["By car", "By bus", "By bike", "On foot"], "correct": "By bus"},
+            {"q": "How long did it use to take to get to school?", "options": ["10 minutes", "20 minutes", "30 minutes", "1 hour"], "correct": "30 minutes"},
+            {"q": "What did the person use to do every morning?", "options": ["Watch cartoons", "Read books", "Play football", "Cook pancakes"], "correct": "Watch cartoons"},
+            {"q": "What did the mother use to cook on Sundays?", "options": ["Soup", "Pancakes", "Pizza", "Cake"], "correct": "Pancakes"},
+            {"q": "Does the person still play football every day?", "options": ["Yes", "No", "Sometimes", "We don't know"], "correct": "No"}
+        ],
+
+        "test": [
+            {"type": "choice", "q": "I ___ play football every day.", "options": ["used to", "use to", "am used to", "was used to"], "correct": "used to"},
+            {"type": "choice", "q": "She ___ have long hair.", "options": ["used to", "use to", "am used to", "was used to"], "correct": "used to"},
+            {"type": "choice", "q": "I didn't ___ like coffee.", "options": ["used to", "use to", "am used to", "was used to"], "correct": "use to"},
+            {"type": "choice", "q": "Did you ___ play the piano?", "options": ["used to", "use to", "am used to", "was used to"], "correct": "use to"},
+            {"type": "choice", "q": "I am used to ___ in a big city.", "options": ["live", "living", "lived", "lives"], "correct": "living"},
+            {"type": "fill", "q": "I ___ (used to / use to) live in Moscow.", "answer": "used to"},
+            {"type": "fill", "q": "She didn't ___ (used to / use to) have a dog.", "answer": "use to"},
+            {"type": "fill", "q": "Did they ___ (used to / use to) go to the beach?", "answer": "use to"},
+            {"type": "fill", "q": "I am used to ___ (wake) up early.", "answer": "waking"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I use to play football", "I used to play football", "I am used to play football", "I used to played football"], "correct": "I used to play football"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["I didn't used to like coffee", "I didn't use to like coffee", "I don't used to like coffee", "I not used to like coffee"], "correct": "I didn't use to like coffee"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["Did you used to play?", "Did you use to play?", "Do you used to play?", "Are you used to play?"], "correct": "Did you use to play?"},
+            {"type": "error", "q": "Найди правильное предложение:", "options": ["She used to went to school", "She used to go to school", "She used to goes to school", "She used to going to school"], "correct": "She used to go to school"},
+            {"type": "translate", "q": "Переведи: Я раньше жил в Москве.", "answer": "I used to live in Moscow"},
+            {"type": "translate", "q": "Переведи: Она раньше не любила кофе.", "answer": "She didn't use to like coffee"},
+            {"type": "translate", "q": "Переведи: Ты раньше играл в футбол?", "answer": "Did you use to play football"},
+            {"type": "translate", "q": "Переведи: У него раньше была собака.", "answer": "He used to have a dog"},
+            {"type": "translate", "q": "Переведи: Мы раньше жили в маленькой квартире.", "answer": "We used to live in a small flat"},
+            {"type": "write", "q": "Напиши 5 предложений о том, что ты делал в детстве, используя конструкцию used to.", "sample": "I used to play football every day. I used to live in a small house. I used to have a dog. I didn't use to like vegetables. I used to watch cartoons."}
         ]
     },
 
