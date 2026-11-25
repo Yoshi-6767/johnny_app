@@ -1864,7 +1864,6 @@ def study_page():
         {"id": "intro_english", "title": "Введение в английский", "emoji": "👋", "level": "A1", "module": "A1"},
 
         # --- A2 РАСШИРЕНИЕ ---
-        {"id": "will_vs_going", "title": "Will vs Going to", "emoji": "🛣️", "level": "A2", "module": "A2"},
         {"id": "some_any", "title": "Some / Any / No", "emoji": "🥛", "level": "A2", "module": "A2"},
         {"id": "much_many", "title": "Much / Many / A lot of", "emoji": "📦", "level": "A2", "module": "A2"},
         {"id": "prepositions_time", "title": "Предлоги времени (in/on/at)", "emoji": "🕰️", "level": "A2", "module": "A2"},
